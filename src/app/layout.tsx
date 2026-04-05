@@ -40,9 +40,11 @@ export default function RootLayout({
         <Preloader />
         <CustomCursor />
         <SmoothScroll>
-          <Navbar />
-          {children}
-          <Footer />
+          <div className="overflow-x-hidden">
+            <Navbar />
+            {children}
+            <Footer />
+          </div>
           <StickyCTA />
         </SmoothScroll>
       </body>
