@@ -1,8 +1,13 @@
 "use client";
 import React, { ReactNode } from "react";
-import { ReactLenis } from "@studio-freight/react-lenis";
+import { ReactLenis, useLenis } from "@studio-freight/react-lenis";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 export default function SmoothScroll({ children }: { children: ReactNode }) {
+  useLenis(() => {
+    ScrollTrigger.update();
+  });
+
   return (
     <ReactLenis 
       root 

@@ -4,6 +4,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Image from "next/image";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 const moods = [
   { 
     title: "Serene", 
@@ -31,30 +35,38 @@ export default function MoodBoard() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
-    }
-
     const ctx = gsap.context(() => {
-      gsap.from(".mood-card", {
-        scale: 0.8,
-        opacity: 0,
-        y: 60,
-        stagger: 0.15,
-        duration: 1.2,
-        ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
+      gsap.fromTo(".mood-card", 
+        {
+          scale: 0.8,
+          opacity: 0,
+          y: 60,
         },
-      });
+        {
+          scale: 1,
+          opacity: 1,
+          y: 0,
+          stagger: 0.15,
+          duration: 1.2,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
     }, containerRef);
 
-    // Refresh ScrollTrigger to ensure correct positions
-    ScrollTrigger.refresh();
+    // Refresh ScrollTrigger to ensure correct positions after a short delay
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
 
-    return () => ctx.revert();
+    return () => {
+      clearTimeout(timer);
+      ctx.revert();
+    };
   }, []);
 
   return (

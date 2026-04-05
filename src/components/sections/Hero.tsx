@@ -1,7 +1,12 @@
 "use client";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { motion } from "framer-motion";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -30,7 +35,15 @@ export default function Hero() {
           "-=0.6"
         );
     });
-    return () => ctx.revert();
+
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -50,7 +63,7 @@ export default function Hero() {
             playsInline
             className="h-full w-full object-cover opacity-70"
           >
-            <source src="https://cdn.pixabay.com/video/2021/09/11/81113-575333144_large.mp4" type="video/mp4" />
+            <source src="/24541-343454486.mp4" type="video/mp4" />
           </video>
         </div>
       </div>

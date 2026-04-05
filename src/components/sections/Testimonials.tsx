@@ -3,6 +3,10 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 const testimonials = [
   {
     quote: "With Jade, the complexity of a multi-continent family retreat simply vanished. They didn't just book a trip; they protected our time and elevated our experience.",
@@ -24,11 +28,7 @@ const testimonials = [
 export default function Testimonials() {
   const sectionRef = useRef(null);
 
-  useLayoutEffect(() => {
-    if (typeof window !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
-    }
-
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(".testimonial-item", 
         {
@@ -43,16 +43,21 @@ export default function Testimonials() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 80%",
+            start: "top 85%",
             toggleActions: "play none none reverse",
           },
         }
       );
     }, sectionRef);
 
-    ScrollTrigger.refresh();
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
 
-    return () => ctx.revert();
+    return () => {
+      clearTimeout(timer);
+      ctx.revert();
+    };
   }, []);
 
   return (

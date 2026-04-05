@@ -3,6 +3,10 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 const stats = [
   { value: "15+", label: "Years of Discretion", desc: "A legacy built on silent precision." },
   { value: "5000+", label: "Journeys Perfected", desc: "Bespoke itineraries for global visionaries." },
@@ -14,10 +18,6 @@ export default function WhyJade() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
-    }
-
     const ctx = gsap.context(() => {
       gsap.fromTo(".stat-item", 
         {
@@ -32,16 +32,21 @@ export default function WhyJade() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 80%",
+            start: "top 85%",
             toggleActions: "play none none reverse",
           },
         }
       );
     }, sectionRef);
 
-    ScrollTrigger.refresh();
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
 
-    return () => ctx.revert();
+    return () => {
+      clearTimeout(timer);
+      ctx.revert();
+    };
   }, []);
 
   return (

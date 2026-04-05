@@ -5,6 +5,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Globe, Plane, Home, Car, CreditCard, ShieldCheck, Landmark, Fingerprint } from "lucide-react";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 const services = [
   {
     title: "Borders Without Barriers",
@@ -60,10 +64,6 @@ export default function Services() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger);
-    }
-    
     const ctx = gsap.context(() => {
       gsap.fromTo(".service-card", 
         {
@@ -85,9 +85,14 @@ export default function Services() {
       );
     });
 
-    ScrollTrigger.refresh();
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
 
-    return () => ctx.revert();
+    return () => {
+      clearTimeout(timer);
+      ctx.revert();
+    };
   }, []);
 
   return (
