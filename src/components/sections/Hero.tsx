@@ -34,6 +34,18 @@ export default function Hero() {
           { y: 0, opacity: 1, duration: 0.8 },
           "-=0.6"
         );
+
+      // Floating elements parallax
+      gsap.to(".float-element", {
+        y: (i, el) => -1 * (el.dataset.depth || 50),
+        ease: "none",
+        scrollTrigger: {
+          trigger: "section",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
     });
 
     const timer = setTimeout(() => {
@@ -50,11 +62,9 @@ export default function Hero() {
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-cream">
       {/* High-Impact Background Experience */}
       <div className="absolute inset-0 z-0">
-        {/* Soft, warm luxury overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-jade-white/40 via-transparent to-cream/80 z-10" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(250,249,246,0.4)_100%)] z-10" />
         
-        {/* Video / High-Res Image Fallback */}
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506929113614-bb58a94fd27a?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center">
           <video
             autoPlay
@@ -67,6 +77,13 @@ export default function Hero() {
           </video>
         </div>
       </div>
+
+      {/* Discovery Scanline */}
+      <motion.div 
+        animate={{ top: ["-10%", "110%"] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent z-10 pointer-events-none"
+      />
 
       <div className="container relative z-20 px-6 text-center">
         <div className="overflow-hidden mb-6">
@@ -101,8 +118,14 @@ export default function Hero() {
 
       {/* Floating Elements for Premium Depth */}
       <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden hidden lg:block">
-        <div className="absolute top-[20%] left-[10%] w-24 h-24 border border-gold/20 rounded-full animate-[pulse_4s_infinite]" />
-        <div className="absolute bottom-[20%] right-[10%] w-32 h-32 border-t border-r border-jade/10 rounded-tr-[60px]" />
+        <div data-depth="120" className="float-element absolute top-[15%] left-[8%] w-32 h-32 border border-gold/10 rounded-full" />
+        <div data-depth="80" className="float-element absolute top-[25%] right-[12%] w-24 h-24 border border-jade/5 rounded-[40px] rotate-45" />
+        <div data-depth="200" className="float-element absolute bottom-[15%] left-[12%] w-48 h-48 border-l border-t border-gold/5 rounded-tl-[100px]" />
+        <div data-depth="150" className="float-element absolute bottom-[25%] right-[8%] w-40 h-40 border-r border-b border-jade/10 rounded-br-[80px]" />
+        
+        {/* Subtle coordinate markers */}
+        <div className="absolute top-10 left-10 font-sans text-[8px] tracking-widest text-jade-darkest/20 uppercase">23.0225° N, 72.5714° E</div>
+        <div className="absolute bottom-10 right-10 font-sans text-[8px] tracking-widest text-jade-darkest/20 uppercase">JADE GLOBAL CONCIERGE</div>
       </div>
 
       <motion.div 

@@ -56,9 +56,19 @@ export default function MoodBoard() {
           },
         }
       );
+
+      // Float background blobs
+      gsap.to(".bg-blob", {
+        x: "random(-100, 100)",
+        y: "random(-100, 100)",
+        duration: "random(10, 20)",
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: 2,
+      });
     }, containerRef);
 
-    // Refresh ScrollTrigger to ensure correct positions after a short delay
     const timer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 200);
@@ -71,7 +81,14 @@ export default function MoodBoard() {
 
   return (
     <section ref={containerRef} className="py-32 bg-cream/50 relative overflow-hidden">
-      <div className="container mx-auto px-6">
+      {/* Dynamic Mood Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-30">
+        <div className="bg-blob absolute top-1/4 left-1/4 w-96 h-96 bg-jade-soft blur-[100px] rounded-full" />
+        <div className="bg-blob absolute top-1/2 right-1/4 w-96 h-96 bg-gold-muted blur-[100px] rounded-full" />
+        <div className="bg-blob absolute bottom-1/4 left-1/3 w-96 h-96 bg-jade-light/10 blur-[100px] rounded-full" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
           <span className="text-gold uppercase tracking-ultra text-[10px] font-bold mb-4 block">Pick Your Energy</span>
           <h2 className="font-serif text-5xl md:text-7xl text-jade-darkest leading-tight">Travel by <span className="italic font-light text-gold">Mood.</span></h2>
