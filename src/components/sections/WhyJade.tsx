@@ -89,9 +89,29 @@ export default function WhyJade() {
           <span className="text-gold uppercase tracking-ultra text-xs font-sans mb-4 block">
             The Jade Distinction
           </span>
-          <h2 className="font-serif text-4xl md:text-6xl text-jade-white leading-tight">
-            Why the World’s Most Discerning <br />
-            <span className="text-gold italic font-light">Choose Jade.</span>
+          <h2 className="font-serif text-4xl md:text-6xl text-jade-white leading-tight overflow-hidden">
+            <span className="block overflow-hidden">
+              <motion.span 
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="block"
+              >
+                Why the World’s Most Discerning
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden">
+              <motion.span 
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                className="block text-gold italic font-light"
+              >
+                Choose Jade.
+              </motion.span>
+            </span>
           </h2>
         </div>
 

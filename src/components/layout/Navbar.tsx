@@ -85,6 +85,12 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="mt-8 mx-auto px-12 py-4 border-2 border-jade text-jade text-sm font-bold uppercase tracking-[0.2em] rounded-full hover:bg-jade hover:text-jade-white transition-all"
+              >
+                Inquire
+              </button>
             </div>
           </motion.div>
         )}

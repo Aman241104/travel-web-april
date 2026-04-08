@@ -25,28 +25,28 @@ export default function CustomCursor() {
       });
     };
 
-    const handleHover = () => {
-      gsap.to(follower, { scale: 3, backgroundColor: "rgba(197, 160, 89, 0.2)", duration: 0.3 });
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest("a, button, .interactive")) {
+        gsap.to(follower, { scale: 3, backgroundColor: "rgba(197, 160, 89, 0.2)", duration: 0.3 });
+      }
     };
 
-    const handleLeave = () => {
-      gsap.to(follower, { scale: 1, backgroundColor: "transparent", duration: 0.3 });
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest("a, button, .interactive")) {
+        gsap.to(follower, { scale: 1, backgroundColor: "transparent", duration: 0.3 });
+      }
     };
 
     window.addEventListener("mousemove", moveCursor);
-    
-    const links = document.querySelectorAll("a, button, .interactive");
-    links.forEach(link => {
-      link.addEventListener("mouseenter", handleHover);
-      link.addEventListener("mouseleave", handleLeave);
-    });
+    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mouseout", handleMouseOut);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
-      links.forEach(link => {
-        link.removeEventListener("mouseenter", handleHover);
-        link.removeEventListener("mouseleave", handleLeave);
-      });
+      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
 

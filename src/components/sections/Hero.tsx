@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { motion } from "framer-motion";
+import MagneticButton from "@/components/ui/MagneticButton";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -18,15 +19,9 @@ export default function Hero() {
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
       tl.fromTo(
-        titleRef.current,
-        { y: 100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.2, delay: 0.5 }
-      )
-        .fromTo(
           subRef.current,
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1 },
-          "-=0.8"
+          { y: 0, opacity: 1, duration: 1, delay: 1.2 }
         )
         .fromTo(
           ctaRef.current,
@@ -91,8 +86,26 @@ export default function Hero() {
             ref={titleRef}
             className="font-serif text-6xl md:text-8xl lg:text-[130px] text-jade-darkest leading-[0.85] tracking-tight"
           >
-            Light. Life. <br />
-            <span className="text-gold italic font-light drop-shadow-sm">Travel.</span>
+            <span className="block overflow-hidden">
+              <motion.span 
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+                className="block"
+              >
+                Light. Life.
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden">
+              <motion.span 
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
+                className="block text-gold italic font-light drop-shadow-sm"
+              >
+                Travel.
+              </motion.span>
+            </span>
           </h1>
         </div>
 
@@ -107,12 +120,12 @@ export default function Hero() {
         </div>
 
         <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <button className="interactive group px-12 py-6 bg-jade text-jade-white font-bold rounded-full transition-all duration-500 hover:bg-jade-darkest hover:scale-105 shadow-2xl shadow-jade/30">
+          <MagneticButton className="interactive group px-12 py-6 bg-jade text-jade-white font-bold rounded-full transition-all duration-500 hover:bg-jade-darkest hover:scale-105 shadow-2xl shadow-jade/30">
             Start Your Adventure
-          </button>
-          <button className="interactive group px-12 py-6 text-jade-darkest font-bold rounded-full border-2 border-jade/20 hover:border-gold transition-all duration-300 bg-jade-white/80 backdrop-blur-md shadow-lg">
+          </MagneticButton>
+          <MagneticButton className="interactive group px-12 py-6 text-jade-darkest font-bold rounded-full border-2 border-jade/20 hover:border-gold transition-all duration-300 bg-jade-white/80 backdrop-blur-md shadow-lg">
             View Dream Map
-          </button>
+          </MagneticButton>
         </div>
       </div>
 

@@ -57,15 +57,35 @@ export default function MoodBoard() {
         }
       );
 
-      // Float background blobs
-      gsap.to(".bg-blob", {
-        x: "random(-100, 100)",
-        y: "random(-100, 100)",
-        duration: "random(10, 20)",
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: 2,
+      // Scroll-linked parallax for background blobs
+      gsap.to(".bg-blob-1", {
+        y: -150,
+        x: 100,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.5,
+        }
+      });
+      gsap.to(".bg-blob-2", {
+        y: 100,
+        x: -150,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 2,
+        }
+      });
+      gsap.to(".bg-blob-3", {
+        y: -120,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1,
+        }
       });
     }, containerRef);
 
@@ -83,9 +103,9 @@ export default function MoodBoard() {
     <section ref={containerRef} className="py-32 bg-cream/50 relative overflow-hidden">
       {/* Dynamic Mood Background */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-30">
-        <div className="bg-blob absolute top-1/4 left-1/4 w-96 h-96 bg-jade-soft blur-[100px] rounded-full" />
-        <div className="bg-blob absolute top-1/2 right-1/4 w-96 h-96 bg-gold-muted blur-[100px] rounded-full" />
-        <div className="bg-blob absolute bottom-1/4 left-1/3 w-96 h-96 bg-jade-light/10 blur-[100px] rounded-full" />
+        <div className="bg-blob-1 absolute top-1/4 left-1/4 w-96 h-96 bg-jade-soft blur-[100px] rounded-full" />
+        <div className="bg-blob-2 absolute top-1/2 right-1/4 w-96 h-96 bg-gold-muted blur-[100px] rounded-full" />
+        <div className="bg-blob-3 absolute bottom-1/4 left-1/3 w-96 h-96 bg-jade-light/10 blur-[100px] rounded-full" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">

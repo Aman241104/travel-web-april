@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Globe, Mail, Phone, MessageSquare } from "lucide-react";
+import MagneticButton from "@/components/ui/MagneticButton";
 
 export default function Footer() {
   return (
@@ -7,18 +8,18 @@ export default function Footer() {
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
           <div className="lg:col-span-2">
-            <Link href="/" className="font-serif text-3xl tracking-ultra text-jade-white mb-8 block">
-              JADE <span className="text-gold italic">TRAVELS</span>
+            <Link href="/" className="font-serif text-3xl tracking-ultra text-jade-white mb-8 block group">
+              JADE <span className="text-gold italic group-hover:not-italic transition-all">TRAVELS</span>
             </Link>
             <p className="text-jade-white/50 max-w-md font-sans leading-relaxed mb-8">
               The art of effortless exploration. Providing bespoke travel, passport, and 
               visa services for the modern global nomad since 2011.
             </p>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
               {[Globe, Mail, Phone, MessageSquare].map((Icon, i) => (
-                <Link key={i} href="#" className="text-gold/60 hover:text-gold transition-colors">
+                <MagneticButton key={i} className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gold/60 hover:text-gold hover:border-gold transition-colors">
                   <Icon className="w-5 h-5 stroke-[1.5px]" />
-                </Link>
+                </MagneticButton>
               ))}
             </div>
           </div>
@@ -28,7 +29,8 @@ export default function Footer() {
             <ul className="flex flex-col gap-4">
               {["Bespoke Tours", "Service Suite", "Our Legacy", "Journal"].map((item) => (
                 <li key={item}>
-                  <Link href="#" className="text-jade-white/40 hover:text-gold text-sm transition-colors">
+                  <Link href="#" className="text-jade-white/40 hover:text-gold text-sm transition-colors flex items-center group">
+                    <span className="w-0 group-hover:w-4 h-[1px] bg-gold mr-0 group-hover:mr-2 transition-all"></span>
                     {item}
                   </Link>
                 </li>
@@ -41,7 +43,8 @@ export default function Footer() {
             <ul className="flex flex-col gap-4">
               {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((item) => (
                 <li key={item}>
-                  <Link href="#" className="text-jade-white/40 hover:text-gold text-sm transition-colors">
+                  <Link href="#" className="text-jade-white/40 hover:text-gold text-sm transition-colors flex items-center group">
+                    <span className="w-0 group-hover:w-4 h-[1px] bg-gold mr-0 group-hover:mr-2 transition-all"></span>
                     {item}
                   </Link>
                 </li>

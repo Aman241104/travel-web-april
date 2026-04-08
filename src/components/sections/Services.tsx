@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Globe, Plane, Home, Car, CreditCard, ShieldCheck, Landmark, Fingerprint } from "lucide-react";
+import { motion } from "framer-motion";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -103,9 +104,29 @@ export default function Services() {
             <span className="text-gold uppercase tracking-ultra text-[10px] font-bold mb-4 block">
               The Suite of Freedoms
             </span>
-            <h2 className="font-serif text-4xl md:text-6xl text-jade-black leading-tight">
-              Curated Services for the <br />
-              <span className="italic font-light">Global Nomad.</span>
+            <h2 className="font-serif text-4xl md:text-6xl text-jade-black leading-tight overflow-hidden">
+              <span className="block overflow-hidden">
+                <motion.span 
+                  initial={{ y: "100%" }}
+                  whileInView={{ y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                  className="block"
+                >
+                  Curated Services for the
+                </motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span 
+                  initial={{ y: "100%" }}
+                  whileInView={{ y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                  className="block italic font-light"
+                >
+                  Global Nomad.
+                </motion.span>
+              </span>
             </h2>
           </div>
           <p className="max-w-md text-jade-black/70 font-sans leading-relaxed font-medium">

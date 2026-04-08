@@ -52,7 +52,7 @@ export default function Tours() {
         const totalWidth = sliderRef.current?.scrollWidth || 0;
         const viewportWidth = window.innerWidth;
 
-        gsap.to(sliderRef.current, {
+        const scrollTween = gsap.to(sliderRef.current, {
           x: -(totalWidth - viewportWidth),
           ease: "none",
           scrollTrigger: {
@@ -63,6 +63,25 @@ export default function Tours() {
             end: () => `+=${totalWidth}`,
             invalidateOnRefresh: true,
           },
+        });
+
+        // Add parallax to each image inside the horizontal scroll
+        gsap.utils.toArray(".tour-image").forEach((img: unknown) => {
+          const imageElement = img as HTMLElement;
+          gsap.fromTo(imageElement, 
+            { x: -50 },
+            { 
+              x: 50,
+              ease: "none",
+              scrollTrigger: {
+                trigger: imageElement.parentElement,
+                containerAnimation: scrollTween,
+                start: "left right",
+                end: "right left",
+                scrub: true,
+              }
+            }
+          );
         });
       }
     }, containerRef);
@@ -99,13 +118,15 @@ export default function Tours() {
             key={tour.id} 
             className="group relative w-[85vw] lg:w-[65vw] h-[55vh] lg:h-[70vh] flex-shrink-0 snap-center rounded-[40px] overflow-hidden shadow-2xl shadow-jade/5"
           >
-            <Image 
-              src={tour.img} 
-              className="object-cover transition-transform duration-1000 group-hover:scale-105" 
-              alt={tour.title} 
-              fill
-              sizes="(max-width: 768px) 100vw, 65vw"
-            />
+            <div className="relative h-full w-full overflow-hidden scale-110">
+              <Image 
+                src={tour.img} 
+                className="tour-image object-cover transition-transform duration-1000 group-hover:scale-105" 
+                alt={tour.title} 
+                fill
+                sizes="(max-width: 768px) 100vw, 65vw"
+              />
+            </div>
             <div className="absolute inset-0 bg-gradient-to-t from-jade-darkest/80 via-transparent to-transparent opacity-90" />
             
             <div className="absolute bottom-12 left-12 right-12 flex items-end justify-between z-10">
