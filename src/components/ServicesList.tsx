@@ -9,14 +9,14 @@ if (typeof window !== "undefined") {
 }
 
 const services = [
-  { title: "Global Passports", desc: "Expert handling of applications and complex renewals.", icon: Fingerprint, accent: "bg-azure", glow: "bg-azure/10", hoverGlow: "group-hover:bg-azure/20" },
-  { title: "Aviation Hub", desc: "Ticketing and private aviation network access.", icon: Plane, accent: "bg-sunset", glow: "bg-sunset/10", hoverGlow: "group-hover:bg-sunset/20" },
-  { title: "Curated Itineraries", desc: "Bespoke tour packages designed around your vision.", icon: Globe, accent: "bg-jade", glow: "bg-jade/10", hoverGlow: "group-hover:bg-jade/20" },
-  { title: "Elite Sanctuaries", desc: "Luxury hotel bookings with exclusive partner benefits.", icon: Home, accent: "bg-gold", glow: "bg-gold/10", hoverGlow: "group-hover:bg-gold/20" },
-  { title: "Private Mobility", desc: "Chauffeur services and premium rentals worldwide.", icon: Car, accent: "bg-azure", glow: "bg-azure/10", hoverGlow: "group-hover:bg-azure/20" },
-  { title: "Visitor Compliance", desc: "Technical expertise in global visa processing.", icon: Landmark, accent: "bg-sunset", glow: "bg-sunset/10", hoverGlow: "group-hover:bg-sunset/20" },
-  { title: "Global Security", desc: "Comprehensive insurance for total peace of mind.", icon: ShieldCheck, accent: "bg-jade", glow: "bg-jade/10", hoverGlow: "group-hover:bg-jade/20" },
-  { title: "Forex Liquidity", desc: "Competitive rates for seamless global spending.", icon: CreditCard, accent: "bg-gold", glow: "bg-gold/10", hoverGlow: "group-hover:bg-gold/20" },
+  { title: "Passport", desc: "Expert handling of applications and complex renewals.", icon: Fingerprint, accent: "bg-azure", glow: "bg-azure/10", hoverGlow: "group-hover:bg-azure/20" },
+  { title: "Domestic & International Tickets", desc: "Ticketing and private aviation network access.", icon: Plane, accent: "bg-sunset", glow: "bg-sunset/10", hoverGlow: "group-hover:bg-sunset/20" },
+  { title: "Domestic & International Custom tour Packages", desc: "Bespoke tour packages designed around your vision.", icon: Globe, accent: "bg-jade", glow: "bg-jade/10", hoverGlow: "group-hover:bg-jade/20" },
+  { title: "Hotel Bookings", desc: "Luxury hotel bookings with exclusive partner benefits.", icon: Home, accent: "bg-gold", glow: "bg-gold/10", hoverGlow: "group-hover:bg-gold/20" },
+  { title: "Car Rental", desc: "Chauffeur services and premium rentals worldwide.", icon: Car, accent: "bg-azure", glow: "bg-azure/10", hoverGlow: "group-hover:bg-azure/20" },
+  { title: "Visitor Visa", desc: "Technical expertise in global visa processing.", icon: Landmark, accent: "bg-sunset", glow: "bg-sunset/10", hoverGlow: "group-hover:bg-sunset/20" },
+  { title: "Overseas Insurance", desc: "Comprehensive insurance for total peace of mind.", icon: ShieldCheck, accent: "bg-jade", glow: "bg-jade/10", hoverGlow: "group-hover:bg-jade/20" },
+  { title: "Forex", desc: "Competitive rates for seamless global spending.", icon: CreditCard, accent: "bg-gold", glow: "bg-gold/10", hoverGlow: "group-hover:bg-gold/20" },
 ];
 
 export default function ServicesList() {
@@ -47,11 +47,11 @@ export default function ServicesList() {
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mb-32 text-onyx">
           <span className="text-accent-blue font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-8 block">
-            Capabilities
+            Our Services
           </span>
-          <h2 className="font-serif text-6xl md:text-[100px] leading-[0.9] tracking-tightest">
-            Technical <span className="text-accent-blue italic font-light">Mastery</span> <br />
-            Global <span className="text-onyx/30">Access.</span>
+          <h2 className="font-serif text-6xl md:text-[100px] leading-tight tracking-tightest">
+            Expert <span className="text-accent-blue italic font-light">Planning.</span> <br />
+            Global <span className="text-onyx/30">Reach.</span>
           </h2>
         </div>
 

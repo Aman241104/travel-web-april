@@ -82,22 +82,22 @@ export default function Hero() {
             </motion.span>
           </div>
           
-          <h1 className="font-serif text-7xl sm:text-9xl md:text-[160px] lg:text-[200px] leading-[0.8] tracking-tightest mb-16 text-onyx">
-            <div className="hero-reveal overflow-hidden pb-4">
+          <h1 className="font-serif text-6xl sm:text-8xl md:text-[140px] lg:text-[180px] xl:text-[200px] leading-[1.1] tracking-tightest mb-16 text-onyx">
+            <div className="hero-reveal overflow-hidden pb-2 md:pb-6">
               <span className="block">Elevate</span>
             </div>
-            <div className="hero-reveal overflow-hidden pb-4">
-              <span className="block italic font-light text-accent-blue">Every</span>
+            <div className="hero-reveal overflow-hidden pb-2 md:pb-6">
+              <span className="block italic font-light text-accent-blue">Your</span>
             </div>
-            <div className="hero-reveal overflow-hidden">
-              <span className="block">Journey.</span>
+            <div className="hero-reveal overflow-hidden pb-4 md:pb-6">
+              <span className="block">Travel.</span>
             </div>
           </h1>
 
           <div className="hero-sub-reveal max-w-2xl mx-auto mb-16">
             <p className="font-sans text-onyx/60 text-lg md:text-xl leading-relaxed font-medium">
-              Bespoke travel experiences curated with <span className="text-onyx">absolute precision</span>. 
-              We don&apos;t just plan trips; we architect your legacy through exploration.
+              Custom travel plans made <span className="text-onyx">just for you</span>. 
+              We help you explore the world with ease and comfort.
             </p>
           </div>
 

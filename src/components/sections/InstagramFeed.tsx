@@ -17,11 +17,11 @@ export default function InstagramFeed() {
         <div className="flex flex-col md:flex-row items-end justify-between mb-24 gap-12">
           <div>
             <span className="text-accent-blue font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-8 block">
-              Perspective
+              Gallery
             </span>
-            <h2 className="font-serif text-7xl md:text-[120px] text-onyx leading-[0.85] tracking-tightest">
-              Social <br />
-              <span className="text-accent-blue italic font-light underline decoration-accent-blue/10 underline-offset-8">Discourse.</span>
+            <h2 className="font-serif text-5xl md:text-[120px] text-onyx leading-[0.95] tracking-tightest">
+              Follow <br />
+              <span className="text-accent-blue italic font-light underline decoration-accent-blue/10 underline-offset-8">Us.</span>
             </h2>
           </div>
           <button className="flex items-center gap-6 px-12 py-6 bg-bg-light border border-onyx/5 text-onyx text-[10px] font-black uppercase tracking-[0.4em] rounded-full hover:bg-onyx hover:text-white transition-all duration-500 group">

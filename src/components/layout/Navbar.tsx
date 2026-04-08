@@ -5,9 +5,11 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 
 const navLinks = [
-  { name: "Services", href: "#services" },
-  { name: "Portfolio", href: "#packages" },
-  { name: "The Curators", href: "#about" },
+  { name: "What We Do", href: "#services" },
+  { name: "Destinations", href: "#packages" },
+  { name: "Our Experts", href: "#about" },
+  { name: "Mission", href: "#usp" },
+  { name: "Stories", href: "#journal" },
 ];
 
 export default function Navbar() {
@@ -47,9 +49,9 @@ export default function Navbar() {
               ))}
             </div>
             <div className="flex items-center gap-8 pl-8 border-l border-onyx/5">
-              <button className="px-10 py-3 bg-onyx text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-full hover:bg-accent-blue transition-all duration-500 shadow-xl shadow-onyx/10">
-                Inquire
-              </button>
+              <Link href="#contact" className="px-10 py-3 bg-onyx text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-full hover:bg-accent-blue transition-all duration-500 shadow-xl shadow-onyx/10">
+                Contact Us
+              </Link>
             </div>
           </div>
 
@@ -86,20 +88,19 @@ export default function Navbar() {
                   <Link 
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="font-serif text-6xl text-onyx hover:text-accent-blue transition-colors"
+                    className="font-serif text-4xl text-onyx hover:text-accent-blue transition-colors"
                   >
                     {link.name}
                   </Link>
                 </motion.div>
               ))}
-              <motion.button 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-12 w-full py-8 bg-onyx text-white font-black uppercase tracking-[0.4em] text-[10px] rounded-full shadow-2xl"
+              <Link 
+                href="#contact"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="mt-12 w-full py-8 bg-onyx text-white font-black uppercase tracking-[0.4em] text-[10px] rounded-full shadow-2xl text-center"
               >
-                Inquire Access
-              </motion.button>
+                Contact Us
+              </Link>
             </div>
           </motion.div>
         )}

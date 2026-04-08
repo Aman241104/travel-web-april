@@ -24,24 +24,25 @@ export default function CTASection() {
           
           <div>
             <span className="text-accent-blue font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-8 block">
-              Consultation
+              Contact Us
             </span>
-            <h2 className="font-serif text-7xl md:text-[120px] leading-[0.85] tracking-tightest mb-16 text-onyx dark:text-white">
-              The Next <br />
-              <span className="text-accent-blue italic font-light">Narrative.</span>
+            <h2 className="font-serif text-7xl md:text-[120px] leading-[0.95] tracking-tightest mb-16 text-onyx dark:text-white">
+              Start Your <br />
+              <span className="text-accent-blue italic font-light">Journey.</span>
             </h2>
             <p className="text-onyx/50 dark:text-white/40 font-sans text-xl leading-relaxed max-w-md font-medium mb-16">
-              Vetted excellence for the discerning. Request access to our private network.
+              We provide the best travel services. Contact us today to start planning your trip.
             </p>
 
             <div className="space-y-10">
               {[
-                { label: "Concierge", value: "+91 98254 38324" },
-                { label: "Portfolio", value: "portfolio@jadetravels.co.in" },
+                { label: "Jigar Shah (Proprietor)", value: "+91 98254 38324", sub: "jigar@jadetravels.co.in" },
+                { label: "Dhara Patel (Tours & Packages)", value: "+91 99044 55127", sub: "dhara@jadetravels.co.in" },
               ].map((item, i) => (
                 <div key={i} className="group cursor-pointer">
                   <p className="text-[10px] uppercase tracking-widest text-onyx/30 dark:text-white/30 mb-2 font-black">{item.label}</p>
                   <p className="text-xl font-sans font-medium text-onyx dark:text-white group-hover:text-accent-blue transition-colors">{item.value}</p>
+                  <p className="text-sm font-sans text-onyx/40 dark:text-white/40">{item.sub}</p>
                 </div>
               ))}
             </div>
@@ -57,12 +58,12 @@ export default function CTASection() {
                 >
                   <CheckCircle2 className="w-16 h-16 text-accent-blue mb-10" />
                   <h3 className="font-serif text-4xl text-onyx dark:text-white mb-4">Request Sent</h3>
-                  <p className="text-onyx/50 dark:text-white/40 max-w-xs font-medium">Dialogue begins within 24 hours.</p>
+                  <p className="text-onyx/50 dark:text-white/40 max-w-xs font-medium">We will contact you within 24 hours.</p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-12">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-onyx/30 dark:text-white/30">Identity</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-onyx/30 dark:text-white/30">Full Name</label>
                     <input 
                       type="text" required
                       className="w-full bg-transparent border-b border-onyx/10 dark:border-white/10 py-6 focus:border-accent-blue outline-none transition-colors text-onyx dark:text-white font-medium text-2xl placeholder:text-onyx/10 dark:placeholder:text-white/10" 
@@ -70,7 +71,7 @@ export default function CTASection() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-onyx/30 dark:text-white/30">Access</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-onyx/30 dark:text-white/30">Email Address</label>
                     <input 
                       type="email" required
                       className="w-full bg-transparent border-b border-onyx/10 dark:border-white/10 py-6 focus:border-accent-blue outline-none transition-colors text-onyx dark:text-white font-medium text-2xl placeholder:text-onyx/10 dark:placeholder:text-white/10" 
@@ -81,7 +82,7 @@ export default function CTASection() {
                     disabled={status === "submitting"}
                     className="w-full py-8 bg-onyx dark:bg-white text-white dark:text-onyx font-black uppercase tracking-[0.4em] text-[10px] rounded-full flex items-center justify-center gap-6 hover:bg-accent-blue dark:hover:bg-accent-blue transition-all duration-500 disabled:opacity-50"
                   >
-                    {status === "submitting" ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Submit Request <ArrowRight className="w-5 h-5" /></>}
+                    {status === "submitting" ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Send Request <ArrowRight className="w-5 h-5" /></>}
                   </button>
                 </form>
               )}

@@ -9,9 +9,9 @@ if (typeof window !== "undefined") {
 }
 
 const promises = [
-  { title: "Technical Mastery", desc: "15+ years of navigating the world with absolute discretion.", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop" },
-  { title: "Bespoke Design", desc: "Itineraries designed around your personal legacy and vision.", img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1200&auto=format&fit=crop" },
-  { title: "Global Custody", desc: "The guardians of your most precious asset: time.", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Expert Planning", desc: "15+ years of making travel easy and safe for everyone.", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Custom Trips", desc: "Every plan is made just for you and your family.", img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Always Here", desc: "We are available 24/7 to help with any of your needs.", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1200&auto=format&fit=crop" },
 ];
 
 export default function USP() {
@@ -42,11 +42,11 @@ export default function USP() {
       <div className="container mx-auto px-6">
         <div className="max-w-5xl mb-32">
           <span className="text-accent-blue font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-8 block">
-            The Ethos
+            Our Mission
           </span>
-          <h2 className="font-serif text-7xl md:text-[120px] leading-[0.85] tracking-tightest text-onyx">
-            Excellence <br />
-            <span className="text-accent-blue italic font-light">Without Noise.</span>
+          <h2 className="font-serif text-7xl md:text-[120px] leading-[0.95] tracking-tightest text-onyx">
+            Better Travel. <br />
+            <span className="text-accent-blue italic font-light">No Stress.</span>
           </h2>
         </div>
 

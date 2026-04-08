@@ -12,7 +12,6 @@ const PopularDestinations = dynamic(() => import("@/components/sections/PopularD
 const ServicesGrid = dynamic(() => import("@/components/ServicesGrid"));
 const TravelerSection = dynamic(() => import("@/components/luxury/TravelerSection"));
 const Testimonials = dynamic(() => import("@/components/luxury/Testimonials"));
-const Footer = dynamic(() => import("@/components/Footer"));
 const CTASection = dynamic(() => import("@/components/CTASection"));
 const TapeMarquee = dynamic(() => import("@/components/TapeMarquee"));
 const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed"));
@@ -23,12 +22,12 @@ export default function Home() {
         <main className="bg-bg-light min-h-screen relative overflow-x-hidden">
 
             <div className="relative z-30 bg-bg-light shadow-2xl">
-                <section id="home">
+                <section id="home" className="scroll-mt-24">
                     <Hero />
                 </section>
 
                 {/* 1. USP Section */}
-                <section id="usp">
+                <section id="usp" className="scroll-mt-24">
                     <USP />
                 </section>
 
@@ -38,44 +37,45 @@ export default function Home() {
 
                 {/* 2. Services Section */}
                 {/* Updated Services Section: Boutique Luggage Tag Focus */}
-                <section id="services" className="overflow-visible">
+                <section id="services" className="overflow-visible scroll-mt-24">
                     <div className="relative z-30">
                         <ServicesList />
                     </div>
                 </section>
 
                 {/* 3. About the Captain */}
-                <TravelerSection />
+                <section id="about" className="scroll-mt-24">
+                    <TravelerSection />
+                </section>
 
                 {/* 4. Packages Section (Popular Destinations) */}
-                <section id="packages">
+                <section id="packages" className="scroll-mt-24">
                     <PopularDestinations />
                 </section>
 
                 {/* 5. Testimonials Section */}
-                <section id="testimonials">
+                <section id="testimonials" className="scroll-mt-24">
                     <Testimonials />
                 </section>
 
                 {/* 6. Happy Customers Section */}
-                <section id="happy-customers">
+                <section id="happy-customers" className="scroll-mt-24">
                     <HappyCustomers />
                 </section>
 
                 <section id="marquee-bottom" className="relative z-20 py-8 md:py-12 overflow-hidden">
-                    <TapeMarquee reverse rotate={1} speed={30} text="Bespoke Itineraries • Luxury Travel Planner • Hidden Gems • Curated Memories • " />
+                    <TapeMarquee reverse rotate={1} speed={30} text="Easy Travel • Expert Planning • Great Memories • Your Story • " />
                 </section>
 
-                <InstagramFeed />
+                <section id="journal" className="scroll-mt-24">
+                    <InstagramFeed />
+                </section>
             </div>
 
             {/* 6. Contact Us Section */}
-            <section id="contact">
+            <section id="contact" className="scroll-mt-24">
                 <CTASection />
             </section>
-
-            {/* Final Footer Section */}
-            <Footer />
         </main>
     );
 }

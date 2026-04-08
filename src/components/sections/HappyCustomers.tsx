@@ -16,14 +16,14 @@ export default function HappyCustomers() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
           <div>
             <span className="text-accent-blue font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-8 block">
-              Journal
+              Our Story
             </span>
-            <h2 className="font-serif text-7xl md:text-[120px] text-onyx leading-[0.85] tracking-tightest mb-16">
-              Eternal <br />
-              <span className="text-accent-blue italic font-light">Chapters.</span>
+            <h2 className="font-serif text-7xl md:text-[120px] text-onyx leading-[0.95] tracking-tightest mb-16">
+              Travel <br />
+              <span className="text-accent-blue italic font-light">Stories.</span>
             </h2>
             <p className="text-onyx/60 font-sans text-xl leading-relaxed font-medium max-w-md mb-16">
-              A collective narrative of extraordinary explorations. Each frame represents a legacy crafted by our team.
+              See how our travelers explore the world. Every photo tells a story from a trip we planned.
             </p>
             <div className="flex items-center gap-6">
               <div className="flex -space-x-4">

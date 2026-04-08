@@ -10,10 +10,10 @@ if (typeof window !== "undefined") {
 }
 
 const tours = [
-  { id: 1, title: "Maldive Serenity", loc: "North Malé Atoll", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1200&auto=format&fit=crop", desc: "Private overwater sanctuaries." },
-  { id: 2, title: "Alpine Heritage", loc: "Zermatt, Switzerland", img: "https://images.unsplash.com/photo-1502784444187-359ac186c5bb?q=80&w=1200&auto=format&fit=crop", desc: "Exclusive mountain retreats." },
-  { id: 3, title: "Kyoto Zen Retreat", loc: "Kyoto, Japan", img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop", desc: "Ancient peace redefined." },
-  { id: 4, title: "Desert Gold", loc: "Dubai, UAE", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop", desc: "Modern architectural luxury." },
+  { id: 1, title: "Maldive Serenity", loc: "North Malé Atoll", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1200&auto=format&fit=crop", desc: "Private villas on the water." },
+  { id: 2, title: "Alpine Heritage", loc: "Zermatt, Switzerland", img: "https://images.unsplash.com/photo-1502784444187-359ac186c5bb?q=80&w=1200&auto=format&fit=crop", desc: "Quiet mountain stays." },
+  { id: 3, title: "Kyoto Zen Retreat", loc: "Kyoto, Japan", img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop", desc: "Peaceful ancient sites." },
+  { id: 4, title: "Desert Gold", loc: "Dubai, UAE", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop", desc: "Modern luxury in the desert." },
 ];
 
 export default function PopularDestinations() {
@@ -22,46 +22,44 @@ export default function PopularDestinations() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      if (window.matchMedia("(min-width: 1024px)").matches) {
-        const totalWidth = sliderRef.current?.scrollWidth || 0;
-        const viewportWidth = window.innerWidth;
+      const totalWidth = sliderRef.current?.scrollWidth || 0;
+      const viewportWidth = window.innerWidth;
 
-        gsap.to(sliderRef.current, {
-          x: -(totalWidth - viewportWidth),
-          ease: "none",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            pin: true,
-            scrub: 1,
-            start: "top top",
-            end: () => `+=${totalWidth}`,
-          },
-        });
-      }
+      gsap.to(sliderRef.current, {
+        x: -(totalWidth - viewportWidth),
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          pin: true,
+          scrub: 1,
+          start: "top top",
+          end: () => `+=${totalWidth}`,
+        },
+      });
     }, containerRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={containerRef} className="bg-onyx relative overflow-hidden h-screen flex items-center">
+    <section ref={containerRef} className="bg-onyx relative overflow-hidden h-screen flex items-center py-0">
       <div 
         ref={sliderRef} 
-        className="flex items-center gap-24 px-6 lg:px-[15vw] w-full lg:w-max relative z-10"
+        className="flex items-center gap-10 lg:gap-24 px-6 lg:px-[15vw] w-max relative z-10 overflow-x-visible no-scrollbar"
       >
-        <div className="flex-shrink-0 w-[85vw] lg:w-[35vw]">
+        <div className="flex-shrink-0 w-[85vw] lg:w-[35vw] snap-center">
           <span className="text-accent-blue font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-8 block">
-            Portfolio
+            Destinations
           </span>
-          <h2 className="font-serif text-7xl md:text-[120px] text-white leading-[0.8] tracking-tightest mb-16">
-            Global <br />
-            <span className="text-accent-blue italic font-light">Presence.</span>
+          <h2 className="font-serif text-7xl md:text-[120px] text-white leading-[0.95] tracking-tightest mb-16">
+            Where <br />
+            <span className="text-accent-blue italic font-light">We Go.</span>
           </h2>
         </div>
 
         {tours.map((tour) => (
           <div 
             key={tour.id} 
-            className="group relative w-[85vw] lg:w-[50vw] h-[65vh] lg:h-[70vh] flex-shrink-0 rounded-[4px] overflow-hidden"
+            className="group relative w-[85vw] lg:w-[50vw] h-[65vh] lg:h-[70vh] flex-shrink-0 rounded-[4px] overflow-hidden snap-center"
           >
             <Image 
               src={tour.img} 

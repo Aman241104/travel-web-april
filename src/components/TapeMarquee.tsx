@@ -12,7 +12,7 @@ export default function TapeMarquee({
   reverse = false,
   rotate = -1,
   speed = 25,
-  text = "Seamless Journeys • Global Access • Exclusive Retreats • Tailored Narratives • Wanderlust • Dream Big • ",
+  text = "Perfect Travel • Easy Planning • Global Reach • Custom Trips • Dream Big • ",
 }: TapeMarqueeProps) {
   const marqueeText = Array(10).fill(text).join(" ");
 
