@@ -3,10 +3,11 @@ import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import Footer from "@/components/Footer";
 import StickyCTA from "@/components/ui/StickyCTA";
 import Preloader from "@/components/ui/Preloader";
 import CustomCursor from "@/components/ui/CustomCursor";
+import ScrollProgress from "@/components/ui/ScrollProgress";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -54,8 +55,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-jade-white text-jade-darkest selection:bg-gold/30">
-      <body className={`${playfair.variable} ${jakarta.variable} font-sans antialiased`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${playfair.variable} ${jakarta.variable} font-sans antialiased bg-white text-onyx`}>
+        <ScrollProgress />
         <Preloader />
         <CustomCursor />
         <SmoothScroll>

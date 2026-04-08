@@ -33,19 +33,19 @@ export default function StickyCTA() {
               href="https://wa.me/919825438324"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative bg-[#25D366] text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 flex items-center justify-center overflow-hidden"
+              className="group relative bg-[#25D366] text-white p-5 rounded-full shadow-[0_20px_50px_rgba(37,211,102,0.3)] transition-all duration-500 hover:scale-110 flex items-center justify-center overflow-hidden"
               aria-label="Chat on WhatsApp"
             >
               <MessageCircle className="w-6 h-6" />
-              <span className="max-w-0 group-hover:max-w-xs group-hover:ml-3 transition-all duration-500 overflow-hidden whitespace-nowrap font-sans text-sm font-medium">
-                Chat with Jigar
+              <span className="max-w-0 group-hover:max-w-xs group-hover:ml-4 transition-all duration-700 ease-in-out overflow-hidden whitespace-nowrap font-sans text-xs font-black uppercase tracking-widest">
+                Direct Concierge
               </span>
             </a>
 
             {/* Scroll to Top */}
             <button
               onClick={scrollToTop}
-              className="bg-gold text-jade-black p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-jade-white flex items-center justify-center"
+              className="bg-onyx text-white p-5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 hover:scale-110 hover:bg-accent-blue flex items-center justify-center border border-white/5"
               aria-label="Scroll to top"
             >
               <ArrowUp className="w-6 h-6" />

@@ -9,28 +9,51 @@ export default {
   theme: {
     extend: {
       colors: {
+        "bg-light": "#F9FAFB",
+        onyx: {
+          DEFAULT: "#050505",
+          light: "#1A1A1A",
+          muted: "#262626",
+        },
+        titanium: {
+          DEFAULT: "#1A1A1A",
+          light: "#262626",
+          dark: "#0F0F0F",
+        },
+        silver: {
+          DEFAULT: "#E5E7EB",
+          light: "#F3F4F6",
+          dark: "#9CA3AF",
+        },
+        accent: {
+          blue: "#3B82F6",
+          violet: "#8B5CF6",
+          gold: "#D4AF37",
+          champagne: "#F3E5AB",
+        },
         jade: {
-          DEFAULT: "#00695C",
-          light: "#4DB6AC",
-          darkest: "#004D40",
-          soft: "#E0F2F1",
+          DEFAULT: "#3B82F6",
+          darkest: "#050505",
+          vibrant: "#60A5FA",
         },
         gold: {
           DEFAULT: "#D4AF37",
-          hover: "#C5A059",
-          muted: "rgba(212, 175, 55, 0.1)",
+          dark: "#A67C00",
         },
-        "jade-black": "#1A1D1C",
+        azure: {
+          DEFAULT: "#3B82F6",
+          dark: "#1D4ED8",
+        },
+        "jade-black": "#050505",
         "jade-white": "#FFFFFF",
-        cream: "#FAF9F6", // High-end light background
-        sand: "#F2E8D5",
+        cream: "#F9FAFB",
       },
       fontFamily: {
         serif: ["var(--font-playfair)", "serif"],
         sans: ["var(--font-jakarta)", "sans-serif"],
       },
       letterSpacing: {
-        ultra: "0.2em",
+        ultra: "0.25em",
       },
     },
   },
