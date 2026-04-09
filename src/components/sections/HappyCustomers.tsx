@@ -2,65 +2,68 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const photos = [
-  { src: "https://images.unsplash.com/photo-1522050212171-61b01dd24579?q=80&w=800&auto=format&fit=crop", rotation: -2, delay: 0 },
-  { src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop", rotation: 3, delay: 0.1 },
-  { src: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=800&auto=format&fit=crop", rotation: -1, delay: 0.2 },
-  { src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop", rotation: 2, delay: 0.3 },
+const testimonials = [
+  { type: "text", name: "Sarah Jenkins", role: "Explorer", text: "The most incredible experience of my life. Every detail was planned to perfection, and I never had to worry about a thing.", rating: 5, bg: "bg-brand-sand" },
+  { type: "image", name: "David M.", src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=600&auto=format&fit=crop" },
+  { type: "text", name: "Amelia & Tom", role: "Honeymooners", text: "Words cannot describe how magical our trip was. The local guides were fantastic and the resorts were top tier.", rating: 5, bg: "bg-white border-2 border-brand-sand" },
+  { type: "video", name: "Michael T.", src: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=600&auto=format&fit=crop" },
+  { type: "text", name: "The Harrison Family", role: "Family Trip", text: "Keeping the kids entertained while we got to relax felt like a dream. Thank you for crafting the perfect family getaway.", rating: 5, bg: "bg-brand-yellow font-medium" },
 ];
 
 export default function HappyCustomers() {
   return (
-    <section className="py-32 md:py-56 bg-white relative overflow-hidden transition-colors duration-1000">
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
-          <div>
-            <span className="text-accent-blue font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-8 block">
-              Our Story
-            </span>
-            <h2 className="font-serif text-7xl md:text-[120px] text-onyx leading-[0.95] tracking-tightest mb-16">
-              Travel <br />
-              <span className="text-accent-blue italic font-light">Stories.</span>
-            </h2>
-            <p className="text-onyx/60 font-sans text-xl leading-relaxed font-medium max-w-md mb-16">
-              See how our travelers explore the world. Every photo tells a story from a trip we planned.
-            </p>
-            <div className="flex items-center gap-6">
-              <div className="flex -space-x-4">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-14 h-14 rounded-full border-4 border-white overflow-hidden shadow-xl">
-                    <Image src={`https://i.pravatar.cc/100?img=${i+10}`} alt="User" width={56} height={56} />
-                  </div>
-                ))}
-              </div>
-              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-onyx/30">
-                +2,400 Explorers
-              </p>
-            </div>
-          </div>
+    <section id="happy-customers" className="pt-48 md:pt-[240px] pb-24 md:pb-32 bg-white relative overflow-hidden transition-colors duration-1000">
+      <div className="container mx-auto px-6 max-w-6xl">
+        <div className="text-center mb-16 md:mb-24 relative z-10">
+          <span className="text-brand-teal font-sans text-xs font-semibold uppercase tracking-widest mb-6 block">
+            Reviews
+          </span>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-[56px] text-onyx leading-[1.2] tracking-tight mb-6">
+            Over 20,000+ <br />
+            <span className="text-brand-teal italic font-light mt-2 block">happy customers.</span>
+          </h2>
+        </div>
 
-          <div className="relative grid grid-cols-2 gap-8 lg:scale-110">
-            {photos.map((photo, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 30, rotate: photo.rotation * 2 }}
-                whileInView={{ opacity: 1, y: 0, rotate: photo.rotation }}
-                viewport={{ once: true }}
-                transition={{ delay: photo.delay, duration: 1, ease: "easeOut" }}
-                className="relative aspect-[4/5] rounded-[2px] overflow-hidden shadow-2xl bg-white p-2 border border-onyx/5"
-              >
-                <div className="relative h-full w-full rounded-[1px] overflow-hidden">
-                  <Image 
-                    src={photo.src} 
-                    alt="Explorer" 
-                    fill 
-                    className="object-cover transition-transform duration-[2000ms] hover:scale-110"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+          {testimonials.map((t, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.8 }}
+              className="break-inside-avoid"
+            >
+              {t.type === "text" ? (
+                <div className={`p-8 rounded-[32px] ${t.bg}`}>
+                  <div className="flex gap-1 mb-4 text-brand-teal">
+                    {[...Array(t.rating)].map((_, idx) => <span key={idx}>★</span>)}
+                  </div>
+                  <p className="font-sans text-lg text-onyx mb-6 leading-relaxed">"{t.text}"</p>
+                  <div className="flex items-center gap-4">
+                    <div className="relative w-10 h-10 rounded-full bg-brand-teal/20 overflow-hidden">
+                      <Image src={i === 0 ? "/assets/owner-image.png" : `/customer/image copy ${i + 2}.png`} alt={t.name} fill className="object-cover" />
+                    </div>
+                    <div>
+                      <p className="font-sans font-bold text-onyx text-sm">{t.name}</p>
+                      <p className="font-sans text-xs text-onyx/60">{t.role}</p>
+                    </div>
+                  </div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              ) : (
+                <div className="relative aspect-[3/4] rounded-[32px] overflow-hidden shadow-xl">
+                  <Image src={t.src!} alt="Review" fill className="object-cover" />
+                  {t.type === "video" && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-16 h-16 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white">
+                        <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

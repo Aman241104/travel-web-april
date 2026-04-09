@@ -46,7 +46,7 @@ export default function TravelerSection() {
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[3/4] rounded-[2px] overflow-hidden shadow-2xl z-10 bg-white dark:bg-onyx border border-onyx/5 dark:border-white/5">
               <Image 
-                src="https://images.unsplash.com/photo-1542314831-c6a4d14cdce8?q=80&w=1200&auto=format&fit=crop"
+                src="/assets/generated-expert.png"
                 alt="Jade Travels Experts"
                 fill
                 className="object-cover transition-all duration-[1500ms] hover:scale-105"

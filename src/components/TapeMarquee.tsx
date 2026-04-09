@@ -12,13 +12,13 @@ export default function TapeMarquee({
   reverse = false,
   rotate = -1,
   speed = 25,
-  text = "Perfect Travel • Easy Planning • Global Reach • Custom Trips • Dream Big • ",
+  text = "Organic Elegance • Expertly Curated • Premium Journeys • Luxury Travel • ",
 }: TapeMarqueeProps) {
   const marqueeText = Array(10).fill(text).join(" ");
 
   return (
     <div 
-      className="bg-onyx text-white py-10 overflow-hidden shadow-2xl transition-colors duration-1000 border-y border-white/5"
+      className="bg-brand-teal text-white py-6 md:py-8 overflow-hidden shadow-2xl transition-colors duration-1000 border-y border-white/10"
       style={{ transform: `rotate(${rotate}deg) scale(1.05)` }}
     >
       <div className="flex whitespace-nowrap">
@@ -30,7 +30,7 @@ export default function TapeMarquee({
             repeat: Infinity,
             ease: "linear",
           }}
-          className="font-sans text-xs font-black uppercase tracking-[1em] px-4"
+          className="font-serif italic tracking-[0.2em] text-2xl lg:text-3xl text-brand-sand/80 px-8"
         >
           {marqueeText}
         </motion.div>
@@ -42,7 +42,7 @@ export default function TapeMarquee({
             repeat: Infinity,
             ease: "linear",
           }}
-          className="font-sans text-xs font-black uppercase tracking-[1em] px-4 absolute top-10 left-0"
+          className="font-serif italic tracking-[0.2em] text-2xl lg:text-3xl text-brand-sand/80 px-8 absolute top-[50%] left-0 -translate-y-[50%]"
         >
           {marqueeText}
         </motion.div>

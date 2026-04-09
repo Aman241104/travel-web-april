@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import Hero from "@/components/Hero";
 import USP from "@/components/sections/USP";
-import ServicesList from "@/components/ServicesList";
+import StatsBar from "@/components/sections/StatsBar";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ArrowRight } from 'lucide-react';
 
@@ -26,31 +26,21 @@ export default function Home() {
                     <Hero />
                 </section>
 
-                {/* 1. USP Section */}
-                <section id="usp" className="scroll-mt-24">
-                    <USP />
-                </section>
+                {/* 1. Stats Bar (Tripzen Style) */}
+                <StatsBar />
 
                 <section id="marquee-top" className="relative z-20 py-8 md:py-12 overflow-hidden">
                     <TapeMarquee />
                 </section>
 
-                {/* 2. Services Section */}
-                {/* Updated Services Section: Boutique Luggage Tag Focus */}
-                <section id="services" className="overflow-visible scroll-mt-24">
-                    <div className="relative z-30">
-                        <ServicesList />
-                    </div>
-                </section>
-
-                {/* 3. About the Captain */}
-                <section id="about" className="scroll-mt-24">
-                    <TravelerSection />
-                </section>
-
-                {/* 4. Packages Section (Popular Destinations) */}
+                {/* 2. Packages Section (Popular Destinations) */}
                 <section id="packages" className="scroll-mt-24">
                     <PopularDestinations />
+                </section>
+
+                {/* 3. USP Section (Why Choose Us) */}
+                <section id="usp" className="scroll-mt-24">
+                    <USP />
                 </section>
 
                 {/* 5. Testimonials Section */}
@@ -58,7 +48,12 @@ export default function Home() {
                     <Testimonials />
                 </section>
 
-                {/* 6. Happy Customers Section */}
+                {/* 6. About the Captain */}
+                <section id="about" className="scroll-mt-24">
+                    <TravelerSection />
+                </section>
+
+                {/* 7. Happy Customers Section */}
                 <section id="happy-customers" className="scroll-mt-24">
                     <HappyCustomers />
                 </section>
@@ -72,7 +67,7 @@ export default function Home() {
                 </section>
             </div>
 
-            {/* 6. Contact Us Section */}
+            {/* 8. Contact Us Section */}
             <section id="contact" className="scroll-mt-24">
                 <CTASection />
             </section>

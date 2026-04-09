@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-onyx: #050505;
-  --color-onyx-light: #1A1A1A;
-  --color-onyx-muted: #262626;
+  --color-onyx: #1C3B34;
+  --color-onyx-light: #254F46;
+  --color-onyx-muted: #36665B;
   
+  --color-brand-teal: #6CB4A5;
+  --color-brand-sand: #FBF6EE;
+  --color-brand-navy: #1C3B34;
+  --color-brand-yellow: #F8E8C1;
+
   --color-titanium: #1A1A1A;
   --color-titanium-light: #262626;
   --color-titanium-dark: #0F0F0F;
@@ -13,22 +18,22 @@
   --color-silver-light: #F3F4F6;
   --color-silver-dark: #9CA3AF;
 
-  --color-accent-blue: #3B82F6;
-  --color-accent-violet: #8B5CF6;
+  --color-accent-blue: #6CB4A5;
+  --color-accent-violet: #F8E8C1;
   --color-accent-gold: #D4AF37;
   --color-accent-champagne: #F3E5AB;
 
   /* Compatibility mappings */
-  --color-jade-black: #050505;
+  --color-jade-black: #1C3B34;
   --color-jade-white: #FFFFFF;
-  --color-cream: #F9FAFB;
-  --color-jade: #3B82F6;
-  --color-jade-darkest: #050505;
-  --color-vibrant: #60A5FA;
+  --color-cream: #FBF6EE;
+  --color-jade: #6CB4A5;
+  --color-jade-darkest: #1C3B34;
+  --color-vibrant: #7BC8B8;
   --color-gold: #D4AF37;
   --color-gold-dark: #A67C00;
-  --color-azure: #3B82F6;
-  --color-azure-dark: #1D4ED8;
+  --color-azure: #6CB4A5;
+  --color-azure-dark: #1C3B34;
 
   --font-serif: var(--font-playfair), serif;
   --font-sans: var(--font-jakarta), sans-serif;
@@ -38,7 +43,7 @@
 
 :root {
   --background: #FFFFFF;
-  --foreground: #050505;
+  --foreground: #1C3B34;
 }
 
 body {

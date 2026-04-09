@@ -9,11 +9,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        "bg-light": "#F9FAFB",
+        "bg-light": "#FBF6EE",
         onyx: {
-          DEFAULT: "#050505",
-          light: "#1A1A1A",
-          muted: "#262626",
+          DEFAULT: "#1C3B34",
+          light: "#254F46",
+          muted: "#36665B",
+        },
+        brand: {
+          teal: "#6CB4A5",
+          tealDark: "#5AA092",
+          sand: "#FBF6EE",
+          sandDark: "#F2EACC",
+          navy: "#1C3B34",
+          yellow: "#F8E8C1",
         },
         titanium: {
           DEFAULT: "#1A1A1A",
@@ -26,27 +34,27 @@ export default {
           dark: "#9CA3AF",
         },
         accent: {
-          blue: "#3B82F6",
-          violet: "#8B5CF6",
+          blue: "#6CB4A5", // map to teal for backward compatibility
+          violet: "#F8E8C1", // map to yellow for backward compatibility
           gold: "#D4AF37",
           champagne: "#F3E5AB",
         },
         jade: {
-          DEFAULT: "#3B82F6",
-          darkest: "#050505",
-          vibrant: "#60A5FA",
+          DEFAULT: "#6CB4A5",
+          darkest: "#1C3B34",
+          vibrant: "#7BC8B8",
         },
         gold: {
           DEFAULT: "#D4AF37",
           dark: "#A67C00",
         },
         azure: {
-          DEFAULT: "#3B82F6",
-          dark: "#1D4ED8",
+          DEFAULT: "#6CB4A5",
+          dark: "#1C3B34",
         },
-        "jade-black": "#050505",
+        "jade-black": "#1C3B34",
         "jade-white": "#FFFFFF",
-        cream: "#F9FAFB",
+        cream: "#FBF6EE",
       },
       fontFamily: {
         serif: ["var(--font-playfair)", "serif"],

@@ -33,7 +33,7 @@ export default function StickyCTA() {
               href="https://wa.me/919825438324"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative bg-[#25D366] text-white p-5 rounded-full shadow-[0_20px_50px_rgba(37,211,102,0.3)] transition-all duration-500 hover:scale-110 flex items-center justify-center overflow-hidden"
+              className="group relative bg-brand-teal text-white p-5 rounded-full shadow-2xl transition-all duration-500 hover:scale-110 flex items-center justify-center overflow-hidden"
               aria-label="Chat on WhatsApp"
             >
               <MessageCircle className="w-6 h-6" />

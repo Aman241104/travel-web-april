@@ -41,15 +41,15 @@ export default function Navbar() {
                 <Link 
                   key={link.name} 
                   href={link.href}
-                  className="group relative font-sans text-[10px] font-black uppercase tracking-[0.3em] text-onyx/40 hover:text-onyx transition-colors"
+                  className="group relative font-sans text-xs font-bold uppercase tracking-[0.2em] text-onyx/70 hover:text-brand-teal transition-colors"
                 >
                   <span className="relative z-10">{link.name}</span>
-                  <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-accent-blue transition-all duration-500 group-hover:w-full" />
+                  <span className="absolute left-0 bottom-[-4px] w-0 h-[2px] bg-brand-teal transition-all duration-500 group-hover:w-full" />
                 </Link>
               ))}
             </div>
             <div className="flex items-center gap-8 pl-8 border-l border-onyx/5">
-              <Link href="#contact" className="px-10 py-3 bg-onyx text-white font-black text-[10px] uppercase tracking-[0.3em] rounded-full hover:bg-accent-blue transition-all duration-500 shadow-xl shadow-onyx/10">
+              <Link href="#contact" className="px-10 py-4 bg-brand-teal text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full hover:bg-brand-navy transition-all duration-500 shadow-xl shadow-brand-teal/20">
                 Contact Us
               </Link>
             </div>
@@ -97,7 +97,7 @@ export default function Navbar() {
               <Link 
                 href="#contact"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-12 w-full py-8 bg-onyx text-white font-black uppercase tracking-[0.4em] text-[10px] rounded-full shadow-2xl text-center"
+                className="mt-12 w-full py-6 bg-brand-teal text-white font-black uppercase tracking-[0.4em] text-xs rounded-full shadow-2xl text-center"
               >
                 Contact Us
               </Link>

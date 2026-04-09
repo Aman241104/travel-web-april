@@ -8,10 +8,15 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const promises = [
-  { title: "Expert Planning", desc: "15+ years of making travel easy and safe for everyone.", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop" },
-  { title: "Custom Trips", desc: "Every plan is made just for you and your family.", img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1200&auto=format&fit=crop" },
-  { title: "Always Here", desc: "We are available 24/7 to help with any of your needs.", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1200&auto=format&fit=crop" },
+const services = [
+  { type: "image", img: "/customer/image copy 5.png" },
+  { type: "text", title: "City Walks", desc: "Walking tours in small groups across the city.", bg: "bg-brand-sand", text: "text-onyx" },
+  { type: "image", img: "/customer/image copy 6.png" },
+  { type: "text", title: "Jungle Tours", desc: "Discover wildlife with our experienced guides.", bg: "bg-brand-teal", text: "text-white" },
+  { type: "text", title: "Boat Tours", desc: "Explore the islands and hidden lagoons.", bg: "bg-[#71B5A3]", text: "text-white" },
+  { type: "image", img: "/customer/image copy 7.png" },
+  { type: "text", title: "Mountain Hiking", desc: "Reach new heights with our climbing trips.", bg: "bg-brand-yellow", text: "text-onyx" },
+  { type: "image", img: "/customer/image copy 4.png" },
 ];
 
 export default function USP() {
@@ -19,14 +24,14 @@ export default function USP() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(".promise-card", 
+      gsap.fromTo(".service-card", 
         { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
           stagger: 0.1,
-          duration: 1.2,
-          ease: "expo.out",
+          duration: 1,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 75%",
@@ -38,36 +43,42 @@ export default function USP() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-32 md:py-56 bg-white relative transition-colors duration-1000">
+    <section ref={sectionRef} className="py-24 md:py-32 bg-white relative transition-colors duration-1000">
       <div className="container mx-auto px-6">
-        <div className="max-w-5xl mb-32">
-          <span className="text-accent-blue font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-8 block">
-            Our Mission
+        <div className="text-center mb-16">
+          <span className="text-brand-teal font-sans text-xs font-semibold uppercase tracking-widest mb-4 block">
+            What We Do
           </span>
-          <h2 className="font-serif text-7xl md:text-[120px] leading-[0.95] tracking-tightest text-onyx">
-            Better Travel. <br />
-            <span className="text-accent-blue italic font-light">No Stress.</span>
+          <h2 className="font-serif text-5xl md:text-[80px] leading-[1.1] tracking-tight text-onyx">
+            Services We Provide
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
-          {promises.map((promise, i) => (
-            <div key={i} className="promise-card group">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-[2px] mb-10 border border-onyx/5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
+          {services.map((service, i) => (
+            <div key={i} className="service-card group relative aspect-square rounded-[32px] overflow-hidden transform transition-transform hover:scale-[1.02] duration-300">
+              {service.type === "image" ? (
                 <Image 
-                  src={promise.img} 
-                  alt={promise.title} 
+                  src={service.img!} 
+                  alt="Service" 
                   fill 
-                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover"
+                  sizes="(max-width: 768px) 50vw, 25vw"
                 />
-              </div>
-              <h3 className="font-serif text-3xl text-onyx mb-6 group-hover:text-accent-blue transition-colors leading-none">
-                {promise.title}
-              </h3>
-              <p className="text-onyx/50 font-sans text-xs uppercase tracking-widest leading-relaxed">
-                {promise.desc}
-              </p>
+              ) : (
+                <div className={`w-full h-full p-8 flex flex-col justify-between ${service.bg} ${service.text}`}>
+                  <h3 className="font-serif text-2xl md:text-3xl font-medium leading-tight">
+                    {service.title}
+                  </h3>
+                  <p className="font-sans text-sm md:text-base leading-relaxed opacity-80 font-medium">
+                    {service.desc}
+                  </p>
+                  <div className="mt-4 pt-4 border-t border-current/20 flex items-center justify-between opacity-80">
+                    <span className="text-xs uppercase tracking-widest">Explore</span>
+                    <span className="text-lg">→</span>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>

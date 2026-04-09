@@ -28,7 +28,7 @@ export default function CustomCursor() {
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (target.closest("a, button, .interactive")) {
-        gsap.to(follower, { scale: 3, backgroundColor: "rgba(197, 160, 89, 0.2)", duration: 0.3 });
+        gsap.to(follower, { scale: 3, backgroundColor: "rgba(108, 180, 165, 0.2)", duration: 0.3 });
       }
     };
 
@@ -54,11 +54,11 @@ export default function CustomCursor() {
     <>
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-2 h-2 bg-gold rounded-full z-[9999] pointer-events-none -translate-x-1/2 -translate-y-1/2 hidden md:block" 
+        className="fixed top-0 left-0 w-2 h-2 bg-brand-teal rounded-full z-[9999] pointer-events-none -translate-x-1/2 -translate-y-1/2 hidden md:block" 
       />
       <div 
         ref={followerRef} 
-        className="fixed top-0 left-0 w-8 h-8 border border-gold/30 rounded-full z-[9998] pointer-events-none -translate-x-1/2 -translate-y-1/2 hidden md:block" 
+        className="fixed top-0 left-0 w-8 h-8 border border-brand-teal/50 rounded-full z-[9998] pointer-events-none -translate-x-1/2 -translate-y-1/2 hidden md:block" 
       />
     </>
   );
