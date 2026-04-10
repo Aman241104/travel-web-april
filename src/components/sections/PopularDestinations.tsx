@@ -22,18 +22,24 @@ export default function PopularDestinations() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const totalWidth = sliderRef.current?.scrollWidth || 0;
-      const viewportWidth = window.innerWidth;
+      const slider = sliderRef.current;
+      if (!slider) return;
 
-      gsap.to(sliderRef.current, {
-        x: -(totalWidth - viewportWidth),
+      const getScrollDistance = () => {
+        return slider.scrollWidth - window.innerWidth;
+      };
+
+      gsap.to(slider, {
+        x: () => -getScrollDistance(),
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
           pin: true,
-          scrub: 1,
+          scrub: 0.8,
+          anticipatePin: 1,
           start: "top top",
-          end: () => `+=${totalWidth}`,
+          end: () => `+=${getScrollDistance()}`,
+          invalidateOnRefresh: true,
         },
       });
     }, containerRef);
@@ -41,16 +47,16 @@ export default function PopularDestinations() {
   }, []);
 
   return (
-    <section ref={containerRef} className="bg-bg-light relative overflow-hidden h-screen flex items-center py-0">
+    <section ref={containerRef} className="bg-bg-light relative overflow-hidden h-[80vh] md:h-screen flex items-center py-0">
       <div 
         ref={sliderRef} 
-        className="flex items-center gap-10 lg:gap-24 px-6 lg:px-[15vw] w-max relative z-10 overflow-x-visible no-scrollbar"
+        className="flex items-center gap-0 md:gap-24 px-0 md:px-[10vw] w-max relative z-10 overflow-x-visible no-scrollbar"
       >
-        <div className="flex-shrink-0 w-[85vw] lg:w-[35vw] snap-center">
-          <span className="text-brand-teal font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-8 block">
+        <div className="flex-shrink-0 w-screen md:w-[40vw] snap-center px-8 md:px-0">
+          <span className="text-brand-teal font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-4 md:mb-8 block">
             Destinations
           </span>
-          <h2 className="font-serif text-5xl md:text-[80px] text-onyx leading-[1.1] tracking-tight mb-16">
+          <h2 className="font-serif text-4xl md:text-[80px] text-onyx leading-[1.1] tracking-tight mb-8 md:mb-16">
             Where <br />
             <span className="text-brand-teal italic font-light">We Go.</span>
           </h2>
@@ -59,36 +65,41 @@ export default function PopularDestinations() {
         {tours.map((tour) => (
           <div 
             key={tour.id} 
-            className="group relative w-[85vw] lg:w-[45vw] h-[60vh] lg:h-[65vh] flex-shrink-0 rounded-[32px] overflow-hidden snap-center shadow-2xl"
+            className="group relative w-screen md:w-[45vw] lg:w-[40vw] px-4 md:px-0 h-[55vh] md:h-[65vh] flex-shrink-0 snap-center"
           >
-            <Image 
-              src={tour.img} 
-              alt={tour.title} 
-              fill 
-              className="object-cover transition-transform duration-[2000ms] group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/80 via-transparent to-transparent opacity-90" />
-            
-            <div className="absolute bottom-10 left-10 right-10 flex items-end justify-between">
-              <div>
-                <span className="text-brand-teal font-sans text-xs font-semibold uppercase tracking-widest mb-3 block">{tour.loc}</span>
-                <h3 className="font-serif text-3xl lg:text-4xl text-brand-sand mb-3 leading-tight">{tour.title}</h3>
-                <p className="text-brand-sand/80 font-sans text-sm">{tour.desc}</p>
+            <div className="relative w-full h-full rounded-[24px] md:rounded-[32px] overflow-hidden shadow-2xl">
+              <Image 
+                src={tour.img} 
+                alt={tour.title} 
+                fill 
+                className="object-cover transition-transform duration-[2000ms] group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/80 via-transparent to-transparent opacity-90" />
+              
+              <div className="absolute bottom-10 left-10 right-10 flex items-end justify-between">
+                <div>
+                  <span className="text-brand-teal font-sans text-xs font-semibold uppercase tracking-widest mb-3 block">{tour.loc}</span>
+                  <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-brand-sand mb-3 leading-tight">{tour.title}</h3>
+                  <p className="text-brand-sand/80 font-sans text-xs md:text-sm">{tour.desc}</p>
+                </div>
+                <button className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:bg-brand-teal hover:scale-110 transition-all duration-500 shrink-0">
+                  <ArrowUpRight className="w-5 h-5 md:w-6 md:h-6" />
+                </button>
               </div>
-              <button className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:bg-brand-teal hover:scale-110 transition-all duration-500 shrink-0">
-                <ArrowUpRight className="w-6 h-6" />
-              </button>
             </div>
           </div>
         ))}
 
-        <div className="flex-shrink-0 w-[85vw] lg:w-[30vw] text-center px-8">
-          <h2 className="font-serif text-4xl md:text-6xl text-onyx mb-12 leading-tight">Your story <br /><span className="text-brand-teal italic font-light">awaits.</span></h2>
+        <div className="flex-shrink-0 w-screen md:w-[40vw] text-center px-8 md:px-0">
+          <h2 className="font-serif text-4xl md:text-6xl text-onyx mb-10 md:mb-12 leading-tight">Your story <br /><span className="text-brand-teal italic font-light">awaits.</span></h2>
           <button className="px-10 py-5 bg-onyx text-white rounded-full font-sans text-xs font-semibold uppercase tracking-widest hover:bg-brand-teal transition-all duration-500 shadow-xl inline-block">
             View All Access
           </button>
         </div>
+
+        {/* Spacer for extra scroll room */}
+        <div className="flex-shrink-0 w-[0vw] md:w-[15vw]" />
       </div>
     </section>
   );

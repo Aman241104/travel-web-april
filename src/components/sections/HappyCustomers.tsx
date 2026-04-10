@@ -39,7 +39,7 @@ export default function HappyCustomers() {
                   <div className="flex gap-1 mb-4 text-brand-teal">
                     {[...Array(t.rating)].map((_, idx) => <span key={idx}>★</span>)}
                   </div>
-                  <p className="font-sans text-lg text-onyx mb-6 leading-relaxed">"{t.text}"</p>
+                  <p className="font-sans text-lg text-onyx mb-6 leading-relaxed">&quot;{t.text}&quot;</p>
                   <div className="flex items-center gap-4">
                     <div className="relative w-10 h-10 rounded-full bg-brand-teal/20 overflow-hidden">
                       <Image src={i === 0 ? "/assets/owner-image.png" : `/customer/image copy ${i + 2}.png`} alt={t.name} fill className="object-cover" />

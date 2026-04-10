@@ -43,9 +43,9 @@ export default function USP() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 bg-white relative transition-colors duration-1000">
+    <section ref={sectionRef} className="pt-8 pb-16 md:py-32 bg-white relative transition-colors duration-1000">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
           <span className="text-brand-teal font-sans text-xs font-semibold uppercase tracking-widest mb-4 block">
             What We Do
           </span>
@@ -54,7 +54,7 @@ export default function USP() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
           {services.map((service, i) => (
             <div key={i} className="service-card group relative aspect-square rounded-[32px] overflow-hidden transform transition-transform hover:scale-[1.02] duration-300">
               {service.type === "image" ? (

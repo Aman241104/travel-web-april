@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function ValueProposition() {
   return (
-    <section className="bg-brand-teal text-brand-sand py-24 md:py-32 relative overflow-hidden">
+    <section className="bg-brand-teal text-brand-sand pt-32 pb-24 md:py-32 relative overflow-hidden">
       {/* Decorative leaf motifs */}
       <div className="absolute top-0 right-0 opacity-20 pointer-events-none transform translate-x-1/3 -translate-y-1/3">
         <svg width="400" height="400" viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -62,18 +62,18 @@ export default function ValueProposition() {
           </motion.div>
         </div>
 
-        <div className="w-full md:w-1/2 relative min-h-[500px]">
+        <div className="w-full md:w-1/2 relative min-h-[450px] md:min-h-[500px] mt-20 md:mt-0">
           <motion.div 
             initial={{ opacity: 0, rotate: -10, x: -50 }}
             whileInView={{ opacity: 1, rotate: -6, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="absolute top-10 left-10 w-64 aspect-[4/5] bg-bg-light p-3 pb-12 shadow-2xl rounded-sm z-10"
+            className="absolute top-10 md:top-10 left-0 md:left-10 w-40 md:w-64 aspect-[4/5] bg-bg-light p-3 pb-12 shadow-2xl rounded-sm z-10"
           >
             <div className="relative w-full h-full rounded-sm overflow-hidden">
               <Image src="/customer/image copy 2.png" alt="Tour" fill className="object-cover" />
             </div>
-            <p className="absolute bottom-4 left-0 w-full text-center text-brand-navy font-serif italic text-lg">Bali, Indonesia</p>
+            <p className="absolute bottom-4 left-0 w-full text-center text-brand-navy font-serif italic text-base md:text-lg">Bali, Indonesia</p>
           </motion.div>
 
           <motion.div 
@@ -81,12 +81,12 @@ export default function ValueProposition() {
             whileInView={{ opacity: 1, rotate: 6, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="absolute top-32 right-10 w-72 aspect-square bg-brand-yellow p-4 pb-14 shadow-2xl rounded-sm z-20"
+            className="absolute top-32 md:top-32 right-0 md:right-10 w-48 md:w-72 aspect-square bg-brand-yellow p-4 pb-14 shadow-2xl rounded-sm z-20"
           >
             <div className="relative w-full h-full rounded-sm overflow-hidden">
               <Image src="/customer/image copy 9.png" alt="Tour" fill className="object-cover" />
             </div>
-            <p className="absolute bottom-4 left-0 w-full text-center text-brand-navy font-serif italic text-xl">The Maldives</p>
+            <p className="absolute bottom-4 left-0 w-full text-center text-brand-navy font-serif italic text-lg md:text-xl">The Maldives</p>
           </motion.div>
         </div>
       </div>

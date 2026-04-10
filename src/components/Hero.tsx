@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import MagneticButton from "@/components/ui/MagneticButton";
-import SearchBar from "@/components/ui/SearchBar";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -54,7 +53,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative h-[120vh] w-full flex flex-col items-center justify-start pt-32 overflow-hidden bg-bg-light transition-colors duration-1000">
+    <section ref={containerRef} className="relative min-h-screen md:h-[120vh] w-full flex flex-col items-center justify-start pt-24 md:pt-32 overflow-hidden bg-bg-light transition-colors duration-1000">
       {/* Background with Ambient Glows */}
       <div className="absolute inset-0 z-0">
         <div className="hero-video-wrap absolute inset-0">
@@ -63,7 +62,7 @@ export default function Hero() {
             loop
             muted
             playsInline
-            className="h-[80%] w-full object-cover rounded-b-[40px] shadow-2xl"
+            className="h-[75%] md:h-[80%] w-full object-cover rounded-b-[40px] shadow-2xl"
           >
             <source src="/24541-343454486.mp4" type="video/mp4" />
           </video>
@@ -78,52 +77,52 @@ export default function Hero() {
 
       <div className="container relative z-20 px-6">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-block overflow-hidden mb-6">
+          <div className="inline-block overflow-hidden mb-4 md:mb-6">
             <motion.span 
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="block text-brand-teal font-sans text-xs font-semibold uppercase tracking-widest"
+              className="block text-brand-teal font-sans text-[10px] md:text-xs font-semibold uppercase tracking-widest"
             >
               Luxury Travel Experiences
             </motion.span>
           </div>
           
-          <h1 className="font-serif text-6xl md:text-[80px] lg:text-[110px] leading-[1] tracking-tight mb-8 text-onyx">
-            <div className="hero-reveal overflow-hidden pb-2 md:pb-4">
-              <span className="block">Let's explore the</span>
+          <h1 className="font-serif text-5xl md:text-[80px] lg:text-[110px] leading-[1.1] md:leading-[1] tracking-tight mb-6 md:mb-8 text-onyx">
+            <div className="hero-reveal overflow-hidden pb-1 md:pb-4">
+              <span className="block">Let&apos;s explore the</span>
             </div>
-            <div className="hero-reveal overflow-hidden pb-4 md:pb-6">
+            <div className="hero-reveal overflow-hidden pb-2 md:pb-6">
               <span className="block italic">world together</span>
             </div>
           </h1>
 
-          <div className="hero-sub-reveal max-w-2xl mx-auto mb-16">
-            <p className="font-sans text-onyx/60 text-lg md:text-xl leading-relaxed font-medium">
-              Custom travel plans made <span className="text-onyx">just for you</span>. 
+          <div className="hero-sub-reveal max-w-2xl mx-auto mb-10 md:mb-16">
+            <p className="font-sans text-onyx/70 text-base md:text-xl leading-relaxed font-medium px-4">
+              Custom travel plans made <span className="text-onyx font-bold">just for you</span>. 
               We help you explore the world with ease and comfort.
             </p>
           </div>
 
-          <div className="hero-cta-reveal flex flex-col sm:flex-row items-center justify-center gap-6 mt-10">
-            <MagneticButton className="interactive px-12 py-5 bg-brand-teal text-bg-light font-medium text-sm rounded-[40px] transition-all duration-500 hover:scale-105 hover:bg-brand-tealDark shadow-xl">
+          <div className="hero-cta-reveal flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 mt-6 md:mt-10">
+            <MagneticButton className="interactive w-full sm:w-auto px-12 py-5 bg-brand-teal text-bg-light font-medium text-sm rounded-[40px] transition-all duration-500 hover:scale-105 hover:bg-brand-tealDark shadow-xl">
               Start Designing
             </MagneticButton>
-            <button className="interactive font-sans text-sm font-medium text-onyx-muted hover:text-onyx transition-colors py-4">
+            <button className="interactive font-sans text-sm font-medium text-onyx-muted hover:text-onyx transition-colors py-2 md:py-4">
               Explore Portfolio
             </button>
           </div>
           
           {/* Overlapping Hero Cards */}
-          <div className="mt-20 w-full flex justify-center items-end gap-4 overflow-visible px-4 z-30 opacity-0 hero-search-reveal">
+          <div className="mt-12 md:mt-20 w-full flex justify-center items-end gap-3 md:gap-4 overflow-visible px-4 z-30 opacity-0 hero-search-reveal">
             {[ 
               "/customer/image copy 8.png", 
               "/customer/image copy 9.png", 
               "/customer/image copy 10.png", 
               "/customer/image copy 3.png" 
             ].map((src, i) => (
-              <div key={i} className="relative w-[200px] h-[280px] rounded-2xl bg-white shadow-2xl overflow-hidden border-4 border-white transform transition-transform hover:-translate-y-4 duration-500 even:translate-y-8">
-                <Image src={src} alt="Destination" fill className="object-cover" />
+              <div key={i} className="relative w-[38vw] h-[50vw] sm:w-[160px] sm:h-[220px] md:w-[200px] md:h-[280px] rounded-2xl bg-white shadow-2xl overflow-hidden border-4 border-white transform transition-transform hover:-translate-y-4 duration-500 even:translate-y-[4vw] md:even:translate-y-8 flex-shrink-0 first:hidden last:hidden sm:first:block sm:last:block">
+                <Image src={src} alt="Destination" fill className="object-cover" sizes="(max-width: 640px) 38vw, (max-width: 768px) 160px, 200px" />
               </div>
             ))}
           </div>

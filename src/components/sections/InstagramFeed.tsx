@@ -25,14 +25,14 @@ export default function InstagramFeed() {
           </h2>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6 pt-10 pb-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 pt-10 pb-10 max-w-4xl mx-auto">
           {feed.map((item, i) => (
             <a 
               key={i} 
               href={item.link} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className={`relative w-40 h-40 md:w-56 md:h-56 rounded-xl overflow-hidden group cursor-pointer shadow-lg border-4 border-white transform transition-transform hover:scale-110 hover:z-10 ${i % 2 === 0 ? '-rotate-3 hover:rotate-0' : 'rotate-3 hover:rotate-0'} ${i === 2 || i === 4 ? 'translate-y-8' : ''}`}
+              className={`relative aspect-square rounded-xl overflow-hidden group cursor-pointer shadow-lg border-2 md:border-4 border-white transform transition-transform hover:scale-105 hover:z-10 ${i % 2 === 0 ? '-rotate-1 md:-rotate-2 hover:rotate-0' : 'rotate-1 md:rotate-2 hover:rotate-0'}`}
             >
               <Image 
                 src={item.src} 
