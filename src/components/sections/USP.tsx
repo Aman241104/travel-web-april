@@ -9,14 +9,14 @@ if (typeof window !== "undefined") {
 }
 
 const services = [
-  { type: "image", img: "/customer/image copy 5.png" },
-  { type: "text", title: "City Walks", desc: "Walking tours in small groups across the city.", bg: "bg-brand-sand", text: "text-onyx" },
-  { type: "image", img: "/customer/image copy 6.png" },
-  { type: "text", title: "Jungle Tours", desc: "Discover wildlife with our experienced guides.", bg: "bg-brand-teal", text: "text-white" },
-  { type: "text", title: "Boat Tours", desc: "Explore the islands and hidden lagoons.", bg: "bg-[#71B5A3]", text: "text-white" },
-  { type: "image", img: "/customer/image copy 7.png" },
-  { type: "text", title: "Mountain Hiking", desc: "Reach new heights with our climbing trips.", bg: "bg-brand-yellow", text: "text-onyx" },
-  { type: "image", img: "/customer/image copy 4.png" },
+  { type: "text", title: "Passport", desc: "Expert assistance for new applications, renewals, and all documentation needs.", bg: "bg-brand-sand", text: "text-onyx" },
+  { type: "text", title: "Domestic & International Tickets", desc: "Seamless flight bookings worldwide with the best routes and fares.", bg: "bg-brand-teal", text: "text-white" },
+  { type: "text", title: "Custom Tour Packages", desc: "Bespoke domestic and international itineraries tailored to your style.", bg: "bg-[#71B5A3]", text: "text-white" },
+  { type: "text", title: "Hotel Bookings", desc: "Curated stays at the world's most beautiful luxury hotels and resorts.", bg: "bg-brand-yellow", text: "text-onyx" },
+  { type: "text", title: "Car Rental", desc: "Reliable transportation services for your local and international travels.", bg: "bg-brand-teal", text: "text-white" },
+  { type: "text", title: "Visitor Visa", desc: "Comprehensive guidance and processing for global visa applications.", bg: "bg-brand-sand", text: "text-onyx" },
+  { type: "text", title: "Overseas Insurance", desc: "Protect your journey with reliable and extensive travel insurance plans.", bg: "bg-brand-yellow", text: "text-onyx" },
+  { type: "text", title: "Forex", desc: "Secure and efficient foreign exchange services at competitive rates.", bg: "bg-[#71B5A3]", text: "text-white" },
 ];
 
 export default function USP() {
