@@ -1,102 +1,144 @@
 "use client";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plane, FileText, Map, Hotel, Car, Globe, Shield, Landmark, ChevronDown, ChevronUp } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import { Map, Plane, Hotel, Shield, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
-const primaryServices = [
-  { icon: Map, title: "Bespoke Itineraries", desc: "Personalized travel plans designed around your unique preferences and interests." },
-  { icon: Plane, title: "Global Flight Access", desc: "First and business class travel with exclusive rates and preferred seating." },
-  { icon: Hotel, title: "Elite Accommodations", desc: "Direct access to the world's finest hotels, villas, and private islands." },
-  { icon: Shield, title: "Concierge Support", desc: "24/7 dedicated assistance for a seamless and worry-free travel experience." },
-];
-
-const secondaryServices = [
-  { icon: FileText, title: "Visa & Passport", desc: "Expert handling of documentation and expedited processing for 100+ countries." },
-  { icon: Car, title: "Chauffeur Services", desc: "Luxury ground transportation for seamless transitions from arrival to destination." },
-  { icon: Globe, title: "Local Expertise", desc: "On-the-ground support and insider knowledge for authentic experiences." },
-  { icon: Landmark, title: "Forex & Finance", desc: "Secure financial services tailored for the international traveler." },
+const serviceExperiences = [
+  {
+    id: "01",
+    title: "Architectural Curation",
+    shortTitle: "Bespoke Itineraries",
+    desc: "We don't just plan trips; we architect life-changing experiences tailored to your personal rhythm and curiosities.",
+    longDesc: "Our designers spend hundreds of hours researching and scouting locations to ensure your journey is unlike anything ever seen. From private access to the Vatican to dinner with local legends, we curate the impossible.",
+    icon: Map,
+    image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    id: "02",
+    title: "Seamless Global Access",
+    shortTitle: "Elite Logistics",
+    desc: "First-class isn't just a ticket; it's a standard of movement. We ensure every transition is invisible.",
+    longDesc: "Direct tarmac transfers, private terminal access, and preferred seating on the world's most exclusive carriers. Your transition from arrival to sanctuary is handled with absolute discretion and speed.",
+    icon: Plane,
+    image: "https://images.unsplash.com/photo-1540339832862-4745591f5144?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    id: "03",
+    title: "Sanctuary Selection",
+    shortTitle: "Elite Stays",
+    desc: "We provide access to the world's most secluded hideaways, from private islands to historic estates.",
+    longDesc: "Beyond 5-star hotels, we unlock private villas and estates that aren't on any public map. Each property is vetted for privacy, aesthetic excellence, and the standard of service you demand.",
+    icon: Hotel,
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    id: "04",
+    title: "Invisible Concierge",
+    shortTitle: "24/7 Support",
+    desc: "Expert assistance that anticipates your needs before you've even voiced them.",
+    longDesc: "A dedicated concierge team that operates in your time zone, ahead of your schedule. Whether it's a last-minute change of plans or a rare request in a remote location, we are always one step ahead.",
+    icon: Shield,
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop"
+  }
 ];
 
 export default function ServicesGrid() {
-  const [showAll, setShowAll] = useState(false);
+  const [activeService, setActiveService] = useState(0);
 
   return (
-    <section id="services" className="bg-white py-24 md:py-40">
+    <section id="services" className="bg-[#FBF6EE] py-24 md:py-48 relative overflow-hidden">
+      {/* Background Aesthetic */}
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#6FC3B2]/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
+      
       <div className="container mx-auto px-6">
-        {/* Header Section */}
-        <div className="max-w-3xl mb-16 md:mb-24">
-          <motion.span 
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="text-brand-teal font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-4 block"
-          >
-            Excellence in Every Detail
-          </motion.span>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="font-serif text-4xl md:text-7xl text-onyx leading-tight tracking-tight"
-          >
-            Comprehensive Travel <br />
-            <span className="italic font-light text-brand-teal/80">Management</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mt-8 text-onyx/60 font-sans text-xl max-w-xl leading-relaxed"
-          >
-            From logistical precision to curated discovery, we handle every aspect of your journey with discretion.
-          </motion.p>
-        </div>
-
-        {/* Primary Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
-          {primaryServices.map((service, i) => (
-            <ServiceCard key={i} service={service} index={i} />
-          ))}
-        </div>
-
-        {/* Secondary Services (Expandable) */}
-        <AnimatePresence>
-          {showAll && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden"
+        <div className="flex flex-col lg:flex-row gap-20 lg:gap-32">
+          
+          {/* LEFT SIDE: Sticky Highlight Flow */}
+          <div className="w-full lg:w-[45%] h-fit lg:sticky lg:top-32">
+            <motion.div
+              key={activeService}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-10"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 pt-6 lg:pt-10">
-                {secondaryServices.map((service, i) => (
-                  <ServiceCard key={i} service={service} index={i + 4} />
+              <div>
+                <span className="text-[#6FC3B2] font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.5em] mb-6 block">
+                  Experience Curation
+                </span>
+                <h2 className="font-serif text-5xl md:text-7xl text-[#0F2F2A] leading-[1.05] tracking-tight mb-8">
+                  {serviceExperiences[activeService].title}
+                </h2>
+                <p className="text-[#0F2F2A]/60 font-sans text-xl leading-relaxed max-w-md">
+                  {serviceExperiences[activeService].longDesc}
+                </p>
+              </div>
+
+              {/* Dynamic Image Reveal */}
+              <div className="relative w-full aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeService}
+                    initial={{ scale: 1.1, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.9, opacity: 0 }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute inset-0"
+                  >
+                    <Image 
+                      src={serviceExperiences[activeService].image} 
+                      alt={serviceExperiences[activeService].title} 
+                      fill 
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F2F2A]/40 to-transparent" />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Progress Indicator */}
+              <div className="flex items-center gap-4 pt-8">
+                {serviceExperiences.map((_, i) => (
+                  <div 
+                    key={i}
+                    className={`h-[2px] transition-all duration-700 ease-out ${
+                      activeService === i ? "w-12 bg-[#6FC3B2]" : "w-6 bg-[#0F2F2A]/10"
+                    }`}
+                  />
                 ))}
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
+          </div>
 
-        {/* Global Action / Toggle */}
-        <div className="mt-20 flex flex-col items-center justify-center gap-8 border-t border-onyx/5 pt-16">
-          <p className="text-onyx/40 font-sans text-sm uppercase tracking-widest text-center">
-            {showAll ? "Explore our comprehensive suite" : "Discover our full range of specialist services"}
-          </p>
-          <div className="flex flex-col sm:flex-row items-center gap-6">
-            <button 
-              onClick={() => setShowAll(!showAll)}
-              className="group flex items-center gap-4 px-10 py-5 border border-onyx/10 rounded-full font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-onyx hover:bg-onyx hover:text-white transition-all duration-500"
+          {/* RIGHT SIDE: Interactive Vertical Stack */}
+          <div className="w-full lg:w-[55%] flex flex-col gap-6">
+            {serviceExperiences.map((service, index) => (
+              <ServiceExperienceCard 
+                key={service.id} 
+                service={service} 
+                isActive={activeService === index}
+                onInView={() => setActiveService(index)}
+              />
+            ))}
+
+            {/* Final Conversion Point */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mt-12 p-12 rounded-[3rem] bg-[#0F2F2A] text-white flex flex-col md:flex-row items-center justify-between gap-8"
             >
-              <span>{showAll ? "Show Less" : "View All Services"}</span>
-              {showAll ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />}
-            </button>
-            
-            <button className="px-10 py-5 bg-brand-teal text-white font-sans text-[10px] font-bold uppercase tracking-[0.2em] rounded-full hover:bg-onyx transition-all duration-500 shadow-xl shadow-brand-teal/20">
-              Consult Our Experts
-            </button>
+              <div>
+                <h4 className="font-serif text-3xl mb-2">Ready for a private consultation?</h4>
+                <p className="text-white/40 font-sans text-base">Let our experts handle every detail of your next journey.</p>
+              </div>
+              <button className="group px-10 py-5 bg-[#6FC3B2] text-[#0F2F2A] font-sans text-xs font-bold uppercase tracking-[0.3em] rounded-full hover:bg-white transition-all duration-500 flex items-center gap-3">
+                Connect Now
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -104,22 +146,75 @@ export default function ServicesGrid() {
   );
 }
 
-function ServiceCard({ service, index }: { service: any, index: number }) {
+function ServiceExperienceCard({ service, isActive, onInView }: { service: any; isActive: boolean; onInView: () => void }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { margin: "-40% 0px -40% 0px" });
+
+  useEffect(() => {
+    if (isInView) {
+      onInView();
+    }
+  }, [isInView, onInView]);
+
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 20 }}
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: (index % 4) * 0.1, duration: 0.8 }}
-      className="group p-10 md:p-12 rounded-[2.5rem] bg-cream/30 border border-onyx/5 hover:bg-onyx hover:border-onyx transition-all duration-700 ease-in-out flex flex-col items-start"
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className={`relative p-10 md:p-14 rounded-[3rem] transition-all duration-700 cursor-pointer overflow-hidden border ${
+        isActive 
+          ? "bg-[#0F2F2A] text-white border-transparent shadow-2xl scale-[1.02]" 
+          : "bg-white/60 text-[#0F2F2A] border-black/5 hover:bg-white"
+      }`}
+      onClick={onInView}
     >
-      <div className="w-16 h-16 rounded-2xl bg-brand-teal/10 flex items-center justify-center text-brand-teal mb-10 group-hover:bg-white/10 group-hover:scale-110 transition-all duration-500">
-        <service.icon className="w-8 h-8" />
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12 relative z-10">
+        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500 ${
+          isActive ? "bg-[#6FC3B2] text-[#0F2F2A]" : "bg-[#FBF6EE] text-[#6FC3B2]"
+        }`}>
+          <service.icon className="w-8 h-8" />
+        </div>
+        
+        <div className="flex-grow">
+          <div className="flex items-center gap-3 mb-3">
+            <span className={`font-sans text-[10px] font-bold tracking-[0.4em] uppercase ${isActive ? "text-[#6FC3B2]" : "text-[#0F2F2A]/30"}`}>
+              Service {service.id}
+            </span>
+          </div>
+          <h3 className={`font-serif text-3xl md:text-4xl leading-tight transition-colors duration-500`}>
+            {service.shortTitle}
+          </h3>
+          
+          <AnimatePresence>
+            {isActive && (
+              <motion.p 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="font-sans text-lg leading-relaxed mt-6 text-white/60 max-w-lg"
+              >
+                {service.desc}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <div className={`hidden md:flex items-center gap-3 transition-all duration-500 ${isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"}`}>
+          <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-[#6FC3B2]">
+            <ArrowRight className="w-5 h-5" />
+          </div>
+        </div>
       </div>
-      <h3 className="font-serif text-3xl text-onyx mb-4 group-hover:text-white transition-colors duration-500">{service.title}</h3>
-      <p className="text-onyx/60 font-sans text-lg leading-relaxed group-hover:text-white/60 transition-colors duration-500">
-        {service.desc}
-      </p>
+
+      {/* Background Micro Interaction */}
+      {isActive && (
+        <motion.div 
+          layoutId="activeGlow"
+          className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none"
+        />
+      )}
     </motion.div>
   );
 }

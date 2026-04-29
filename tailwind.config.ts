@@ -11,11 +11,16 @@ export default {
       colors: {
         "bg-light": "#FBF6EE",
         onyx: {
-          DEFAULT: "#1C3B34",
+          DEFAULT: "#0F2F2A", // Deep Forest Green
           light: "#254F46",
           muted: "#36665B",
         },
         brand: {
+          emerald: "#2F7F73", 
+          softGreen: "#6FC3B2", // Soft luxury green
+          subtext: "#D6E2DF", // Light subtext
+          cream: "#F7F6F3", 
+          muted: "#A8B3B0", 
           teal: "#6CB4A5",
           tealDark: "#5AA092",
           sand: "#FBF6EE",
