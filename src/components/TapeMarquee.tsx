@@ -10,39 +10,37 @@ interface TapeMarqueeProps {
 
 export default function TapeMarquee({
   reverse = false,
-  rotate = -1,
-  speed = 25,
+  rotate = -0.5,
+  speed = 40,
   text = "Organic Elegance • Expertly Curated • Premium Journeys • Luxury Travel • ",
 }: TapeMarqueeProps) {
-  const marqueeText = Array(10).fill(text).join(" ");
+  const marqueeText = text.repeat(10);
 
   return (
     <div 
-      className="bg-brand-teal text-white py-6 md:py-8 overflow-hidden shadow-2xl transition-colors duration-1000 border-y border-white/10"
-      style={{ transform: `rotate(${rotate}deg) scale(1.05)` }}
+      className="bg-brand-teal text-white py-4 md:py-6 overflow-hidden transition-colors duration-1000 border-y border-white/5"
+      style={{ transform: `rotate(${rotate}deg) scale(1.02)` }}
     >
       <div className="flex whitespace-nowrap">
         <motion.div
-          initial={{ x: reverse ? "-50%" : "0%" }}
-          animate={{ x: reverse ? "0%" : "-50%" }}
+          animate={{ x: reverse ? [ "-50%", "0%" ] : [ "0%", "-50%" ] }}
           transition={{
             duration: speed,
             repeat: Infinity,
             ease: "linear",
           }}
-          className="font-serif italic tracking-[0.2em] text-2xl lg:text-3xl text-brand-sand/80 px-8"
+          className="font-serif italic tracking-[0.2em] text-lg md:text-xl text-white/90"
         >
           {marqueeText}
         </motion.div>
         <motion.div
-          initial={{ x: reverse ? "-50%" : "0%" }}
-          animate={{ x: reverse ? "0%" : "-50%" }}
+          animate={{ x: reverse ? [ "-50%", "0%" ] : [ "0%", "-50%" ] }}
           transition={{
             duration: speed,
             repeat: Infinity,
             ease: "linear",
           }}
-          className="font-serif italic tracking-[0.2em] text-2xl lg:text-3xl text-brand-sand/80 px-8 absolute top-[50%] left-0 -translate-y-[50%]"
+          className="font-serif italic tracking-[0.2em] text-lg md:text-xl text-white/90"
         >
           {marqueeText}
         </motion.div>

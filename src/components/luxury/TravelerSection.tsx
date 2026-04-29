@@ -3,60 +3,62 @@ import Image from "next/image";
 
 export default function TravelerSection() {
   return (
-    <section className="py-32 md:py-56 bg-white dark:bg-onyx relative overflow-hidden transition-colors duration-1000">
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
+    <section className="py-24 md:py-48 bg-bg-light overflow-hidden">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-center">
           
           <div className="lg:col-span-7">
-            <span className="text-accent-blue font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-8 block">
-              Travel Experts
+            <span className="text-brand-teal font-sans text-xs font-bold uppercase tracking-[0.3em] mb-8 block">
+              The Architects of Adventure
             </span>
             
-            <h2 className="font-serif text-7xl md:text-[140px] leading-[0.95] tracking-tightest mb-16 text-onyx dark:text-white">
-              Experts <br />
-              <span className="text-accent-blue italic font-light">in Travel.</span>
+            <h2 className="font-serif text-5xl md:text-8xl leading-tight tracking-tight mb-12 text-onyx">
+              Experts in <br />
+              <span className="text-brand-teal italic font-light">The Art of Travel</span>
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 text-onyx/60 dark:text-white/60 font-sans text-lg leading-relaxed font-medium">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-onyx/60 font-sans text-lg leading-relaxed">
               <p>
-                Planning perfect trips for over 15 years. Jigar Shah and Dhara Patel make sure every detail is taken care of.
+                With over 15 years of dedicated experience, Jigar Shah and Dhara Patel bring unparalleled expertise to every journey.
               </p>
               <p>
-                Our experience ensures that your trip is smooth, easy, and exactly what you wanted.
+                Our deep industry connections and meticulous attention to detail ensure a seamless, high-touch experience from first consultation to return.
               </p>
             </div>
             
-            <div className="mt-24 pt-16 border-t border-onyx/10 dark:border-white/10 flex flex-wrap items-start gap-16">
+            <div className="mt-16 pt-12 border-t border-onyx/10 flex flex-wrap items-start gap-12 md:gap-24">
               <div>
-                <p className="font-serif text-3xl text-accent-blue mb-2 leading-none">Jigar Shah</p>
-                <p className="text-[9px] uppercase tracking-[0.4em] text-onyx/40 dark:text-white/40 font-black mb-4">Proprietor</p>
-                <p className="text-xs font-sans text-onyx/60 dark:text-white/60">+91 98254 38324</p>
-                <p className="text-xs font-sans text-onyx/60 dark:text-white/60">jigar@jadetravels.co.in</p>
+                <p className="font-serif text-3xl text-onyx mb-2">Jigar Shah</p>
+                <p className="text-[10px] uppercase tracking-widest text-brand-teal font-bold mb-4">Proprietor</p>
+                <div className="space-y-1">
+                  <p className="text-xs font-sans text-onyx/60">+91 98254 38324</p>
+                  <p className="text-xs font-sans text-onyx/60">jigar@jadetravels.co.in</p>
+                </div>
               </div>
-              <div className="hidden md:block w-[1px] h-24 bg-onyx/10 dark:bg-white/10" />
               <div>
-                <p className="font-serif text-3xl text-accent-blue mb-2 leading-none">Dhara Patel</p>
-                <p className="text-[9px] uppercase tracking-[0.4em] text-onyx/40 dark:text-white/40 font-black mb-4">Tours & Packages</p>
-                <p className="text-xs font-sans text-onyx/60 dark:text-white/60">+91 99044 55127</p>
-                <p className="text-xs font-sans text-onyx/60 dark:text-white/60">dhara@jadetravels.co.in</p>
+                <p className="font-serif text-3xl text-onyx mb-2">Dhara Patel</p>
+                <p className="text-[10px] uppercase tracking-widest text-brand-teal font-bold mb-4">Tours & Packages</p>
+                <div className="space-y-1">
+                  <p className="text-xs font-sans text-onyx/60">+91 99044 55127</p>
+                  <p className="text-xs font-sans text-onyx/60">dhara@jadetravels.co.in</p>
+                </div>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-5 relative">
-            <div className="relative aspect-[3/4] rounded-[2px] overflow-hidden shadow-2xl z-10 bg-white dark:bg-onyx border border-onyx/5 dark:border-white/5">
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
               <Image 
                 src="/assets/generated-expert.png"
                 alt="Jade Travels Experts"
                 fill
-                className="object-cover transition-all duration-[1500ms] hover:scale-105"
+                className="object-cover transition-transform duration-[1.5s] hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
             </div>
-            
-            <div className="absolute -bottom-10 right-10 bg-onyx dark:bg-white px-12 py-10 rounded-[2px] shadow-2xl z-20 transition-transform duration-500">
-              <p className="font-serif text-3xl text-white dark:text-onyx leading-none mb-2 tracking-tighter">Established 2011</p>
-              <p className="font-sans text-[10px] uppercase tracking-[0.5em] text-accent-blue font-black">Expert Curation</p>
+            <div className="absolute -bottom-6 -right-6 bg-white p-8 md:p-12 rounded-2xl shadow-2xl border border-onyx/5">
+              <p className="font-serif text-2xl text-onyx mb-1">Established 2011</p>
+              <p className="font-sans text-[10px] font-bold uppercase tracking-widest text-brand-teal">Ahmedabad, Gujarat</p>
             </div>
           </div>
 

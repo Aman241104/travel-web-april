@@ -1,12 +1,6 @@
 "use client";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const testimonials = [
   {
@@ -27,50 +21,34 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(".testimonial-card", 
-        { opacity: 0, scale: 0.95 },
-        {
-          opacity: 1,
-          scale: 1,
-          stagger: 0.2,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={sectionRef} className="py-32 md:py-56 bg-white relative overflow-hidden transition-colors duration-1000">
+    <section className="py-24 md:py-48 bg-white overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="max-w-2xl mx-auto text-center mb-32">
-          <Quote className="w-12 h-12 text-accent-blue/20 mx-auto mb-10" />
-          <h2 className="font-serif text-6xl md:text-[100px] text-onyx leading-[0.9] tracking-tightest">
+        <div className="max-w-4xl mx-auto text-center mb-24 md:mb-32">
+          <Quote className="w-10 h-10 text-brand-teal/20 mx-auto mb-8" />
+          <h2 className="font-serif text-4xl md:text-7xl text-onyx leading-tight tracking-tight">
             Voices of the <br />
-            <span className="text-accent-blue italic font-light">Discerning.</span>
+            <span className="italic font-light text-brand-teal">Discerning Traveler</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-24 md:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12 lg:gap-24">
           {testimonials.map((t, i) => (
-            <div key={i} className="testimonial-card flex flex-col items-center text-center">
-              <p className="font-serif text-2xl text-onyx/80 leading-relaxed mb-16 italic">
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.8 }}
+              className="flex flex-col items-center text-center"
+            >
+              <p className="font-serif text-xl md:text-2xl text-onyx/80 leading-relaxed mb-10 italic">
                 &ldquo;{t.quote}&rdquo;
               </p>
-              <div className="w-12 h-[1px] bg-onyx/10 mb-8" />
-              <h4 className="font-sans text-[10px] uppercase tracking-[0.4em] font-black text-onyx mb-2">{t.author}</h4>
-              <p className="font-sans text-[9px] uppercase tracking-widest text-onyx/40 font-medium">{t.role}</p>
-            </div>
+              <div className="w-8 h-[1px] bg-brand-teal/30 mb-6" />
+              <h4 className="font-sans text-[10px] uppercase tracking-[0.3em] font-bold text-onyx mb-1">{t.author}</h4>
+              <p className="font-sans text-[9px] uppercase tracking-widest text-onyx/40">{t.role}</p>
+            </motion.div>
           ))}
         </div>
       </div>

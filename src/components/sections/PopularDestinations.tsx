@@ -1,105 +1,112 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-const tours = [
-  { id: 1, title: "Maldive Serenity", loc: "North Malé Atoll", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1200&auto=format&fit=crop", desc: "Private villas on the water." },
-  { id: 2, title: "Alpine Heritage", loc: "Zermatt, Switzerland", img: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=1200&auto=format&fit=crop", desc: "Quiet mountain stays." },
-  { id: 3, title: "Kyoto Zen Retreat", loc: "Kyoto, Japan", img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop", desc: "Peaceful ancient sites." },
-  { id: 4, title: "Desert Gold", loc: "Dubai, UAE", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop", desc: "Modern luxury in the desert." },
+const destinations = [
+  { 
+    id: 1, 
+    title: "Maldive Serenity", 
+    loc: "North Malé Atoll", 
+    img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1200&auto=format&fit=crop", 
+    category: "Coastal Escape" 
+  },
+  { 
+    id: 2, 
+    title: "Alpine Heritage", 
+    loc: "Zermatt, Switzerland", 
+    img: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=1200&auto=format&fit=crop", 
+    category: "Mountain Retreat" 
+  },
+  { 
+    id: 3, 
+    title: "Kyoto Zen", 
+    loc: "Kyoto, Japan", 
+    img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop", 
+    category: "Cultural Journey" 
+  },
+  { 
+    id: 4, 
+    title: "Desert Gold", 
+    loc: "Dubai, UAE", 
+    img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop", 
+    category: "Modern Luxury" 
+  },
+  { 
+    id: 5, 
+    title: "Amalfi Dreams", 
+    loc: "Positano, Italy", 
+    img: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1200&auto=format&fit=crop", 
+    category: "Mediterranean Bliss" 
+  },
+  { 
+    id: 6, 
+    title: "Safari Spirit", 
+    loc: "Maasai Mara, Kenya", 
+    img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200&auto=format&fit=crop", 
+    category: "Wildlife Adventure" 
+  },
 ];
 
 export default function PopularDestinations() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const sliderRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const slider = sliderRef.current;
-      if (!slider) return;
-
-      const getScrollDistance = () => {
-        return slider.scrollWidth - window.innerWidth;
-      };
-
-      gsap.to(slider, {
-        x: () => -getScrollDistance(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          pin: true,
-          scrub: 0.8,
-          anticipatePin: 1,
-          start: "top top",
-          end: () => `+=${getScrollDistance()}`,
-          invalidateOnRefresh: true,
-        },
-      });
-    }, containerRef);
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={containerRef} className="bg-bg-light relative overflow-hidden h-[80vh] md:h-screen flex items-center py-0">
-      <div 
-        ref={sliderRef} 
-        className="flex items-center gap-0 md:gap-24 px-0 md:px-[10vw] w-max relative z-10 overflow-x-visible no-scrollbar"
-      >
-        <div className="flex-shrink-0 w-screen md:w-[40vw] snap-center px-8 md:px-0">
-          <span className="text-brand-teal font-sans text-[10px] font-black uppercase tracking-[0.6em] mb-4 md:mb-8 block">
-            Destinations
-          </span>
-          <h2 className="font-serif text-4xl md:text-[80px] text-onyx leading-[1.1] tracking-tight mb-8 md:mb-16">
-            Where <br />
-            <span className="text-brand-teal italic font-light">We Go.</span>
-          </h2>
-        </div>
-
-        {tours.map((tour) => (
-          <div 
-            key={tour.id} 
-            className="group relative w-screen md:w-[45vw] lg:w-[40vw] px-4 md:px-0 h-[55vh] md:h-[65vh] flex-shrink-0 snap-center"
-          >
-            <div className="relative w-full h-full rounded-[24px] md:rounded-[32px] overflow-hidden shadow-2xl">
-              <Image 
-                src={tour.img} 
-                alt={tour.title} 
-                fill 
-                className="object-cover transition-transform duration-[2000ms] group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/80 via-transparent to-transparent opacity-90" />
-              
-              <div className="absolute bottom-10 left-10 right-10 flex items-end justify-between">
-                <div>
-                  <span className="text-brand-teal font-sans text-xs font-semibold uppercase tracking-widest mb-3 block">{tour.loc}</span>
-                  <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-brand-sand mb-3 leading-tight">{tour.title}</h3>
-                  <p className="text-brand-sand/80 font-sans text-xs md:text-sm">{tour.desc}</p>
-                </div>
-                <button className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:bg-brand-teal hover:scale-110 transition-all duration-500 shrink-0">
-                  <ArrowUpRight className="w-5 h-5 md:w-6 md:h-6" />
-                </button>
-              </div>
-            </div>
+    <section className="bg-bg-light py-24 md:py-32">
+      <div className="container mx-auto px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-8">
+          <div className="max-w-2xl">
+            <span className="text-brand-teal font-sans text-xs font-bold uppercase tracking-[0.3em] mb-4 block">
+              Curated Collections
+            </span>
+            <h2 className="font-serif text-4xl md:text-7xl text-onyx leading-tight tracking-tight">
+              Destinations for the <br />
+              <span className="italic font-light">Discerning Traveler</span>
+            </h2>
           </div>
-        ))}
-
-        <div className="flex-shrink-0 w-screen md:w-[40vw] text-center px-8 md:px-0">
-          <h2 className="font-serif text-4xl md:text-6xl text-onyx mb-10 md:mb-12 leading-tight">Your story <br /><span className="text-brand-teal italic font-light">awaits.</span></h2>
-          <button className="px-10 py-5 bg-onyx text-white rounded-full font-sans text-xs font-semibold uppercase tracking-widest hover:bg-brand-teal transition-all duration-500 shadow-xl inline-block">
-            View All Access
+          <button className="group flex items-center gap-3 font-sans text-sm font-bold uppercase tracking-widest text-onyx hover:text-brand-teal transition-colors">
+            <span>Explore All</span>
+            <ArrowRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-2" />
           </button>
         </div>
 
-        {/* Spacer for extra scroll room */}
-        <div className="flex-shrink-0 w-[0vw] md:w-[15vw]" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+          {destinations.map((dest, i) => (
+            <motion.div 
+              key={dest.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.8 }}
+              className="group cursor-pointer"
+            >
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-6 shadow-xl">
+                <Image 
+                  src={dest.img} 
+                  alt={dest.title} 
+                  fill 
+                  className="object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-onyx/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="absolute bottom-8 left-8 right-8 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                  <span className="text-brand-teal font-sans text-[10px] font-bold uppercase tracking-widest mb-2 block">
+                    {dest.category}
+                  </span>
+                  <button className="text-white font-sans text-xs font-bold uppercase tracking-[0.2em] flex items-center gap-2">
+                    View Details <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+              
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="font-serif text-2xl text-onyx mb-1">{dest.title}</h3>
+                  <p className="text-onyx/60 font-sans text-sm tracking-wide">{dest.loc}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

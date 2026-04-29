@@ -1,55 +1,41 @@
 "use client";
 import Link from "next/link";
-import { Globe, Mail, Phone, MessageSquare } from "lucide-react";
-import MagneticButton from "@/components/ui/MagneticButton";
+import { Globe, Mail, Phone, Map } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-onyx pt-32 pb-12 overflow-hidden relative border-t border-onyx/5 dark:border-white/5 transition-colors duration-1000">
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-24 mb-32">
+    <footer className="bg-white pt-24 pb-12 overflow-hidden border-t border-onyx/5">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-24 mb-24">
           <div className="lg:col-span-2">
-            <Link href="/" className="font-serif text-4xl tracking-tightest text-onyx dark:text-white mb-10 block">
-              JADE
+            <Link href="/" className="group flex flex-col items-start leading-none mb-8">
+              <span className="font-serif text-4xl tracking-tightest text-onyx transition-colors duration-500">JADE</span>
+              <span className="font-sans text-[10px] font-black uppercase tracking-[0.5em] text-brand-teal mt-1">Travels</span>
             </Link>
-            <p className="text-onyx/50 dark:text-white/60 max-w-sm font-sans leading-relaxed mb-12 font-medium">
-              Planning perfect trips for our clients since 2011.
+            <p className="text-onyx/50 max-w-sm font-sans leading-relaxed mb-12">
+              Curating exceptional global experiences since 2011. Based in Ahmedabad, serving the discerning traveler worldwide.
             </p>
-            
-            <div className="space-y-8 mb-12">
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-brand-teal mb-2 font-black">Jigar Shah (Proprietor)</p>
-                <p className="text-lg font-sans font-medium text-onyx dark:text-white">+91 98254 38324</p>
-                <p className="text-sm font-sans text-onyx/70 dark:text-white/50">jigar@jadetravels.co.in</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-brand-teal mb-2 font-black">Dhara Patel (Tours & Packages)</p>
-                <p className="text-lg font-sans font-medium text-onyx dark:text-white">+91 99044 55127</p>
-                <p className="text-sm font-sans text-onyx/70 dark:text-white/50">dhara@jadetravels.co.in</p>
-              </div>
-            </div>
-
             <div className="flex items-center gap-6">
-              {[Globe, Mail, Phone, MessageSquare].map((Icon, i) => (
-                <MagneticButton key={i} className="w-14 h-14 rounded-full border border-onyx/10 dark:border-white/10 flex items-center justify-center text-onyx/40 dark:text-white/60 hover:text-accent-blue hover:border-accent-blue transition-all bg-white dark:bg-onyx shadow-sm">
-                  <Icon className="w-5 h-5 stroke-[1.5px]" />
-                </MagneticButton>
+              {[Globe, Mail, Phone, Map].map((Icon, i) => (
+                <Link key={i} href="#" className="w-10 h-10 rounded-full border border-onyx/10 flex items-center justify-center text-onyx/40 hover:text-brand-teal hover:border-brand-teal transition-all">
+                  <Icon className="w-4 h-4" />
+                </Link>
               ))}
             </div>
           </div>
 
           <div>
-            <h4 className="font-sans text-[10px] font-black uppercase tracking-[0.4em] text-onyx/60 dark:text-white/50 mb-10">Links</h4>
-            <ul className="flex flex-col gap-6">
+            <h4 className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-onyx/40 mb-8">Navigation</h4>
+            <ul className="flex flex-col gap-4">
               {[
                 { name: "Destinations", href: "#packages" },
                 { name: "Services", href: "#services" },
-                { name: "Our Mission", href: "#usp" },
+                { name: "Process", href: "#process" },
                 { name: "Stories", href: "#journal" },
-                { name: "Travel Experts", href: "#about" },
+                { name: "Experts", href: "#about" },
               ].map((item) => (
                 <li key={item.name}>
-                  <Link href={item.href} className="text-onyx dark:text-white hover:text-accent-blue transition-colors font-serif text-xl">
+                  <Link href={item.href} className="text-onyx hover:text-brand-teal transition-colors font-serif text-lg">
                     {item.name}
                   </Link>
                 </li>
@@ -58,22 +44,26 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-sans text-[10px] font-black uppercase tracking-[0.4em] text-onyx/60 dark:text-white/40 mb-10">Legal</h4>
-            <ul className="flex flex-col gap-6">
-              {["Mandate", "Terms", "Privacy"].map((item) => (
-                <li key={item}>
-                  <Link href="#contact" className="text-onyx dark:text-white font-serif text-xl hover:text-accent-blue transition-colors">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <h4 className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-onyx/40 mb-8">Contact</h4>
+            <div className="space-y-6">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-teal mb-2">Concierge</p>
+                <p className="text-base font-serif text-onyx">+91 98254 38324</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-teal mb-2">Inquiries</p>
+                <p className="text-base font-serif text-onyx">hello@jadetravels.co.in</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="pt-12 border-t border-onyx/5 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 text-[10px] font-black uppercase tracking-[0.4em] text-onyx/50 dark:text-white/40">
-          <p>© 2026 JADE TRAVELS • ULTRA-LUXURY</p>
-          <p>ESTABLISHED IN AHMEDABAD</p>
+        <div className="pt-12 border-t border-onyx/5 flex flex-col md:flex-row items-center justify-between gap-8 text-[10px] font-bold uppercase tracking-[0.3em] text-onyx/30">
+          <p>© 2026 JADE TOURS & TRAVELS</p>
+          <div className="flex gap-8">
+            <Link href="#" className="hover:text-onyx transition-colors">Privacy</Link>
+            <Link href="#" className="hover:text-onyx transition-colors">Terms</Link>
+          </div>
         </div>
       </div>
     </footer>
