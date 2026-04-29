@@ -1,65 +1,104 @@
 "use client";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { ArrowRight, ShieldCheck, Globe, UserCheck } from "lucide-react";
+
+const pillars = [
+  { icon: Globe, text: "Unparalleled Global Network" },
+  { icon: UserCheck, text: "Bespoke Personalized Detail" },
+  { icon: ShieldCheck, text: "Absolute Discretion & Privacy" },
+];
 
 export default function TravelerSection() {
   return (
-    <section className="py-24 md:py-48 bg-bg-light overflow-hidden">
+    <section id="about" className="py-24 md:py-48 bg-cream/50 overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-center">
+        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           
-          <div className="lg:col-span-7">
-            <span className="text-brand-teal font-sans text-xs font-bold uppercase tracking-[0.3em] mb-8 block">
-              The Architects of Adventure
-            </span>
-            
-            <h2 className="font-serif text-5xl md:text-8xl leading-tight tracking-tight mb-12 text-onyx">
-              Experts in <br />
-              <span className="text-brand-teal italic font-light">The Art of Travel</span>
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-onyx/60 font-sans text-lg leading-relaxed">
-              <p>
-                With over 15 years of dedicated experience, Jigar Shah and Dhara Patel bring unparalleled expertise to every journey.
-              </p>
-              <p>
-                Our deep industry connections and meticulous attention to detail ensure a seamless, high-touch experience from first consultation to return.
-              </p>
-            </div>
-            
-            <div className="mt-16 pt-12 border-t border-onyx/10 flex flex-wrap items-start gap-12 md:gap-24">
-              <div>
-                <p className="font-serif text-3xl text-onyx mb-2">Jigar Shah</p>
-                <p className="text-[10px] uppercase tracking-widest text-brand-teal font-bold mb-4">Proprietor</p>
-                <div className="space-y-1">
-                  <p className="text-xs font-sans text-onyx/60">+91 98254 38324</p>
-                  <p className="text-xs font-sans text-onyx/60">jigar@jadetravels.co.in</p>
-                </div>
+          {/* Image Column */}
+          <div className="w-full lg:w-5/12 order-2 lg:order-1">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-3xl"
+            >
+              <Image 
+                src="/assets/owner-image.png" 
+                alt="Jade Travels Founders" 
+                fill 
+                className="object-cover scale-105"
+                sizes="(max-width: 768px) 100vw, 40vw"
+              />
+              <div className="absolute inset-0 bg-onyx/5 mix-blend-multiply" />
+              
+              {/* Integrated Legacy Tag */}
+              <div className="absolute bottom-10 left-10 right-10 p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 text-white">
+                <p className="font-serif text-2xl mb-1 italic">Established 2011</p>
+                <p className="font-sans text-[10px] uppercase tracking-[0.2em] opacity-60">Over a decade of excellence in Ahmedabad</p>
               </div>
-              <div>
-                <p className="font-serif text-3xl text-onyx mb-2">Dhara Patel</p>
-                <p className="text-[10px] uppercase tracking-widest text-brand-teal font-bold mb-4">Tours & Packages</p>
-                <div className="space-y-1">
-                  <p className="text-xs font-sans text-onyx/60">+91 99044 55127</p>
-                  <p className="text-xs font-sans text-onyx/60">dhara@jadetravels.co.in</p>
-                </div>
-              </div>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="lg:col-span-5 relative">
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
-              <Image 
-                src="/assets/generated-expert.png"
-                alt="Jade Travels Experts"
-                fill
-                className="object-cover transition-transform duration-[1.5s] hover:scale-105"
-                sizes="(max-width: 1024px) 100vw, 40vw"
-              />
-            </div>
-            <div className="absolute -bottom-6 -right-6 bg-white p-8 md:p-12 rounded-2xl shadow-2xl border border-onyx/5">
-              <p className="font-serif text-2xl text-onyx mb-1">Established 2011</p>
-              <p className="font-sans text-[10px] font-bold uppercase tracking-widest text-brand-teal">Ahmedabad, Gujarat</p>
-            </div>
+          {/* Content Column */}
+          <div className="w-full lg:w-7/12 order-1 lg:order-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-2xl"
+            >
+              <span className="text-brand-teal font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-8 block">
+                The Hands Behind the Journey
+              </span>
+              <h2 className="font-serif text-4xl md:text-7xl text-onyx leading-[1.1] tracking-tight mb-10">
+                The Art of <br />
+                <span className="italic font-light text-brand-teal/80">Effortless Exploration</span>
+              </h2>
+              
+              <p className="text-onyx/70 font-sans text-xl leading-relaxed mb-12">
+                Since 2011, we have curated journeys defined by precision and personalization, serving discerning travelers who value discretion above all else.
+              </p>
+
+              {/* Core Pillars */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
+                {pillars.map((pillar, i) => (
+                  <div key={i} className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal">
+                      <pillar.icon className="w-5 h-5" />
+                    </div>
+                    <span className="font-sans text-sm font-bold uppercase tracking-widest text-onyx/60">{pillar.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Founders */}
+              <div className="flex flex-col sm:flex-row gap-12 sm:gap-20 mb-16 py-8 border-y border-onyx/5">
+                <div>
+                  <h4 className="font-serif text-2xl text-onyx mb-1">Jigar Shah</h4>
+                  <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-brand-teal font-bold">Private Client Advisory</p>
+                </div>
+                <div>
+                  <h4 className="font-serif text-2xl text-onyx mb-1">Dhara Patel</h4>
+                  <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-brand-teal font-bold">Curated Journey Design</p>
+                </div>
+              </div>
+
+              {/* Action */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+              >
+                <h5 className="font-sans text-[10px] uppercase tracking-[0.4em] text-onyx/30 mb-8 font-bold">Speak With Our Experts</h5>
+                <button className="group px-12 py-5 bg-onyx text-white font-sans text-xs font-bold uppercase tracking-[0.3em] rounded-full hover:bg-brand-teal transition-all duration-500 flex items-center gap-4 shadow-2xl">
+                  Contact Our Team
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </button>
+              </motion.div>
+            </motion.div>
           </div>
 
         </div>
