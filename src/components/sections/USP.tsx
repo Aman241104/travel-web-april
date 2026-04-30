@@ -1,210 +1,219 @@
 "use client";
-import { useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { Calendar, Map, Sparkles, Compass, ArrowRight } from "lucide-react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { Calendar, Map, Sparkles, Compass, ArrowUpRight } from "lucide-react";
+import MagneticButton from "@/components/ui/MagneticButton";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const steps = [
   { 
     number: "01", 
-    title: "Discovery Call", 
-    desc: "A private consultation to understand your travel aspirations and preferences.",
+    title: "The Discovery", 
+    desc: "A private consultation to understand the nuanced architecture of your travel aspirations. We listen for the unspoken preferences that elevate a trip into a masterpiece.",
     icon: Calendar,
-    offset: "-y-12"
   },
   { 
     number: "02", 
-    title: "Curation", 
-    desc: "Experts design a tailored itinerary, selecting the finest destinations for you.",
+    title: "Bespoke Curation", 
+    desc: "Our specialists tap into an exclusive global network, designing a tailored narrative that weaves together elite sanctuaries, private access, and impossible logistics.",
     icon: Map,
-    offset: "y-12"
   },
   { 
     number: "03", 
-    title: "Refinement", 
-    desc: "Fine-tuning every detail until the journey is perfectly calibrated to your standards.",
+    title: "Masterful Refinement", 
+    desc: "We present the initial canvas and refine every stroke. From securing specific tarmac slots to dietary perfection, the itinerary is calibrated to your absolute standard.",
     icon: Sparkles,
-    offset: "-y-12"
   },
   { 
     number: "04", 
-    title: "Seamless Departure", 
-    desc: "All logistics secured, you depart with 24/7 expert concierge support.",
+    title: "Invisible Execution", 
+    desc: "You depart into a frictionless reality. With our 24/7 dedicated concierge anticipating every variable, your only requirement is to experience the extraordinary.",
     icon: Compass,
-    offset: "y-12",
     isCTA: true
   },
 ];
 
 export default function USP() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
 
-  const pathLength = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Title Animation
+      gsap.from(".usp-title span", {
+        y: 100,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 1.5,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 70%",
+        }
+      });
+
+      // Timeline Line Animation
+      gsap.from(".timeline-progress", {
+        scaleY: 0,
+        transformOrigin: "top center",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".timeline-container",
+          start: "top 50%",
+          end: "bottom 80%",
+          scrub: true,
+        }
+      });
+
+      // Individual Step Animations
+      const stepItems = gsap.utils.toArray(".usp-step");
+      stepItems.forEach((step: any, i: number) => {
+        const content = step.querySelector(".step-content");
+        const number = step.querySelector(".step-bg-number");
+        const dot = step.querySelector(".step-dot");
+
+        gsap.from(content, {
+          y: 50,
+          opacity: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: step,
+            start: "top 75%",
+          }
+        });
+
+        gsap.from(number, {
+          x: i % 2 === 0 ? -100 : 100,
+          opacity: 0,
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: step,
+            start: "top 80%",
+          }
+        });
+
+        // Dot pulsing
+        gsap.to(dot, {
+          scale: 1.5,
+          opacity: 0,
+          duration: 1.5,
+          repeat: -1,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: step,
+            start: "top center",
+            toggleActions: "play pause resume pause"
+          }
+        });
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section 
       ref={containerRef} 
       id="process" 
-      className="relative bg-[#0A1916] py-32 md:py-56 overflow-hidden"
+      className="relative bg-[#FBF6EE] py-24 md:py-48 overflow-hidden scroll-mt-24"
     >
-      {/* Cinematic Background Upgrade */}
-      <div className="absolute inset-0 z-0">
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: "radial-gradient(circle at top, #163C35 0%, #0A1916 100%)"
-          }}
-        />
-        {/* Floating Blurred Shapes */}
-        <motion.div 
-          animate={{ 
-            x: [0, 100, 0], 
-            y: [0, -50, 0],
-            opacity: [0.1, 0.2, 0.1] 
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#6FC3B2]/10 blur-[120px] rounded-full"
-        />
-        <motion.div 
-          animate={{ 
-            x: [0, -100, 0], 
-            y: [0, 50, 0],
-            opacity: [0.05, 0.15, 0.05] 
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#6FC3B2]/5 blur-[150px] rounded-full"
-        />
-        {/* Subtle Noise Texture Overlay */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-      </div>
-
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <div className="max-w-3xl mb-32 md:mb-48 text-center mx-auto">
-          <motion.span 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-[#6FC3B2] font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.5em] mb-8 block"
-          >
-            A Masterclass in Planning
-          </motion.span>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="font-serif text-5xl md:text-8xl text-white leading-[1] tracking-tighter"
-          >
-            How We Craft Your <br />
-            <span className="italic font-light text-[#6FC3B2]">Perfect Journey</span>
-          </motion.h2>
+      <div className="container mx-auto px-6 max-w-[1400px]">
+        
+        {/* Header */}
+        <div className="flex flex-col items-center text-center mb-32 md:mb-48">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-12 h-[1px] bg-[#0F2F2A]/20" />
+            <span className="text-[#0F2F2A] font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
+              The Jade Methodology
+            </span>
+            <div className="w-12 h-[1px] bg-[#0F2F2A]/20" />
+          </div>
+          
+          <h2 className="usp-title font-serif text-6xl md:text-[100px] lg:text-[120px] text-[#0F2F2A] leading-[0.9] tracking-tightest">
+            <span className="block overflow-hidden pb-4">Architecting</span>
+            <span className="block overflow-hidden italic font-light text-[#6FC3B2]">The Impossible</span>
+          </h2>
         </div>
 
-        {/* The Curved Journey Path (Desktop Only) */}
-        <div className="relative">
-          {/* Animated Connecting Line */}
-          <svg 
-            className="hidden lg:block absolute top-1/2 left-0 w-full h-[300px] -translate-y-1/2 z-0 pointer-events-none"
-            viewBox="0 0 1200 300" 
-            fill="none" 
-            preserveAspectRatio="none"
-          >
-            <path 
-              d="M0,150 C150,50 300,250 450,150 C600,50 750,250 900,150 C1050,50 1200,150 1200,150" 
-              stroke="rgba(111, 195, 178, 0.1)" 
-              strokeWidth="2" 
-            />
-            <motion.path 
-              d="M0,150 C150,50 300,250 450,150 C600,50 750,250 900,150 C1050,50 1200,150 1200,150" 
-              stroke="#6FC3B2" 
-              strokeWidth="2"
-              style={{ pathLength }}
-              className="drop-shadow-[0_0_8px_rgba(111,195,178,0.5)]"
-            />
-          </svg>
+        {/* Vertical Timeline */}
+        <div className="timeline-container relative max-w-5xl mx-auto">
+          
+          {/* Central Progress Line */}
+          <div className="absolute top-0 left-[20px] md:left-1/2 md:-translate-x-1/2 w-[1px] h-full bg-[#0F2F2A]/10">
+            <div className="timeline-progress absolute top-0 left-0 w-full h-full bg-[#6FC3B2]" />
+          </div>
 
-          {/* Staggered Journey Steps */}
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-8 relative z-10">
+          <div className="space-y-32 md:space-y-56">
             {steps.map((step, i) => (
-              <StepCard key={i} step={step} index={i} />
+              <div 
+                key={i} 
+                className={`usp-step relative flex flex-col md:flex-row items-start ${
+                  i % 2 !== 0 ? "md:flex-row-reverse" : ""
+                } gap-12 md:gap-24`}
+              >
+                
+                {/* Background Parallax Number */}
+                <div className={`absolute top-0 md:-top-20 z-0 pointer-events-none opacity-[0.03] text-[#0F2F2A] font-serif text-[150px] md:text-[300px] leading-none step-bg-number
+                  ${i % 2 === 0 ? "left-12 md:left-[-100px]" : "right-12 md:right-[-100px]"}
+                `}>
+                  {step.number}
+                </div>
+
+                {/* Empty Space for Grid Alignment on Desktop */}
+                <div className="hidden md:block md:w-1/2" />
+
+                {/* Center Node (Icon) */}
+                <div className="absolute left-0 md:left-1/2 top-0 -translate-x-[2px] md:-translate-x-1/2 z-20 flex items-center justify-center mt-2 md:mt-0">
+                  <div className="relative flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-[#FBF6EE] border border-[#0F2F2A]/20 flex items-center justify-center relative z-10 shadow-lg">
+                      <step.icon className="w-4 h-4 text-[#0F2F2A]" />
+                    </div>
+                    {/* Pulsing indicator */}
+                    <div className="step-dot absolute inset-0 rounded-full border border-[#6FC3B2] z-0" />
+                  </div>
+                </div>
+
+                {/* Content Card */}
+                <div className="md:w-1/2 pl-16 md:pl-0 relative z-10 step-content">
+                  <div className={`flex flex-col ${i % 2 !== 0 ? "md:items-end md:text-right" : "md:items-start text-left"}`}>
+                    
+                    <span className="text-[#6FC3B2] font-sans text-[10px] font-bold uppercase tracking-[0.4em] mb-6 block">
+                      Phase {step.number}
+                    </span>
+                    
+                    <h3 className="font-serif text-4xl md:text-5xl text-[#0F2F2A] mb-8 leading-tight">
+                      {step.title}
+                    </h3>
+                    
+                    <p className={`font-sans text-[#0F2F2A]/60 text-lg md:text-xl leading-relaxed max-w-md ${
+                      i % 2 !== 0 ? "md:ml-auto" : ""
+                    }`}>
+                      {step.desc}
+                    </p>
+
+                    {step.isCTA && (
+                      <div className="mt-12">
+                        <MagneticButton className="group relative px-12 py-6 bg-[#0F2F2A] text-white font-bold text-[10px] uppercase tracking-[0.3em] rounded-full overflow-hidden transition-all duration-500 hover:scale-[1.02] shadow-2xl">
+                          <span className="relative z-10 flex items-center gap-3">
+                            Initiate Phase 01 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                          </span>
+                          <div className="absolute inset-0 bg-[#6FC3B2] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                        </MagneticButton>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+              </div>
             ))}
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function StepCard({ step, index }: { step: any; index: number }) {
-  const isEven = index % 2 === 0;
-  
-  return (
-    <motion.div 
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ delay: index * 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-      className={`group relative flex flex-col items-center lg:items-start text-center lg:text-left
-        ${index === 0 ? "lg:mt-0" : ""}
-        ${index === 1 ? "lg:mt-24" : ""}
-        ${index === 2 ? "lg:-mt-12" : ""}
-        ${index === 3 ? "lg:mt-32" : ""}
-      `}
-    >
-      {/* Faint Background Typography (Parallax-ish) */}
-      <span className="absolute -top-12 -left-4 font-serif text-[120px] leading-none text-white/[0.03] select-none pointer-events-none group-hover:text-[#6FC3B2]/[0.05] transition-colors duration-700">
-        {step.number}
-      </span>
-
-      <div className="relative z-10">
-        {/* Pulsing Icon Circle */}
-        <div className="mb-10 relative">
-          <motion.div 
-            animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.1, 0.2] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 rounded-full bg-[#6FC3B2] blur-xl"
-          />
-          <div className="w-20 h-20 rounded-full bg-white/[0.05] border border-white/[0.1] backdrop-blur-xl flex items-center justify-center text-[#6FC3B2] group-hover:bg-[#6FC3B2] group-hover:text-[#0A1916] transition-all duration-700 shadow-2xl group-hover:shadow-[0_0_30px_rgba(111,195,178,0.3)]">
-            <step.icon className="w-8 h-8" />
-          </div>
-        </div>
-
-        {/* Step Content */}
-        {step.isCTA ? (
-          <div className="flex flex-col items-center lg:items-start group-hover:scale-105 transition-transform duration-700">
-            <h3 className="font-serif text-3xl md:text-4xl text-white mb-6 leading-tight">
-              {step.title}
-            </h3>
-            <p className="text-[#D6E2DF]/50 font-sans text-base mb-10 leading-relaxed max-w-[280px]">
-              {step.desc}
-            </p>
-            <button className="group/btn flex items-center gap-4 px-10 py-5 bg-[#6FC3B2] text-[#0A1916] font-sans text-[10px] font-bold uppercase tracking-[0.3em] rounded-full hover:bg-white transition-all duration-500 shadow-2xl shadow-[#6FC3B2]/20">
-              Begin Journey
-              <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-            </button>
-          </div>
-        ) : (
-          <>
-            <h3 className="font-serif text-3xl text-white mb-6 group-hover:text-[#6FC3B2] transition-colors duration-500">
-              {step.title}
-            </h3>
-            <p className="text-[#D6E2DF]/40 font-sans text-base leading-relaxed max-w-[280px] group-hover:text-[#D6E2DF]/70 transition-colors duration-500">
-              {step.desc}
-            </p>
-          </>
-        )}
-      </div>
-
-      {/* Subtle Card Tilt Effect (Micro Interaction) */}
-      <div className="absolute inset-0 z-0 pointer-events-none group-hover:bg-white/[0.01] transition-colors duration-700 rounded-[3rem]" />
-    </motion.div>
   );
 }

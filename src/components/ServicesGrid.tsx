@@ -1,220 +1,238 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
-import { Map, Plane, Hotel, Shield, ArrowRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Sparkles, Compass, Map, Home } from "lucide-react";
 import Image from "next/image";
 
-const serviceExperiences = [
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+const services = [
   {
     id: "01",
     title: "Architectural Curation",
-    shortTitle: "Bespoke Itineraries",
+    tagline: "Bespoke Itineraries",
     desc: "We don't just plan trips; we architect life-changing experiences tailored to your personal rhythm and curiosities.",
-    longDesc: "Our designers spend hundreds of hours researching and scouting locations to ensure your journey is unlike anything ever seen. From private access to the Vatican to dinner with local legends, we curate the impossible.",
+    details: ["Private Vatican Access", "Dinner with Local Legends", "Custom Scouting"],
     icon: Map,
     image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1200&auto=format&fit=crop"
   },
   {
     id: "02",
     title: "Seamless Global Access",
-    shortTitle: "Elite Logistics",
+    tagline: "Elite Logistics",
     desc: "First-class isn't just a ticket; it's a standard of movement. We ensure every transition is invisible.",
-    longDesc: "Direct tarmac transfers, private terminal access, and preferred seating on the world's most exclusive carriers. Your transition from arrival to sanctuary is handled with absolute discretion and speed.",
-    icon: Plane,
+    details: ["Tarmac Transfers", "Private Terminal Access", "Discreet Security"],
+    icon: Compass,
     image: "https://images.unsplash.com/photo-1540339832862-4745591f5144?q=80&w=1200&auto=format&fit=crop"
   },
   {
     id: "03",
     title: "Sanctuary Selection",
-    shortTitle: "Elite Stays",
+    tagline: "Elite Stays",
     desc: "We provide access to the world's most secluded hideaways, from private islands to historic estates.",
-    longDesc: "Beyond 5-star hotels, we unlock private villas and estates that aren't on any public map. Each property is vetted for privacy, aesthetic excellence, and the standard of service you demand.",
-    icon: Hotel,
+    details: ["Vetted Private Villas", "Historic Estates", "Island Buyouts"],
+    icon: Home,
     image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop"
   },
   {
     id: "04",
     title: "Invisible Concierge",
-    shortTitle: "24/7 Support",
+    tagline: "24/7 Support",
     desc: "Expert assistance that anticipates your needs before you've even voiced them.",
-    longDesc: "A dedicated concierge team that operates in your time zone, ahead of your schedule. Whether it's a last-minute change of plans or a rare request in a remote location, we are always one step ahead.",
-    icon: Shield,
+    details: ["Real-time Adjustment", "Global Expertise", "Proactive Planning"],
+    icon: Sparkles,
     image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop"
   }
 ];
 
 export default function ServicesGrid() {
-  const [activeService, setActiveService] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const leftSideRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const items = gsap.utils.toArray(".service-image-block");
+      
+      items.forEach((item: any, i: number) => {
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top center",
+          end: "bottom center",
+          onToggle: (self) => {
+            if (self.isActive) setActiveIndex(i);
+          },
+        });
+
+        // Parallax for images
+        const img = item.querySelector("img");
+        if (img) {
+          gsap.to(img, {
+            yPercent: 15,
+            ease: "none",
+            scrollTrigger: {
+              trigger: item,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            }
+          });
+        }
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="services" className="bg-[#FBF6EE] py-24 md:py-48 relative overflow-hidden">
-      {/* Background Aesthetic */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#6FC3B2]/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
+    <section id="services" ref={containerRef} className="relative bg-[#0F2F2A] py-24 md:py-48 scroll-mt-24">
       
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-20 lg:gap-32">
+      {/* Cinematic Background Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[20%] left-[-10%] w-[50%] h-[50%] bg-[#6FC3B2]/5 blur-[150px] rounded-full" />
+        <div className="absolute bottom-[20%] right-[-10%] w-[40%] h-[40%] bg-[#D4AF37]/5 blur-[150px] rounded-full" />
+      </div>
+
+      <div className="container relative z-10 px-6 max-w-[1500px] mx-auto">
+        <div className="flex flex-col md:flex-row gap-24 lg:gap-40">
           
-          {/* LEFT SIDE: Sticky Highlight Flow */}
-          <div className="w-full lg:w-[45%] h-fit lg:sticky lg:top-32">
-            <motion.div
-              key={activeService}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-10"
-            >
-              <div>
-                <span className="text-[#6FC3B2] font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.5em] mb-6 block">
-                  Experience Curation
+          {/* Left Side: Sticky Information Exhibit */}
+          <div className="md:w-1/2 md:sticky md:top-40 h-fit self-start">
+            <div ref={leftSideRef} className="max-w-xl">
+              <div className="flex items-center gap-4 mb-10 overflow-hidden">
+                <div className="w-12 h-[1px] bg-[#6FC3B2]" />
+                <span className="text-[#6FC3B2] font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
+                  The Art of the Impossible
                 </span>
-                <h2 className="font-serif text-5xl md:text-7xl text-[#0F2F2A] leading-[1.05] tracking-tight mb-8">
-                  {serviceExperiences[activeService].title}
-                </h2>
-                <p className="text-[#0F2F2A]/60 font-sans text-xl leading-relaxed max-w-md">
-                  {serviceExperiences[activeService].longDesc}
-                </p>
               </div>
 
-              {/* Dynamic Image Reveal */}
-              <div className="relative w-full aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl">
+              <div className="relative min-h-[500px] md:min-h-[600px]">
                 <AnimatePresence mode="wait">
                   <motion.div
-                    key={activeService}
-                    initial={{ scale: 1.1, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.9, opacity: 0 }}
-                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    key={activeIndex}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 30 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     className="absolute inset-0"
                   >
-                    <Image 
-                      src={serviceExperiences[activeService].image} 
-                      alt={serviceExperiences[activeService].title} 
-                      fill 
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F2F2A]/40 to-transparent" />
+                    <span className="block font-serif text-[120px] text-white/[0.03] leading-none mb-4">
+                      {services[activeIndex].id}
+                    </span>
+                    <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-white leading-[0.9] tracking-tightest mb-10">
+                      {services[activeIndex].title}
+                    </h2>
+                    <p className="font-sans text-[#D6E2DF]/60 text-xl md:text-2xl leading-relaxed mb-12">
+                      {services[activeIndex].desc}
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                      {services[activeIndex].details.map((detail, idx) => (
+                        <div key={idx} className="flex items-center gap-4 group">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#6FC3B2] group-hover:scale-150 transition-transform" />
+                          <span className="text-white/40 font-sans text-xs font-bold uppercase tracking-widest group-hover:text-[#6FC3B2] transition-colors">
+                            {detail}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </motion.div>
                 </AnimatePresence>
               </div>
 
-              {/* Progress Indicator */}
-              <div className="flex items-center gap-4 pt-8">
-                {serviceExperiences.map((_, i) => (
-                  <div 
-                    key={i}
-                    className={`h-[2px] transition-all duration-700 ease-out ${
-                      activeService === i ? "w-12 bg-[#6FC3B2]" : "w-6 bg-[#0F2F2A]/10"
-                    }`}
-                  />
-                ))}
+              {/* Scroll Progress Exhibit */}
+              <div className="mt-20 flex items-center gap-12 relative z-20">
+                <div className="flex flex-col gap-2">
+                  <span className="text-white/20 text-[10px] font-bold uppercase tracking-widest">
+                    EXHIBIT {services[activeIndex].id}
+                  </span>
+                  <div className="w-48 h-[1px] bg-white/10 relative overflow-hidden">
+                    <motion.div 
+                      className="absolute inset-0 bg-[#6FC3B2] origin-left"
+                      animate={{ scaleX: (activeIndex + 1) / services.length }}
+                      transition={{ duration: 0.8, ease: "circOut" }}
+                    />
+                  </div>
+                </div>
+                <button className="group flex items-center gap-6">
+                  <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-500">
+                    <ArrowRight className="w-5 h-5 text-[#6FC3B2] group-hover:text-[#0F2F2A]" />
+                  </div>
+                  <span className="text-white text-[10px] font-bold uppercase tracking-[0.4em] group-hover:translate-x-2 transition-transform">
+                    Inquire for Details
+                  </span>
+                </button>
               </div>
-            </motion.div>
+            </div>
           </div>
 
-          {/* RIGHT SIDE: Interactive Vertical Stack */}
-          <div className="w-full lg:w-[55%] flex flex-col gap-6">
-            {serviceExperiences.map((service, index) => (
-              <ServiceExperienceCard 
+          {/* Right Side: Immersive Media Stream */}
+          <div className="md:w-1/2 space-y-40 md:space-y-80 pb-40">
+            {services.map((service, index) => (
+              <div 
                 key={service.id} 
-                service={service} 
-                isActive={activeService === index}
-                onInView={() => setActiveService(index)}
-              />
+                className="service-image-block relative group"
+              >
+                <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl shadow-black/50 bg-onyx-light">
+                  <Image 
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F2F2A]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  
+                  {/* Floating ID Tag */}
+                  <div className="absolute top-10 left-10 z-10">
+                    <div className="px-6 py-3 rounded-full bg-black/20 backdrop-blur-xl border border-white/10 text-white font-sans text-[10px] font-black uppercase tracking-[0.4em]">
+                      {service.tagline}
+                    </div>
+                  </div>
+
+                  {/* Icon Overlay */}
+                  <div className="absolute bottom-10 right-10 z-10">
+                    <div className="w-20 h-20 rounded-full bg-[#6FC3B2]/90 backdrop-blur-xl flex items-center justify-center text-[#0F2F2A] transform translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
+                      <service.icon className="w-8 h-8" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Mobile View Text (Visible only when sticky is inactive) */}
+                <div className="mt-12 lg:hidden space-y-6">
+                  <h3 className="font-serif text-4xl text-white">{service.title}</h3>
+                  <p className="text-white/40 font-sans text-lg">{service.desc}</p>
+                </div>
+              </div>
             ))}
 
-            {/* Final Conversion Point */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="mt-12 p-12 rounded-[3rem] bg-[#0F2F2A] text-white flex flex-col md:flex-row items-center justify-between gap-8"
-            >
-              <div>
-                <h4 className="font-serif text-3xl mb-2">Ready for a private consultation?</h4>
-                <p className="text-white/40 font-sans text-base">Let our experts handle every detail of your next journey.</p>
+            {/* Final Consultation Card */}
+            <div className="relative p-12 md:p-20 rounded-[4rem] bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-3xl border border-white/10 overflow-hidden group">
+              <div className="relative z-10 flex flex-col items-center text-center">
+                <span className="text-[#D4AF37] font-sans text-[10px] font-bold uppercase tracking-[0.5em] mb-8 block">
+                  Private Access
+                </span>
+                <h3 className="font-serif text-4xl md:text-6xl text-white mb-10 leading-tight">
+                  The Journey Begins <br />
+                  <span className="italic font-light text-[#6FC3B2]">with a Single Word.</span>
+                </h3>
+                <button className="group relative px-16 py-7 bg-white text-[#0F2F2A] font-sans text-xs font-bold uppercase tracking-[0.4em] rounded-full overflow-hidden transition-all duration-700 hover:scale-105">
+                  <span className="relative z-10">Book a Private Consult</span>
+                  <div className="absolute inset-0 bg-[#6FC3B2] translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
+                </button>
               </div>
-              <button className="group px-10 py-5 bg-[#6FC3B2] text-[#0F2F2A] font-sans text-xs font-bold uppercase tracking-[0.3em] rounded-full hover:bg-white transition-all duration-500 flex items-center gap-3">
-                Connect Now
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </button>
-            </motion.div>
+
+              {/* Decorative Corner */}
+              <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#6FC3B2]/5 blur-[100px] rounded-full" />
+            </div>
           </div>
+
         </div>
       </div>
     </section>
-  );
-}
-
-function ServiceExperienceCard({ service, isActive, onInView }: { service: any; isActive: boolean; onInView: () => void }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { margin: "-40% 0px -40% 0px" });
-
-  useEffect(() => {
-    if (isInView) {
-      onInView();
-    }
-  }, [isInView, onInView]);
-
-  return (
-    <motion.div 
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`relative p-10 md:p-14 rounded-[3rem] transition-all duration-700 cursor-pointer overflow-hidden border ${
-        isActive 
-          ? "bg-[#0F2F2A] text-white border-transparent shadow-2xl scale-[1.02]" 
-          : "bg-white/60 text-[#0F2F2A] border-black/5 hover:bg-white"
-      }`}
-      onClick={onInView}
-    >
-      <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12 relative z-10">
-        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500 ${
-          isActive ? "bg-[#6FC3B2] text-[#0F2F2A]" : "bg-[#FBF6EE] text-[#6FC3B2]"
-        }`}>
-          <service.icon className="w-8 h-8" />
-        </div>
-        
-        <div className="flex-grow">
-          <div className="flex items-center gap-3 mb-3">
-            <span className={`font-sans text-[10px] font-bold tracking-[0.4em] uppercase ${isActive ? "text-[#6FC3B2]" : "text-[#0F2F2A]/30"}`}>
-              Service {service.id}
-            </span>
-          </div>
-          <h3 className={`font-serif text-3xl md:text-4xl leading-tight transition-colors duration-500`}>
-            {service.shortTitle}
-          </h3>
-          
-          <AnimatePresence>
-            {isActive && (
-              <motion.p 
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="font-sans text-lg leading-relaxed mt-6 text-white/60 max-w-lg"
-              >
-                {service.desc}
-              </motion.p>
-            )}
-          </AnimatePresence>
-        </div>
-
-        <div className={`hidden md:flex items-center gap-3 transition-all duration-500 ${isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"}`}>
-          <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-[#6FC3B2]">
-            <ArrowRight className="w-5 h-5" />
-          </div>
-        </div>
-      </div>
-
-      {/* Background Micro Interaction */}
-      {isActive && (
-        <motion.div 
-          layoutId="activeGlow"
-          className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none"
-        />
-      )}
-    </motion.div>
   );
 }

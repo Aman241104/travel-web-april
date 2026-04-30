@@ -1,116 +1,194 @@
 "use client";
-import { motion } from "framer-motion";
-import { ShieldCheck, Scale, Globe2, Sparkles, ArrowUpRight } from "lucide-react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { Sparkles, Shield, Globe, Scale, ArrowRight } from "lucide-react";
+import Image from "next/image";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const values = [
   {
-    icon: Sparkles,
+    id: "01",
     title: "Exclusively Tailored",
-    desc: "Bespoke itineraries crafted for you. Trusted across 500+ curated journeys worldwide.",
-    isPrimary: true
+    desc: "We architect life-changing experiences tailored to your personal rhythm.",
+    icon: Sparkles,
+    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1200&auto=format&fit=crop",
+    color: "#0F2F2A"
   },
   {
-    icon: Scale,
+    id: "02",
     title: "Absolute Transparency",
-    desc: "100% price integrity with a fixed fee structure and no hidden costs, ever.",
-    isPrimary: false
+    desc: "Integrity is our luxury. Fixed fee structures with zero hidden commissions.",
+    icon: Scale,
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
+    color: "#1C3B34"
   },
   {
-    icon: Globe2,
+    id: "03",
     title: "Global Network",
-    desc: "Elite portfolio and local experts spanning all seven continents.",
-    isPrimary: false
+    desc: "Elite portfolio of local experts spanning all seven continents.",
+    icon: Globe,
+    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1200&auto=format&fit=crop",
+    color: "#0A1916"
   },
   {
-    icon: ShieldCheck,
+    id: "04",
     title: "Discreet Expertise",
-    desc: "Over 15 years of high-profile travel handled with absolute privacy.",
-    isPrimary: false
+    desc: "15+ years of serving the world's most discerning travelers with absolute privacy.",
+    icon: Shield,
+    image: "https://images.unsplash.com/photo-1506929559444-44b1c7357ad2?q=80&w=1200&auto=format&fit=crop",
+    color: "#05100E"
   }
 ];
 
 export default function ValuesSection() {
-  return (
-    <section id="values" className="bg-cream py-24 md:py-40 border-b border-onyx/5">
-      <div className="container mx-auto px-6">
-        {/* Header Section */}
-        <div className="max-w-4xl mb-20 md:mb-32">
-          <motion.span 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-brand-teal font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-8 block"
-          >
-            The Jade Standard
-          </motion.span>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="font-serif text-5xl md:text-8xl text-onyx leading-[1] tracking-tight mb-10"
-          >
-            Why the World&apos;s Most <br />
-            <span className="italic font-light text-brand-teal/80">Discerning Travel with Us</span>
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-onyx/60 font-sans text-xl max-w-2xl leading-relaxed"
-          >
-            We redefine luxury through personalization, discretion, and unparalleled access.
-          </motion.p>
-        </div>
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-        {/* 2x2 Grid with Hierarchy */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {values.map((item, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.8 }}
-              className={`group relative p-12 rounded-[3rem] border transition-all duration-700 ease-in-out cursor-default
-                ${item.isPrimary 
-                  ? "bg-onyx text-white border-onyx shadow-2xl shadow-onyx/20" 
-                  : "bg-white text-onyx border-onyx/5 hover:bg-onyx hover:text-white hover:border-onyx"
-                }`}
-            >
-              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-12 transition-all duration-500
-                ${item.isPrimary 
-                  ? "bg-white/10 text-brand-teal" 
-                  : "bg-brand-teal/10 text-brand-teal group-hover:bg-white/10"
-                }`}
-              >
-                <item.icon className="w-8 h-8" />
-              </div>
-              
-              <div className="flex flex-col h-full justify-between">
-                <div>
-                  <h3 className="font-serif text-3xl md:text-4xl mb-6">{item.title}</h3>
-                  <p className={`font-sans text-lg leading-relaxed max-w-sm
-                    ${item.isPrimary ? "text-white/60" : "text-onyx/60 group-hover:text-white/60"}`}
-                  >
-                    {item.desc}
-                  </p>
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (!containerRef.current || !sectionRef.current || !pinRef.current) return;
+
+      const scrollEl = containerRef.current;
+      const totalWidth = scrollEl.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      const scrollDistance = totalWidth - viewportWidth;
+
+      // Horizontal Scroll Animation
+      gsap.to(scrollEl, {
+        x: -scrollDistance,
+        ease: "none",
+        scrollTrigger: {
+          id: "values-scroll",
+          trigger: sectionRef.current,
+          pin: true,
+          start: "top top",
+          end: () => `+=${scrollDistance}`,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+        }
+      });
+
+      // Parallax for Background Text
+      gsap.to(".bg-text-parallax", {
+        x: -150,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        }
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section 
+      id="values"
+      ref={sectionRef} 
+      className="relative bg-[#0F2F2A] overflow-hidden scroll-mt-24"
+    >
+      <div ref={pinRef} className="relative h-screen w-full overflow-hidden">
+        {/* Massive Background Decorative Text */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <h2 className="bg-text-parallax font-serif text-[40vw] text-white/[0.02] leading-none whitespace-nowrap uppercase italic font-black">
+          PHILO • SOPHY
+        </h2>
+      </div>
+
+      {/* Floating Header */}
+      <div className="absolute top-20 left-20 z-20">
+        <span className="text-brand-teal font-sans text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">
+          The Jade Standard
+        </span>
+        <h2 className="font-serif text-5xl text-white">Our Core Principles</h2>
+      </div>
+
+      {/* Horizontal Container */}
+      <div 
+        ref={containerRef} 
+        className="flex h-full items-center px-[20vw] gap-[15vw]"
+      >
+        {values.map((item) => (
+          <div 
+            key={item.id}
+            className="value-card relative flex-shrink-0 w-[60vw] h-[60vh] flex items-center gap-20 group"
+          >
+            {/* Numbering */}
+            <div className="absolute -top-20 -left-20">
+              <span className="font-serif text-[180px] text-white/[0.05] leading-none">{item.id}</span>
+            </div>
+
+            {/* Content Box */}
+            <div className="relative z-10 w-1/2">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-10 h-10 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal">
+                  <item.icon className="w-4 h-4" />
                 </div>
-                
-                <div className="mt-12 flex items-center justify-start gap-2">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-teal">
-                    Core Differentiator
-                  </span>
-                  <div className="w-8 h-[1px] bg-brand-teal/30" />
-                  <ArrowUpRight className={`w-4 h-4 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1
-                    ${item.isPrimary ? "text-white/20" : "text-onyx/10 group-hover:text-white/20"}`} 
-                  />
-                </div>
+                <span className="text-[#6FC3B2] text-[10px] font-bold uppercase tracking-[0.3em]">
+                  Principle {item.id}
+                </span>
               </div>
-            </motion.div>
-          ))}
+              <h3 className="font-serif text-6xl text-white mb-8 leading-tight group-hover:text-brand-teal transition-colors duration-500">
+                {item.title}
+              </h3>
+              <p className="font-sans text-white/50 text-xl leading-relaxed mb-10 max-w-sm">
+                {item.desc}
+              </p>
+              <button className="flex items-center gap-4 text-white group/btn">
+                <span className="text-[10px] font-bold uppercase tracking-[0.4em]">Learn More</span>
+                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover/btn:bg-white group-hover/btn:text-onyx transition-all duration-500">
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </button>
+            </div>
+
+            {/* Visual Side */}
+            <div className="relative w-1/2 h-full rounded-[3rem] overflow-hidden shadow-2xl">
+              <div className="card-image absolute inset-0">
+                <Image 
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-onyx/80 to-transparent" />
+            </div>
+          </div>
+        ))}
+
+        {/* Closing Spread */}
+        <div className="flex-shrink-0 w-[40vw] flex flex-col justify-center pr-20">
+          <h4 className="font-serif text-white text-7xl leading-tight mb-8">
+            Ready to <br />
+            <span className="italic font-light text-brand-teal">Begin?</span>
+          </h4>
+          <p className="text-white/40 font-sans text-lg max-w-xs mb-12">
+            Every masterpiece starts with a single, intentional conversation.
+          </p>
+          <button className="w-full py-6 bg-brand-teal text-onyx font-bold text-xs uppercase tracking-[0.4em] rounded-full hover:scale-105 transition-transform duration-500 shadow-2xl shadow-brand-teal/20">
+            Start Your Experience
+          </button>
         </div>
+      </div>
+
+      {/* Side Decorative Progress Bar */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-10">
+        <span className="text-white/20 text-[9px] font-bold uppercase tracking-widest">01</span>
+        <div className="w-40 h-[1px] bg-white/10 relative overflow-hidden">
+          <div className="absolute top-0 left-0 h-full bg-brand-teal w-1/4" /> {/* This would be dynamic in real impl */}
+        </div>
+        <span className="text-white/20 text-[9px] font-bold uppercase tracking-widest">04</span>
+      </div>
       </div>
     </section>
   );

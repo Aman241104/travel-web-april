@@ -4,7 +4,7 @@ import { ArrowRight, Phone, MessageCircle } from "lucide-react";
 
 export default function CTASection() {
   return (
-    <section id="contact" className="relative py-24 md:py-56 bg-[#0F2F2A] overflow-hidden">
+    <section id="contact" className="relative py-24 md:py-48 bg-[#0F2F2A] overflow-hidden scroll-mt-24">
       {/* Cinematic Background Layering */}
       <div className="absolute inset-0 z-0">
         <motion.div 

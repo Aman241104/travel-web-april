@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Preloader() {
+export default function Preloader({ onLoadingComplete }: { onLoadingComplete?: () => void }) {
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
 
@@ -16,9 +16,13 @@ export default function Preloader() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
+      // Wait for exit animation to finish before calling complete
+      setTimeout(() => {
+        onLoadingComplete?.();
+      }, 1100);
     }, 500);
     return () => clearTimeout(timer);
-  }, []);
+  }, [onLoadingComplete]);
 
   if (!mounted) return null;
 

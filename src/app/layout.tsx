@@ -58,14 +58,11 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={`${playfair.variable} ${jakarta.variable} font-sans antialiased bg-white text-onyx`} suppressHydrationWarning>
         <ScrollProgress />
-        <Preloader />
         <CustomCursor />
         <SmoothScroll>
-          <div className="overflow-x-hidden">
-            <Navbar />
-            {children}
-            <Footer />
-          </div>
+          <Navbar />
+          {children}
+          <Footer />
           <StickyCTA />
         </SmoothScroll>
       </body>

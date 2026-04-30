@@ -1,10 +1,14 @@
 "use client";
 
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Hero from "@/components/Hero";
 import ServicesGrid from "@/components/ServicesGrid";
 import USP from "@/components/sections/USP";
 import ValuesSection from "@/components/sections/ValuesSection";
+import Preloader from "@/components/ui/Preloader";
 
 const PopularDestinations = dynamic(() => import("@/components/sections/PopularDestinations"));
 const TravelerSection = dynamic(() => import("@/components/luxury/TravelerSection"));
@@ -14,58 +18,71 @@ const TapeMarquee = dynamic(() => import("@/components/TapeMarquee"));
 const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed"));
 
 export default function Home() {
+    const handleLoadingComplete = () => {
+        ScrollTrigger.refresh();
+    };
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 3000); // Fail-safe refresh
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
-        <main className="bg-bg-light min-h-screen relative overflow-x-hidden">
+        <main className="bg-bg-light min-h-screen relative overflow-clip">
+            <Preloader onLoadingComplete={handleLoadingComplete} />
 
             <div className="relative z-30 bg-bg-light shadow-2xl">
                 {/* Hero Section */}
-                <section id="home" className="scroll-mt-24">
-                    <Hero />
-                </section>
+                <Hero />
 
                 {/* Values / Why Choose Us */}
                 <ValuesSection />
 
                 {/* Destinations */}
-                <section id="packages" className="scroll-mt-24">
-                    <PopularDestinations />
-                </section>
+                <PopularDestinations />
 
                 {/* Services / What We Do */}
-                <section id="services" className="scroll-mt-24">
-                    <ServicesGrid />
-                </section>
+                <ServicesGrid />
 
                 {/* Process / Expertise */}
-                <section id="process" className="scroll-mt-24">
-                    <USP />
-                </section>
+                <USP />
 
                 {/* Voices of Discerning Travelers */}
-                <section id="testimonials" className="scroll-mt-24">
-                    <Testimonials />
-                </section>
+                <Testimonials />
 
                 {/* About / Our Story */}
-                <section id="about" className="scroll-mt-24">
-                    <TravelerSection />
-                </section>
+                <TravelerSection />
 
-                {/* Decorative Marquee */}
-                <section id="marquee-bottom" className="relative z-20 py-16 md:py-24 overflow-hidden bg-white">
-                    <TapeMarquee reverse rotate={1} speed={30} text="Bespoke Travel • Expert Curation • Global Access • Unparalleled Luxury • " />
+                {/* Decorative Marquee - Editorial Dual Tape */}
+                <section id="marquee-bottom" className="relative z-20 py-24 md:py-32 overflow-hidden bg-white scroll-mt-24">
+                    <div className="flex flex-col gap-6 md:gap-10">
+                      <div className="relative z-10">
+                        <TapeMarquee 
+                          reverse 
+                          rotate={-1.5} 
+                          speed={50} 
+                          text="Bespoke Travel • Expert Curation • Global Access • Unparalleled Luxury • " 
+                        />
+                      </div>
+                      <div className="relative z-0 md:-mt-24">
+                        <TapeMarquee 
+                          outline 
+                          rotate={1.5} 
+                          speed={40} 
+                          text="Curated Discovery • Private Aviation • Sanctuary Access • Elite Concierge • " 
+                        />
+                      </div>
+                    </div>
                 </section>
 
                 {/* Journal / Instagram Feed */}
-                <section id="journal" className="scroll-mt-24">
-                    <InstagramFeed />
-                </section>
+                <InstagramFeed />
             </div>
 
             {/* Final Conversion Point */}
-            <section id="contact" className="scroll-mt-24">
-                <CTASection />
-            </section>
+            <CTASection />
         </main>
     );
 }

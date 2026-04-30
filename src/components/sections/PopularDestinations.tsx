@@ -1,10 +1,16 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, MapPin, Sparkles } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, MapPin, ChevronRight, ChevronLeft } from "lucide-react";
 
-const categories = ["All", "Coastal", "Mountain", "Cultural", "Modern", "Wildlife"];
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+const categories = ["All", "Coastal", "Mountain", "Cultural", "Wild"];
 
 const destinations = [
   { 
@@ -13,8 +19,7 @@ const destinations = [
     loc: "North Malé Atoll", 
     desc: "Experience overwater villas and crystal clear lagoons in absolute privacy.",
     img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1200&auto=format&fit=crop", 
-    category: "Coastal",
-    size: "large"
+    category: "Coastal"
   },
   { 
     id: 2, 
@@ -22,8 +27,7 @@ const destinations = [
     loc: "Zermatt, Switzerland", 
     desc: "Discover the majestic Matterhorn and world-class skiing.",
     img: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=1200&auto=format&fit=crop", 
-    category: "Mountain",
-    size: "medium"
+    category: "Mountain"
   },
   { 
     id: 3, 
@@ -31,17 +35,15 @@ const destinations = [
     loc: "Kyoto, Japan", 
     desc: "A journey through ancient temples and bamboo forests.",
     img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop", 
-    category: "Cultural",
-    size: "medium"
+    category: "Cultural"
   },
   { 
     id: 4, 
-    title: "Desert Gold", 
-    loc: "Dubai, UAE", 
-    desc: "Unparalleled luxury meets architectural wonders.",
-    img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop", 
-    category: "Modern",
-    size: "small"
+    title: "Safari Spirit", 
+    loc: "Maasai Mara, Kenya", 
+    desc: "Witness the great migration and untamed wildlife.",
+    img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200&auto=format&fit=crop", 
+    category: "Wild"
   },
   { 
     id: 5, 
@@ -49,188 +51,191 @@ const destinations = [
     loc: "Positano, Italy", 
     desc: "Cliffside colorful villas and legendary Mediterranean views.",
     img: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1200&auto=format&fit=crop", 
-    category: "Coastal",
-    size: "small"
-  },
-  { 
-    id: 6, 
-    title: "Safari Spirit", 
-    loc: "Maasai Mara, Kenya", 
-    desc: "Witness the great migration and untamed wildlife.",
-    img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200&auto=format&fit=crop", 
-    category: "Wildlife",
-    size: "small"
+    category: "Coastal"
   },
 ];
 
 export default function PopularDestinations() {
   const [activeFilter, setActiveFilter] = useState("All");
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   
   const filteredDestinations = destinations.filter(dest => 
     activeFilter === "All" || dest.category === activeFilter
   );
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (!scrollRef.current || !sectionRef.current || !pinRef.current) return;
+
+      const scrollEl = scrollRef.current;
+      const totalWidth = scrollEl.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      const scrollDistance = totalWidth - viewportWidth;
+      
+      gsap.to(scrollEl, {
+        x: -scrollDistance,
+        ease: "none",
+        scrollTrigger: {
+          id: "destinations-scroll",
+          trigger: sectionRef.current,
+          pin: true,
+          start: "top top",
+          end: () => `+=${scrollDistance}`,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+        }
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="packages" ref={sectionRef} className="bg-[#F7F6F3] py-24 md:py-48 overflow-hidden">
-      <div className="container mx-auto px-6">
+    <section id="packages" ref={sectionRef} className="bg-[#0F2F2A] scroll-mt-24">
+      <div ref={pinRef} className="relative h-screen w-full overflow-hidden flex flex-col justify-center">
         
-        {/* Header Section: Editorial Style */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 md:mb-32 gap-16">
-          <div className="max-w-2xl">
-            <motion.span 
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-[#6FC3B2] font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-6 block"
-            >
-              Curated Collections
-            </motion.span>
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="font-serif text-5xl md:text-8xl text-[#0F2F2A] leading-[1] tracking-tighter"
-            >
-              Discover Your <br />
-              <span className="italic font-light text-[#6FC3B2]/80">Next Escape.</span>
-            </motion.h2>
-          </div>
+        {/* Dynamic Background Text */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
+          <h2 className="font-serif text-[30vw] text-white/[0.02] leading-none whitespace-nowrap uppercase italic font-black">
+            Destinations
+          </h2>
+        </div>
 
-          {/* Minimalist Underline Filters */}
-          <div className="flex flex-wrap gap-x-10 gap-y-6">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveFilter(cat)}
-                className={`relative group pb-2 font-sans text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300
-                  ${activeFilter === cat ? "text-[#0F2F2A]" : "text-[#0F2F2A]/30 hover:text-[#0F2F2A]/60"}
-                `}
-              >
-                <span>{cat}</span>
-                <motion.div 
-                  initial={false}
-                  animate={{ 
-                    width: activeFilter === cat ? "100%" : "0%",
-                    opacity: activeFilter === cat ? 1 : 0
-                  }}
-                  className="absolute bottom-0 left-0 h-[2px] bg-[#6FC3B2]"
-                />
-              </button>
-            ))}
+        <div className="container relative z-10 px-6 mx-auto mb-12">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12">
+            <div>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-[1px] bg-[#6FC3B2]" />
+                <span className="text-[#6FC3B2] font-sans text-[10px] font-bold uppercase tracking-[0.4em]">
+                  Elite Collection
+                </span>
+              </div>
+              <h2 className="font-serif text-5xl md:text-8xl text-white leading-none tracking-tighter">
+                World&apos;s <span className="italic font-light text-[#6FC3B2]">Hidden Gems</span>
+              </h2>
+            </div>
+
+            {/* Minimalist Filters */}
+            <div className="flex flex-wrap gap-x-8 gap-y-4">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveFilter(cat)}
+                  className={`text-[10px] font-bold uppercase tracking-[0.3em] transition-all duration-500 py-2 border-b ${
+                    activeFilter === cat 
+                      ? "text-[#6FC3B2] border-[#6FC3B2]" 
+                      : "text-white/30 border-transparent hover:text-white/60"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Asymmetrical Masonry Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-          <AnimatePresence mode="popLayout">
-            {filteredDestinations.map((dest, i) => (
-              <DestinationCard 
-                key={dest.id} 
-                dest={dest} 
-                index={i} 
-                isAllActive={activeFilter === "All"}
-              />
-            ))}
-          </AnimatePresence>
-        </div>
-
-        {/* Global Action: Floating Action */}
-        <div className="mt-32 flex flex-col items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="group relative"
+        {/* Horizontal Scroll Area */}
+        <div className="relative z-10 overflow-visible">
+          <div 
+            ref={scrollRef}
+            className="flex gap-12 px-[10vw] min-w-max h-[65vh] items-center"
           >
-            <button className="px-16 py-7 bg-[#0F2F2A] text-white font-sans text-xs font-bold uppercase tracking-[0.4em] rounded-full overflow-hidden transition-all duration-700 hover:scale-105 shadow-2xl">
-              <span className="relative z-10">View Full Portfolio</span>
-              <div className="absolute inset-0 bg-[#6FC3B2] translate-y-full transition-transform duration-700 group-hover:translate-y-0" />
-            </button>
-          </motion.div>
+            <AnimatePresence mode="popLayout">
+              {filteredDestinations.map((dest, i) => (
+                <DestinationCard 
+                  key={dest.id} 
+                  dest={dest} 
+                  index={i} 
+                />
+              ))}
+            </AnimatePresence>
+
+            {/* View More Card */}
+            <div className="flex flex-col justify-center px-20">
+              <button className="group flex flex-col items-center gap-8">
+                <div className="w-32 h-32 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-[#6FC3B2] group-hover:border-[#6FC3B2] transition-all duration-700">
+                  <ArrowUpRight className="w-10 h-10 text-white group-hover:text-[#0F2F2A] transition-colors" />
+                </div>
+                <span className="text-white text-[10px] font-bold uppercase tracking-[0.5em] text-center">
+                  Explore Full <br />Portfolio
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex items-center gap-12">
+          <div className="flex items-center gap-4">
+            <ChevronLeft className="text-white/20 w-4 h-4" />
+            <div className="w-40 h-[1px] bg-white/10 relative overflow-hidden">
+              <motion.div 
+                className="absolute inset-0 bg-[#6FC3B2] origin-left"
+                style={{ scaleX: 0.3 }} // This would be dynamic in a full impl
+              />
+            </div>
+            <ChevronRight className="text-white/20 w-4 h-4" />
+          </div>
+          <span className="text-white/30 text-[9px] font-bold uppercase tracking-[0.4em]">Scroll to navigate</span>
         </div>
       </div>
     </section>
   );
 }
 
-function DestinationCard({ dest, index, isAllActive }: { dest: any; index: number; isAllActive: boolean }) {
-  // Asymmetrical Grid Logic
-  const getGridSpan = () => {
-    if (!isAllActive) return "md:col-span-6 lg:col-span-4";
-    
-    switch (dest.size) {
-      case "large": return "md:col-span-12 lg:col-span-7 lg:row-span-2";
-      case "medium": return "md:col-span-6 lg:col-span-5";
-      case "small": return "md:col-span-6 lg:col-span-4";
-      default: return "md:col-span-6 lg:col-span-4";
-    }
-  };
-
-  const getAspectRatio = () => {
-    if (!isAllActive) return "aspect-[4/5]";
-    if (dest.size === "large") return "aspect-[4/5] lg:aspect-auto lg:h-full";
-    if (dest.size === "medium") return "aspect-[16/10]";
-    return "aspect-[4/5]";
-  };
-
+function DestinationCard({ dest, index }: { dest: any; index: number }) {
   return (
     <motion.div 
       layout
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.9, x: 100 }}
+      animate={{ opacity: 1, scale: 1, x: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
       transition={{ 
-        duration: 0.8, 
+        duration: 1.2, 
         delay: index * 0.1,
         ease: [0.16, 1, 0.3, 1] 
       }}
-      className={`group cursor-pointer relative overflow-hidden rounded-[3rem] shadow-sm hover:shadow-2xl transition-all duration-700 ${getGridSpan()} ${getAspectRatio()}`}
+      className="group relative w-[30vw] min-w-[400px] h-[55vh] rounded-[3rem] overflow-hidden shadow-2xl"
     >
-      <div className="absolute inset-0 z-0">
-        <Image 
-          src={dest.img} 
-          alt={dest.title} 
-          fill 
-          className="object-cover transition-transform duration-[2s] ease-out group-hover:scale-110"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-        {/* Cinematic Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0F2F2A]/90 via-[#0F2F2A]/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-700" />
-      </div>
-
-      {/* Glassmorphism Category Tag */}
-      <div className="absolute top-8 left-8 z-20">
-        <div className="px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-sans text-[9px] font-bold uppercase tracking-widest">
-          {dest.category}
-        </div>
-      </div>
+      <Image 
+        src={dest.img} 
+        alt={dest.title} 
+        fill 
+        className="object-cover transition-transform duration-[2s] ease-out group-hover:scale-110"
+        sizes="30vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0F2F2A] via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-700" />
 
       {/* Content */}
-      <div className="absolute inset-0 z-20 p-10 md:p-14 flex flex-col justify-end">
-        <motion.div layout className="mb-4">
-          <h3 className={`font-serif text-white leading-tight mb-4 transition-colors duration-500 group-hover:text-[#6FC3B2]
-            ${dest.size === 'large' && isAllActive ? "text-4xl md:text-7xl" : "text-3xl md:text-5xl"}
-          `}>
+      <div className="absolute inset-0 p-12 flex flex-col justify-end translate-y-8 group-hover:translate-y-0 transition-transform duration-700">
+        <div className="mb-4">
+          <span className="inline-block text-[#6FC3B2] text-[9px] font-bold uppercase tracking-widest mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+            {dest.category}
+          </span>
+          <h3 className="font-serif text-white text-5xl leading-none mb-6">
             {dest.title}
           </h3>
-          <div className="flex items-center gap-2 text-white/50 mb-6">
-            <MapPin className="w-4 h-4 text-[#6FC3B2]" />
-            <span className="font-sans text-[10px] md:text-xs uppercase tracking-[0.2em]">{dest.loc}</span>
+          <div className="flex items-center gap-2 text-white/50 mb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200">
+            <MapPin className="w-3 h-3 text-[#6FC3B2]" />
+            <span className="font-sans text-[9px] uppercase tracking-[0.2em]">{dest.loc}</span>
           </div>
-          
-          <p className="text-white/60 font-sans text-sm md:text-lg max-w-sm leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-700">
+          <p className="text-white/40 font-sans text-sm leading-relaxed max-w-xs opacity-0 group-hover:opacity-100 transition-all duration-700 delay-300">
             {dest.desc}
           </p>
-        </motion.div>
-
-        <div className="flex items-center justify-between pt-8 border-t border-white/10 mt-6 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100 translate-y-4 group-hover:translate-y-0">
-          <span className="text-white font-sans text-[10px] font-bold uppercase tracking-[0.3em]">Explore Journey</span>
-          <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-[#6FC3B2] group-hover:border-[#6FC3B2] transition-all duration-500">
-            <ArrowUpRight className="w-5 h-5" />
-          </div>
         </div>
+
+        <div className="flex items-center justify-between pt-8 border-t border-white/5 mt-4 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-400">
+          <span className="text-white/60 font-sans text-[9px] font-bold uppercase tracking-[0.3em]">Learn more</span>
+          <ArrowUpRight className="w-4 h-4 text-[#6FC3B2]" />
+        </div>
+      </div>
+
+      {/* Subtle Overlay Number */}
+      <div className="absolute top-10 right-10">
+        <span className="text-white/10 font-serif text-6xl italic">0{index + 1}</span>
       </div>
     </motion.div>
   );
