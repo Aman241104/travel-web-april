@@ -15,7 +15,8 @@ export default function CTASection() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const handle = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(handle);
   }, []);
 
   useEffect(() => {
@@ -67,27 +68,27 @@ export default function CTASection() {
     <section 
       id="contact" 
       ref={sectionRef} 
-      className="relative py-24 md:py-40 bg-[#0B1310] overflow-hidden scroll-mt-24"
+      className="relative py-16 md:py-40 bg-[#0B1310] overflow-hidden scroll-mt-24"
     >
       <div className="absolute inset-0 z-0">
         <div 
           ref={bgRef}
           className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center origin-center scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A2421] via-[#1A2421]/60 to-[#1A2421]/20 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1310] via-[#0B1310]/80 to-[#0B1310]/40 z-10" />
       </div>
 
       <div className="container mx-auto px-6 relative z-20">
-        <div className="flex flex-col lg:flex-row items-end justify-between gap-20">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 md:gap-20">
           
           <div className="max-w-4xl">
-            <div className="overflow-hidden mb-8">
+            <div className="overflow-hidden mb-6 md:mb-8">
               <span className="cta-reveal inline-block text-[#C1A67B] font-sans text-[10px] md:text-xs font-black uppercase tracking-[0.6em]">
                 Excellence Since MMVI
               </span>
             </div>
             
-            <h2 className="font-serif text-6xl md:text-[100px] lg:text-[130px] text-[#F2EFE9] leading-[0.85] tracking-tightest mb-16">
+            <h2 className="font-serif text-4xl md:text-7xl lg:text-[130px] text-[#F2EFE9] leading-[0.9] tracking-tightest mb-10 md:mb-16">
               <div className="overflow-hidden">
                 <span className="cta-reveal inline-block">Begin Your</span>
               </div>
@@ -96,14 +97,14 @@ export default function CTASection() {
               </div>
             </h2>
 
-            <div className="overflow-hidden mb-16">
-              <p className="cta-reveal inline-block text-[#F2EFE9]/50 font-sans text-xl lg:text-2xl leading-relaxed max-w-xl">
+            <div className="overflow-hidden mb-12 md:mb-16">
+              <p className="cta-reveal inline-block text-[#F2EFE9]/50 font-sans text-lg md:text-xl lg:text-2xl leading-relaxed max-w-xl">
                 Connect with our private advisory to begin crafting an itinerary that reflects your unique standard of exploration.
               </p>
             </div>
 
             <div className="cta-reveal">
-              <MagneticButton className="group relative px-16 py-8 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.5em] rounded-full overflow-hidden shadow-2xl transition-all duration-700 hover:bg-[#0B1310]">
+              <MagneticButton className="group relative px-10 py-6 md:px-16 md:py-8 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.5em] rounded-full overflow-hidden shadow-2xl transition-all duration-700 hover:bg-[#0B1310]">
                 <span className="relative z-10 flex items-center gap-6">
                   Design Your Escape <ArrowUpRight className="w-5 h-5" />
                 </span>
@@ -111,37 +112,37 @@ export default function CTASection() {
             </div>
           </div>
 
-          <div className="contact-grid flex flex-col gap-6 w-full lg:w-auto">
+          <div className="contact-grid flex flex-col gap-4 md:gap-6 w-full lg:w-auto mt-16 lg:mt-0">
             <a 
               href="tel:+919825438324" 
-              className="contact-node group p-10 rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#C1A67B]/30 transition-all duration-500 flex items-center gap-8 backdrop-blur-xl"
+              className="contact-node group p-8 md:p-10 rounded-2xl md:rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#C1A67B]/30 transition-all duration-500 flex items-center gap-6 md:gap-8 backdrop-blur-xl"
             >
-              <div className="w-16 h-16 rounded-2xl bg-[#C1A67B]/10 flex items-center justify-center text-[#C1A67B] group-hover:scale-110 group-hover:bg-[#C1A67B] group-hover:text-[#0B1310] transition-all duration-500">
-                <Phone className="w-6 h-6" />
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-[#C1A67B]/10 flex items-center justify-center text-[#C1A67B] group-hover:scale-110 group-hover:bg-[#C1A67B] group-hover:text-[#0B1310] transition-all duration-500">
+                <Phone className="w-5 h-5 md:w-6 md:h-6" />
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C1A67B] mb-2">Direct Line</p>
-                <p className="text-[#F2EFE9] font-serif text-3xl tracking-tight">+91 98254 38324</p>
+                <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-[#C1A67B] mb-1 md:mb-2">Direct Line</p>
+                <p className="text-[#F2EFE9] font-serif text-2xl md:text-3xl tracking-tight">+91 98254 38324</p>
               </div>
             </a>
 
             <a 
               href="#" 
-              className="contact-node group p-10 rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#25D366]/30 transition-all duration-500 flex items-center gap-8 backdrop-blur-xl"
+              className="contact-node group p-8 md:p-10 rounded-2xl md:rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#25D366]/30 transition-all duration-500 flex items-center gap-6 md:gap-8 backdrop-blur-xl"
             >
-              <div className="w-16 h-16 rounded-2xl bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:scale-110 group-hover:bg-[#25D366] group-hover:text-[#0B1310] transition-all duration-500">
-                <MessageCircle className="w-6 h-6" />
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:scale-110 group-hover:bg-[#25D366] group-hover:text-[#0B1310] transition-all duration-500">
+                <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#25D366] mb-2">WhatsApp Concierge</p>
-                <p className="text-[#F2EFE9] font-serif text-3xl tracking-tight">Instant Access</p>
+                <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-[#25D366] mb-1 md:mb-2">WhatsApp Concierge</p>
+                <p className="text-[#F2EFE9] font-serif text-2xl md:text-3xl tracking-tight">Instant Access</p>
               </div>
             </a>
           </div>
 
         </div>
 
-        <div className="mt-32 pt-20 border-t border-[#F2EFE9]/[0.05] flex flex-col md:flex-row items-center justify-between gap-12 text-[#F2EFE9]/20 font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
+        <div className="mt-12 md:mt-32 pt-8 md:pt-20 border-t border-[#F2EFE9]/[0.05] flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 text-[#F2EFE9]/20 font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
           <span>© 2026 Jade Tours & Travel</span>
           <span className="italic font-serif normal-case tracking-widest text-[#C1A67B]/40">The Art of Effortless Exploration</span>
           <span>All Rights Reserved</span>

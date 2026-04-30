@@ -20,9 +20,9 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#0B1310] pt-32 pb-12 overflow-hidden">
+    <footer className="relative bg-[#0B1310] pt-20 pb-10 md:pt-32 md:pb-12 overflow-hidden">
       {/* Texture Overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.02] bg-noise" />
 
       {/* Decorative Brand Text Backdrop */}
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-full text-center pointer-events-none z-0">
@@ -40,7 +40,7 @@ export default function Footer() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="font-serif text-5xl md:text-7xl lg:text-8xl text-[#F2EFE9] leading-[0.9] tracking-tighter"
+              className="font-serif text-4xl md:text-7xl lg:text-8xl text-[#F2EFE9] leading-[0.9] tracking-tighter"
             >
               Let’s design your <br />
               <span className="italic font-light text-[#C1A67B]">next great story.</span>
@@ -68,7 +68,7 @@ export default function Footer() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 mb-32 pt-20 border-t border-[#F5F2ED]/10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-20 md:mb-32 pt-16 md:pt-20 border-t border-[#F5F2ED]/10">
           
           {/* Brand Info */}
           <div className="lg:col-span-4">

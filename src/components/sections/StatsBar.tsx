@@ -30,7 +30,7 @@ export default function ValueProposition() {
             <span className="text-brand-yellow font-sans text-sm font-semibold uppercase tracking-widest mb-4 block">
               Our Values
             </span>
-            <h2 className="font-serif text-5xl md:text-7xl mb-10 leading-[1.1] text-[#F2EFE9]">
+            <h2 className="font-serif text-4xl md:text-7xl mb-10 leading-[1.1] text-[#F2EFE9]">
               Why people love <br />
               <span className="italic font-light">travelling with us.</span>
             </h2>

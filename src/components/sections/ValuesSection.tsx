@@ -47,7 +47,8 @@ export default function ValuesSection() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const handle = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(handle);
   }, []);
 
   useEffect(() => {
@@ -100,7 +101,7 @@ export default function ValuesSection() {
     >
       <div ref={pinWrapperRef} className="h-screen w-full overflow-hidden flex items-center">
         {/* Texture Overlay */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.02] bg-noise" />
 
         {/* Massive Background Decorative Text */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -110,36 +111,36 @@ export default function ValuesSection() {
         </div>
 
         {/* Floating Header */}
-        <div className="absolute top-24 left-12 lg:left-24 z-20">
+        <div className="absolute top-24 left-6 lg:left-24 z-20">
           <span className="text-[#C1A67B] font-sans text-[10px] font-bold uppercase tracking-[0.6em] mb-4 block">
             The Jade Standard
           </span>
-          <h2 className="font-serif text-5xl lg:text-7xl text-[#F2EFE9] tracking-tighter">Our Philosophy</h2>
+          <h2 className="font-serif text-4xl lg:text-7xl text-[#F2EFE9] tracking-tighter">Our Philosophy</h2>
         </div>
 
         {/* Horizontal Container */}
         <div 
           ref={containerRef} 
-          className="flex h-full items-center px-[15vw] gap-[20vw]"
+          className="flex h-full items-center pt-32 lg:pt-0 px-[10vw] gap-[15vw] lg:gap-[20vw]"
         >
           {values.map((item) => (
             <div 
               key={item.id}
-              className="relative flex-shrink-0 w-[70vw] lg:w-[50vw] h-[50vh] flex items-center gap-12 lg:gap-20 group"
+              className="relative flex-shrink-0 w-[85vw] lg:w-[50vw] h-[50vh] flex items-center gap-12 lg:gap-20 group"
             >
               {/* Content Side */}
               <div className="relative z-10 w-full lg:w-1/2">
-                <div className="flex items-center gap-6 mb-10">
-                  <span className="font-serif text-5xl text-[#F2EFE9]/10 leading-none">{item.id}</span>
+                <div className="flex items-center gap-6 mb-8 lg:mb-10">
+                  <span className="font-serif text-3xl lg:text-5xl text-[#F2EFE9]/10 leading-none">{item.id}</span>
                   <div className="h-[1px] w-12 bg-[#C1A67B]/30" />
                   <span className="text-[#C1A67B] text-[10px] font-bold uppercase tracking-[0.4em]">
                     Principle
                   </span>
                 </div>
-                <h3 className="font-serif text-5xl lg:text-6xl text-[#F2EFE9] mb-8 leading-[1.1] tracking-tight group-hover:text-[#C1A67B] transition-colors duration-500">
+                <h3 className="font-serif text-3xl lg:text-6xl text-[#F2EFE9] mb-6 lg:mb-8 leading-[1.1] tracking-tight group-hover:text-[#C1A67B] transition-colors duration-500">
                   {item.title}
                 </h3>
-                <p className="font-sans text-[#F2EFE9]/40 text-lg leading-relaxed mb-12 max-w-sm">
+                <p className="font-sans text-[#F2EFE9]/40 text-base lg:text-lg leading-relaxed mb-10 lg:mb-12 max-w-sm">
                   {item.desc}
                 </p>
                 <button className="flex items-center gap-6 text-[#F2EFE9] group/btn">
@@ -165,15 +166,15 @@ export default function ValuesSection() {
           ))}
 
           {/* Closing Spread */}
-          <div className="flex-shrink-0 w-[40vw] flex flex-col justify-center pr-24">
-            <h4 className="font-serif text-[#F2EFE9] text-6xl lg:text-8xl leading-none tracking-tighter mb-10">
+          <div className="flex-shrink-0 w-[80vw] lg:w-[40vw] flex flex-col justify-center pr-12 lg:pr-24">
+            <h4 className="font-serif text-[#F2EFE9] text-4xl lg:text-8xl leading-none tracking-tighter mb-8 lg:mb-10">
               Your vision, <br />
               <span className="italic font-light text-[#C1A67B]">our canvas.</span>
             </h4>
-            <p className="text-[#F2EFE9]/30 font-sans text-lg max-w-xs mb-12 leading-relaxed">
+            <p className="text-[#F2EFE9]/30 font-sans text-base lg:text-lg max-w-xs mb-10 lg:mb-12 leading-relaxed">
               Every masterpiece starts with a single, intentional conversation.
             </p>
-            <button className="px-12 py-6 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.4em] rounded-full hover:bg-[#0B1310] transition-all duration-500 shadow-2xl shadow-[#C1A67B]/10">
+            <button className="w-fit px-10 lg:px-12 py-5 lg:py-6 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.4em] rounded-full hover:bg-[#0B1310] transition-all duration-500 shadow-2xl shadow-[#C1A67B]/10">
               Begin Your Experience
             </button>
           </div>

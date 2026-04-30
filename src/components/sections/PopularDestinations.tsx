@@ -11,7 +11,16 @@ if (typeof window !== "undefined") {
 
 const categories = ["All", "Coastal", "Mountain", "Cultural", "Wild"];
 
-const destinations = [
+interface Destination {
+  id: number;
+  title: string;
+  loc: string;
+  desc: string;
+  img: string;
+  category: string;
+}
+
+const destinations: Destination[] = [
   { 
     id: 1, 
     title: "Maldive Serenity", 
@@ -66,7 +75,8 @@ export default function PopularDestinations() {
   );
 
   useEffect(() => {
-    setMounted(true);
+    const handle = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(handle);
   }, []);
 
   useEffect(() => {
@@ -159,7 +169,7 @@ export default function PopularDestinations() {
             ))}
 
             {/* View More Card */}
-            <div className="flex flex-col justify-center px-20">
+            <div className="flex flex-col justify-center px-10 md:px-20">
               <button className="group flex flex-col items-center gap-8">
                 <div className="w-32 h-32 rounded-full border border-[#F2EFE9]/10 flex items-center justify-center group-hover:bg-[#C1A67B] group-hover:border-[#C1A67B] transition-all duration-700">
                   <ArrowUpRight className="w-10 h-10 text-[#F2EFE9] group-hover:text-[#0B1310] transition-colors" />
@@ -191,12 +201,11 @@ export default function PopularDestinations() {
   );
 }
 
-function DestinationCard({ dest, index }: { dest: any; index: number }) {
+function DestinationCard({ dest, index }: { dest: Destination; index: number }) {
   return (
-    <div 
-      className="group relative w-[30vw] min-w-[400px] h-[55vh] rounded-[3rem] overflow-hidden shadow-2xl"
-    >
-      <Image 
+    <div
+      className="group relative w-[70vw] md:w-[30vw] min-w-[280px] md:min-w-[400px] h-[55vh] rounded-[3rem] overflow-hidden shadow-2xl"
+    >      <Image 
         src={dest.img} 
         alt={dest.title} 
         fill 
@@ -206,12 +215,12 @@ function DestinationCard({ dest, index }: { dest: any; index: number }) {
       <div className="absolute inset-0 bg-gradient-to-t from-[#0F2F2A] via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-700" />
 
       {/* Content */}
-      <div className="absolute inset-0 p-12 flex flex-col justify-end translate-y-8 group-hover:translate-y-0 transition-transform duration-700">
+      <div className="absolute inset-0 p-6 md:p-12 flex flex-col justify-end translate-y-8 group-hover:translate-y-0 transition-transform duration-700">
         <div className="mb-4">
           <span className="inline-block text-[#C1A67B] text-[9px] font-bold uppercase tracking-widest mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
             {dest.category}
           </span>
-          <h3 className="font-serif text-[#F2EFE9] text-5xl leading-none mb-6">
+          <h3 className="font-serif text-[#F2EFE9] text-4xl md:text-5xl leading-none mb-6">
             {dest.title}
           </h3>
           <div className="flex items-center gap-2 text-[#F2EFE9]/50 mb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200">

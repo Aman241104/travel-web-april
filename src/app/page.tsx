@@ -20,11 +20,16 @@ export default function Home() {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
+        const frame = requestAnimationFrame(() => {
+            setMounted(true);
+        });
         const timer = setTimeout(() => {
             ScrollTrigger.refresh();
         }, 1000);
-        return () => clearTimeout(timer);
+        return () => {
+            cancelAnimationFrame(frame);
+            clearTimeout(timer);
+        };
     }, []);
 
     if (!mounted) return <div className="bg-[#0B1310] min-h-screen" />;
@@ -64,7 +69,7 @@ export default function Home() {
                           text="Bespoke Travel • Expert Curation • Global Access • Unparalleled Luxury • " 
                         />
                       </div>
-                      <div className="relative z-0 md:-mt-24">
+                      <div className="relative z-0">
                         <TapeMarquee 
                           outline 
                           rotate={1.5} 

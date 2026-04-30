@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     title: "Jade Tours & Travel | The Art of Effortless Exploration",
     description: "Curated itineraries and seamless global access. Bespoke travel services for the modern nomad.",
     images: [{
-      url: "/og-image.jpg",
+      url: "/assets/image.png",
       width: 1200,
       height: 630,
       alt: "Jade Tours & Travel"
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Jade Tours & Travel",
     description: "Bespoke global travel, passport, and visa services.",
-    images: ["/og-image.jpg"],
+    images: ["/assets/image.png"],
   },
   robots: {
     index: true,

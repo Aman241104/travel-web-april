@@ -69,8 +69,8 @@ export default function USP() {
       });
 
       // Individual Step Animations
-      const stepItems = gsap.utils.toArray(".usp-step");
-      stepItems.forEach((step: any, i: number) => {
+      const stepItems = gsap.utils.toArray(".usp-step") as HTMLElement[];
+      stepItems.forEach((step, i) => {
         const content = step.querySelector(".step-content");
         const number = step.querySelector(".step-bg-number");
         const dot = step.querySelector(".step-dot");
@@ -120,12 +120,12 @@ export default function USP() {
     <section 
       ref={containerRef} 
       id="process" 
-      className="relative bg-[#0B1310] py-24 md:py-48 overflow-hidden scroll-mt-24"
+      className="relative bg-[#0B1310] py-10 md:py-48 overflow-hidden scroll-mt-24"
     >
       <div className="container mx-auto px-6 max-w-[1400px]">
         
         {/* Header */}
-        <div className="flex flex-col items-center text-center mb-32 md:mb-48">
+        <div className="flex flex-col items-center text-center mb-16 md:mb-48">
           <div className="flex items-center gap-4 mb-8">
             <div className="w-12 h-[1px] bg-[#0B1310]/20" />
             <span className="text-[#F2EFE9] font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
@@ -148,7 +148,7 @@ export default function USP() {
             <div className="timeline-progress absolute top-0 left-0 w-full h-full bg-[#C1A67B]" />
           </div>
 
-          <div className="space-y-32 md:space-y-56">
+          <div className="space-y-16 md:space-y-56">
             {steps.map((step, i) => (
               <div 
                 key={i} 

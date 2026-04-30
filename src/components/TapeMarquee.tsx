@@ -91,7 +91,7 @@ export default function TapeMarquee({
 
       <style jsx>{`
         .stroke-text {
-          -webkit-text-stroke: 1px rgba(15, 47, 42, 0.2);
+          -webkit-text-stroke: 1px rgba(242, 239, 233, 0.15);
         }
       `}</style>
     </div>

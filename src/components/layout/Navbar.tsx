@@ -113,7 +113,7 @@ export default function Navbar() {
                   <Link 
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="font-serif text-5xl text-[#F2EFE9]/30 hover:text-[#F2EFE9] transition-colors duration-500 flex items-center justify-between group"
+                    className="font-serif text-4xl text-[#F2EFE9]/30 hover:text-[#F2EFE9] transition-colors duration-500 flex items-center justify-between group"
                   >
                     <span>{link.name}</span>
                     <ArrowUpRight className="w-8 h-8 opacity-0 -translate-x-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0 text-[#C1A67B]" />

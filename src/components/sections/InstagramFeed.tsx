@@ -10,7 +10,16 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const journalEntries = [
+interface JournalEntry {
+  id: number;
+  title: string;
+  category: string;
+  desc: string;
+  src: string;
+  date: string;
+}
+
+const journalEntries: JournalEntry[] = [
   { 
     id: 1,
     title: "Alpine Sanctuary", 
@@ -64,8 +73,8 @@ export default function InstagramFeed() {
       });
 
       // Card Staggered Entry
-      const cards = gsap.utils.toArray(".journal-card");
-      cards.forEach((card: any, i: number) => {
+      const cards = gsap.utils.toArray(".journal-card") as HTMLElement[];
+      cards.forEach((card, i) => {
         gsap.from(card, {
           y: 60,
           opacity: 0,
@@ -92,7 +101,7 @@ export default function InstagramFeed() {
   }, []);
 
   return (
-    <section id="journal" ref={containerRef} className="relative py-24 md:py-40 bg-[#0B1310] overflow-hidden scroll-mt-24">
+    <section id="journal" ref={containerRef} className="relative py-10 md:py-40 bg-[#0B1310] overflow-hidden scroll-mt-24">
       {/* Editorial Watermark */}
       <div className="absolute top-10 right-[-10%] pointer-events-none opacity-[0.02] select-none">
         <span className="font-serif text-[30vw] leading-none uppercase italic">Journal</span>
@@ -101,13 +110,13 @@ export default function InstagramFeed() {
       <div className="container mx-auto px-6 relative z-10 max-w-[1400px]">
         
         {/* Header Exhibit */}
-        <div ref={titleRef} className="max-w-4xl mb-20 md:mb-32">
+        <div ref={titleRef} className="max-w-4xl mb-12 md:mb-32">
           <div className="overflow-hidden mb-4">
             <span className="journal-reveal inline-block text-[#C1A67B] font-sans text-[10px] md:text-xs font-black uppercase tracking-[0.5em]">
               Digital Archive
             </span>
           </div>
-          <h2 className="font-serif text-6xl md:text-8xl lg:text-[110px] text-[#F2EFE9] leading-[0.9] tracking-tightest">
+          <h2 className="font-serif text-5xl md:text-8xl lg:text-[110px] text-[#F2EFE9] leading-[0.9] tracking-tightest">
             <div className="overflow-hidden">
               <span className="journal-reveal inline-block">The Art of</span>
             </div>
@@ -118,17 +127,17 @@ export default function InstagramFeed() {
         </div>
 
         {/* Balanced Staggered Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-x-24 md:gap-y-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-x-24 md:gap-y-32">
           
           {/* Column 1 */}
-          <div className="flex flex-col gap-12 md:gap-32">
+          <div className="flex flex-col gap-8 md:gap-32">
             {[journalEntries[0], journalEntries[2]].map((item) => (
               <JournalCard key={item.id} item={item} />
             ))}
           </div>
 
           {/* Column 2 - Staggered Down */}
-          <div className="flex flex-col gap-12 md:gap-32 md:pt-48">
+          <div className="flex flex-col gap-8 md:gap-32 md:pt-48">
              {[journalEntries[1], journalEntries[3]].map((item) => (
               <JournalCard key={item.id} item={item} />
             ))}
@@ -137,7 +146,7 @@ export default function InstagramFeed() {
         </div>
 
         {/* Archive CTA */}
-        <div className="mt-32 pt-16 border-t border-[#F2EFE9]/10 flex flex-col md:flex-row items-center justify-between gap-12">
+        <div className="mt-20 md:mt-32 pt-16 border-t border-[#F2EFE9]/10 flex flex-col md:flex-row items-center justify-between gap-12">
           <div className="max-w-md">
             <h5 className="font-serif text-2xl text-[#F2EFE9] mb-2">The Narrative Archive</h5>
             <p className="text-[#F2EFE9]/40 font-sans text-xs leading-relaxed uppercase tracking-widest">
@@ -158,7 +167,7 @@ export default function InstagramFeed() {
   );
 }
 
-function JournalCard({ item }: { item: any }) {
+function JournalCard({ item }: { item: JournalEntry }) {
   return (
     <div className="journal-card group cursor-pointer">
       <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-xl mb-8 bg-[#0B1310]">
