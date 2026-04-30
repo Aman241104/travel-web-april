@@ -1,69 +1,104 @@
 "use client";
 import Link from "next/link";
-import { MessageCircle, Mail, ArrowRight, MapPin, Phone } from "lucide-react";
-import { Instagram } from "./ui/InstagramIcon";
+import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
+
+const navLinks = [
+  { name: "Destinations", href: "#packages" },
+  { name: "Bespoke Services", href: "#services" },
+  { name: "Our Process", href: "#process" },
+  { name: "The Journal", href: "#journal" },
+  { name: "About Jade", href: "#about" },
+];
+
+const socialLinks = [
+  { name: "Instagram", href: "#" },
+  { name: "LinkedIn", href: "#" },
+  { name: "WhatsApp", href: "#" },
+  { name: "Vimeo", href: "#" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-white pt-24 pb-12 overflow-hidden border-t border-onyx/5">
-      <div className="container mx-auto px-6">
+    <footer className="relative bg-[#1A2421] pt-32 pb-12 overflow-hidden">
+      {/* Texture Overlay */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+
+      {/* Decorative Brand Text Backdrop */}
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-full text-center pointer-events-none z-0">
+        <span className="font-serif text-[25vw] leading-none text-white/[0.03] select-none tracking-tighter">
+          JADE
+        </span>
+      </div>
+
+      <div className="container relative z-10 mx-auto px-6">
         
-        {/* Final Brand Statement */}
-        <div className="max-w-4xl mb-24">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+        {/* Main CTA Section */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-32">
+          <div className="max-w-3xl">
+            <motion.h2 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="font-serif text-5xl md:text-7xl lg:text-8xl text-[#F5F2ED] leading-[0.9] tracking-tighter"
+            >
+              Let’s design your <br />
+              <span className="italic font-light text-[#C5A267]">next great story.</span>
+            </motion.h2>
+          </div>
+          
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="font-serif text-3xl md:text-5xl text-onyx leading-tight tracking-tight"
+            className="flex flex-col items-start gap-8"
           >
-            Crafting journeys that stay with you <br />
-            <span className="italic font-light text-brand-teal/80">long after you return.</span>
-          </motion.h2>
+            <p className="text-[#F5F2ED]/40 max-w-xs font-sans text-sm leading-relaxed tracking-wide">
+              Bespoke curation for those who seek the extraordinary. Every detail is an intentional masterpiece.
+            </p>
+            <Link 
+              href="#contact"
+              className="group flex items-center gap-4 text-[#C5A267] font-bold text-xs uppercase tracking-[0.4em] hover:text-[#F5F2ED] transition-colors"
+            >
+              Inquire Now
+              <div className="w-12 h-12 rounded-full border border-[#C5A267]/30 flex items-center justify-center group-hover:bg-[#C5A267] group-hover:border-[#C5A267] transition-all duration-500">
+                <ArrowUpRight className="w-4 h-4 text-[#C5A267] group-hover:text-[#1A2421]" />
+              </div>
+            </Link>
+          </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 mb-32 pt-20 border-t border-[#F5F2ED]/10">
           
-          {/* Brand Column */}
+          {/* Brand Info */}
           <div className="lg:col-span-4">
-            <Link href="/" className="group flex flex-col items-start leading-none mb-8">
-              <span className="font-serif text-4xl tracking-tighter text-onyx transition-colors duration-500">JADE</span>
-              <span className="font-sans text-[10px] font-black uppercase tracking-[0.5em] text-brand-teal mt-1 ml-0.5">Travels</span>
-            </Link>
-            <p className="text-onyx/50 max-w-sm font-sans text-base leading-relaxed mb-10">
-              Crafting exceptional journeys since 2011, designed with precision and personalization for the discerning global traveler.
-            </p>
-            <div className="flex items-center gap-4">
-              {[
-                { Icon: Instagram, href: "#", label: "Instagram" },
-                { Icon: MessageCircle, href: "#", label: "WhatsApp" },
-                { Icon: Mail, href: "mailto:hello@jadetravels.co.in", label: "Email" }
-              ].map((social, i) => (
-                <Link 
-                  key={i} 
-                  href={social.href} 
-                  aria-label={social.label}
-                  className="w-12 h-12 rounded-full border border-onyx/10 flex items-center justify-center text-onyx/40 hover:text-brand-teal hover:border-brand-teal transition-all duration-500 bg-transparent hover:bg-brand-teal/5"
-                >
-                  <social.Icon className="w-5 h-5" />
-                </Link>
-              ))}
+            <div className="flex flex-col items-start mb-8">
+              <span className="font-serif text-3xl tracking-tighter text-[#F5F2ED]">JADE</span>
+              <span className="font-sans text-[9px] font-black uppercase tracking-[0.6em] text-[#C5A267] mt-1">Travels</span>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 text-[#F5F2ED]/40 hover:text-[#F5F2ED] transition-colors cursor-default">
+                <MapPin className="w-4 h-4" />
+                <span className="text-xs uppercase tracking-widest">Ahmedabad, India</span>
+              </div>
+              <a href="tel:+919825438324" className="flex items-center gap-3 text-[#F5F2ED]/40 hover:text-[#C5A267] transition-colors">
+                <Phone className="w-4 h-4" />
+                <span className="text-xs uppercase tracking-widest">+91 98254 38324</span>
+              </a>
+              <a href="mailto:hello@jadetravels.co.in" className="flex items-center gap-3 text-[#F5F2ED]/40 hover:text-[#C5A267] transition-colors">
+                <Mail className="w-4 h-4" />
+                <span className="text-xs uppercase tracking-widest">hello@jadetravels.co.in</span>
+              </a>
             </div>
           </div>
 
           {/* Navigation */}
-          <div className="lg:col-span-2">
-            <h4 className="font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-onyx/30 mb-8">Discovery</h4>
-            <ul className="flex flex-col gap-5">
-              {[
-                { name: "Destinations", href: "#packages" },
-                { name: "Services", href: "#services" },
-                { name: "Expertise", href: "#process" },
-                { name: "Journal", href: "#journal" },
-                { name: "Our Story", href: "#about" },
-              ].map((item) => (
+          <div className="lg:col-span-3">
+            <h4 className="font-sans text-[10px] font-bold uppercase tracking-[0.5em] text-[#F5F2ED]/20 mb-10">Discovery</h4>
+            <ul className="flex flex-col gap-6">
+              {navLinks.map((item) => (
                 <li key={item.name}>
-                  <Link href={item.href} className="text-onyx/70 hover:text-brand-teal transition-colors duration-300 font-serif text-lg">
+                  <Link href={item.href} className="text-[#F5F2ED]/60 hover:text-[#C5A267] transition-colors duration-300 font-serif text-xl tracking-tight">
                     {item.name}
                   </Link>
                 </li>
@@ -71,63 +106,51 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div className="lg:col-span-3">
-            <h4 className="font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-onyx/30 mb-8">Speak to Us</h4>
-            <div className="space-y-8">
-              <a href="tel:+919825438324" className="group block">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-teal mb-2 group-hover:translate-x-1 transition-transform">Private Concierge</p>
-                <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-onyx/20" />
-                  <p className="text-xl font-serif text-onyx">+91 98254 38324</p>
-                </div>
-              </a>
-              <a href="mailto:hello@jadetravels.co.in" className="group block">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-teal mb-2 group-hover:translate-x-1 transition-transform">General Inquiries</p>
-                <div className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-onyx/20" />
-                  <p className="text-xl font-serif text-onyx">hello@jadetravels.co.in</p>
-                </div>
-              </a>
-              <div className="flex items-center gap-3 opacity-50">
-                <MapPin className="w-4 h-4" />
-                <p className="text-sm font-sans">Ahmedabad, Gujarat, India</p>
+          {/* Social / Newsletter */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            <div>
+              <h4 className="font-sans text-[10px] font-bold uppercase tracking-[0.5em] text-[#F5F2ED]/20 mb-10">Connect</h4>
+              <div className="flex flex-wrap gap-x-12 gap-y-6">
+                {socialLinks.map((social) => (
+                  <Link 
+                    key={social.name} 
+                    href={social.href}
+                    className="group flex items-center gap-2 text-[#F5F2ED]/60 hover:text-[#F5F2ED] transition-colors"
+                  >
+                    <span className="text-xs uppercase tracking-[0.3em]">{social.name}</span>
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all -translate-y-1 group-hover:translate-y-0" />
+                  </Link>
+                ))}
               </div>
             </div>
-          </div>
 
-          {/* Newsletter */}
-          <div className="lg:col-span-3">
-            <h4 className="font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-onyx/30 mb-8">Journal Access</h4>
-            <p className="text-onyx/50 font-sans text-base mb-8 leading-relaxed">
-              Get curated travel inspiration and exclusive updates delivered to your inbox.
-            </p>
-            <form className="relative group">
-              <input 
-                type="email" 
-                placeholder="Email Address"
-                required
-                className="w-full bg-cream/30 border border-onyx/10 py-5 px-6 rounded-2xl font-sans text-sm focus:outline-none focus:border-brand-teal focus:ring-4 focus:ring-brand-teal/5 transition-all"
-              />
-              <button 
-                type="submit"
-                aria-label="Subscribe"
-                className="absolute right-2 top-2 bottom-2 px-6 rounded-xl bg-onyx text-white flex items-center justify-center hover:bg-brand-teal transition-all duration-500 shadow-lg"
-              >
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </form>
+            <div className="mt-20">
+              <h4 className="font-sans text-[10px] font-bold uppercase tracking-[0.5em] text-[#F5F2ED]/20 mb-6">Journal Access</h4>
+              <form className="relative max-w-md">
+                <input 
+                  type="email" 
+                  placeholder="Email Address"
+                  className="w-full bg-transparent border-b border-[#F5F2ED]/10 py-4 px-0 font-sans text-sm text-[#F5F2ED] placeholder:text-[#F5F2ED]/20 focus:outline-none focus:border-[#C5A267] transition-all"
+                />
+                <button 
+                  type="submit"
+                  className="absolute right-0 bottom-4 text-[#C5A267] hover:text-[#F5F2ED] transition-colors"
+                >
+                  <ArrowUpRight className="w-5 h-5" />
+                </button>
+              </form>
+            </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-12 border-t border-onyx/5 flex flex-col md:flex-row items-center justify-between gap-8">
-          <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-onyx/30">
+        <div className="pt-12 border-t border-[#F5F2ED]/5 flex flex-col md:flex-row items-center justify-between gap-8">
+          <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#F5F2ED]/20">
             © 2026 JADE TOURS & TRAVELS. ALL RIGHTS RESERVED.
           </p>
           <div className="flex gap-10">
-            {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((item) => (
-              <Link key={item} href="#" className="text-[10px] font-bold uppercase tracking-[0.2em] text-onyx/30 hover:text-onyx transition-colors">
+            {["Privacy", "Terms", "Cookies"].map((item) => (
+              <Link key={item} href="#" className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#F5F2ED]/20 hover:text-[#F5F2ED] transition-colors">
                 {item}
               </Link>
             ))}

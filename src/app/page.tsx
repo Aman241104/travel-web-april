@@ -1,39 +1,37 @@
 "use client";
 
 import dynamic from 'next/dynamic';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Hero from "@/components/Hero";
 import ServicesGrid from "@/components/ServicesGrid";
 import USP from "@/components/sections/USP";
 import ValuesSection from "@/components/sections/ValuesSection";
-import Preloader from "@/components/ui/Preloader";
 
-const PopularDestinations = dynamic(() => import("@/components/sections/PopularDestinations"));
-const TravelerSection = dynamic(() => import("@/components/luxury/TravelerSection"));
-const Testimonials = dynamic(() => import("@/components/luxury/Testimonials"));
-const CTASection = dynamic(() => import("@/components/CTASection"));
-const TapeMarquee = dynamic(() => import("@/components/TapeMarquee"));
-const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed"));
+const PopularDestinations = dynamic(() => import("@/components/sections/PopularDestinations"), { ssr: false });
+const TravelerSection = dynamic(() => import("@/components/luxury/TravelerSection"), { ssr: false });
+const Testimonials = dynamic(() => import("@/components/luxury/Testimonials"), { ssr: false });
+const CTASection = dynamic(() => import("@/components/CTASection"), { ssr: false });
+const TapeMarquee = dynamic(() => import("@/components/TapeMarquee"), { ssr: false });
+const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed"), { ssr: false });
 
 export default function Home() {
-    const handleLoadingComplete = () => {
-        ScrollTrigger.refresh();
-    };
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        setMounted(true);
         const timer = setTimeout(() => {
             ScrollTrigger.refresh();
-        }, 3000); // Fail-safe refresh
+        }, 1000);
         return () => clearTimeout(timer);
     }, []);
 
-    return (
-        <main className="bg-bg-light min-h-screen relative overflow-clip">
-            <Preloader onLoadingComplete={handleLoadingComplete} />
+    if (!mounted) return <div className="bg-[#F5F2ED] min-h-screen" />;
 
-            <div className="relative z-30 bg-bg-light shadow-2xl">
+    return (
+        <main className="bg-[#F5F2ED] min-h-screen relative overflow-clip">
+            <div className="relative z-30 bg-[#F5F2ED] shadow-2xl">
                 {/* Hero Section */}
                 <Hero />
 

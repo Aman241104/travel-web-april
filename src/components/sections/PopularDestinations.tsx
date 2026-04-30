@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, MapPin, ChevronRight, ChevronLeft } from "lucide-react";
 
 if (typeof window !== "undefined") {
@@ -58,16 +57,23 @@ const destinations = [
 export default function PopularDestinations() {
   const [activeFilter, setActiveFilter] = useState("All");
   const sectionRef = useRef<HTMLDivElement>(null);
-  const pinRef = useRef<HTMLDivElement>(null);
+  const pinWrapperRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  
+  const [mounted, setMounted] = useState(false);
+
   const filteredDestinations = destinations.filter(dest => 
     activeFilter === "All" || dest.category === activeFilter
   );
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const ctx = gsap.context(() => {
-      if (!scrollRef.current || !sectionRef.current || !pinRef.current) return;
+      if (!scrollRef.current || !sectionRef.current || !pinWrapperRef.current) return;
 
       const scrollEl = scrollRef.current;
       const totalWidth = scrollEl.scrollWidth;
@@ -80,22 +86,23 @@ export default function PopularDestinations() {
         scrollTrigger: {
           id: "destinations-scroll",
           trigger: sectionRef.current,
-          pin: true,
+          pin: pinWrapperRef.current,
           start: "top top",
           end: () => `+=${scrollDistance}`,
           scrub: 1,
           invalidateOnRefresh: true,
-          anticipatePin: 1,
         }
       });
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [mounted, activeFilter]); 
+
+  if (!mounted) return <section className="h-screen bg-[#0F2F2A]" />;
 
   return (
     <section id="packages" ref={sectionRef} className="bg-[#0F2F2A] scroll-mt-24">
-      <div ref={pinRef} className="relative h-screen w-full overflow-hidden flex flex-col justify-center">
+      <div ref={pinWrapperRef} className="relative h-screen w-full overflow-hidden flex flex-col justify-center">
         
         {/* Dynamic Background Text */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
@@ -143,15 +150,13 @@ export default function PopularDestinations() {
             ref={scrollRef}
             className="flex gap-12 px-[10vw] min-w-max h-[65vh] items-center"
           >
-            <AnimatePresence mode="popLayout">
-              {filteredDestinations.map((dest, i) => (
-                <DestinationCard 
-                  key={dest.id} 
-                  dest={dest} 
-                  index={i} 
-                />
-              ))}
-            </AnimatePresence>
+            {filteredDestinations.map((dest, i) => (
+              <DestinationCard 
+                key={dest.id} 
+                dest={dest} 
+                index={i} 
+              />
+            ))}
 
             {/* View More Card */}
             <div className="flex flex-col justify-center px-20">
@@ -172,9 +177,9 @@ export default function PopularDestinations() {
           <div className="flex items-center gap-4">
             <ChevronLeft className="text-white/20 w-4 h-4" />
             <div className="w-40 h-[1px] bg-white/10 relative overflow-hidden">
-              <motion.div 
+              <div 
                 className="absolute inset-0 bg-[#6FC3B2] origin-left"
-                style={{ scaleX: 0.3 }} // This would be dynamic in a full impl
+                style={{ width: "30%" }} 
               />
             </div>
             <ChevronRight className="text-white/20 w-4 h-4" />
@@ -188,16 +193,7 @@ export default function PopularDestinations() {
 
 function DestinationCard({ dest, index }: { dest: any; index: number }) {
   return (
-    <motion.div 
-      layout
-      initial={{ opacity: 0, scale: 0.9, x: 100 }}
-      animate={{ opacity: 1, scale: 1, x: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ 
-        duration: 1.2, 
-        delay: index * 0.1,
-        ease: [0.16, 1, 0.3, 1] 
-      }}
+    <div 
       className="group relative w-[30vw] min-w-[400px] h-[55vh] rounded-[3rem] overflow-hidden shadow-2xl"
     >
       <Image 
@@ -205,7 +201,7 @@ function DestinationCard({ dest, index }: { dest: any; index: number }) {
         alt={dest.title} 
         fill 
         className="object-cover transition-transform duration-[2s] ease-out group-hover:scale-110"
-        sizes="30vw"
+        sizes="(max-width: 1024px) 100vw, 30vw"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#0F2F2A] via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-700" />
 
@@ -237,6 +233,6 @@ function DestinationCard({ dest, index }: { dest: any; index: number }) {
       <div className="absolute top-10 right-10">
         <span className="text-white/10 font-serif text-6xl italic">0{index + 1}</span>
       </div>
-    </motion.div>
+    </div>
   );
 }

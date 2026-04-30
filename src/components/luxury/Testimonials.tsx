@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { motion } from "framer-motion";
 import { Quote, Star } from "lucide-react";
 import Image from "next/image";
 
@@ -50,120 +49,136 @@ const testimonials = [
 
 export default function Testimonials() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const pinRef = useRef<HTMLDivElement>(null);
+  const pinWrapperRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const ctx = gsap.context(() => {
-      if (!sectionRef.current || !pinRef.current) return;
+      if (!sectionRef.current || !pinWrapperRef.current) return;
       const slides = gsap.utils.toArray(".testimonial-slide");
       
-      // Pinning the whole section
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: () => `+=${slides.length * 100}%`,
-        pin: true,
-        pinSpacing: true,
-        scrub: 1,
-        onUpdate: (self) => {
-          const index = Math.round(self.progress * (slides.length - 1));
-          setActiveIndex(index);
+      // Create a master timeline for the transitions
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: () => `+=${slides.length * 150}%`, // More scroll distance for smoother transition
+          pin: pinWrapperRef.current,
+          scrub: 1,
+          onUpdate: (self) => {
+            const index = Math.round(self.progress * (testimonials.length - 1));
+            setActiveIndex(index);
+          }
         }
       });
 
-      // Individual slide animations
+      // Initial state for slides
+      gsap.set(slides, { opacity: 0, y: 50, visibility: "hidden" });
+      gsap.set(slides[0], { opacity: 1, y: 0, visibility: "visible" });
+
+      // Build the timeline sequence
       slides.forEach((slide: any, i: number) => {
-        if (i !== 0) {
-          gsap.set(slide, { yPercent: 100, opacity: 0 });
-        }
-        
-        if (i < slides.length - 1) {
-          gsap.timeline({
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: () => `${i * (100 / slides.length)}% top`,
-              end: () => `${(i + 1) * (100 / slides.length)}% top`,
-              scrub: true,
-            }
-          })
-          .to(slide, { yPercent: -20, opacity: 0, scale: 0.9, ease: "none" })
-          .to(slides[i+1], { yPercent: 0, opacity: 1, scale: 1, ease: "none" }, 0);
-        }
+        if (i === 0) return;
+
+        // Transition: previous slide out, current slide in
+        tl.to(slides[i-1], {
+          opacity: 0,
+          y: -50,
+          visibility: "hidden",
+          duration: 1,
+          ease: "power2.inOut"
+        })
+        .to(slide, {
+          opacity: 1,
+          y: 0,
+          visibility: "visible",
+          duration: 1,
+          ease: "power2.inOut"
+        }, "-=0.5"); // Overlap slightly
       });
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [mounted]);
+
+  if (!mounted) return <section className="h-screen bg-[#FBF6EE]" />;
 
   return (
     <section ref={sectionRef} id="testimonials" className="relative bg-[#FBF6EE] scroll-mt-24">
-      <div ref={pinRef} className="relative h-screen w-full overflow-hidden flex flex-col justify-center">
-        {/* Decorative Large Quote in Background */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
-          <Quote className="w-[60vw] h-[60vw] text-[#0F2F2A]/[0.02]" strokeWidth={0.5} />
+      <div ref={pinWrapperRef} className="relative h-screen w-full overflow-hidden flex flex-col justify-center">
+        
+        {/* Background Narrative Texture */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] select-none flex items-center justify-center">
+           <Quote className="w-[40vw] h-[40vw] text-[#1A2421]" strokeWidth={0.5} />
         </div>
 
-        <div className="container relative z-10 px-6 mx-auto h-full flex flex-col justify-center">
+        <div className="container relative z-10 px-6 mx-auto h-full flex flex-col justify-center max-w-[1600px]">
           
           {/* Header */}
-          <div className="absolute top-20 left-6 md:left-20">
+          <div className="absolute top-20 left-12 lg:left-24">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-8 h-[1px] bg-brand-teal" />
-              <span className="text-brand-teal font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
-                Testimonials
+              <div className="w-8 h-[1px] bg-[#C5A267]" />
+              <span className="text-[#C5A267] font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
+                Verified Experiences
               </span>
             </div>
-            <h2 className="font-serif text-4xl text-onyx">Echoes of Excellence</h2>
+            <h2 className="font-serif text-4xl lg:text-5xl text-[#1A2421] tracking-tighter">Echoes of Excellence</h2>
           </div>
 
-          {/* Content Slider Container */}
-          <div className="relative w-full max-w-6xl mx-auto h-[60vh] md:h-[50vh]">
+          {/* Fixed Layout Container */}
+          <div className="relative w-full max-w-7xl mx-auto h-[60vh] flex items-center">
             {testimonials.map((item, i) => (
               <div 
                 key={i} 
-                className="testimonial-slide absolute inset-0 flex flex-col md:flex-row items-center gap-12 md:gap-24"
+                className="testimonial-slide absolute inset-0 flex flex-col md:flex-row items-center gap-16 lg:gap-32"
               >
-                {/* Media Side */}
-                <div className="w-full md:w-2/5 h-full relative group">
-                  <div className="relative w-full h-full rounded-[3rem] overflow-hidden shadow-2xl">
+                {/* Visual Side */}
+                <div className="w-full md:w-[45%] h-full relative group">
+                  <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl">
                     <Image 
                       src={item.image}
                       alt={item.author}
                       fill
-                      className="object-cover scale-105"
+                      className="object-cover transition-transform duration-[2s] group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, 40vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-onyx/40 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1A2421]/40 to-transparent" />
                   </div>
                   
-                  {/* Floating Meta */}
-                  <div className="absolute -bottom-6 -right-6 md:bottom-10 md:-right-10 bg-white p-6 md:p-8 rounded-3xl shadow-2xl z-20">
-                    <div className="flex items-center gap-2 mb-2">
+                  {/* Floating ID */}
+                  <div className="absolute -bottom-8 -right-8 bg-[#F5F2ED] p-10 rounded-[2rem] shadow-2xl z-20 hidden lg:block border border-[#1A2421]/5">
+                    <div className="flex items-center gap-2 mb-4">
                       {[...Array(5)].map((_, idx) => (
-                        <Star key={idx} className="w-3 h-3 fill-brand-teal text-brand-teal" />
+                        <Star key={idx} className="w-3 h-3 fill-[#C5A267] text-[#C5A267]" />
                       ))}
                     </div>
-                    <p className="text-onyx font-sans text-[10px] font-bold uppercase tracking-widest">
-                      Verified Excellence
+                    <p className="text-[#1A2421] font-sans text-[10px] font-bold uppercase tracking-[0.3em]">
+                      Absolute Standard
                     </p>
                   </div>
                 </div>
 
-                {/* Text Side */}
-                <div className="w-full md:w-3/5 flex flex-col justify-center">
-                  <Quote className="w-16 h-16 text-brand-teal/20 mb-8" />
+                {/* Narrative Side */}
+                <div className="w-full md:w-[55%] flex flex-col justify-center">
+                  <Quote className="w-12 h-12 text-[#C5A267]/30 mb-8" />
                   
-                  <h3 className="font-serif text-3xl md:text-5xl lg:text-6xl text-onyx leading-[1.1] mb-12 tracking-tightest italic font-light">
+                  <h3 className="font-serif text-3xl lg:text-5xl text-[#1A2421] leading-[1.15] mb-12 tracking-tight italic font-light">
                     &ldquo;{item.quote}&rdquo;
                   </h3>
 
-                  <div className="flex items-center gap-6">
-                    <div className="w-12 h-[1px] bg-onyx/20" />
+                  <div className="flex items-center gap-8 pt-8 border-t border-[#1A2421]/10">
+                    <div className="w-1 h-12 bg-[#C5A267]/40" />
                     <div>
-                      <h4 className="font-serif text-2xl text-onyx mb-1">{item.author}</h4>
-                      <p className="font-sans text-[11px] font-bold uppercase tracking-[0.3em] text-brand-teal">
-                        {item.role} • {item.location}
+                      <h4 className="font-serif text-3xl text-[#1A2421] mb-1">{item.author}</h4>
+                      <p className="font-sans text-[11px] font-bold uppercase tracking-[0.4em] text-[#C5A267]">
+                        {item.role} <span className="mx-3 opacity-20">•</span> {item.location}
                       </p>
                     </div>
                   </div>
@@ -172,21 +187,20 @@ export default function Testimonials() {
             ))}
           </div>
 
-          {/* Progress Indicator */}
-          <div className="absolute bottom-20 right-6 md:right-20 flex flex-col items-end gap-6">
-            <div className="flex items-center gap-4">
-              <span className="text-onyx/20 font-serif text-xl">0{activeIndex + 1}</span>
-              <div className="w-32 h-[1px] bg-onyx/10 relative overflow-hidden">
-                <motion.div 
-                  className="absolute inset-0 bg-brand-teal origin-left"
-                  animate={{ scaleX: (activeIndex + 1) / testimonials.length }}
-                  transition={{ duration: 0.5 }}
+          {/* Navigation/Progress UI */}
+          <div className="absolute bottom-20 left-12 lg:left-auto lg:right-24 flex flex-col items-start lg:items-end gap-6">
+            <div className="flex items-center gap-6">
+              <span className="text-[#1A2421] font-serif text-2xl">0{activeIndex + 1}</span>
+              <div className="w-48 h-[1px] bg-[#1A2421]/10 relative overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-[#C5A267] origin-left transition-transform duration-700 ease-out"
+                  style={{ transform: `scaleX(${(activeIndex + 1) / testimonials.length})` }}
                 />
               </div>
-              <span className="text-onyx/20 font-serif text-xl">0{testimonials.length}</span>
+              <span className="text-[#1A2421]/20 font-serif text-2xl">0{testimonials.length}</span>
             </div>
-            <p className="text-onyx/30 font-sans text-[9px] font-bold uppercase tracking-[0.4em]">
-              Voices of Jade
+            <p className="text-[#1A2421]/30 font-sans text-[9px] font-bold uppercase tracking-[0.5em]">
+              The Jade Signature
             </p>
           </div>
 
