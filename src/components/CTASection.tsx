@@ -1,129 +1,149 @@
 "use client";
-import { motion } from "framer-motion";
-import { ArrowRight, Phone, MessageCircle } from "lucide-react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { ArrowUpRight, Phone, MessageCircle } from "lucide-react";
+import MagneticButton from "@/components/ui/MagneticButton";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function CTASection() {
-  return (
-    <section id="contact" className="relative py-24 md:py-48 bg-[#0F2F2A] overflow-hidden scroll-mt-24">
-      {/* Cinematic Background Layering */}
-      <div className="absolute inset-0 z-0">
-        <motion.div 
-          initial={{ scale: 1 }}
-          animate={{ scale: 1.1 }}
-          transition={{ duration: 30, repeat: Infinity, yoyo: true, ease: "linear" }}
-          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"
-        />
-        
-        {/* Layered Gradient Overlay for Depth & Text Clarity */}
-        <div 
-          className="absolute inset-0 z-10" 
-          style={{
-            background: `linear-gradient(
-              180deg,
-              rgba(15, 47, 42, 0.4) 0%,
-              rgba(15, 47, 42, 0.7) 40%,
-              rgba(15, 47, 42, 0.95) 100%
-            )`
-          }}
-        />
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
 
-        {/* Cinematic Blur at Edges */}
-        <div className="absolute inset-0 z-10 backdrop-blur-[2px] opacity-40" style={{ maskImage: 'radial-gradient(circle, black 60%, transparent 100%)' }} />
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Parallax for background
+      gsap.to(bgRef.current, {
+        yPercent: 15,
+        scale: 1.1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        }
+      });
+
+      // Text reveal animations
+      gsap.from(".cta-reveal", {
+        yPercent: 100,
+        stagger: 0.1,
+        duration: 1.5,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 70%",
+        }
+      });
+
+      // Contact nodes entry
+      gsap.from(".contact-node", {
+        x: 40,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".contact-grid",
+          start: "top 85%",
+        }
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section 
+      id="contact" 
+      ref={sectionRef} 
+      className="relative py-24 md:py-40 bg-[#0F2F2A] overflow-hidden scroll-mt-24"
+    >
+      {/* Cinematic Parallax Background */}
+      <div className="absolute inset-0 z-0">
+        <div 
+          ref={bgRef}
+          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center origin-center scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0F2F2A] via-[#0F2F2A]/60 to-[#0F2F2A]/20 z-10" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-20 text-center">
-        <div className="max-w-5xl mx-auto">
-          {/* Trust Narrative */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center justify-center gap-4 mb-10"
-          >
-            <div className="h-[1px] w-12 bg-[#6FC3B2]/20" />
-            <span className="text-[#6FC3B2] font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.5em]">
-              Architects of Discovery since 2011
-            </span>
-            <div className="h-[1px] w-12 bg-[#6FC3B2]/20" />
-          </motion.div>
+      <div className="container mx-auto px-6 relative z-20">
+        <div className="flex flex-col lg:flex-row items-end justify-between gap-20">
           
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif text-5xl md:text-[100px] lg:text-[120px] text-white leading-[0.95] tracking-tightest mb-12"
-          >
-            Begin Your <br />
-            <span className="italic font-light text-[#6FC3B2]">Private Journey</span>
-          </motion.h2>
+          {/* Main Narrative Side */}
+          <div className="max-w-4xl">
+            <div className="overflow-hidden mb-8">
+              <span className="cta-reveal inline-block text-[#6FC3B2] font-sans text-[10px] md:text-xs font-black uppercase tracking-[0.6em]">
+                Excellence Since 2011
+              </span>
+            </div>
+            
+            <h2 className="font-serif text-6xl md:text-[100px] lg:text-[130px] text-white leading-[0.85] tracking-tightest mb-16">
+              <div className="overflow-hidden">
+                <span className="cta-reveal inline-block">Begin Your</span>
+              </div>
+              <div className="overflow-hidden italic font-light text-[#6FC3B2]">
+                <span className="cta-reveal inline-block">Private Narrative</span>
+              </div>
+            </h2>
 
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 1 }}
-            className="text-[#D6E2DF]/60 font-sans text-xl md:text-2xl max-w-2xl mx-auto mb-20 leading-relaxed"
-          >
-            Connect with our private designers to begin crafting an itinerary that reflects your unique curiosities.
-          </motion.p>
+            <div className="overflow-hidden mb-16">
+              <p className="cta-reveal inline-block text-white/50 font-sans text-xl lg:text-2xl leading-relaxed max-w-xl">
+                Connect with our private advisory to begin crafting an itinerary that reflects your unique standard of exploration.
+              </p>
+            </div>
 
-          {/* Primary Action Suite */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 mb-24">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <button className="group relative px-16 py-8 bg-[#6FC3B2] text-[#0F2F2A] font-sans text-sm font-bold uppercase tracking-[0.4em] rounded-full overflow-hidden transition-all duration-700 hover:scale-105 hover:shadow-[0_20px_60px_rgba(111,195,178,0.3)]">
+            <div className="cta-reveal">
+              <MagneticButton className="group relative px-16 py-8 bg-[#6FC3B2] text-[#0F2F2A] font-bold text-[10px] uppercase tracking-[0.5em] rounded-full overflow-hidden shadow-2xl transition-all duration-700 hover:scale-105">
                 <span className="relative z-10 flex items-center gap-6">
-                  Design Your Escape
-                  <ArrowRight className="w-5 h-5 transition-transform duration-700 group-hover:translate-x-3" />
+                  Design Your Escape <ArrowUpRight className="w-5 h-5" />
                 </span>
-                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-700" />
-              </button>
-            </motion.div>
-
-            <motion.button 
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="px-12 py-8 border border-white/10 rounded-full text-white font-sans text-xs font-bold uppercase tracking-[0.3em] hover:bg-white/5 transition-all duration-500"
-            >
-              Speak to an Expert
-            </motion.button>
+                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
+              </MagneticButton>
+            </div>
           </div>
 
-          {/* Elite Contact Access Grid */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto pt-16 border-t border-white/[0.08]"
-          >
-            <a href="tel:+919825438324" className="group p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-white/[0.1] transition-all duration-500 flex items-center gap-6 text-left">
-              <div className="w-14 h-14 rounded-2xl bg-[#6FC3B2]/10 flex items-center justify-center text-[#6FC3B2] group-hover:scale-110 transition-transform duration-500">
+          {/* Contact Suite Side */}
+          <div className="contact-grid flex flex-col gap-6 w-full lg:w-auto">
+            <a 
+              href="tel:+919825438324" 
+              className="contact-node group p-10 rounded-[3rem] bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-[#6FC3B2]/30 transition-all duration-500 flex items-center gap-8 backdrop-blur-xl"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-[#6FC3B2]/10 flex items-center justify-center text-[#6FC3B2] group-hover:scale-110 group-hover:bg-[#6FC3B2] group-hover:text-[#0F2F2A] transition-all duration-500">
                 <Phone className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#6FC3B2] mb-1">Direct Line</p>
-                <p className="text-white font-serif text-xl">+91 98254 38324</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#6FC3B2] mb-2">Direct Line</p>
+                <p className="text-white font-serif text-3xl tracking-tight">+91 98254 38324</p>
               </div>
             </a>
 
-            <a href="#" className="group p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-white/[0.1] transition-all duration-500 flex items-center gap-6 text-left">
-              <div className="w-14 h-14 rounded-2xl bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:scale-110 transition-transform duration-500">
+            <a 
+              href="#" 
+              className="contact-node group p-10 rounded-[3rem] bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-[#25D366]/30 transition-all duration-500 flex items-center gap-8 backdrop-blur-xl"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:scale-110 group-hover:bg-[#25D366] group-hover:text-white transition-all duration-500">
                 <MessageCircle className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#25D366] mb-1">WhatsApp Concierge</p>
-                <p className="text-white font-serif text-xl">Instant Access</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#25D366] mb-2">WhatsApp Concierge</p>
+                <p className="text-white font-serif text-3xl tracking-tight">Instant Access</p>
               </div>
             </a>
-          </motion.div>
+          </div>
+
+        </div>
+
+        {/* Closing Watermark */}
+        <div className="mt-32 pt-20 border-t border-white/[0.05] flex flex-col md:flex-row items-center justify-between gap-12 text-white/20 font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
+          <span>© 2026 Jade Tours & Travel</span>
+          <span className="italic font-serif normal-case tracking-widest">The Art of Effortless Exploration</span>
+          <span>All Rights Reserved</span>
         </div>
       </div>
     </section>
