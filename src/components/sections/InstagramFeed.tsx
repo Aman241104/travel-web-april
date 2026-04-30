@@ -92,7 +92,7 @@ export default function InstagramFeed() {
   }, []);
 
   return (
-    <section id="journal" ref={containerRef} className="relative py-24 md:py-40 bg-[#FBF6EE] overflow-hidden scroll-mt-24">
+    <section id="journal" ref={containerRef} className="relative py-24 md:py-40 bg-[#0B1310] overflow-hidden scroll-mt-24">
       {/* Editorial Watermark */}
       <div className="absolute top-10 right-[-10%] pointer-events-none opacity-[0.02] select-none">
         <span className="font-serif text-[30vw] leading-none uppercase italic">Journal</span>
@@ -103,15 +103,15 @@ export default function InstagramFeed() {
         {/* Header Exhibit */}
         <div ref={titleRef} className="max-w-4xl mb-20 md:mb-32">
           <div className="overflow-hidden mb-4">
-            <span className="journal-reveal inline-block text-[#6FC3B2] font-sans text-[10px] md:text-xs font-black uppercase tracking-[0.5em]">
+            <span className="journal-reveal inline-block text-[#C1A67B] font-sans text-[10px] md:text-xs font-black uppercase tracking-[0.5em]">
               Digital Archive
             </span>
           </div>
-          <h2 className="font-serif text-6xl md:text-8xl lg:text-[110px] text-[#0F2F2A] leading-[0.9] tracking-tightest">
+          <h2 className="font-serif text-6xl md:text-8xl lg:text-[110px] text-[#F2EFE9] leading-[0.9] tracking-tightest">
             <div className="overflow-hidden">
               <span className="journal-reveal inline-block">The Art of</span>
             </div>
-            <div className="overflow-hidden italic font-light text-[#6FC3B2]">
+            <div className="overflow-hidden italic font-light text-[#C1A67B]">
               <span className="journal-reveal inline-block">Movement</span>
             </div>
           </h2>
@@ -137,19 +137,19 @@ export default function InstagramFeed() {
         </div>
 
         {/* Archive CTA */}
-        <div className="mt-32 pt-16 border-t border-[#0F2F2A]/10 flex flex-col md:flex-row items-center justify-between gap-12">
+        <div className="mt-32 pt-16 border-t border-[#F2EFE9]/10 flex flex-col md:flex-row items-center justify-between gap-12">
           <div className="max-w-md">
-            <h5 className="font-serif text-2xl text-[#0F2F2A] mb-2">The Narrative Archive</h5>
-            <p className="text-[#0F2F2A]/40 font-sans text-xs leading-relaxed uppercase tracking-widest">
+            <h5 className="font-serif text-2xl text-[#F2EFE9] mb-2">The Narrative Archive</h5>
+            <p className="text-[#F2EFE9]/40 font-sans text-xs leading-relaxed uppercase tracking-widest">
               Exploring the intersection of luxury and discovery.
             </p>
           </div>
           
-          <MagneticButton className="group relative px-12 py-7 bg-[#0F2F2A] text-white font-bold text-[10px] uppercase tracking-[0.4em] rounded-full overflow-hidden shadow-2xl transition-all duration-500">
+          <MagneticButton className="group relative px-12 py-7 bg-[#0B1310] text-[#F2EFE9] font-bold text-[10px] uppercase tracking-[0.4em] rounded-full overflow-hidden shadow-2xl transition-all duration-500">
             <span className="relative z-10 flex items-center gap-4">
               Explore Stories <ArrowUpRight className="w-4 h-4" />
             </span>
-            <div className="absolute inset-0 bg-[#6FC3B2] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+            <div className="absolute inset-0 bg-[#C1A67B] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
           </MagneticButton>
         </div>
 
@@ -161,7 +161,7 @@ export default function InstagramFeed() {
 function JournalCard({ item }: { item: any }) {
   return (
     <div className="journal-card group cursor-pointer">
-      <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-xl mb-8 bg-white">
+      <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-xl mb-8 bg-[#0B1310]">
         <Image 
           src={item.src} 
           alt={item.title} 
@@ -172,26 +172,26 @@ function JournalCard({ item }: { item: any }) {
         
         {/* Interactive Corner Icon */}
         <div className="absolute bottom-8 right-8 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700">
-          <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center">
-            <ArrowUpRight className="text-white w-5 h-5" />
+          <div className="w-12 h-12 rounded-full bg-[#0B1310]/20 backdrop-blur-md border border-[#F2EFE9]/30 flex items-center justify-center">
+            <ArrowUpRight className="text-[#F2EFE9] w-5 h-5" />
           </div>
         </div>
       </div>
 
       <div className="px-2">
         <div className="flex items-center gap-3 mb-4">
-          <span className="text-[#6FC3B2] font-sans text-[9px] font-black uppercase tracking-[0.2em]">
+          <span className="text-[#C1A67B] font-sans text-[9px] font-black uppercase tracking-[0.2em]">
             {item.category}
           </span>
-          <div className="w-6 h-[1px] bg-[#0F2F2A]/10" />
-          <span className="text-[#0F2F2A]/30 font-sans text-[9px] font-black uppercase tracking-[0.2em]">
+          <div className="w-6 h-[1px] bg-[#0B1310]/10" />
+          <span className="text-[#F2EFE9]/30 font-sans text-[9px] font-black uppercase tracking-[0.2em]">
             {item.date}
           </span>
         </div>
-        <h3 className="font-serif text-3xl md:text-4xl text-[#0F2F2A] mb-4 group-hover:text-[#6FC3B2] transition-colors duration-500">
+        <h3 className="font-serif text-3xl md:text-4xl text-[#F2EFE9] mb-4 group-hover:text-[#C1A67B] transition-colors duration-500">
           {item.title}
         </h3>
-        <p className="text-[#0F2F2A]/50 font-sans text-sm md:text-base leading-relaxed max-w-sm line-clamp-2">
+        <p className="text-[#F2EFE9]/50 font-sans text-sm md:text-base leading-relaxed max-w-sm line-clamp-2">
           {item.desc}
         </p>
       </div>

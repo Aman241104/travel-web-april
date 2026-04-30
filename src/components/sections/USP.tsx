@@ -120,23 +120,23 @@ export default function USP() {
     <section 
       ref={containerRef} 
       id="process" 
-      className="relative bg-[#FBF6EE] py-24 md:py-48 overflow-hidden scroll-mt-24"
+      className="relative bg-[#0B1310] py-24 md:py-48 overflow-hidden scroll-mt-24"
     >
       <div className="container mx-auto px-6 max-w-[1400px]">
         
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-32 md:mb-48">
           <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-[1px] bg-[#0F2F2A]/20" />
-            <span className="text-[#0F2F2A] font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
+            <div className="w-12 h-[1px] bg-[#0B1310]/20" />
+            <span className="text-[#F2EFE9] font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
               The Jade Methodology
             </span>
-            <div className="w-12 h-[1px] bg-[#0F2F2A]/20" />
+            <div className="w-12 h-[1px] bg-[#0B1310]/20" />
           </div>
           
-          <h2 className="usp-title font-serif text-6xl md:text-[100px] lg:text-[120px] text-[#0F2F2A] leading-[0.9] tracking-tightest">
+          <h2 className="usp-title font-serif text-6xl md:text-[100px] lg:text-[120px] text-[#F2EFE9] leading-[0.9] tracking-tightest">
             <span className="block overflow-hidden pb-4">Architecting</span>
-            <span className="block overflow-hidden italic font-light text-[#6FC3B2]">The Impossible</span>
+            <span className="block overflow-hidden italic font-light text-[#C1A67B]">The Impossible</span>
           </h2>
         </div>
 
@@ -144,8 +144,8 @@ export default function USP() {
         <div className="timeline-container relative max-w-5xl mx-auto">
           
           {/* Central Progress Line */}
-          <div className="absolute top-0 left-[20px] md:left-1/2 md:-translate-x-1/2 w-[1px] h-full bg-[#0F2F2A]/10">
-            <div className="timeline-progress absolute top-0 left-0 w-full h-full bg-[#6FC3B2]" />
+          <div className="absolute top-0 left-[20px] md:left-1/2 md:-translate-x-1/2 w-[1px] h-full bg-[#0B1310]/10">
+            <div className="timeline-progress absolute top-0 left-0 w-full h-full bg-[#C1A67B]" />
           </div>
 
           <div className="space-y-32 md:space-y-56">
@@ -158,7 +158,7 @@ export default function USP() {
               >
                 
                 {/* Background Parallax Number */}
-                <div className={`absolute top-0 md:-top-20 z-0 pointer-events-none opacity-[0.03] text-[#0F2F2A] font-serif text-[150px] md:text-[300px] leading-none step-bg-number
+                <div className={`absolute top-0 md:-top-20 z-0 pointer-events-none opacity-[0.03] text-[#F2EFE9] font-serif text-[150px] md:text-[300px] leading-none step-bg-number
                   ${i % 2 === 0 ? "left-12 md:left-[-100px]" : "right-12 md:right-[-100px]"}
                 `}>
                   {step.number}
@@ -170,11 +170,11 @@ export default function USP() {
                 {/* Center Node (Icon) */}
                 <div className="absolute left-0 md:left-1/2 top-0 -translate-x-[2px] md:-translate-x-1/2 z-20 flex items-center justify-center mt-2 md:mt-0">
                   <div className="relative flex items-center justify-center">
-                    <div className="w-10 h-10 rounded-full bg-[#FBF6EE] border border-[#0F2F2A]/20 flex items-center justify-center relative z-10 shadow-lg">
-                      <step.icon className="w-4 h-4 text-[#0F2F2A]" />
+                    <div className="w-10 h-10 rounded-full bg-[#0B1310] border border-[#F2EFE9]/20 flex items-center justify-center relative z-10 shadow-lg">
+                      <step.icon className="w-4 h-4 text-[#F2EFE9]" />
                     </div>
                     {/* Pulsing indicator */}
-                    <div className="step-dot absolute inset-0 rounded-full border border-[#6FC3B2] z-0" />
+                    <div className="step-dot absolute inset-0 rounded-full border border-[#C1A67B] z-0" />
                   </div>
                 </div>
 
@@ -182,15 +182,15 @@ export default function USP() {
                 <div className="md:w-1/2 pl-16 md:pl-0 relative z-10 step-content">
                   <div className={`flex flex-col ${i % 2 !== 0 ? "md:items-end md:text-right" : "md:items-start text-left"}`}>
                     
-                    <span className="text-[#6FC3B2] font-sans text-[10px] font-bold uppercase tracking-[0.4em] mb-6 block">
+                    <span className="text-[#C1A67B] font-sans text-[10px] font-bold uppercase tracking-[0.4em] mb-6 block">
                       Phase {step.number}
                     </span>
                     
-                    <h3 className="font-serif text-4xl md:text-5xl text-[#0F2F2A] mb-8 leading-tight">
+                    <h3 className="font-serif text-4xl md:text-5xl text-[#F2EFE9] mb-8 leading-tight">
                       {step.title}
                     </h3>
                     
-                    <p className={`font-sans text-[#0F2F2A]/60 text-lg md:text-xl leading-relaxed max-w-md ${
+                    <p className={`font-sans text-[#F2EFE9]/60 text-lg md:text-xl leading-relaxed max-w-md ${
                       i % 2 !== 0 ? "md:ml-auto" : ""
                     }`}>
                       {step.desc}
@@ -198,11 +198,11 @@ export default function USP() {
 
                     {step.isCTA && (
                       <div className="mt-12">
-                        <MagneticButton className="group relative px-12 py-6 bg-[#0F2F2A] text-white font-bold text-[10px] uppercase tracking-[0.3em] rounded-full overflow-hidden transition-all duration-500 hover:scale-[1.02] shadow-2xl">
+                        <MagneticButton className="group relative px-12 py-6 bg-[#0B1310] text-[#F2EFE9] font-bold text-[10px] uppercase tracking-[0.3em] rounded-full overflow-hidden transition-all duration-500 hover:scale-[1.02] shadow-2xl">
                           <span className="relative z-10 flex items-center gap-3">
                             Initiate Phase 01 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                           </span>
-                          <div className="absolute inset-0 bg-[#6FC3B2] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                          <div className="absolute inset-0 bg-[#C1A67B] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                         </MagneticButton>
                       </div>
                     )}

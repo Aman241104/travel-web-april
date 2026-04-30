@@ -38,7 +38,7 @@ const CountUp = ({ value, suffix }: { value: number; suffix: string }) => {
       }
     });
 
-    return () => controls.kill();
+    return () => { controls.kill(); };
   }, [value]);
 
   return <span ref={nodeRef}>{count}{suffix}</span>;
@@ -136,7 +136,7 @@ export default function Hero() {
       >
         {/* Elite Badge with Glass Effect */}
         <motion.div variants={itemVariants} className="mb-12">
-          <span className="inline-block px-8 py-2 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl text-[#6FC3B2] font-sans text-[11px] font-bold uppercase tracking-[0.6em]">
+          <span className="inline-block px-8 py-2 rounded-full bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.08] backdrop-blur-xl text-[#C1A67B] font-sans text-[11px] font-bold uppercase tracking-[0.6em]">
             The Art of Effortless Exploration
           </span>
         </motion.div>
@@ -144,10 +144,10 @@ export default function Hero() {
         {/* Master-Scale Typography */}
         <motion.h1 
           variants={itemVariants}
-          className="font-serif text-7xl md:text-[110px] lg:text-[135px] leading-[0.85] tracking-tightest mb-12 text-white"
+          className="font-serif text-7xl md:text-[110px] lg:text-[135px] leading-[0.85] tracking-tightest mb-12 text-[#F2EFE9]"
         >
           <span className="font-semibold block mb-4">Exquisite Journeys,</span>
-          <span className="italic font-light text-[#6FC3B2] tracking-normal block transform translate-x-4 md:translate-x-8">
+          <span className="italic font-light text-[#C1A67B] tracking-normal block transform translate-x-4 md:translate-x-8">
             Tailored to You
           </span>
         </motion.h1>
@@ -162,14 +162,14 @@ export default function Hero() {
 
         {/* High-Tension CTA System */}
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-10">
-          <MagneticButton className="group relative w-full sm:w-auto px-14 py-7 bg-[#6FC3B2] text-[#0F2F2A] font-bold text-xs uppercase tracking-[0.4em] rounded-full transition-all duration-700 hover:scale-[1.06] shadow-[0_20px_60px_rgba(111,195,178,0.35)]">
+          <MagneticButton className="group relative w-full sm:w-auto px-14 py-7 bg-[#C1A67B] text-[#0B1310] font-bold text-xs uppercase tracking-[0.4em] rounded-full transition-all duration-700 hover:scale-[1.06] shadow-[0_20px_60px_rgba(111,195,178,0.35)]">
             <span className="relative z-10">Start Your Experience</span>
-            <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-700" />
+            <div className="absolute inset-0 rounded-full bg-[#0B1310] opacity-0 group-hover:opacity-20 transition-opacity duration-700" />
           </MagneticButton>
           
-          <button className="group relative flex items-center gap-6 px-14 py-7 bg-white/[0.04] backdrop-blur-2xl border border-white/[0.15] rounded-full font-sans text-xs font-bold uppercase tracking-[0.4em] text-white transition-all duration-700 hover:bg-white/[0.08] hover:border-white/[0.25]">
+          <button className="group relative flex items-center gap-6 px-14 py-7 bg-[#F2EFE9]/[0.04] backdrop-blur-2xl border border-[#F2EFE9]/[0.15] rounded-full font-sans text-xs font-bold uppercase tracking-[0.4em] text-[#F2EFE9] transition-all duration-700 hover:bg-[#F2EFE9]/[0.08] hover:border-[#F2EFE9]/[0.25]">
             <span>Explore Journal</span>
-            <div className="w-10 h-[1px] bg-[#6FC3B2]/40 group-hover:bg-[#6FC3B2] transition-all duration-700 group-hover:w-14" />
+            <div className="w-10 h-[1px] bg-[#C1A67B]/40 group-hover:bg-[#C1A67B] transition-all duration-700 group-hover:w-14" />
           </button>
         </motion.div>
       </motion.div>
@@ -177,7 +177,7 @@ export default function Hero() {
       {/* Integrated Cinematic Stats Bar */}
       <div className="absolute bottom-0 left-0 w-full z-20 pt-40 pb-20">
         <div className="container max-w-[1300px] mx-auto px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-0 py-12 border-t border-white/[0.08]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-0 py-12 border-t border-[#F2EFE9]/[0.08]">
             {stats.map((stat, i) => (
               <motion.div 
                 key={i} 
@@ -186,10 +186,10 @@ export default function Hero() {
                 viewport={{ once: true }}
                 transition={{ delay: 1.4 + i * 0.15, duration: 1 }}
                 className={`flex flex-col items-center lg:items-start px-12 ${
-                  i !== stats.length - 1 ? "lg:border-r lg:border-white/[0.05]" : ""
+                  i !== stats.length - 1 ? "lg:border-r lg:border-[#F2EFE9]/[0.05]" : ""
                 }`}
               >
-                <span className="text-white font-serif text-5xl md:text-7xl tracking-tighter mb-3 font-medium">
+                <span className="text-[#F2EFE9] font-serif text-5xl md:text-7xl tracking-tighter mb-3 font-medium">
                   <CountUp value={stat.value} suffix={stat.suffix} />
                 </span>
                 <span className="text-[#D6E2DF]/40 font-sans text-[11px] font-bold uppercase tracking-[0.3em]">
@@ -212,9 +212,9 @@ export default function Hero() {
           <motion.div 
             animate={{ height: [0, 60, 0], y: [0, 0, 60] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="w-[1px] bg-[#6FC3B2]"
+            className="w-[1px] bg-[#C1A67B]"
           />
-          <span className="text-[#6FC3B2] font-sans text-[10px] font-black uppercase tracking-[0.5em] [writing-mode:vertical-lr] rotate-180">Discover</span>
+          <span className="text-[#C1A67B] font-sans text-[10px] font-black uppercase tracking-[0.5em] [writing-mode:vertical-lr] rotate-180">Discover</span>
         </div>
       </motion.div>
     </section>

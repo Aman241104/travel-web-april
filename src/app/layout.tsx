@@ -56,7 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${playfair.variable} ${jakarta.variable} font-sans antialiased bg-white text-onyx`} suppressHydrationWarning>
+      <body className={`${playfair.variable} ${jakarta.variable} font-sans antialiased bg-[#0B1310] text-[#F2EFE9]`} suppressHydrationWarning>
         <ScrollProgress />
         <CustomCursor />
         <SmoothScroll>

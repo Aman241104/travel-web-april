@@ -54,11 +54,11 @@ export default function CustomCursor() {
     <>
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-2 h-2 bg-brand-teal rounded-full z-[9999] pointer-events-none -translate-x-1/2 -translate-y-1/2 hidden md:block" 
+        className="fixed top-0 left-0 w-2 h-2 bg-[#C1A67B] rounded-full z-[9999] pointer-events-none -translate-x-1/2 -translate-y-1/2 hidden md:block" 
       />
       <div 
         ref={followerRef} 
-        className="fixed top-0 left-0 w-8 h-8 border border-brand-teal/50 rounded-full z-[9998] pointer-events-none -translate-x-1/2 -translate-y-1/2 hidden md:block" 
+        className="fixed top-0 left-0 w-8 h-8 border border-[#C1A67B]/50 rounded-full z-[9998] pointer-events-none -translate-x-1/2 -translate-y-1/2 hidden md:block" 
       />
     </>
   );

@@ -108,15 +108,15 @@ export default function Testimonials() {
     return () => ctx.revert();
   }, [mounted]);
 
-  if (!mounted) return <section className="h-screen bg-[#FBF6EE]" />;
+  if (!mounted) return <section className="h-screen bg-[#0B1310]" />;
 
   return (
-    <section ref={sectionRef} id="testimonials" className="relative bg-[#FBF6EE] scroll-mt-24">
+    <section ref={sectionRef} id="testimonials" className="relative bg-[#0B1310] scroll-mt-24">
       <div ref={pinWrapperRef} className="relative h-screen w-full overflow-hidden flex flex-col justify-center">
         
         {/* Background Narrative Texture */}
         <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] select-none flex items-center justify-center">
-           <Quote className="w-[40vw] h-[40vw] text-[#1A2421]" strokeWidth={0.5} />
+           <Quote className="w-[40vw] h-[40vw] text-[#F2EFE9]" strokeWidth={0.5} />
         </div>
 
         <div className="container relative z-10 px-6 mx-auto h-full flex flex-col justify-center max-w-[1600px]">
@@ -124,12 +124,12 @@ export default function Testimonials() {
           {/* Header */}
           <div className="absolute top-20 left-12 lg:left-24">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-8 h-[1px] bg-[#C5A267]" />
-              <span className="text-[#C5A267] font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
+              <div className="w-8 h-[1px] bg-[#C1A67B]" />
+              <span className="text-[#C1A67B] font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
                 Verified Experiences
               </span>
             </div>
-            <h2 className="font-serif text-4xl lg:text-5xl text-[#1A2421] tracking-tighter">Echoes of Excellence</h2>
+            <h2 className="font-serif text-4xl lg:text-5xl text-[#F2EFE9] tracking-tighter">Echoes of Excellence</h2>
           </div>
 
           {/* Fixed Layout Container */}
@@ -137,7 +137,7 @@ export default function Testimonials() {
             {testimonials.map((item, i) => (
               <div 
                 key={i} 
-                className="testimonial-slide absolute inset-0 flex flex-col md:flex-row items-center gap-16 lg:gap-32"
+                className={`testimonial-slide absolute inset-0 flex flex-col md:flex-row items-center gap-16 lg:gap-32 ${i !== 0 ? 'opacity-0 invisible' : ''}`}
               >
                 {/* Visual Side */}
                 <div className="w-full md:w-[45%] h-full relative group">
@@ -153,13 +153,13 @@ export default function Testimonials() {
                   </div>
                   
                   {/* Floating ID */}
-                  <div className="absolute -bottom-8 -right-8 bg-[#F5F2ED] p-10 rounded-[2rem] shadow-2xl z-20 hidden lg:block border border-[#1A2421]/5">
+                  <div className="absolute -bottom-8 -right-8 bg-[#0B1310] p-10 rounded-[2rem] shadow-2xl z-20 hidden lg:block border border-[#F2EFE9]/5">
                     <div className="flex items-center gap-2 mb-4">
                       {[...Array(5)].map((_, idx) => (
-                        <Star key={idx} className="w-3 h-3 fill-[#C5A267] text-[#C5A267]" />
+                        <Star key={idx} className="w-3 h-3 fill-[#C1A67B] text-[#C1A67B]" />
                       ))}
                     </div>
-                    <p className="text-[#1A2421] font-sans text-[10px] font-bold uppercase tracking-[0.3em]">
+                    <p className="text-[#F2EFE9] font-sans text-[10px] font-bold uppercase tracking-[0.3em]">
                       Absolute Standard
                     </p>
                   </div>
@@ -167,17 +167,17 @@ export default function Testimonials() {
 
                 {/* Narrative Side */}
                 <div className="w-full md:w-[55%] flex flex-col justify-center">
-                  <Quote className="w-12 h-12 text-[#C5A267]/30 mb-8" />
+                  <Quote className="w-12 h-12 text-[#C1A67B]/30 mb-8" />
                   
-                  <h3 className="font-serif text-3xl lg:text-5xl text-[#1A2421] leading-[1.15] mb-12 tracking-tight italic font-light">
+                  <h3 className="font-serif text-3xl lg:text-5xl text-[#F2EFE9] leading-[1.15] mb-12 tracking-tight italic font-light">
                     &ldquo;{item.quote}&rdquo;
                   </h3>
 
-                  <div className="flex items-center gap-8 pt-8 border-t border-[#1A2421]/10">
-                    <div className="w-1 h-12 bg-[#C5A267]/40" />
+                  <div className="flex items-center gap-8 pt-8 border-t border-[#F2EFE9]/10">
+                    <div className="w-1 h-12 bg-[#C1A67B]/40" />
                     <div>
-                      <h4 className="font-serif text-3xl text-[#1A2421] mb-1">{item.author}</h4>
-                      <p className="font-sans text-[11px] font-bold uppercase tracking-[0.4em] text-[#C5A267]">
+                      <h4 className="font-serif text-3xl text-[#F2EFE9] mb-1">{item.author}</h4>
+                      <p className="font-sans text-[11px] font-bold uppercase tracking-[0.4em] text-[#C1A67B]">
                         {item.role} <span className="mx-3 opacity-20">•</span> {item.location}
                       </p>
                     </div>
@@ -190,16 +190,16 @@ export default function Testimonials() {
           {/* Navigation/Progress UI */}
           <div className="absolute bottom-20 left-12 lg:left-auto lg:right-24 flex flex-col items-start lg:items-end gap-6">
             <div className="flex items-center gap-6">
-              <span className="text-[#1A2421] font-serif text-2xl">0{activeIndex + 1}</span>
-              <div className="w-48 h-[1px] bg-[#1A2421]/10 relative overflow-hidden">
+              <span className="text-[#F2EFE9] font-serif text-2xl">0{activeIndex + 1}</span>
+              <div className="w-48 h-[1px] bg-[#0B1310]/10 relative overflow-hidden">
                 <div 
-                  className="absolute inset-0 bg-[#C5A267] origin-left transition-transform duration-700 ease-out"
+                  className="absolute inset-0 bg-[#C1A67B] origin-left transition-transform duration-700 ease-out"
                   style={{ transform: `scaleX(${(activeIndex + 1) / testimonials.length})` }}
                 />
               </div>
-              <span className="text-[#1A2421]/20 font-serif text-2xl">0{testimonials.length}</span>
+              <span className="text-[#F2EFE9]/20 font-serif text-2xl">0{testimonials.length}</span>
             </div>
-            <p className="text-[#1A2421]/30 font-sans text-[9px] font-bold uppercase tracking-[0.5em]">
+            <p className="text-[#F2EFE9]/30 font-sans text-[9px] font-bold uppercase tracking-[0.5em]">
               The Jade Signature
             </p>
           </div>

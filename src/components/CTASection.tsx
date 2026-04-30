@@ -61,13 +61,13 @@ export default function CTASection() {
     return () => ctx.revert();
   }, [mounted]);
 
-  if (!mounted) return <section className="h-[80vh] bg-[#1A2421]" />;
+  if (!mounted) return <section className="h-[80vh] bg-[#0B1310]" />;
 
   return (
     <section 
       id="contact" 
       ref={sectionRef} 
-      className="relative py-24 md:py-40 bg-[#1A2421] overflow-hidden scroll-mt-24"
+      className="relative py-24 md:py-40 bg-[#0B1310] overflow-hidden scroll-mt-24"
     >
       <div className="absolute inset-0 z-0">
         <div 
@@ -82,28 +82,28 @@ export default function CTASection() {
           
           <div className="max-w-4xl">
             <div className="overflow-hidden mb-8">
-              <span className="cta-reveal inline-block text-[#C5A267] font-sans text-[10px] md:text-xs font-black uppercase tracking-[0.6em]">
+              <span className="cta-reveal inline-block text-[#C1A67B] font-sans text-[10px] md:text-xs font-black uppercase tracking-[0.6em]">
                 Excellence Since MMVI
               </span>
             </div>
             
-            <h2 className="font-serif text-6xl md:text-[100px] lg:text-[130px] text-[#F5F2ED] leading-[0.85] tracking-tightest mb-16">
+            <h2 className="font-serif text-6xl md:text-[100px] lg:text-[130px] text-[#F2EFE9] leading-[0.85] tracking-tightest mb-16">
               <div className="overflow-hidden">
                 <span className="cta-reveal inline-block">Begin Your</span>
               </div>
-              <div className="overflow-hidden italic font-light text-[#C5A267]">
+              <div className="overflow-hidden italic font-light text-[#C1A67B]">
                 <span className="cta-reveal inline-block">Private Narrative</span>
               </div>
             </h2>
 
             <div className="overflow-hidden mb-16">
-              <p className="cta-reveal inline-block text-[#F5F2ED]/50 font-sans text-xl lg:text-2xl leading-relaxed max-w-xl">
+              <p className="cta-reveal inline-block text-[#F2EFE9]/50 font-sans text-xl lg:text-2xl leading-relaxed max-w-xl">
                 Connect with our private advisory to begin crafting an itinerary that reflects your unique standard of exploration.
               </p>
             </div>
 
             <div className="cta-reveal">
-              <MagneticButton className="group relative px-16 py-8 bg-[#C5A267] text-[#1A2421] font-bold text-[10px] uppercase tracking-[0.5em] rounded-full overflow-hidden shadow-2xl transition-all duration-700 hover:bg-[#F5F2ED]">
+              <MagneticButton className="group relative px-16 py-8 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.5em] rounded-full overflow-hidden shadow-2xl transition-all duration-700 hover:bg-[#0B1310]">
                 <span className="relative z-10 flex items-center gap-6">
                   Design Your Escape <ArrowUpRight className="w-5 h-5" />
                 </span>
@@ -114,36 +114,36 @@ export default function CTASection() {
           <div className="contact-grid flex flex-col gap-6 w-full lg:w-auto">
             <a 
               href="tel:+919825438324" 
-              className="contact-node group p-10 rounded-[3rem] bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-[#C5A267]/30 transition-all duration-500 flex items-center gap-8 backdrop-blur-xl"
+              className="contact-node group p-10 rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#C1A67B]/30 transition-all duration-500 flex items-center gap-8 backdrop-blur-xl"
             >
-              <div className="w-16 h-16 rounded-2xl bg-[#C5A267]/10 flex items-center justify-center text-[#C5A267] group-hover:scale-110 group-hover:bg-[#C5A267] group-hover:text-[#1A2421] transition-all duration-500">
+              <div className="w-16 h-16 rounded-2xl bg-[#C1A67B]/10 flex items-center justify-center text-[#C1A67B] group-hover:scale-110 group-hover:bg-[#C1A67B] group-hover:text-[#0B1310] transition-all duration-500">
                 <Phone className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C5A267] mb-2">Direct Line</p>
-                <p className="text-[#F5F2ED] font-serif text-3xl tracking-tight">+91 98254 38324</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C1A67B] mb-2">Direct Line</p>
+                <p className="text-[#F2EFE9] font-serif text-3xl tracking-tight">+91 98254 38324</p>
               </div>
             </a>
 
             <a 
               href="#" 
-              className="contact-node group p-10 rounded-[3rem] bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.08] hover:border-[#25D366]/30 transition-all duration-500 flex items-center gap-8 backdrop-blur-xl"
+              className="contact-node group p-10 rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#25D366]/30 transition-all duration-500 flex items-center gap-8 backdrop-blur-xl"
             >
-              <div className="w-16 h-16 rounded-2xl bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:scale-110 group-hover:bg-[#25D366] group-hover:text-white transition-all duration-500">
+              <div className="w-16 h-16 rounded-2xl bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:scale-110 group-hover:bg-[#25D366] group-hover:text-[#0B1310] transition-all duration-500">
                 <MessageCircle className="w-6 h-6" />
               </div>
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#25D366] mb-2">WhatsApp Concierge</p>
-                <p className="text-[#F5F2ED] font-serif text-3xl tracking-tight">Instant Access</p>
+                <p className="text-[#F2EFE9] font-serif text-3xl tracking-tight">Instant Access</p>
               </div>
             </a>
           </div>
 
         </div>
 
-        <div className="mt-32 pt-20 border-t border-white/[0.05] flex flex-col md:flex-row items-center justify-between gap-12 text-[#F5F2ED]/20 font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
+        <div className="mt-32 pt-20 border-t border-[#F2EFE9]/[0.05] flex flex-col md:flex-row items-center justify-between gap-12 text-[#F2EFE9]/20 font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
           <span>© 2026 Jade Tours & Travel</span>
-          <span className="italic font-serif normal-case tracking-widest text-[#C5A267]/40">The Art of Effortless Exploration</span>
+          <span className="italic font-serif normal-case tracking-widest text-[#C1A67B]/40">The Art of Effortless Exploration</span>
           <span>All Rights Reserved</span>
         </div>
       </div>

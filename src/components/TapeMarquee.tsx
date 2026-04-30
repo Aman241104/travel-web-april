@@ -68,8 +68,8 @@ export default function TapeMarquee({
   return (
     <div 
       ref={containerRef}
-      className={`relative py-6 md:py-10 overflow-hidden transition-all duration-1000 border-y border-[#0F2F2A]/5 
-        ${outline ? "bg-white" : "bg-[#0F2F2A] shadow-[0_20px_40px_rgba(15,47,42,0.15)]"}
+      className={`relative py-6 md:py-10 overflow-hidden transition-all duration-1000 border-y border-[#F2EFE9]/5 
+        ${outline ? "bg-[#0B1310]" : "bg-[#0B1310] shadow-[0_20px_40px_rgba(15,47,42,0.15)]"}
       `}
       style={{ transform: `rotate(${rotate}deg) scale(1.05)` }}
     >
@@ -80,7 +80,7 @@ export default function TapeMarquee({
               font-serif italic text-4xl md:text-6xl lg:text-7xl tracking-tighter px-4
               ${outline 
                 ? "text-transparent stroke-text" 
-                : "text-white/90"
+                : "text-[#F2EFE9]/90"
               }
             `}>
               {text}

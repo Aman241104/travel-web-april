@@ -47,9 +47,9 @@ export default function ServicesGrid() {
   const [activeService, setActiveService] = useState(0);
 
   return (
-    <section id="services" className="bg-[#FBF6EE] py-24 md:py-48 relative overflow-hidden">
+    <section id="services" className="bg-[#0B1310] py-24 md:py-48 relative overflow-hidden">
       {/* Background Aesthetic */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#6FC3B2]/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#C1A67B]/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
       
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row gap-20 lg:gap-32">
@@ -65,13 +65,13 @@ export default function ServicesGrid() {
               className="space-y-10"
             >
               <div>
-                <span className="text-[#6FC3B2] font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.5em] mb-6 block">
+                <span className="text-[#C1A67B] font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.5em] mb-6 block">
                   Experience Curation
                 </span>
-                <h2 className="font-serif text-5xl md:text-7xl text-[#0F2F2A] leading-[1.05] tracking-tight mb-8">
+                <h2 className="font-serif text-5xl md:text-7xl text-[#F2EFE9] leading-[1.05] tracking-tight mb-8">
                   {serviceExperiences[activeService].title}
                 </h2>
-                <p className="text-[#0F2F2A]/60 font-sans text-xl leading-relaxed max-w-md">
+                <p className="text-[#F2EFE9]/60 font-sans text-xl leading-relaxed max-w-md">
                   {serviceExperiences[activeService].longDesc}
                 </p>
               </div>
@@ -104,7 +104,7 @@ export default function ServicesGrid() {
                   <div 
                     key={i}
                     className={`h-[2px] transition-all duration-700 ease-out ${
-                      activeService === i ? "w-12 bg-[#6FC3B2]" : "w-6 bg-[#0F2F2A]/10"
+                      activeService === i ? "w-12 bg-[#C1A67B]" : "w-6 bg-[#0B1310]/10"
                     }`}
                   />
                 ))}
@@ -128,13 +128,13 @@ export default function ServicesGrid() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mt-12 p-12 rounded-[3rem] bg-[#0F2F2A] text-white flex flex-col md:flex-row items-center justify-between gap-8"
+              className="mt-12 p-12 rounded-[3rem] bg-[#0B1310] text-[#F2EFE9] flex flex-col md:flex-row items-center justify-between gap-8"
             >
               <div>
                 <h4 className="font-serif text-3xl mb-2">Ready for a private consultation?</h4>
-                <p className="text-white/40 font-sans text-base">Let our experts handle every detail of your next journey.</p>
+                <p className="text-[#F2EFE9]/40 font-sans text-base">Let our experts handle every detail of your next journey.</p>
               </div>
-              <button className="group px-10 py-5 bg-[#6FC3B2] text-[#0F2F2A] font-sans text-xs font-bold uppercase tracking-[0.3em] rounded-full hover:bg-white transition-all duration-500 flex items-center gap-3">
+              <button className="group px-10 py-5 bg-[#C1A67B] text-[#0B1310] font-sans text-xs font-bold uppercase tracking-[0.3em] rounded-full hover:bg-[#0B1310] transition-all duration-500 flex items-center gap-3">
                 Connect Now
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
@@ -165,21 +165,21 @@ function ServiceExperienceCard({ service, isActive, onInView }: { service: any; 
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`relative p-10 md:p-14 rounded-[3rem] transition-all duration-700 cursor-pointer overflow-hidden border ${
         isActive 
-          ? "bg-[#0F2F2A] text-white border-transparent shadow-2xl scale-[1.02]" 
-          : "bg-white/60 text-[#0F2F2A] border-black/5 hover:bg-white"
+          ? "bg-[#0B1310] text-[#F2EFE9] border-transparent shadow-2xl scale-[1.02]" 
+          : "bg-[#0B1310]/60 text-[#F2EFE9] border-black/5 hover:bg-[#0B1310]"
       }`}
       onClick={onInView}
     >
       <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12 relative z-10">
         <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500 ${
-          isActive ? "bg-[#6FC3B2] text-[#0F2F2A]" : "bg-[#FBF6EE] text-[#6FC3B2]"
+          isActive ? "bg-[#C1A67B] text-[#0B1310]" : "bg-[#0B1310] text-[#C1A67B]"
         }`}>
           <service.icon className="w-8 h-8" />
         </div>
         
         <div className="flex-grow">
           <div className="flex items-center gap-3 mb-3">
-            <span className={`font-sans text-[10px] font-bold tracking-[0.4em] uppercase ${isActive ? "text-[#6FC3B2]" : "text-[#0F2F2A]/30"}`}>
+            <span className={`font-sans text-[10px] font-bold tracking-[0.4em] uppercase ${isActive ? "text-[#C1A67B]" : "text-[#F2EFE9]/30"}`}>
               Service {service.id}
             </span>
           </div>
@@ -193,7 +193,7 @@ function ServiceExperienceCard({ service, isActive, onInView }: { service: any; 
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="font-sans text-lg leading-relaxed mt-6 text-white/60 max-w-lg"
+                className="font-sans text-lg leading-relaxed mt-6 text-[#F2EFE9]/60 max-w-lg"
               >
                 {service.desc}
               </motion.p>
@@ -202,7 +202,7 @@ function ServiceExperienceCard({ service, isActive, onInView }: { service: any; 
         </div>
 
         <div className={`hidden md:flex items-center gap-3 transition-all duration-500 ${isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"}`}>
-          <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-[#6FC3B2]">
+          <div className="w-12 h-12 rounded-full border border-[#F2EFE9]/20 flex items-center justify-center text-[#C1A67B]">
             <ArrowRight className="w-5 h-5" />
           </div>
         </div>

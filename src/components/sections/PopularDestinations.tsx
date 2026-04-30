@@ -98,15 +98,15 @@ export default function PopularDestinations() {
     return () => ctx.revert();
   }, [mounted, activeFilter]); 
 
-  if (!mounted) return <section className="h-screen bg-[#0F2F2A]" />;
+  if (!mounted) return <section className="h-screen bg-[#0B1310]" />;
 
   return (
-    <section id="packages" ref={sectionRef} className="bg-[#0F2F2A] scroll-mt-24">
+    <section id="packages" ref={sectionRef} className="bg-[#0B1310] scroll-mt-24">
       <div ref={pinWrapperRef} className="relative h-screen w-full overflow-hidden flex flex-col justify-center">
         
         {/* Dynamic Background Text */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
-          <h2 className="font-serif text-[30vw] text-white/[0.02] leading-none whitespace-nowrap uppercase italic font-black">
+          <h2 className="font-serif text-[30vw] text-[#F2EFE9]/[0.02] leading-none whitespace-nowrap uppercase italic font-black">
             Destinations
           </h2>
         </div>
@@ -115,13 +115,13 @@ export default function PopularDestinations() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12">
             <div>
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-[1px] bg-[#6FC3B2]" />
-                <span className="text-[#6FC3B2] font-sans text-[10px] font-bold uppercase tracking-[0.4em]">
+                <div className="w-12 h-[1px] bg-[#C1A67B]" />
+                <span className="text-[#C1A67B] font-sans text-[10px] font-bold uppercase tracking-[0.4em]">
                   Elite Collection
                 </span>
               </div>
-              <h2 className="font-serif text-5xl md:text-8xl text-white leading-none tracking-tighter">
-                World&apos;s <span className="italic font-light text-[#6FC3B2]">Hidden Gems</span>
+              <h2 className="font-serif text-5xl md:text-8xl text-[#F2EFE9] leading-none tracking-tighter">
+                World&apos;s <span className="italic font-light text-[#C1A67B]">Hidden Gems</span>
               </h2>
             </div>
 
@@ -133,8 +133,8 @@ export default function PopularDestinations() {
                   onClick={() => setActiveFilter(cat)}
                   className={`text-[10px] font-bold uppercase tracking-[0.3em] transition-all duration-500 py-2 border-b ${
                     activeFilter === cat 
-                      ? "text-[#6FC3B2] border-[#6FC3B2]" 
-                      : "text-white/30 border-transparent hover:text-white/60"
+                      ? "text-[#C1A67B] border-[#C1A67B]" 
+                      : "text-[#F2EFE9]/30 border-transparent hover:text-[#F2EFE9]/60"
                   }`}
                 >
                   {cat}
@@ -161,10 +161,10 @@ export default function PopularDestinations() {
             {/* View More Card */}
             <div className="flex flex-col justify-center px-20">
               <button className="group flex flex-col items-center gap-8">
-                <div className="w-32 h-32 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-[#6FC3B2] group-hover:border-[#6FC3B2] transition-all duration-700">
-                  <ArrowUpRight className="w-10 h-10 text-white group-hover:text-[#0F2F2A] transition-colors" />
+                <div className="w-32 h-32 rounded-full border border-[#F2EFE9]/10 flex items-center justify-center group-hover:bg-[#C1A67B] group-hover:border-[#C1A67B] transition-all duration-700">
+                  <ArrowUpRight className="w-10 h-10 text-[#F2EFE9] group-hover:text-[#0B1310] transition-colors" />
                 </div>
-                <span className="text-white text-[10px] font-bold uppercase tracking-[0.5em] text-center">
+                <span className="text-[#F2EFE9] text-[10px] font-bold uppercase tracking-[0.5em] text-center">
                   Explore Full <br />Portfolio
                 </span>
               </button>
@@ -175,16 +175,16 @@ export default function PopularDestinations() {
         {/* Scroll Indicator */}
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex items-center gap-12">
           <div className="flex items-center gap-4">
-            <ChevronLeft className="text-white/20 w-4 h-4" />
-            <div className="w-40 h-[1px] bg-white/10 relative overflow-hidden">
+            <ChevronLeft className="text-[#F2EFE9]/20 w-4 h-4" />
+            <div className="w-40 h-[1px] bg-[#0B1310]/10 relative overflow-hidden">
               <div 
-                className="absolute inset-0 bg-[#6FC3B2] origin-left"
+                className="absolute inset-0 bg-[#C1A67B] origin-left"
                 style={{ width: "30%" }} 
               />
             </div>
-            <ChevronRight className="text-white/20 w-4 h-4" />
+            <ChevronRight className="text-[#F2EFE9]/20 w-4 h-4" />
           </div>
-          <span className="text-white/30 text-[9px] font-bold uppercase tracking-[0.4em]">Scroll to navigate</span>
+          <span className="text-[#F2EFE9]/30 text-[9px] font-bold uppercase tracking-[0.4em]">Scroll to navigate</span>
         </div>
       </div>
     </section>
@@ -208,30 +208,30 @@ function DestinationCard({ dest, index }: { dest: any; index: number }) {
       {/* Content */}
       <div className="absolute inset-0 p-12 flex flex-col justify-end translate-y-8 group-hover:translate-y-0 transition-transform duration-700">
         <div className="mb-4">
-          <span className="inline-block text-[#6FC3B2] text-[9px] font-bold uppercase tracking-widest mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+          <span className="inline-block text-[#C1A67B] text-[9px] font-bold uppercase tracking-widest mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
             {dest.category}
           </span>
-          <h3 className="font-serif text-white text-5xl leading-none mb-6">
+          <h3 className="font-serif text-[#F2EFE9] text-5xl leading-none mb-6">
             {dest.title}
           </h3>
-          <div className="flex items-center gap-2 text-white/50 mb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200">
-            <MapPin className="w-3 h-3 text-[#6FC3B2]" />
+          <div className="flex items-center gap-2 text-[#F2EFE9]/50 mb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200">
+            <MapPin className="w-3 h-3 text-[#C1A67B]" />
             <span className="font-sans text-[9px] uppercase tracking-[0.2em]">{dest.loc}</span>
           </div>
-          <p className="text-white/40 font-sans text-sm leading-relaxed max-w-xs opacity-0 group-hover:opacity-100 transition-all duration-700 delay-300">
+          <p className="text-[#F2EFE9]/40 font-sans text-sm leading-relaxed max-w-xs opacity-0 group-hover:opacity-100 transition-all duration-700 delay-300">
             {dest.desc}
           </p>
         </div>
 
-        <div className="flex items-center justify-between pt-8 border-t border-white/5 mt-4 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-400">
-          <span className="text-white/60 font-sans text-[9px] font-bold uppercase tracking-[0.3em]">Learn more</span>
-          <ArrowUpRight className="w-4 h-4 text-[#6FC3B2]" />
+        <div className="flex items-center justify-between pt-8 border-t border-[#F2EFE9]/5 mt-4 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-400">
+          <span className="text-[#F2EFE9]/60 font-sans text-[9px] font-bold uppercase tracking-[0.3em]">Learn more</span>
+          <ArrowUpRight className="w-4 h-4 text-[#C1A67B]" />
         </div>
       </div>
 
       {/* Subtle Overlay Number */}
       <div className="absolute top-10 right-10">
-        <span className="text-white/10 font-serif text-6xl italic">0{index + 1}</span>
+        <span className="text-[#F2EFE9]/10 font-serif text-6xl italic">0{index + 1}</span>
       </div>
     </div>
   );

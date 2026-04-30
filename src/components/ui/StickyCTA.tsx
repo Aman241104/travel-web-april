@@ -33,7 +33,7 @@ export default function StickyCTA() {
               href="https://wa.me/919825438324"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative bg-brand-teal text-white p-5 rounded-full shadow-2xl transition-all duration-500 hover:scale-110 flex items-center justify-center overflow-hidden"
+              className="group relative bg-[#C1A67B] text-[#0B1310] p-5 rounded-full shadow-2xl transition-all duration-500 hover:scale-110 flex items-center justify-center overflow-hidden"
               aria-label="Chat on WhatsApp"
             >
               <MessageCircle className="w-6 h-6" />
@@ -45,7 +45,7 @@ export default function StickyCTA() {
             {/* Scroll to Top */}
             <button
               onClick={scrollToTop}
-              className="bg-onyx text-white p-5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 hover:scale-110 hover:bg-accent-blue flex items-center justify-center border border-white/5"
+              className="bg-[#0B1310] text-[#F2EFE9] p-5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 hover:scale-110 hover:bg-accent-blue flex items-center justify-center border border-[#F2EFE9]/5"
               aria-label="Scroll to top"
             >
               <ArrowUp className="w-6 h-6" />

@@ -90,13 +90,13 @@ export default function ValuesSection() {
     return () => ctx.revert();
   }, [mounted]);
 
-  if (!mounted) return <section className="h-screen bg-[#1A2421]" />;
+  if (!mounted) return <section className="h-screen bg-[#0B1310]" />;
 
   return (
     <section 
       id="values"
       ref={sectionRef} 
-      className="relative bg-[#1A2421] scroll-mt-24"
+      className="relative bg-[#0B1310] scroll-mt-24"
     >
       <div ref={pinWrapperRef} className="h-screen w-full overflow-hidden flex items-center">
         {/* Texture Overlay */}
@@ -104,17 +104,17 @@ export default function ValuesSection() {
 
         {/* Massive Background Decorative Text */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <h2 className="values-bg-text font-serif text-[35vw] text-white/[0.01] leading-none whitespace-nowrap uppercase italic font-black">
+          <h2 className="values-bg-text font-serif text-[35vw] text-[#F2EFE9]/[0.01] leading-none whitespace-nowrap uppercase italic font-black">
             EXPERIENCE • ELITE • VISION
           </h2>
         </div>
 
         {/* Floating Header */}
         <div className="absolute top-24 left-12 lg:left-24 z-20">
-          <span className="text-[#C5A267] font-sans text-[10px] font-bold uppercase tracking-[0.6em] mb-4 block">
+          <span className="text-[#C1A67B] font-sans text-[10px] font-bold uppercase tracking-[0.6em] mb-4 block">
             The Jade Standard
           </span>
-          <h2 className="font-serif text-5xl lg:text-7xl text-[#F5F2ED] tracking-tighter">Our Philosophy</h2>
+          <h2 className="font-serif text-5xl lg:text-7xl text-[#F2EFE9] tracking-tighter">Our Philosophy</h2>
         </div>
 
         {/* Horizontal Container */}
@@ -130,22 +130,22 @@ export default function ValuesSection() {
               {/* Content Side */}
               <div className="relative z-10 w-full lg:w-1/2">
                 <div className="flex items-center gap-6 mb-10">
-                  <span className="font-serif text-5xl text-white/10 leading-none">{item.id}</span>
-                  <div className="h-[1px] w-12 bg-[#C5A267]/30" />
-                  <span className="text-[#C5A267] text-[10px] font-bold uppercase tracking-[0.4em]">
+                  <span className="font-serif text-5xl text-[#F2EFE9]/10 leading-none">{item.id}</span>
+                  <div className="h-[1px] w-12 bg-[#C1A67B]/30" />
+                  <span className="text-[#C1A67B] text-[10px] font-bold uppercase tracking-[0.4em]">
                     Principle
                   </span>
                 </div>
-                <h3 className="font-serif text-5xl lg:text-6xl text-[#F5F2ED] mb-8 leading-[1.1] tracking-tight group-hover:text-[#C5A267] transition-colors duration-500">
+                <h3 className="font-serif text-5xl lg:text-6xl text-[#F2EFE9] mb-8 leading-[1.1] tracking-tight group-hover:text-[#C1A67B] transition-colors duration-500">
                   {item.title}
                 </h3>
-                <p className="font-sans text-[#F5F2ED]/40 text-lg leading-relaxed mb-12 max-w-sm">
+                <p className="font-sans text-[#F2EFE9]/40 text-lg leading-relaxed mb-12 max-w-sm">
                   {item.desc}
                 </p>
-                <button className="flex items-center gap-6 text-[#F5F2ED] group/btn">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.5em] group-hover/btn:text-[#C5A267] transition-colors">Learn More</span>
-                  <div className="w-12 h-12 rounded-full border border-[#F5F2ED]/10 flex items-center justify-center group-hover/btn:border-[#C5A267] transition-all duration-500">
-                    <ArrowUpRight className="w-4 h-4 text-[#F5F2ED] group-hover/btn:text-[#C5A267]" />
+                <button className="flex items-center gap-6 text-[#F2EFE9] group/btn">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.5em] group-hover/btn:text-[#C1A67B] transition-colors">Learn More</span>
+                  <div className="w-12 h-12 rounded-full border border-[#F5F2ED]/10 flex items-center justify-center group-hover/btn:border-[#C1A67B] transition-all duration-500">
+                    <ArrowUpRight className="w-4 h-4 text-[#F2EFE9] group-hover/btn:text-[#C1A67B]" />
                   </div>
                 </button>
               </div>
@@ -166,14 +166,14 @@ export default function ValuesSection() {
 
           {/* Closing Spread */}
           <div className="flex-shrink-0 w-[40vw] flex flex-col justify-center pr-24">
-            <h4 className="font-serif text-[#F5F2ED] text-6xl lg:text-8xl leading-none tracking-tighter mb-10">
+            <h4 className="font-serif text-[#F2EFE9] text-6xl lg:text-8xl leading-none tracking-tighter mb-10">
               Your vision, <br />
-              <span className="italic font-light text-[#C5A267]">our canvas.</span>
+              <span className="italic font-light text-[#C1A67B]">our canvas.</span>
             </h4>
-            <p className="text-[#F5F2ED]/30 font-sans text-lg max-w-xs mb-12 leading-relaxed">
+            <p className="text-[#F2EFE9]/30 font-sans text-lg max-w-xs mb-12 leading-relaxed">
               Every masterpiece starts with a single, intentional conversation.
             </p>
-            <button className="px-12 py-6 bg-[#C5A267] text-[#1A2421] font-bold text-[10px] uppercase tracking-[0.4em] rounded-full hover:bg-[#F5F2ED] transition-all duration-500 shadow-2xl shadow-[#C5A267]/10">
+            <button className="px-12 py-6 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.4em] rounded-full hover:bg-[#0B1310] transition-all duration-500 shadow-2xl shadow-[#C1A67B]/10">
               Begin Your Experience
             </button>
           </div>

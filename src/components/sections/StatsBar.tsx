@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function ValueProposition() {
   return (
-    <section className="bg-brand-teal text-brand-sand pt-32 pb-24 md:py-32 relative overflow-hidden">
+    <section className="bg-[#C1A67B] text-brand-sand pt-32 pb-24 md:py-32 relative overflow-hidden">
       {/* Decorative leaf motifs */}
       <div className="absolute top-0 right-0 opacity-20 pointer-events-none transform translate-x-1/3 -translate-y-1/3">
         <svg width="400" height="400" viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +30,7 @@ export default function ValueProposition() {
             <span className="text-brand-yellow font-sans text-sm font-semibold uppercase tracking-widest mb-4 block">
               Our Values
             </span>
-            <h2 className="font-serif text-5xl md:text-7xl mb-10 leading-[1.1] text-white">
+            <h2 className="font-serif text-5xl md:text-7xl mb-10 leading-[1.1] text-[#F2EFE9]">
               Why people love <br />
               <span className="italic font-light">travelling with us.</span>
             </h2>
@@ -38,25 +38,25 @@ export default function ValueProposition() {
             <ul className="space-y-6 mb-12 font-sans text-lg md:text-xl text-brand-sand/90 font-medium">
               <li className="flex items-center gap-4">
                 <div className="w-6 h-6 rounded-full bg-brand-yellow flex items-center justify-center shrink-0">
-                  <Check className="w-4 h-4 text-brand-teal" strokeWidth={3} />
+                  <Check className="w-4 h-4 text-[#C1A67B]" strokeWidth={3} />
                 </div>
                 Transparent and clear pricing
               </li>
               <li className="flex items-center gap-4">
                 <div className="w-6 h-6 rounded-full bg-brand-yellow flex items-center justify-center shrink-0">
-                  <Check className="w-4 h-4 text-brand-teal" strokeWidth={3} />
+                  <Check className="w-4 h-4 text-[#C1A67B]" strokeWidth={3} />
                 </div>
                 High quality and safe touring
               </li>
               <li className="flex items-center gap-4">
                 <div className="w-6 h-6 rounded-full bg-brand-yellow flex items-center justify-center shrink-0">
-                  <Check className="w-4 h-4 text-brand-teal" strokeWidth={3} />
+                  <Check className="w-4 h-4 text-[#C1A67B]" strokeWidth={3} />
                 </div>
                 No hidden costs or extra charges
               </li>
             </ul>
 
-            <button className="bg-brand-sand text-brand-navy px-10 py-5 rounded-full font-semibold hover:bg-white hover:scale-105 transition-all shadow-xl">
+            <button className="bg-brand-sand text-brand-navy px-10 py-5 rounded-full font-semibold hover:bg-[#0B1310] hover:scale-105 transition-all shadow-xl">
               View Packages
             </button>
           </motion.div>

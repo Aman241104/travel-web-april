@@ -70,7 +70,7 @@ export default function USP() {
             opacity: [0.1, 0.2, 0.1] 
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#6FC3B2]/10 blur-[120px] rounded-full"
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#C1A67B]/10 blur-[120px] rounded-full"
         />
         <motion.div 
           animate={{ 
@@ -79,7 +79,7 @@ export default function USP() {
             opacity: [0.05, 0.15, 0.05] 
           }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#6FC3B2]/5 blur-[150px] rounded-full"
+          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#C1A67B]/5 blur-[150px] rounded-full"
         />
         {/* Subtle Noise Texture Overlay */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
@@ -92,7 +92,7 @@ export default function USP() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-[#6FC3B2] font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.5em] mb-8 block"
+            className="text-[#C1A67B] font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.5em] mb-8 block"
           >
             A Masterclass in Planning
           </motion.span>
@@ -101,10 +101,10 @@ export default function USP() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-serif text-5xl md:text-8xl text-white leading-[1] tracking-tighter"
+            className="font-serif text-5xl md:text-8xl text-[#F2EFE9] leading-[1] tracking-tighter"
           >
             How We Craft Your <br />
-            <span className="italic font-light text-[#6FC3B2]">Perfect Journey</span>
+            <span className="italic font-light text-[#C1A67B]">Perfect Journey</span>
           </motion.h2>
         </div>
 
@@ -160,7 +160,7 @@ function StepCard({ step, index }: { step: any; index: number }) {
       `}
     >
       {/* Faint Background Typography (Parallax-ish) */}
-      <span className="absolute -top-12 -left-4 font-serif text-[120px] leading-none text-white/[0.03] select-none pointer-events-none group-hover:text-[#6FC3B2]/[0.05] transition-colors duration-700">
+      <span className="absolute -top-12 -left-4 font-serif text-[120px] leading-none text-[#F2EFE9]/[0.03] select-none pointer-events-none group-hover:text-[#C1A67B]/[0.05] transition-colors duration-700">
         {step.number}
       </span>
 
@@ -170,9 +170,9 @@ function StepCard({ step, index }: { step: any; index: number }) {
           <motion.div 
             animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.1, 0.2] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 rounded-full bg-[#6FC3B2] blur-xl"
+            className="absolute inset-0 rounded-full bg-[#C1A67B] blur-xl"
           />
-          <div className="w-20 h-20 rounded-full bg-white/[0.05] border border-white/[0.1] backdrop-blur-xl flex items-center justify-center text-[#6FC3B2] group-hover:bg-[#6FC3B2] group-hover:text-[#0A1916] transition-all duration-700 shadow-2xl group-hover:shadow-[0_0_30px_rgba(111,195,178,0.3)]">
+          <div className="w-20 h-20 rounded-full bg-[#F2EFE9]/[0.05] border border-[#F2EFE9]/[0.1] backdrop-blur-xl flex items-center justify-center text-[#C1A67B] group-hover:bg-[#C1A67B] group-hover:text-[#0A1916] transition-all duration-700 shadow-2xl group-hover:shadow-[0_0_30px_rgba(111,195,178,0.3)]">
             <step.icon className="w-8 h-8" />
           </div>
         </div>
@@ -180,20 +180,20 @@ function StepCard({ step, index }: { step: any; index: number }) {
         {/* Step Content */}
         {step.isCTA ? (
           <div className="flex flex-col items-center lg:items-start group-hover:scale-105 transition-transform duration-700">
-            <h3 className="font-serif text-3xl md:text-4xl text-white mb-6 leading-tight">
+            <h3 className="font-serif text-3xl md:text-4xl text-[#F2EFE9] mb-6 leading-tight">
               {step.title}
             </h3>
             <p className="text-[#D6E2DF]/50 font-sans text-base mb-10 leading-relaxed max-w-[280px]">
               {step.desc}
             </p>
-            <button className="group/btn flex items-center gap-4 px-10 py-5 bg-[#6FC3B2] text-[#0A1916] font-sans text-[10px] font-bold uppercase tracking-[0.3em] rounded-full hover:bg-white transition-all duration-500 shadow-2xl shadow-[#6FC3B2]/20">
+            <button className="group/btn flex items-center gap-4 px-10 py-5 bg-[#C1A67B] text-[#0A1916] font-sans text-[10px] font-bold uppercase tracking-[0.3em] rounded-full hover:bg-[#0B1310] transition-all duration-500 shadow-2xl shadow-[#C1A67B]/20">
               Begin Journey
               <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
             </button>
           </div>
         ) : (
           <>
-            <h3 className="font-serif text-3xl text-white mb-6 group-hover:text-[#6FC3B2] transition-colors duration-500">
+            <h3 className="font-serif text-3xl text-[#F2EFE9] mb-6 group-hover:text-[#C1A67B] transition-colors duration-500">
               {step.title}
             </h3>
             <p className="text-[#D6E2DF]/40 font-sans text-base leading-relaxed max-w-[280px] group-hover:text-[#D6E2DF]/70 transition-colors duration-500">
@@ -204,7 +204,7 @@ function StepCard({ step, index }: { step: any; index: number }) {
       </div>
 
       {/* Subtle Card Tilt Effect (Micro Interaction) */}
-      <div className="absolute inset-0 z-0 pointer-events-none group-hover:bg-white/[0.01] transition-colors duration-700 rounded-[3rem]" />
+      <div className="absolute inset-0 z-0 pointer-events-none group-hover:bg-[#F2EFE9]/[0.01] transition-colors duration-700 rounded-[3rem]" />
     </motion.div>
   );
 }

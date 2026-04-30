@@ -82,7 +82,7 @@ export default function PopularDestinations() {
               initial={{ opacity: 0, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-[#6FC3B2] font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-6 block"
+              className="text-[#C1A67B] font-sans text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-6 block"
             >
               Curated Collections
             </motion.span>
@@ -91,10 +91,10 @@ export default function PopularDestinations() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="font-serif text-5xl md:text-8xl text-[#0F2F2A] leading-[1] tracking-tighter"
+              className="font-serif text-5xl md:text-8xl text-[#F2EFE9] leading-[1] tracking-tighter"
             >
               Discover Your <br />
-              <span className="italic font-light text-[#6FC3B2]/80">Next Escape.</span>
+              <span className="italic font-light text-[#C1A67B]/80">Next Escape.</span>
             </motion.h2>
           </div>
 
@@ -105,7 +105,7 @@ export default function PopularDestinations() {
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
                 className={`relative group pb-2 font-sans text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300
-                  ${activeFilter === cat ? "text-[#0F2F2A]" : "text-[#0F2F2A]/30 hover:text-[#0F2F2A]/60"}
+                  ${activeFilter === cat ? "text-[#F2EFE9]" : "text-[#F2EFE9]/30 hover:text-[#F2EFE9]/60"}
                 `}
               >
                 <span>{cat}</span>
@@ -115,7 +115,7 @@ export default function PopularDestinations() {
                     width: activeFilter === cat ? "100%" : "0%",
                     opacity: activeFilter === cat ? 1 : 0
                   }}
-                  className="absolute bottom-0 left-0 h-[2px] bg-[#6FC3B2]"
+                  className="absolute bottom-0 left-0 h-[2px] bg-[#C1A67B]"
                 />
               </button>
             ))}
@@ -144,9 +144,9 @@ export default function PopularDestinations() {
             viewport={{ once: true }}
             className="group relative"
           >
-            <button className="px-16 py-7 bg-[#0F2F2A] text-white font-sans text-xs font-bold uppercase tracking-[0.4em] rounded-full overflow-hidden transition-all duration-700 hover:scale-105 shadow-2xl">
+            <button className="px-16 py-7 bg-[#0B1310] text-[#F2EFE9] font-sans text-xs font-bold uppercase tracking-[0.4em] rounded-full overflow-hidden transition-all duration-700 hover:scale-105 shadow-2xl">
               <span className="relative z-10">View Full Portfolio</span>
-              <div className="absolute inset-0 bg-[#6FC3B2] translate-y-full transition-transform duration-700 group-hover:translate-y-0" />
+              <div className="absolute inset-0 bg-[#C1A67B] translate-y-full transition-transform duration-700 group-hover:translate-y-0" />
             </button>
           </motion.div>
         </div>
@@ -202,7 +202,7 @@ function DestinationCard({ dest, index, isAllActive }: { dest: any; index: numbe
 
       {/* Glassmorphism Category Tag */}
       <div className="absolute top-8 left-8 z-20">
-        <div className="px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-sans text-[9px] font-bold uppercase tracking-widest">
+        <div className="px-5 py-2 rounded-full bg-[#0B1310]/10 backdrop-blur-md border border-[#F2EFE9]/20 text-[#F2EFE9] font-sans text-[9px] font-bold uppercase tracking-widest">
           {dest.category}
         </div>
       </div>
@@ -210,24 +210,24 @@ function DestinationCard({ dest, index, isAllActive }: { dest: any; index: numbe
       {/* Content */}
       <div className="absolute inset-0 z-20 p-10 md:p-14 flex flex-col justify-end">
         <motion.div layout className="mb-4">
-          <h3 className={`font-serif text-white leading-tight mb-4 transition-colors duration-500 group-hover:text-[#6FC3B2]
+          <h3 className={`font-serif text-[#F2EFE9] leading-tight mb-4 transition-colors duration-500 group-hover:text-[#C1A67B]
             ${dest.size === 'large' && isAllActive ? "text-4xl md:text-7xl" : "text-3xl md:text-5xl"}
           `}>
             {dest.title}
           </h3>
-          <div className="flex items-center gap-2 text-white/50 mb-6">
-            <MapPin className="w-4 h-4 text-[#6FC3B2]" />
+          <div className="flex items-center gap-2 text-[#F2EFE9]/50 mb-6">
+            <MapPin className="w-4 h-4 text-[#C1A67B]" />
             <span className="font-sans text-[10px] md:text-xs uppercase tracking-[0.2em]">{dest.loc}</span>
           </div>
           
-          <p className="text-white/60 font-sans text-sm md:text-lg max-w-sm leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-700">
+          <p className="text-[#F2EFE9]/60 font-sans text-sm md:text-lg max-w-sm leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-700">
             {dest.desc}
           </p>
         </motion.div>
 
-        <div className="flex items-center justify-between pt-8 border-t border-white/10 mt-6 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100 translate-y-4 group-hover:translate-y-0">
-          <span className="text-white font-sans text-[10px] font-bold uppercase tracking-[0.3em]">Explore Journey</span>
-          <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-[#6FC3B2] group-hover:border-[#6FC3B2] transition-all duration-500">
+        <div className="flex items-center justify-between pt-8 border-t border-[#F2EFE9]/10 mt-6 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100 translate-y-4 group-hover:translate-y-0">
+          <span className="text-[#F2EFE9] font-sans text-[10px] font-bold uppercase tracking-[0.3em]">Explore Journey</span>
+          <div className="w-12 h-12 rounded-full border border-[#F2EFE9]/20 flex items-center justify-center text-[#F2EFE9] group-hover:bg-[#C1A67B] group-hover:border-[#C1A67B] transition-all duration-500">
             <ArrowUpRight className="w-5 h-5" />
           </div>
         </div>

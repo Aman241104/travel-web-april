@@ -27,11 +27,11 @@ export default function Home() {
         return () => clearTimeout(timer);
     }, []);
 
-    if (!mounted) return <div className="bg-[#F5F2ED] min-h-screen" />;
+    if (!mounted) return <div className="bg-[#0B1310] min-h-screen" />;
 
     return (
-        <main className="bg-[#F5F2ED] min-h-screen relative overflow-clip">
-            <div className="relative z-30 bg-[#F5F2ED] shadow-2xl">
+        <main className="bg-[#0B1310] min-h-screen relative overflow-clip">
+            <div className="relative z-30 bg-[#0B1310] shadow-2xl">
                 {/* Hero Section */}
                 <Hero />
 
@@ -54,7 +54,7 @@ export default function Home() {
                 <TravelerSection />
 
                 {/* Decorative Marquee - Editorial Dual Tape */}
-                <section id="marquee-bottom" className="relative z-20 py-24 md:py-32 overflow-hidden bg-white scroll-mt-24">
+                <section id="marquee-bottom" className="relative z-20 py-24 md:py-32 overflow-hidden bg-[#0B1310] scroll-mt-24">
                     <div className="flex flex-col gap-6 md:gap-10">
                       <div className="relative z-10">
                         <TapeMarquee 
