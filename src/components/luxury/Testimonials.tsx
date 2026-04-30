@@ -62,7 +62,7 @@ export default function Testimonials() {
 
     const ctx = gsap.context(() => {
       if (!sectionRef.current || !pinWrapperRef.current) return;
-      const slides = gsap.utils.toArray(".testimonial-slide");
+      const slides = gsap.utils.toArray(".testimonial-slide") as HTMLElement[];
       
       // Create a master timeline for the transitions
       const tl = gsap.timeline({
