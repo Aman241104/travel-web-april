@@ -20,7 +20,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#0B1310] pt-20 pb-10 md:pt-32 md:pb-12 overflow-hidden">
+    <footer className="relative bg-[#0B1310] pt-12 pb-8 md:pt-20 md:pb-10 overflow-hidden">
       {/* Texture Overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.02] bg-noise" />
 
@@ -34,7 +34,7 @@ export default function Footer() {
       <div className="container relative z-10 mx-auto px-6">
         
         {/* Main CTA Section */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-32">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-16 md:mb-24">
           <div className="max-w-3xl">
             <motion.h2 
               initial={{ opacity: 0, y: 30 }}

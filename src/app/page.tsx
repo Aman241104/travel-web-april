@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Hero from "@/components/Hero";
-import ServicesGrid from "@/components/ServicesGrid";
+import ServicesList from "@/components/ServicesList";
 import USP from "@/components/sections/USP";
 import ValuesSection from "@/components/sections/ValuesSection";
 
@@ -47,7 +47,7 @@ export default function Home() {
                 <PopularDestinations />
 
                 {/* Services / What We Do */}
-                <ServicesGrid />
+                <ServicesList />
 
                 {/* Process / Expertise */}
                 <USP />

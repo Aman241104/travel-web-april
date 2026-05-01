@@ -47,14 +47,14 @@ export default function CTASection() {
       });
 
       gsap.from(".contact-node", {
-        x: 40,
+        y: 30,
         opacity: 0,
         stagger: 0.1,
         duration: 1.2,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: ".contact-grid",
-          start: "top 85%",
+          trigger: sectionRef.current,
+          start: "top 90%",
         }
       });
     });
@@ -62,13 +62,13 @@ export default function CTASection() {
     return () => ctx.revert();
   }, [mounted]);
 
-  if (!mounted) return <section className="h-[80vh] bg-[#0B1310]" />;
+  if (!mounted) return <section className="h-[40vh] bg-[#0B1310]" />;
 
   return (
     <section 
       id="contact" 
       ref={sectionRef} 
-      className="relative py-16 md:py-40 bg-[#0B1310] overflow-hidden scroll-mt-24"
+      className="relative py-20 md:py-32 bg-[#0B1310] overflow-hidden scroll-mt-24"
     >
       <div className="absolute inset-0 z-0">
         <div 
@@ -79,16 +79,16 @@ export default function CTASection() {
       </div>
 
       <div className="container mx-auto px-6 relative z-20">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 md:gap-20">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-12 lg:gap-20">
           
           <div className="max-w-4xl">
-            <div className="overflow-hidden mb-6 md:mb-8">
+            <div className="overflow-hidden mb-6">
               <span className="cta-reveal inline-block text-[#C1A67B] font-sans text-[10px] md:text-xs font-black uppercase tracking-[0.6em]">
                 Excellence Since MMVI
               </span>
             </div>
             
-            <h2 className="font-serif text-4xl md:text-7xl lg:text-[130px] text-[#F2EFE9] leading-[0.9] tracking-tightest mb-10 md:mb-16">
+            <h2 className="font-serif text-4xl md:text-7xl lg:text-[130px] text-[#F2EFE9] leading-[0.9] tracking-tightest mb-10 md:mb-12">
               <div className="overflow-hidden">
                 <span className="cta-reveal inline-block">Begin Your</span>
               </div>
@@ -104,7 +104,7 @@ export default function CTASection() {
             </div>
 
             <div className="cta-reveal">
-              <MagneticButton className="group relative px-10 py-6 md:px-16 md:py-8 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.5em] rounded-full overflow-hidden shadow-2xl transition-all duration-700 hover:bg-[#0B1310]">
+              <MagneticButton className="group relative px-8 py-5 md:px-12 md:py-6 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.5em] rounded-full overflow-hidden shadow-2xl transition-all duration-700 hover:bg-[#0B1310]">
                 <span className="relative z-10 flex items-center gap-6">
                   Design Your Escape <ArrowUpRight className="w-5 h-5" />
                 </span>
@@ -112,7 +112,7 @@ export default function CTASection() {
             </div>
           </div>
 
-          <div className="contact-grid flex flex-col gap-4 md:gap-6 w-full lg:w-auto mt-16 lg:mt-0">
+          <div className="contact-grid flex flex-col gap-6 w-full lg:w-auto mt-16 lg:mt-0">
             <a 
               href="tel:+919825438324" 
               className="contact-node group p-8 md:p-10 rounded-2xl md:rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#C1A67B]/30 transition-all duration-500 flex items-center gap-6 md:gap-8 backdrop-blur-xl"
@@ -140,12 +140,6 @@ export default function CTASection() {
             </a>
           </div>
 
-        </div>
-
-        <div className="mt-12 md:mt-32 pt-8 md:pt-20 border-t border-[#F2EFE9]/[0.05] flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 text-[#F2EFE9]/20 font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
-          <span>© 2026 Jade Tours & Travel</span>
-          <span className="italic font-serif normal-case tracking-widest text-[#C1A67B]/40">The Art of Effortless Exploration</span>
-          <span>All Rights Reserved</span>
         </div>
       </div>
     </section>
