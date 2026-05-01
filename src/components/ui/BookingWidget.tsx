@@ -1,8 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Plane, Hotel, Package, Landmark, Search, Calendar, MapPin, Users, ArrowRight, ArrowLeftRight } from "lucide-react";
+import { useState } from "react";
+import { Plane, Hotel, Package, Landmark, Search, Calendar, MapPin, Users, ArrowLeftRight } from "lucide-react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 
 const tabs = [
   { id: "flights", label: "Flights", icon: Plane },
@@ -11,26 +10,38 @@ const tabs = [
   { id: "visa", label: "Visa", icon: Landmark },
 ];
 
+const subTypeOptions: Record<string, string[]> = {
+  hotels: ["Luxury Resort", "Boutique Hotel", "Budget Stay", "Business Hotel", "Apartment"],
+  visa: ["Tourist Visa", "Business Visa", "Student Visa", "Work Visa", "Transit Visa"],
+  packages: ["Bespoke Tour", "Honeymoon Special", "Adventure Trip", "Family Vacation", "Pilgrimage"],
+};
+
 export default function BookingWidget() {
   const [activeTab, setActiveTab] = useState("flights");
   const [tripType, setTripType] = useState("one-way");
-  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     from: "",
     to: "",
     departure: "",
     returnDate: "",
-    travellers: "1 Traveller, Economy"
+    travellers: "1 Traveller, Economy",
+    subType: "" // For hotel type, visa type, or package type
   });
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+    const defaults: Record<string, string> = {
+      hotels: subTypeOptions.hotels[0],
+      visa: subTypeOptions.visa[0],
+      packages: subTypeOptions.packages[0]
+    };
+    setFormData(prev => ({ ...prev, subType: defaults[tabId] || "" }));
+  };
 
-  const isReturnDisabled = mounted && activeTab === "flights" && tripType === "one-way";
+  const isReturnDisabled = activeTab === "flights" && tripType === "one-way";
 
   const handleSearch = () => {
-    const { from, to, departure, returnDate, travellers } = formData;
+    const { from, to, departure, returnDate, travellers, subType } = formData;
     let message = `Hello Jade Tours! I'm interested in ${activeTab.toUpperCase()} services.\n\n`;
     
     if (activeTab === "flights") {
@@ -43,17 +54,20 @@ export default function BookingWidget() {
         `• Travellers/Class: ${travellers}`;
     } else if (activeTab === "hotels") {
       message += `🏨 HOTEL BOOKING\n` +
+        `• Pref Type: ${subType}\n` +
         `• City/Hotel: ${to}\n` +
         `• Check-in: ${departure}\n` +
         `• Check-out: ${returnDate}\n` +
         `• Guests: ${travellers}`;
     } else if (activeTab === "packages") {
       message += `📦 TOUR PACKAGE\n` +
+        `• Theme: ${subType}\n` +
         `• Destination: ${to}\n` +
         `• Preferred Date: ${departure}\n` +
         `• Travellers: ${travellers}`;
     } else if (activeTab === "visa") {
       message += `🛂 VISA ASSISTANCE\n` +
+        `• Visa Type: ${subType}\n` +
         `• Country: ${to}\n` +
         `• Travel Date: ${departure}\n` +
         `• Applicants: ${travellers}`;
@@ -71,7 +85,7 @@ export default function BookingWidget() {
         {tabs.map((tab, i) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => handleTabChange(tab.id)}
             className={`flex flex-col items-center gap-2 flex-1 transition-all relative ${
               activeTab === tab.id 
                 ? "text-primary scale-110" 
@@ -174,6 +188,33 @@ export default function BookingWidget() {
             </div>
           </div>
         </div>
+
+        {activeTab !== "flights" && (
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-3"
+          >
+            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">
+              Select {activeTab === "hotels" ? "Hotel Type" : activeTab === "visa" ? "Visa Type" : "Package Type"}
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {subTypeOptions[activeTab]?.map((option) => (
+                <button
+                  key={option}
+                  onClick={() => setFormData({...formData, subType: option})}
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all border ${
+                    formData.subType === option 
+                      ? "bg-primary text-white border-primary shadow-md" 
+                      : "bg-gray-50 text-gray-600 border-gray-100 hover:border-primary/30 hover:bg-white"
+                  }`}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         <div className={`grid ${activeTab === "visa" || activeTab === "packages" ? "grid-cols-1" : "grid-cols-2"} gap-6`}>
           <div className="space-y-2">

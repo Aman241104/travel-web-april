@@ -25,7 +25,7 @@ const benefits = [
 
 export default function ValuesSection() {
   return (
-    <section id="about" className="py-32 bg-white overflow-hidden relative border-t border-gray-100">
+    <section className="py-32 bg-white overflow-hidden relative border-t border-gray-100">
       {/* Bright Background Texture */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_70%_20%,rgba(56,142,60,0.03),transparent_70%)] pointer-events-none" />
 

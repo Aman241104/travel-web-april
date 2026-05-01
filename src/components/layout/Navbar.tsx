@@ -5,13 +5,12 @@ import { Menu, X, Phone, Globe } from "lucide-react";
 import Link from "next/link";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "#about" },
+  { name: "Home", href: "#home" },
+  { name: "Why Us", href: "#why-us" },
   { name: "Services", href: "#services" },
   { name: "Destinations", href: "#packages" },
-  { name: "Visa Guide", href: "#visa" },
-  { name: "Blog", href: "#journal" },
-  { name: "Contact Us", href: "#contact" },
+  { name: "Reviews", href: "#testimonials" },
+  { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -20,45 +19,42 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    
-    // Scroll spy logic
-    const sections = navLinks.map(link => link.href.replace("#", "")).filter(id => id !== "/");
-    const observerOptions = {
-      root: null,
-      rootMargin: '-20% 0px -70% 0px',
-      threshold: 0
-    };
+    const handleScroll = () => {
+      // Toggle navbar background
+      setIsScrolled(window.scrollY > 20);
 
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+      // Active section detection
+      const sections = navLinks.map(link => link.href.replace("#", ""));
+      let currentSection = activeSection;
+
+      // Special case for top of page
+      if (window.scrollY < 100) {
+        currentSection = "home";
+      } else {
+        // Find which section is currently most visible in the upper part of the screen
+        for (const id of sections) {
+          const element = document.getElementById(id);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            // If the top of the section is in the top 40% of the screen
+            if (rect.top <= 200) {
+              currentSection = id;
+            }
+          }
         }
-      });
+      }
+
+      if (currentSection !== activeSection) {
+        setActiveSection(currentSection);
+      }
     };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    sections.forEach(id => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
-    });
+    window.addEventListener("scroll", handleScroll);
+    // Initial check
+    handleScroll();
 
-    // Special case for home
-    const homeObserver = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) setActiveSection("home");
-    }, { threshold: 0.5 });
-    
-    const homeSection = document.getElementById("home");
-    if (homeSection) homeObserver.observe(homeSection);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      observer.disconnect();
-      homeObserver.disconnect();
-    };
-  }, []);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [activeSection]);
 
   return (
     <>
@@ -87,21 +83,22 @@ export default function Navbar() {
             <div className="flex items-center gap-6">
               {navLinks.map((link) => {
                 const id = link.href.replace("#", "");
-                const isActive = (link.name === "Home" && activeSection === "home") || activeSection === id;
+                const isActive = activeSection === id;
                 
                 return (
                   <Link 
                     key={link.name} 
                     href={link.href}
-                    className={`font-sans text-sm font-bold transition-all relative group ${
+                    className={`font-sans text-sm font-bold transition-all relative py-2 group ${
                       isActive ? "text-primary" : "text-gray-700 hover:text-primary"
                     }`}
                   >
                     {link.name}
                     {isActive && (
                       <motion.span 
-                        layoutId="activeNav"
-                        className="absolute -bottom-1 left-0 w-full h-[3px] bg-primary rounded-full" 
+                        layoutId="nav-underline"
+                        className="absolute bottom-0 left-0 w-full h-[3px] bg-primary rounded-full" 
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
                   </Link>

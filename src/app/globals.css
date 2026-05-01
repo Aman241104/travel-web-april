@@ -27,6 +27,14 @@
   --foreground: #1F2937;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 100px;
+}
+
 body {
   color: var(--foreground);
   background-color: var(--background);
