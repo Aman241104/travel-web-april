@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const featuredServices = [
   { 
-    title: "Bespoke Tour Packages", 
+    title: "Domestic & International Custom Tour Packages", 
     desc: "Experience the world through a lens of luxury. Our master-crafted itineraries are tailored to your pace, preferences, and passions.", 
     icon: Globe,
     cta: "Explore Collections",
@@ -13,7 +13,7 @@ const featuredServices = [
     textColor: "text-white"
   },
   { 
-    title: "Expert Visa Concierge", 
+    title: "Visitor Visa Services", 
     desc: "Navigate complex documentation with ease. Our specialists handle the friction so you can focus on the destination.", 
     icon: Landmark,
     cta: "Check Requirements",
@@ -23,12 +23,12 @@ const featuredServices = [
 ];
 
 const standardServices = [
-  { title: "Premium Flights", desc: "Access to private fares and seamless cabin upgrades.", icon: Plane },
-  { title: "Elite Stays", desc: "Curated hotels with exclusive Jade-only amenities.", icon: Hotel },
-  { title: "Global Forex", desc: "Competitive rates delivered to your doorstep.", icon: CreditCard },
-  { title: "Travel Insurance", desc: "Comprehensive protection for total peace of mind.", icon: ShieldCheck },
-  { title: "Private Transfers", desc: "Luxury vehicles waiting the moment you touch down.", icon: Car },
-  { title: "Passport Support", desc: "Fast-track renewals and documentation guidance.", icon: Fingerprint },
+  { title: "Domestic & International Tickets", desc: "Access to private fares and seamless cabin upgrades for all your flights.", icon: Plane },
+  { title: "Hotel Bookings", desc: "Curated stays with exclusive amenities and competitive rates worldwide.", icon: Hotel },
+  { title: "Forex Services", desc: "Competitive foreign exchange rates delivered to your doorstep.", icon: CreditCard },
+  { title: "Overseas Insurance", desc: "Comprehensive protection for total peace of mind during your travels.", icon: ShieldCheck },
+  { title: "Car Rental", desc: "Luxury vehicles and reliable rentals waiting the moment you touch down.", icon: Car },
+  { title: "Passport Support", desc: "Fast-track renewals and documentation guidance for all passport needs.", icon: Fingerprint },
 ];
 
 export default function ServicesList() {
@@ -52,11 +52,10 @@ export default function ServicesList() {
               className="flex items-center gap-3 text-primary font-bold uppercase tracking-[0.4em] text-[10px] mb-8"
             >
               <Sparkles className="w-4 h-4" />
-              Elite Travel Ecosystem
+              Comprehensive Travel Solutions
             </motion.div>
             <h2 className="text-[56px] lg:text-[84px] font-sans font-black text-gray-900 leading-[1.05] tracking-tighter">
-              Curating Every <br />
-              <span className="text-primary italic font-serif font-light drop-shadow-sm">Nuance</span> of Your Journey.
+              <span className="text-primary italic font-serif font-light drop-shadow-sm">Services</span>
             </h2>
           </div>
           <p className="text-gray-600 lg:max-w-[440px] text-xl leading-relaxed font-medium tracking-tight">

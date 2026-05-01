@@ -13,6 +13,7 @@ import ServicesList from "@/components/ServicesList";
 import USP from "@/components/sections/USP";
 import ValuesSection from "@/components/sections/ValuesSection";
 import TrustSection from "@/components/sections/TrustSection";
+import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import StatsBar from "@/components/sections/StatsBar";
 
 const PopularDestinations = dynamic(() => import("@/components/sections/PopularDestinations"), { ssr: false });
@@ -84,10 +85,13 @@ export default function Home() {
                 {/* 4. Trust Section */}
                 <TrustSection />
 
+                {/* 4.5 Why Choose Us (Contrast) */}
+                <WhyChooseUs />
+
                 {/* 5. Services Section (Grid) */}
                 <ServicesList />
 
-                {/* 6. Why Choose Us Section (CRITICAL) */}
+                {/* 6. Brand Values Section */}
                 <ValuesSection />
 
                 {/* 7. Destinations Section */}

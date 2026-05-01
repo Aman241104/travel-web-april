@@ -14,9 +14,30 @@ const tabs = [
 export default function BookingWidget() {
   const [activeTab, setActiveTab] = useState("flights");
   const [tripType, setTripType] = useState("one-way");
+  const [formData, setFormData] = useState({
+    from: "",
+    to: "",
+    departure: "",
+    returnDate: "",
+    travellers: "1 Traveller, Economy"
+  });
+
+  const handleSearch = () => {
+    const { from, to, departure, returnDate, travellers } = formData;
+    const message = `Hello Jade Tours! I'd like to book ${activeTab}:\n\n` +
+      `Trip Type: ${tripType}\n` +
+      `From: ${from}\n` +
+      `To: ${to}\n` +
+      `Departure: ${departure}\n` +
+      (tripType !== 'one-way' ? `Return: ${returnDate}\n` : '') +
+      `Travellers/Class: ${travellers}`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  };
 
   return (
-    <div className="bg-white rounded-[24px] p-6 lg:p-8 w-full max-w-[550px] mx-auto relative overflow-hidden border border-gray-100">
+    <div className="bg-white rounded-[24px] p-6 lg:p-8 w-full max-w-[550px] mx-auto relative overflow-hidden border border-gray-100 shadow-2xl">
       
       {/* Tabs - Centered with dividers */}
       <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-100">
@@ -84,12 +105,17 @@ export default function BookingWidget() {
               <input 
                 type="text" 
                 placeholder="Leaving from"
+                value={formData.from}
+                onChange={(e) => setFormData({...formData, from: e.target.value})}
                 className="w-full bg-white border border-gray-200 rounded-xl h-14 pl-14 pr-4 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary/30 transition-all shadow-sm"
               />
             </div>
           </div>
           
-          <button className="absolute left-1/2 top-[52px] -translate-x-1/2 w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary transition-all shadow-md z-10">
+          <button 
+            onClick={() => setFormData({ ...formData, from: formData.to, to: formData.from })}
+            className="absolute left-1/2 top-[52px] -translate-x-1/2 w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary transition-all shadow-md z-10"
+          >
             <ArrowLeftRight className="w-4 h-4" />
           </button>
 
@@ -102,6 +128,8 @@ export default function BookingWidget() {
               <input 
                 type="text" 
                 placeholder="Going to"
+                value={formData.to}
+                onChange={(e) => setFormData({...formData, to: e.target.value})}
                 className="w-full bg-white border border-gray-200 rounded-xl h-14 pl-14 pr-4 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary/30 transition-all shadow-sm"
               />
             </div>
@@ -116,8 +144,10 @@ export default function BookingWidget() {
               <input 
                 type="text" 
                 placeholder="Select Date"
+                value={formData.departure}
                 onFocus={(e) => (e.target.type = "date")}
                 onBlur={(e) => (e.target.type = "text")}
+                onChange={(e) => setFormData({...formData, departure: e.target.value})}
                 className="w-full bg-gray-50 border border-gray-100 rounded-xl h-14 pl-12 pr-4 text-sm font-bold focus:outline-none focus:border-primary focus:bg-white transition-all"
               />
             </div>
@@ -129,9 +159,12 @@ export default function BookingWidget() {
               <input 
                 type="text" 
                 placeholder="Select Date"
+                value={formData.returnDate}
                 onFocus={(e) => (e.target.type = "date")}
                 onBlur={(e) => (e.target.type = "text")}
-                className="w-full bg-gray-50 border border-gray-100 rounded-xl h-14 pl-12 pr-4 text-sm font-bold focus:outline-none focus:border-primary focus:bg-white transition-all"
+                onChange={(e) => setFormData({...formData, returnDate: e.target.value})}
+                disabled={tripType === "one-way"}
+                className={`w-full bg-gray-50 border border-gray-100 rounded-xl h-14 pl-12 pr-4 text-sm font-bold focus:outline-none focus:border-primary focus:bg-white transition-all ${tripType === "one-way" ? "opacity-50 cursor-not-allowed" : ""}`}
               />
             </div>
           </div>
@@ -141,16 +174,24 @@ export default function BookingWidget() {
           <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Travellers & Class</label>
           <div className="relative">
             <Users className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
-            <select className="w-full bg-gray-50 border border-gray-100 rounded-xl h-14 pl-12 pr-6 text-sm font-bold appearance-none focus:outline-none focus:border-primary focus:bg-white transition-all cursor-pointer">
+            <select 
+              value={formData.travellers}
+              onChange={(e) => setFormData({...formData, travellers: e.target.value})}
+              className="w-full bg-gray-50 border border-gray-100 rounded-xl h-14 pl-12 pr-6 text-sm font-bold appearance-none focus:outline-none focus:border-primary focus:bg-white transition-all cursor-pointer"
+            >
               <option>1 Traveller, Economy</option>
               <option>2 Travellers, Business</option>
               <option>Family (2+2), Economy</option>
+              <option>Group (5+), Economy</option>
             </select>
           </div>
         </div>
 
-        <button className="w-full bg-primary hover:bg-primary-dark text-white font-black h-16 rounded-xl flex items-center justify-center gap-3 transition-all shadow-[0_15px_30px_rgba(56,142,60,0.3)] active:scale-[0.98] group mt-8">
-          <span>Search Flights</span>
+        <button 
+          onClick={handleSearch}
+          className="w-full bg-primary hover:bg-primary-dark text-white font-black h-16 rounded-xl flex items-center justify-center gap-3 transition-all shadow-[0_15px_30px_rgba(56,142,60,0.3)] active:scale-[0.98] group mt-8"
+        >
+          <span>Search {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</span>
           <Search className="w-5 h-5 group-hover:scale-110 transition-transform" />
         </button>
       </div>
