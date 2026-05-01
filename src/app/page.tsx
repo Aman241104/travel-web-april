@@ -2,7 +2,13 @@
 
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Hero from "@/components/Hero";
+
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
 import ServicesList from "@/components/ServicesList";
 import EditorialMarquee from "@/components/EditorialMarquee";
 import USP from "@/components/sections/USP";
