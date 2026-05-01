@@ -81,9 +81,6 @@ export default function Home() {
                 {/* 2. Hero Section */}
                 <Hero />
 
-                {/* 3. Stats Strip (NEW) */}
-                <StatsBar />
-
                 {/* 4. Trust Section */}
                 <TrustSection />
 
