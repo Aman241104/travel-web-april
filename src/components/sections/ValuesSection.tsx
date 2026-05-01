@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Sparkles, Shield, Globe, Scale, ArrowUpRight } from "lucide-react";
@@ -44,16 +44,8 @@ export default function ValuesSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const pinWrapperRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const handle = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(handle);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
     const ctx = gsap.context(() => {
       if (!containerRef.current || !sectionRef.current || !pinWrapperRef.current) return;
 
@@ -89,9 +81,7 @@ export default function ValuesSection() {
     });
 
     return () => ctx.revert();
-  }, [mounted]);
-
-  if (!mounted) return <section className="h-screen bg-[#0B1310]" />;
+  }, []);
 
   return (
     <section 

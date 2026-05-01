@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import MagneticButton from "@/components/ui/MagneticButton";
@@ -9,74 +9,26 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const stats = [
-  { value: 500, suffix: "+", label: "Destinations" },
-  { value: 100, suffix: "%", label: "Bespoke" },
-  { value: 24, suffix: "/7", label: "Concierge" },
-];
-
-const CountUp = ({ value, suffix }: { value: number; suffix: string }) => {
-  const [count, setCount] = useState(0);
-  const nodeRef = useRef(null);
-
-  useEffect(() => {
-    const node = nodeRef.current;
-    if (!node) return;
-
-    const controls = gsap.to({ val: 0 }, {
-      val: value,
-      duration: 2.5,
-      ease: "power4.out",
-      scrollTrigger: {
-        trigger: node,
-        start: "top 95%",
-      },
-      onUpdate: function() {
-        setCount(Math.floor(this.targets()[0].val));
-      }
-    });
-
-    return () => { controls.kill(); };
-  }, [value]);
-
-  return <span ref={nodeRef}>{count}{suffix}</span>;
-};
-
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const handle = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(handle);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "expo.out", duration: 2 } });
+      const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 2 } });
       
       tl.from(".hero-line-reveal", {
-        y: "100%",
+        yPercent: 100,
         stagger: 0.1,
       })
-      .from(".hero-video-frame", {
-        scale: 0.8,
-        opacity: 0,
-        duration: 2,
-      }, "-=1.5")
       .from(".hero-fade-in", {
         opacity: 0,
         y: 20,
         stagger: 0.1,
-      }, "-=1.8");
+      }, "-=1.2");
 
-      // Parallax for video frame
-      gsap.to(".hero-video-frame", {
-        y: 100,
-        scale: 1.05,
+      gsap.to(".hero-bg-zoom", {
+        scale: 1.2,
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
@@ -85,154 +37,93 @@ export default function Hero() {
           scrub: true,
         }
       });
-
-      // Parallax for floating stats
-      gsap.to(".hero-stat-float", {
-        y: -40,
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        }
-      });
     });
 
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-
     return () => ctx.revert();
-  }, [mounted]);
-
-  if (!mounted) return (
-    <section className="min-h-screen bg-[#0B1310]" />
-  );
+  }, []);
 
   return (
     <section 
       ref={containerRef} 
       id="home"
-      className="relative min-h-[110vh] w-full flex flex-col items-center justify-center overflow-hidden bg-[#0B1310] py-20 lg:py-0 scroll-mt-24"
+      className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#0B1310]"
     >
-      <div className="container relative z-10 px-6 max-w-[1600px] mx-auto pt-24 lg:pt-0">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+      {/* Cinematic Background */}
+      <div className="hero-bg-zoom absolute inset-0 z-0">
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-40"
+        >
+          <source src="/24541-343454486.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1310]/60 via-transparent to-[#0B1310] z-10" />
+      </div>
+
+      <div className="container relative z-20 px-6 mx-auto text-center">
+        <div className="hero-fade-in mb-8">
+          <span className="text-[#C1A67B] text-[10px] md:text-xs font-bold uppercase tracking-[0.8em] inline-block">
+            Established MMVI
+          </span>
+        </div>
+
+        <h1 className="relative mb-12 flex flex-col items-center">
+          <div className="overflow-hidden">
+            <span className="hero-line-reveal block font-serif text-[15vw] lg:text-[180px] leading-[0.8] text-[#F2EFE9] tracking-tightest">
+              Uncommon
+            </span>
+          </div>
+          <div className="overflow-hidden -mt-2 lg:-mt-4">
+            <span className="hero-line-reveal block font-serif italic font-light text-[15vw] lg:text-[180px] leading-[0.8] text-[#C1A67B] tracking-tight">
+              Exploration
+            </span>
+          </div>
+        </h1>
+
+        <div className="hero-fade-in max-w-xl mx-auto mb-16">
+          <p className="font-sans text-[#F2EFE9]/60 text-lg lg:text-2xl leading-relaxed tracking-wide font-light">
+            Bespoke itineraries for the discerning soul. Experience a world curated with silent intention and absolute discretion.
+          </p>
+        </div>
+
+        <div className="hero-fade-in flex flex-col sm:flex-row items-center justify-center gap-12">
+          <MagneticButton className="group relative px-16 py-7 bg-[#C1A67B] text-[#0B1310] font-bold text-[11px] uppercase tracking-[0.5em] rounded-full overflow-hidden transition-all duration-700">
+            <span className="relative z-10 flex items-center gap-4">
+              Begin Your Story <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+            </span>
+          </MagneticButton>
           
-          <div className="hidden lg:flex lg:col-span-1 h-full items-start justify-center">
-            <div className="flex flex-col items-center gap-12 py-12">
-              <span className="text-[#F2EFE9]/20 text-[10px] font-bold uppercase tracking-[0.8em] [writing-mode:vertical-lr] rotate-180">
-                Established MMVI
-              </span>
-              <div className="w-[1px] h-32 bg-[#0B1310]/10" />
+          <button className="flex items-center gap-6 group">
+            <div className="w-16 h-16 rounded-full border border-[#F2EFE9]/20 flex items-center justify-center group-hover:bg-[#F2EFE9] transition-all duration-500">
+              <Play className="w-5 h-5 fill-[#C1A67B] text-[#C1A67B] group-hover:fill-[#0B1310] group-hover:text-[#0B1310]" />
             </div>
-          </div>
-
-          <div className="lg:col-span-7 flex flex-col items-start pb-12 lg:pb-32">
-            <div className="hero-fade-in mb-10">
-              <span className="text-[#C1A67B] text-[10px] font-bold uppercase tracking-[0.5em] flex items-center gap-4">
-                <span className="w-8 h-[1px] bg-[#C1A67B]" />
-                The Art of Uncommon Travel
-              </span>
+            <div className="flex flex-col items-start text-left">
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F2EFE9]">Watch the Film</span>
+              <span className="text-[9px] text-[#C1A67B] uppercase tracking-[0.2em]">Amanjiwo, Indonesia</span>
             </div>
-
-            <h1 className="relative mb-12 flex flex-col">
-              <div className="overflow-hidden">
-                <span className="hero-line-reveal block font-serif text-[12vw] lg:text-[140px] leading-[0.85] text-[#F2EFE9] tracking-tighter">
-                  Uncommon
-                </span>
-              </div>
-              <div className="overflow-hidden -mt-2 lg:-mt-4 ml-[10vw] lg:ml-[120px]">
-                <span className="hero-line-reveal block font-serif italic font-light text-[12vw] lg:text-[140px] leading-[0.85] text-[#C1A67B] tracking-tight">
-                  Exploration
-                </span>
-              </div>
-            </h1>
-
-            <div className="max-w-lg mb-12 hero-fade-in">
-              <p className="font-sans text-[#F2EFE9]/60 text-lg lg:text-xl leading-relaxed">
-                Bespoke itineraries for the discerning soul. Experience a world curated with silent intention and absolute discretion.
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-10 hero-fade-in">
-              <MagneticButton className="group relative px-12 py-6 bg-[#0B1310] text-[#F2EFE9] font-bold text-[10px] uppercase tracking-[0.4em] rounded-full overflow-hidden transition-all duration-500">
-                <span className="relative z-10 flex items-center gap-3">
-                  Begin Your Story <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
-                </span>
-                <div className="absolute inset-0 bg-[#C1A67B] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-              </MagneticButton>
-              
-              <button className="flex items-center gap-4 group">
-                <div className="w-14 h-14 rounded-full border border-[#F2EFE9]/10 flex items-center justify-center group-hover:bg-[#0B1310] group-hover:border-[#F2EFE9] transition-all duration-500">
-                  <Play className="w-4 h-4 fill-[#F2EFE9] text-[#F2EFE9] group-hover:fill-[#F5F2ED] group-hover:text-[#0B1310]" />
-                </div>
-                <div className="flex flex-col items-start">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#F2EFE9]">The Film</span>
-                  <span className="text-[9px] text-[#F2EFE9]/40 uppercase tracking-[0.1em]">2:45 Duration</span>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <div className="lg:col-span-4 relative h-full flex items-end justify-center">
-            <div 
-              className="hero-video-frame relative w-full aspect-[4/6] lg:w-[120%] lg:mb-[-100px] rounded-2xl overflow-hidden shadow-2xl z-20 bg-[#0B1310]/5"
-            >
-              <video
-                ref={videoRef}
-                autoPlay
-                loop
-                muted
-                playsInline
-                poster="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop"
-                className="w-full h-full object-cover scale-110"
-              >
-                <source src="/24541-343454486.mp4" type="video/mp4" />
-              </video>
-              
-              <div className="absolute top-8 right-8 mix-blend-difference">
-                <span className="text-[#F2EFE9] text-[9px] font-bold uppercase tracking-widest border border-[#F2EFE9]/20 px-3 py-1 rounded-full backdrop-blur-md">
-                  Amanjiwo • Indonesia
-                </span>
-              </div>
-            </div>
-
-            <div className="absolute -bottom-20 -left-20 w-64 h-64 border border-[#F2EFE9]/5 z-10 hidden lg:block" />
-          </div>
-
+          </button>
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-0 w-full z-30 hidden lg:block">
-        <div className="container max-w-[1600px] mx-auto px-6">
-          <div className="flex items-center justify-between border-t border-[#F2EFE9]/10 pt-10">
-            {stats.map((stat, i) => (
-              <div key={i} className="hero-stat-float flex flex-col gap-1">
-                <span className="text-[#F2EFE9] font-serif text-3xl">
-                  <CountUp value={stat.value} suffix={stat.suffix} />
-                </span>
-                <span className="text-[#F2EFE9]/40 text-[9px] font-bold uppercase tracking-widest">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-            
-            <div className="flex gap-8">
-              {["Instagram", "LinkedIn", "Vimeo"].map((social) => (
-                <button key={social} className="text-[#F2EFE9]/30 text-[10px] font-bold uppercase tracking-widest hover:text-[#C1A67B] transition-colors">
-                  {social}
-                </button>
-              ))}
-            </div>
-          </div>
+      <div className="absolute left-12 bottom-12 z-30 hidden lg:flex items-center gap-6">
+        <div className="flex flex-col gap-1">
+          <span className="text-[#F2EFE9] font-serif text-2xl tracking-tighter">500+</span>
+          <span className="text-[#F2EFE9]/30 text-[9px] font-bold uppercase tracking-widest">Destinations</span>
+        </div>
+        <div className="w-[1px] h-10 bg-[#F2EFE9]/10" />
+        <div className="flex flex-col gap-1">
+          <span className="text-[#F2EFE9] font-serif text-2xl tracking-tighter">100%</span>
+          <span className="text-[#F2EFE9]/30 text-[9px] font-bold uppercase tracking-widest">Bespoke</span>
         </div>
       </div>
 
-      <div className="absolute right-10 bottom-1/2 translate-y-1/2 z-30 hidden xl:flex flex-col items-center gap-20">
-        <div className="w-[1px] h-32 bg-gradient-to-b from-[#1A2421]/20 via-[#1A2421]/5 to-transparent" />
-        <span className="text-[#F2EFE9]/20 text-[9px] font-bold uppercase tracking-[0.5em] [writing-mode:vertical-lr]">
-          Explore the Collection
+      <div className="absolute right-12 bottom-12 z-30 hidden xl:flex flex-col items-center gap-24">
+        <div className="w-[1px] h-32 bg-gradient-to-b from-[#C1A67B]/40 via-[#C1A67B]/10 to-transparent" />
+        <span className="text-[#F2EFE9]/20 text-[9px] font-bold uppercase tracking-[1em] [writing-mode:vertical-lr] rotate-180">
+          Scroll to Discover
         </span>
       </div>
     </section>

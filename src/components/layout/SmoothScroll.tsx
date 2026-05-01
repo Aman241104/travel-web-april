@@ -12,11 +12,12 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     <ReactLenis 
       root 
       options={{ 
-        lerp: 0.1, 
-        duration: 1.5, 
+        lerp: 0.08, 
+        duration: 1.2, 
         smoothWheel: true,
-        wheelMultiplier: 1.1,
+        wheelMultiplier: 1,
         touchMultiplier: 2,
+        infinite: false,
       }}
     >
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}

@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Hero from "@/components/Hero";
@@ -21,22 +21,14 @@ const CTASection = dynamic(() => import("@/components/CTASection"), { ssr: false
 const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed"), { ssr: false });
 
 export default function Home() {
-    const [mounted, setMounted] = useState(false);
-
     useEffect(() => {
-        const frame = requestAnimationFrame(() => {
-            setMounted(true);
-        });
         const timer = setTimeout(() => {
             ScrollTrigger.refresh();
         }, 1000);
         return () => {
-            cancelAnimationFrame(frame);
             clearTimeout(timer);
         };
     }, []);
-
-    if (!mounted) return <div className="bg-[#0B1310] min-h-screen" />;
 
     const jsonLd = {
       "@context": "https://schema.org",

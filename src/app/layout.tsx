@@ -5,7 +5,6 @@ import SmoothScroll from "@/components/layout/SmoothScroll";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/ui/StickyCTA";
-import CustomCursor from "@/components/ui/CustomCursor";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 
 const playfair = Playfair_Display({
@@ -57,7 +56,6 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={`${playfair.variable} ${jakarta.variable} font-sans antialiased bg-[#0B1310] text-[#F2EFE9]`} suppressHydrationWarning>
         <ScrollProgress />
-        <CustomCursor />
         <SmoothScroll>
           <Navbar />
           {children}

@@ -145,15 +145,14 @@ export default function TravelerSection() {
                 ref={imageContainerRef}
                 className="relative w-full aspect-[4/5] lg:aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl bg-[#0B1310]"
               >
-                <Image 
+                <Image
                   ref={imageRef}
-                  src="/assets/owner-image.png" 
-                  alt="Jigar Shah and Dhara Patel" 
-                  fill 
-                  className="object-cover scale-125"
+                  src="/assets/generated-expert.png"
+                  alt="Jade Travels Advisory"
+                  fill
+                  className="object-cover scale-110"
                   sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-[#0B1310]/5 mix-blend-overlay" />
+                />                <div className="absolute inset-0 bg-[#0B1310]/5 mix-blend-overlay" />
               </div>
 
               <div className="rotating-stamp absolute -bottom-12 -left-12 md:-bottom-20 md:-left-20 w-48 h-48 md:w-64 md:h-64 z-20 pointer-events-none hidden sm:block">
