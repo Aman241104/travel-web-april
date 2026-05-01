@@ -64,7 +64,7 @@ export default function USP() {
           trigger: ".timeline-container",
           start: "top 50%",
           end: "bottom 80%",
-          scrub: true,
+          scrub: 0.5, // Smoother scrub
         }
       });
 
@@ -127,11 +127,11 @@ export default function USP() {
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-16 md:mb-48">
           <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-[1px] bg-[#0B1310]/20" />
+            <div className="w-12 h-[1px] bg-[#C1A67B]/20" />
             <span className="text-[#F2EFE9] font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
               The Jade Methodology
             </span>
-            <div className="w-12 h-[1px] bg-[#0B1310]/20" />
+            <div className="w-12 h-[1px] bg-[#C1A67B]/20" />
           </div>
           
           <h2 className="usp-title font-serif text-6xl md:text-[100px] lg:text-[120px] text-[#F2EFE9] leading-[0.9] tracking-tightest">
@@ -144,7 +144,7 @@ export default function USP() {
         <div className="timeline-container relative max-w-5xl mx-auto">
           
           {/* Central Progress Line */}
-          <div className="absolute top-0 left-[20px] md:left-1/2 md:-translate-x-1/2 w-[1px] h-full bg-[#0B1310]/10">
+          <div className="absolute top-0 left-[20px] md:left-1/2 md:-translate-x-1/2 w-[1px] h-full bg-[#F2EFE9]/5">
             <div className="timeline-progress absolute top-0 left-0 w-full h-full bg-[#C1A67B]" />
           </div>
 

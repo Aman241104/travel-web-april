@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -15,53 +15,45 @@ export default function TravelerSection() {
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const handle = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(handle);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
     const ctx = gsap.context(() => {
       if (!sectionRef.current || !imageContainerRef.current || !contentRef.current) return;
 
       gsap.to(imageRef.current, {
-        yPercent: 20,
+        yPercent: 15, // Reduced parallax for smoothness
         ease: "none",
         scrollTrigger: {
           trigger: imageContainerRef.current,
           start: "top bottom",
           end: "bottom top",
-          scrub: true,
+          scrub: 0.5,
         }
       });
 
       const textElements = contentRef.current.querySelectorAll(".reveal-text");
       textElements.forEach((el) => {
         gsap.from(el, {
-          yPercent: 120,
+          yPercent: 100,
           opacity: 0,
-          duration: 1.5,
+          duration: 1.2,
           ease: "power4.out",
           scrollTrigger: {
             trigger: el,
-            start: "top 85%",
+            start: "top 90%",
           }
         });
       });
 
       gsap.from(".fade-in-element", {
         opacity: 0,
-        y: 20,
-        duration: 1.2,
+        y: 30,
+        duration: 1,
         stagger: 0.1,
         ease: "power3.out",
         scrollTrigger: {
           trigger: contentRef.current,
-          start: "top 75%",
+          start: "top 80%",
         }
       });
 
@@ -78,9 +70,7 @@ export default function TravelerSection() {
     });
 
     return () => ctx.revert();
-  }, [mounted]);
-
-  if (!mounted) return <section className="h-screen bg-[#0B1310]" />;
+  }, []);
 
   return (
     <section 

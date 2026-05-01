@@ -55,7 +55,6 @@ const journalEntries: JournalEntry[] = [
 ];
 
 export default function InstagramFeed() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -78,7 +77,7 @@ export default function InstagramFeed() {
         gsap.from(card, {
           y: 60,
           opacity: 0,
-          duration: 1.2,
+          duration: 1,
           ease: "power3.out",
           scrollTrigger: {
             trigger: card,
@@ -89,10 +88,10 @@ export default function InstagramFeed() {
         // Hover Parallax within cards
         const img = card.querySelector("img");
         card.addEventListener("mouseenter", () => {
-          gsap.to(img, { scale: 1.08, duration: 0.8, ease: "power2.out" });
+          gsap.to(img, { scale: 1.05, duration: 1, ease: "power2.out" });
         });
         card.addEventListener("mouseleave", () => {
-          gsap.to(img, { scale: 1, duration: 0.8, ease: "power2.out" });
+          gsap.to(img, { scale: 1, duration: 1, ease: "power2.out" });
         });
       });
     });
@@ -101,7 +100,7 @@ export default function InstagramFeed() {
   }, []);
 
   return (
-    <section id="journal" ref={containerRef} className="relative py-10 md:py-40 bg-[#0B1310] overflow-hidden scroll-mt-24">
+    <section id="journal" className="relative py-10 md:py-40 bg-[#0B1310] overflow-hidden scroll-mt-24">
       {/* Editorial Watermark */}
       <div className="absolute top-10 right-[-10%] pointer-events-none opacity-[0.02] select-none">
         <span className="font-serif text-[30vw] leading-none uppercase italic">Journal</span>

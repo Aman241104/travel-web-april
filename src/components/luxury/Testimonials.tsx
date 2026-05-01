@@ -51,24 +51,15 @@ export default function Testimonials() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const pinWrapperRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handle = requestAnimationFrame(() => setMounted(true));
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    return () => {
-      cancelAnimationFrame(handle);
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!mounted || isMobile) return;
-
+    
     const ctx = gsap.context(() => {
+      if (isMobile) return;
       if (!sectionRef.current || !pinWrapperRef.current) return;
       const slides = gsap.utils.toArray(".testimonial-slide") as HTMLElement[];
       
@@ -80,11 +71,10 @@ export default function Testimonials() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: () => `+=${slides.length * 200}%`, // Extended scroll distance for smoother experience
+          end: () => `+=${slides.length * 200}%`,
           pin: pinWrapperRef.current,
-          scrub: 1,
+          scrub: 0.5, // Smoother transitions
           onUpdate: (self) => {
-            // Calculate active index based on current progress relative to the number of slides
             const index = Math.min(
               Math.floor(self.progress * slides.length),
               slides.length - 1
@@ -94,35 +84,33 @@ export default function Testimonials() {
         }
       });
 
-      // Build the timeline sequence with holds for each slide
       slides.forEach((slide, i) => {
-        // Hold the current slide
-        tl.to({}, { duration: 2 }); 
+        tl.to({}, { duration: 1.5 }); // Hold
 
-        // Transition to next slide (except for the last one)
         if (i < slides.length - 1) {
           tl.to(slides[i], {
             opacity: 0,
             y: -50,
             visibility: "hidden",
-            duration: 1,
+            duration: 0.8,
             ease: "power2.inOut"
           })
           .to(slides[i+1], {
             opacity: 1,
             y: 0,
             visibility: "visible",
-            duration: 1,
+            duration: 0.8,
             ease: "power2.inOut"
-          }, "-=0.5");
+          }, "-=0.4");
         }
       });
     });
 
-    return () => ctx.revert();
-  }, [mounted, isMobile]);
-
-  if (!mounted) return <section className="h-screen bg-[#0B1310]" />;
+    return () => {
+      ctx.revert();
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, [isMobile]);
 
   if (isMobile) {
     return (

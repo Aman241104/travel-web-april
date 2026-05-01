@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Image from "next/image";
@@ -18,16 +18,8 @@ const marqueeImages = [
 export default function EditorialMarquee() {
   const containerRef = useRef<HTMLDivElement>(null);
   const watermarkRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const handle = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(handle);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
     const ctx = gsap.context(() => {
       // Background Watermark Animation
       gsap.to(watermarkRef.current, {
@@ -37,7 +29,7 @@ export default function EditorialMarquee() {
           trigger: containerRef.current,
           start: "top bottom",
           end: "bottom top",
-          scrub: 1.5,
+          scrub: 1.2,
         }
       });
 
@@ -63,10 +55,10 @@ export default function EditorialMarquee() {
         start: "top bottom",
         end: "bottom top",
         onUpdate: (self) => {
-          const velocity = Math.abs(self.getVelocity() / 500);
+          const velocity = Math.abs(self.getVelocity() / 400);
           gsap.to([t1, t2], {
             timeScale: 1 + velocity,
-            duration: 0.5,
+            duration: 0.4,
             ease: "power2.out",
           });
         }
@@ -74,9 +66,7 @@ export default function EditorialMarquee() {
     });
 
     return () => ctx.revert();
-  }, [mounted]);
-
-  if (!mounted) return <div className="h-64 bg-[#0B1310]" />;
+  }, []);
 
   return (
     <section 

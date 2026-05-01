@@ -68,20 +68,12 @@ export default function PopularDestinations() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const pinWrapperRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
 
   const filteredDestinations = destinations.filter(dest => 
     activeFilter === "All" || dest.category === activeFilter
   );
 
   useEffect(() => {
-    const handle = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(handle);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
     const ctx = gsap.context(() => {
       if (!scrollRef.current || !sectionRef.current || !pinWrapperRef.current) return;
 
@@ -99,16 +91,14 @@ export default function PopularDestinations() {
           pin: pinWrapperRef.current,
           start: "top top",
           end: () => `+=${scrollDistance}`,
-          scrub: 1,
+          scrub: 0.8, // Slightly more responsive scrub
           invalidateOnRefresh: true,
         }
       });
     });
 
     return () => ctx.revert();
-  }, [mounted, activeFilter]); 
-
-  if (!mounted) return <section className="h-screen bg-[#0B1310]" />;
+  }, [activeFilter]); 
 
   return (
     <section id="packages" ref={sectionRef} className="bg-[#0B1310] scroll-mt-24">

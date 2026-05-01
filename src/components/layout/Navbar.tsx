@@ -33,7 +33,7 @@ export default function Navbar() {
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="group flex flex-col items-start leading-none outline-none">
-            <span className={`font-serif text-3xl tracking-tighter transition-colors duration-500 ${isScrolled ? "text-[#F2EFE9]" : "text-[#F2EFE9]"}`}>JADE</span>
+            <span className={`font-serif text-3xl tracking-tighter transition-colors duration-500 text-[#F2EFE9]`}>JADE</span>
             <span className="font-sans text-[8px] font-black uppercase tracking-[0.5em] text-[#C1A67B] mt-1 ml-0.5">Travels</span>
           </Link>
 
@@ -70,7 +70,7 @@ export default function Navbar() {
           <div className="flex items-center md:hidden">
             <button 
               onClick={() => setIsMobileMenuOpen(true)} 
-              className="text-[#F2EFE9] p-2 hover:bg-[#0B1310]/5 rounded-full transition-colors"
+              className="text-[#F2EFE9] p-2 hover:bg-[#0B1310]/10 rounded-full transition-colors"
               aria-label="Open Menu"
             >
               <Menu className="w-6 h-6" />
@@ -83,9 +83,10 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ clipPath: "circle(0% at 100% 0%)" }}
+            animate={{ clipPath: "circle(150% at 100% 0%)" }}
+            exit={{ clipPath: "circle(0% at 100% 0%)" }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[110] bg-[#0B1310] flex flex-col"
           >
             <div className="flex justify-between items-center p-8 border-b border-[#F2EFE9]/5">
@@ -95,28 +96,28 @@ export default function Navbar() {
               </Link>
               <button 
                 onClick={() => setIsMobileMenuOpen(false)} 
-                className="p-4 bg-[#0B1310]/5 rounded-full hover:bg-[#0B1310]/10 transition-colors"
+                className="p-4 bg-[#F2EFE9]/5 rounded-full hover:bg-[#C1A67B] transition-all group"
                 aria-label="Close Menu"
               >
-                <X className="w-6 h-6 text-[#F2EFE9]" />
+                <X className="w-6 h-6 text-[#F2EFE9] group-hover:text-[#0B1310] transition-colors" />
               </button>
             </div>
             
-            <div className="flex flex-col justify-center flex-grow px-8 gap-10">
+            <div className="flex flex-col justify-center flex-grow px-8 gap-6 md:gap-10">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
                 >
                   <Link 
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="font-serif text-4xl text-[#F2EFE9]/30 hover:text-[#F2EFE9] transition-colors duration-500 flex items-center justify-between group"
+                    className="font-serif text-4xl md:text-6xl text-[#F2EFE9]/20 hover:text-[#C1A67B] transition-colors duration-500 flex items-center justify-between group"
                   >
                     <span>{link.name}</span>
-                    <ArrowUpRight className="w-8 h-8 opacity-0 -translate-x-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0 text-[#C1A67B]" />
+                    <ArrowUpRight className="w-10 h-10 opacity-0 -translate-x-6 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0" />
                   </Link>
                 </motion.div>
               ))}
@@ -126,7 +127,7 @@ export default function Navbar() {
               <Link 
                 href="#contact"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full py-6 bg-[#0B1310] text-[#F2EFE9] font-bold uppercase tracking-[0.4em] text-xs rounded-full text-center active:scale-95 transition-transform"
+                className="block w-full py-6 bg-[#C1A67B] text-[#0B1310] font-black uppercase tracking-[0.4em] text-[10px] rounded-full text-center active:scale-95 transition-all hover:bg-[#F2EFE9]"
               >
                 Begin Your Journey
               </Link>

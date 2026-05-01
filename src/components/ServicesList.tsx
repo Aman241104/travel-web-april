@@ -86,17 +86,9 @@ const services = [
 ];
 
 export default function ServicesList() {
-  const [mounted, setMounted] = useState(false);
   const [selectedService, setSelectedService] = useState<null | Service>(null);
 
   useEffect(() => {
-    const handle = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(handle);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
     const ctx = gsap.context(() => {
       // Header Animation
       gsap.from(".services-reveal", {
@@ -114,7 +106,7 @@ export default function ServicesList() {
       gsap.from(".service-row", {
         y: 40,
         opacity: 0,
-        stagger: 0.1,
+        stagger: 0.05, // Faster stagger
         duration: 1.2,
         ease: "power3.out",
         scrollTrigger: {
@@ -125,9 +117,7 @@ export default function ServicesList() {
     });
 
     return () => ctx.revert();
-  }, [mounted]);
-
-  if (!mounted) return <section className="min-h-screen bg-[#0B1310]" />;
+  }, []);
 
   return (
     <section id="services" className="relative bg-[#0B1310] py-24 md:py-48 overflow-hidden scroll-mt-24">
