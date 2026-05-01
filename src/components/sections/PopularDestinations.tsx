@@ -1,237 +1,120 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ChevronRight, ChevronLeft, MapPin, ArrowRight } from "lucide-react";
 import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { ArrowUpRight, MapPin, ChevronRight, ChevronLeft } from "lucide-react";
+import { useRef } from "react";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-const categories = ["All", "Coastal", "Mountain", "Cultural", "Wild"];
-
-interface Destination {
-  id: number;
-  title: string;
-  loc: string;
-  desc: string;
-  img: string;
-  category: string;
-}
-
-const destinations: Destination[] = [
-  { 
-    id: 1, 
-    title: "Maldive Serenity", 
-    loc: "North Malé Atoll", 
-    desc: "Experience overwater villas and crystal clear lagoons in absolute privacy.",
-    img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1200&auto=format&fit=crop", 
-    category: "Coastal"
-  },
-  { 
-    id: 2, 
-    title: "Alpine Heritage", 
-    loc: "Zermatt, Switzerland", 
-    desc: "Discover the majestic Matterhorn and world-class skiing.",
-    img: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?q=80&w=1200&auto=format&fit=crop", 
-    category: "Mountain"
-  },
-  { 
-    id: 3, 
-    title: "Kyoto Zen", 
-    loc: "Kyoto, Japan", 
-    desc: "A journey through ancient temples and bamboo forests.",
-    img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop", 
-    category: "Cultural"
-  },
-  { 
-    id: 4, 
-    title: "Safari Spirit", 
-    loc: "Maasai Mara, Kenya", 
-    desc: "Witness the great migration and untamed wildlife.",
-    img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200&auto=format&fit=crop", 
-    category: "Wild"
-  },
-  { 
-    id: 5, 
-    title: "Amalfi Dreams", 
-    loc: "Positano, Italy", 
-    desc: "Cliffside colorful villas and legendary Mediterranean views.",
-    img: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1200&auto=format&fit=crop", 
-    category: "Coastal"
-  },
+const destinations = [
+  { name: "Santorini", price: "1,299", location: "Greece", image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=1200&auto=format&fit=crop" },
+  { name: "Kyoto", price: "1,899", location: "Japan", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop" },
+  { name: "Maldives", price: "2,499", location: "Indian Ocean", image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1200&auto=format&fit=crop" },
+  { name: "Swiss Alps", price: "2,199", location: "Switzerland", image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop" },
+  { name: "Dubai", price: "1,599", location: "UAE", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop" },
 ];
 
 export default function PopularDestinations() {
-  const [activeFilter, setActiveFilter] = useState("All");
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const pinWrapperRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const filteredDestinations = destinations.filter(dest => 
-    activeFilter === "All" || dest.category === activeFilter
-  );
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (!scrollRef.current || !sectionRef.current || !pinWrapperRef.current) return;
-
-      const scrollEl = scrollRef.current;
-      const totalWidth = scrollEl.scrollWidth;
-      const viewportWidth = window.innerWidth;
-      const scrollDistance = totalWidth - viewportWidth;
-      
-      gsap.to(scrollEl, {
-        x: -scrollDistance,
-        ease: "none",
-        scrollTrigger: {
-          id: "destinations-scroll",
-          trigger: sectionRef.current,
-          pin: pinWrapperRef.current,
-          start: "top top",
-          end: () => `+=${scrollDistance}`,
-          scrub: 0.8, // Slightly more responsive scrub
-          invalidateOnRefresh: true,
-        }
-      });
-    });
-
-    return () => ctx.revert();
-  }, [activeFilter]); 
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === "left" ? scrollLeft - clientWidth / 2 : scrollLeft + clientWidth / 2;
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
+    }
+  };
 
   return (
-    <section id="packages" ref={sectionRef} className="bg-[#0B1310] scroll-mt-24">
-      <div ref={pinWrapperRef} className="relative h-screen w-full overflow-hidden flex flex-col justify-center">
+    <section id="packages" className="py-32 bg-white overflow-hidden">
+      <div className="container-custom">
         
-        {/* Dynamic Background Text */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
-          <h2 className="font-serif text-[30vw] text-[#F2EFE9]/[0.02] leading-none whitespace-nowrap uppercase italic font-black">
-            Destinations
-          </h2>
-        </div>
-
-        <div className="container relative z-10 px-6 mx-auto mb-12">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12">
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-[1px] bg-[#C1A67B]" />
-                <span className="text-[#C1A67B] font-sans text-[10px] font-bold uppercase tracking-[0.4em]">
-                  Elite Collection
-                </span>
-              </div>
-              <h2 className="font-serif text-5xl md:text-8xl text-[#F2EFE9] leading-none tracking-tighter">
-                World&apos;s <span className="italic font-light text-[#C1A67B]">Hidden Gems</span>
-              </h2>
-            </div>
-
-            {/* Minimalist Filters */}
-            <div className="flex flex-wrap gap-x-8 gap-y-4">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveFilter(cat)}
-                  className={`text-[10px] font-bold uppercase tracking-[0.3em] transition-all duration-500 py-2 border-b ${
-                    activeFilter === cat 
-                      ? "text-[#C1A67B] border-[#C1A67B]" 
-                      : "text-[#F2EFE9]/30 border-transparent hover:text-[#F2EFE9]/60"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+          <div className="max-w-[600px]">
+            <span className="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-4 block">
+              Curated Collections
+            </span>
+            <h2 className="text-5xl font-serif text-brand-dark mb-6">Popular Destinations</h2>
+            <p className="text-gray-500 text-lg">
+              Explore our hand-picked selection of the world&apos;s most breathtaking locations, each offering a unique story to tell.
+            </p>
+          </div>
+          
+          <div className="flex gap-4">
+            <button 
+              onClick={() => scroll("left")}
+              className="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm bg-white group"
+              aria-label="Previous"
+            >
+              <ChevronLeft className="w-6 h-6 group-active:scale-90 transition-transform" />
+            </button>
+            <button 
+              onClick={() => scroll("right")}
+              className="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm bg-white group"
+              aria-label="Next"
+            >
+              <ChevronRight className="w-6 h-6 group-active:scale-90 transition-transform" />
+            </button>
           </div>
         </div>
 
-        {/* Horizontal Scroll Area */}
-        <div className="relative z-10 overflow-visible">
-          <div 
-            ref={scrollRef}
-            className="flex gap-12 px-[10vw] min-w-max h-[65vh] items-center"
-          >
-            {filteredDestinations.map((dest, i) => (
-              <DestinationCard 
-                key={dest.id} 
-                dest={dest} 
-                index={i} 
+        {/* Scrollable Container */}
+        <div 
+          ref={scrollRef}
+          className="flex gap-8 overflow-x-auto no-scrollbar pb-12 snap-x snap-mandatory"
+        >
+          {destinations.map((dest, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="min-w-[320px] md:min-w-[400px] group snap-start relative h-[500px] rounded-[32px] overflow-hidden shadow-xl"
+            >
+              <Image 
+                src={dest.image} 
+                alt={dest.name} 
+                fill 
+                className="object-cover transition-transform duration-700 group-hover:scale-110" 
               />
-            ))}
-
-            {/* View More Card */}
-            <div className="flex flex-col justify-center px-10 md:px-20">
-              <button className="group flex flex-col items-center gap-8">
-                <div className="w-32 h-32 rounded-full border border-[#F2EFE9]/10 flex items-center justify-center group-hover:bg-[#C1A67B] group-hover:border-[#C1A67B] transition-all duration-700">
-                  <ArrowUpRight className="w-10 h-10 text-[#F2EFE9] group-hover:text-[#0B1310] transition-colors" />
+              
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent opacity-80" />
+              
+              {/* Content */}
+              <div className="absolute bottom-0 left-0 w-full p-8 text-white">
+                <div className="flex items-center gap-2 mb-2 text-primary-muted font-bold text-xs uppercase tracking-widest">
+                  <MapPin className="w-4 h-4" />
+                  {dest.location}
                 </div>
-                <span className="text-[#F2EFE9] text-[10px] font-bold uppercase tracking-[0.5em] text-center">
-                  Explore Full <br />Portfolio
-                </span>
-              </button>
-            </div>
-          </div>
+                <h3 className="text-3xl font-serif font-bold mb-4">{dest.name}</h3>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] uppercase tracking-widest text-white/60">Starting from</span>
+                    <span className="text-xl font-bold">${dest.price}</span>
+                  </div>
+                  
+                  <button className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-300 shadow-lg">
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Hover Details - Optional subtle effect */}
+              <div className="absolute top-0 left-0 w-full h-full bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            </motion.div>
+          ))}
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex items-center gap-12">
-          <div className="flex items-center gap-4">
-            <ChevronLeft className="text-[#F2EFE9]/20 w-4 h-4" />
-            <div className="w-40 h-[1px] bg-[#0B1310]/10 relative overflow-hidden">
-              <div 
-                className="absolute inset-0 bg-[#C1A67B] origin-left"
-                style={{ width: "30%" }} 
-              />
-            </div>
-            <ChevronRight className="text-[#F2EFE9]/20 w-4 h-4" />
-          </div>
-          <span className="text-[#F2EFE9]/30 text-[9px] font-bold uppercase tracking-[0.4em]">Scroll to navigate</span>
+        {/* Explore All CTA */}
+        <div className="mt-12 text-center">
+          <button className="inline-flex items-center gap-2 text-brand-dark font-bold hover:text-primary transition-all group">
+            Explore All Destinations
+            <div className="w-8 h-[2px] bg-primary group-hover:w-12 transition-all" />
+          </button>
         </div>
       </div>
     </section>
-  );
-}
-
-function DestinationCard({ dest, index }: { dest: Destination; index: number }) {
-  return (
-    <div
-      className="group relative w-[70vw] md:w-[30vw] min-w-[280px] md:min-w-[400px] h-[55vh] rounded-[3rem] overflow-hidden shadow-2xl"
-    >      <Image 
-        src={dest.img} 
-        alt={dest.title} 
-        fill 
-        className="object-cover transition-transform duration-[2s] ease-out group-hover:scale-110"
-        sizes="(max-width: 1024px) 100vw, 30vw"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0F2F2A] via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-700" />
-
-      {/* Content */}
-      <div className="absolute inset-0 p-6 md:p-12 flex flex-col justify-end translate-y-8 group-hover:translate-y-0 transition-transform duration-700">
-        <div className="mb-4">
-          <span className="inline-block text-[#C1A67B] text-[9px] font-bold uppercase tracking-widest mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
-            {dest.category}
-          </span>
-          <h3 className="font-serif text-[#F2EFE9] text-4xl md:text-5xl leading-none mb-6">
-            {dest.title}
-          </h3>
-          <div className="flex items-center gap-2 text-[#F2EFE9]/50 mb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200">
-            <MapPin className="w-3 h-3 text-[#C1A67B]" />
-            <span className="font-sans text-[9px] uppercase tracking-[0.2em]">{dest.loc}</span>
-          </div>
-          <p className="text-[#F2EFE9]/40 font-sans text-sm leading-relaxed max-w-xs opacity-0 group-hover:opacity-100 transition-all duration-700 delay-300">
-            {dest.desc}
-          </p>
-        </div>
-
-        <div className="flex items-center justify-between pt-8 border-t border-[#F2EFE9]/5 mt-4 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-400">
-          <span className="text-[#F2EFE9]/60 font-sans text-[9px] font-bold uppercase tracking-[0.3em]">Learn more</span>
-          <ArrowUpRight className="w-4 h-4 text-[#C1A67B]" />
-        </div>
-      </div>
-
-      {/* Subtle Overlay Number */}
-      <div className="absolute top-10 right-10">
-        <span className="text-[#F2EFE9]/10 font-serif text-6xl italic">0{index + 1}</span>
-      </div>
-    </div>
   );
 }

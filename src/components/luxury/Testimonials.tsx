@@ -1,259 +1,109 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { Quote, Star } from "lucide-react";
+import { motion } from "framer-motion";
+import { Quote, Star, MessageSquareQuote } from "lucide-react";
 import Image from "next/image";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const testimonials = [
   {
-    quote: "Jade doesn't just plan trips; they engineer peace of mind. Every detail was handled with precision I've only seen in private wealth management.",
+    quote: "Jade doesn't just plan trips; they engineer peace of mind. From private terminal access to hand-picked local guides, every detail was handled with precision.",
     author: "Elena V.",
     role: "Global Philanthropist",
-    image: "/customer/image.png",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
     location: "Zurich, Switzerland"
   },
   {
-    quote: "The level of discretion and exclusive access Jigar and his team provide is unparalleled. They turned a complex visa situation into a seamless transition.",
+    quote: "The level of discretion and exclusive access Jigar and his team provide is unparalleled. They managed our 12-country tour without a single friction point.",
     author: "Marcus T.",
     role: "Tech Executive",
-    image: "/customer/image_copy.png",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop",
     location: "Palo Alto, CA"
   },
   {
-    quote: "Finally, a travel concierge that understands the value of time. No friction, no noise—just pure, curated discovery from start to finish.",
+    quote: "Finally, a travel concierge that understands the value of time. No friction, no noise. Just perfectly executed experiences that stay with you forever.",
     author: "Sarah J.",
     role: "Creative Director",
-    image: "/customer/image_copy_2.png",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1200&auto=format&fit=crop",
     location: "London, UK"
-  },
-  {
-    quote: "The itinerary was a masterpiece of logistics and luxury. Every sanctuary they selected felt like it was discovered just for us.",
-    author: "David L.",
-    role: "Hedge Fund Manager",
-    image: "/customer/image_copy_3.png",
-    location: "New York, NY"
-  },
-  {
-    quote: "Their global network is truly elite. From private island buyouts to off-market estates, Jade unlocks the world's most secluded treasures.",
-    author: "Sophia R.",
-    role: "Art Consultant",
-    image: "/customer/image_copy_4.png",
-    location: "Paris, France"
   }
 ];
 
 export default function Testimonials() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const pinWrapperRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    
-    const ctx = gsap.context(() => {
-      if (isMobile) return;
-      if (!sectionRef.current || !pinWrapperRef.current) return;
-      const slides = gsap.utils.toArray(".testimonial-slide") as HTMLElement[];
-      
-      // Initial state for slides
-      gsap.set(slides, { opacity: 0, y: 50, visibility: "hidden" });
-      gsap.set(slides[0], { opacity: 1, y: 0, visibility: "visible" });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: () => `+=${slides.length * 200}%`,
-          pin: pinWrapperRef.current,
-          scrub: 0.5, // Smoother transitions
-          onUpdate: (self) => {
-            const index = Math.min(
-              Math.floor(self.progress * slides.length),
-              slides.length - 1
-            );
-            setActiveIndex(index);
-          }
-        }
-      });
-
-      slides.forEach((slide, i) => {
-        tl.to({}, { duration: 1.5 }); // Hold
-
-        if (i < slides.length - 1) {
-          tl.to(slides[i], {
-            opacity: 0,
-            y: -50,
-            visibility: "hidden",
-            duration: 0.8,
-            ease: "power2.inOut"
-          })
-          .to(slides[i+1], {
-            opacity: 1,
-            y: 0,
-            visibility: "visible",
-            duration: 0.8,
-            ease: "power2.inOut"
-          }, "-=0.4");
-        }
-      });
-    });
-
-    return () => {
-      ctx.revert();
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, [isMobile]);
-
-  if (isMobile) {
-    return (
-      <section id="testimonials" className="relative bg-[#0B1310] py-16 scroll-mt-24">
-        <div className="container px-6 mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-8 h-[1px] bg-[#C1A67B]" />
-            <span className="text-[#C1A67B] font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
-              Verified Experiences
-            </span>
-          </div>
-          <h2 className="font-serif text-4xl text-[#F2EFE9] tracking-tighter mb-12">Echoes of Excellence</h2>
-
-          <div className="flex flex-col gap-16">
-            {testimonials.map((item, i) => (
-              <div key={i} className="flex flex-col gap-8">
-                <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-xl">
-                  <Image 
-                    src={item.image}
-                    alt={item.author}
-                    fill
-                    className="object-cover"
-                    sizes="100vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B1310]/60 to-transparent" />
-                </div>
-                <div className="px-2">
-                  <Quote className="w-8 h-8 text-[#C1A67B]/30 mb-4" />
-                  <h3 className="font-serif text-xl text-[#F2EFE9] leading-relaxed italic font-light mb-6">
-                    &ldquo;{item.quote}&rdquo;
-                  </h3>
-                  <div className="flex items-center gap-4 pt-6 border-t border-[#F2EFE9]/10">
-                    <div className="w-1 h-8 bg-[#C1A67B]/40" />
-                    <div>
-                      <h4 className="font-serif text-xl text-[#F2EFE9] mb-1">{item.author}</h4>
-                      <p className="font-sans text-[9px] font-bold uppercase tracking-[0.3em] text-[#C1A67B]">
-                        {item.role} • {item.location}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section ref={sectionRef} id="testimonials" className="relative bg-[#0B1310] scroll-mt-24">
-      <div ref={pinWrapperRef} className="relative h-screen w-full overflow-hidden flex flex-col justify-center">
+    <section id="testimonials" className="py-32 bg-gray-50 overflow-hidden relative">
+      {/* Decorative Elements */}
+      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-white to-transparent" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] -z-10" />
+
+      <div className="container-custom relative z-10">
         
-        {/* Background Narrative Texture */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] select-none flex items-center justify-center">
-           <Quote className="w-[40vw] h-[40vw] text-[#F2EFE9]" strokeWidth={0.5} />
+        {/* Header */}
+        <div className="flex flex-col items-center text-center mb-20">
+          <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center text-primary mb-6">
+            <MessageSquareQuote className="w-8 h-8" />
+          </div>
+          <span className="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-4">
+            Voice of our travelers
+          </span>
+          <h2 className="text-5xl font-serif text-brand-dark mb-6 max-w-[600px]">
+            Extraordinary Stories from <span className="italic font-light text-primary">Extraordinary People.</span>
+          </h2>
         </div>
 
-        <div className="container relative z-10 px-6 mx-auto h-full flex flex-col justify-center max-w-[1600px]">
-          
-          {/* Header */}
-          <div className="absolute top-10 md:top-20 left-6 lg:left-24">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-8 h-[1px] bg-[#C1A67B]" />
-              <span className="text-[#C1A67B] font-sans text-[10px] font-bold uppercase tracking-[0.5em]">
-                Verified Experiences
-              </span>
-            </div>
-            <h2 className="font-serif text-3xl md:text-5xl text-[#F2EFE9] tracking-tighter">Echoes of Excellence</h2>
-          </div>
+        {/* Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {testimonials.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.8 }}
+              whileHover={{ y: -10 }}
+              className="bg-white p-10 rounded-[40px] shadow-[0_20px_50px_rgba(0,0,0,0.03)] border border-gray-100 relative group flex flex-col transition-all duration-500"
+            >
+              <Quote className="absolute top-10 right-10 w-12 h-12 text-primary/5 group-hover:text-primary/10 transition-colors" />
+              
+              <div className="flex items-center gap-1 mb-8">
+                {[...Array(5)].map((_, idx) => (
+                  <Star key={idx} className="w-4 h-4 fill-amber-400 text-amber-400 border-none" />
+                ))}
+              </div>
 
-          {/* Fixed Layout Container */}
-          <div className="relative w-full max-w-7xl mx-auto h-[70vh] md:h-[60vh] flex items-center">
-            {testimonials.map((item, i) => (
-              <div 
-                key={i} 
-                className={`testimonial-slide absolute inset-0 flex flex-col md:flex-row items-center gap-10 md:gap-16 lg:gap-32 ${i !== 0 ? 'opacity-0 invisible' : ''}`}
-              >
-                {/* Visual Side */}
-                <div className="w-full md:w-[45%] h-1/3 md:h-full relative group shrink-0">
-                  <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl">
-                    <Image 
-                      src={item.image}
-                      alt={item.author}
-                      fill
-                      className="object-cover transition-transform duration-[2s] group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, 40vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1A2421]/40 to-transparent" />
-                  </div>
-                  
-                  {/* Floating ID */}
-                  <div className="absolute -bottom-8 -right-8 bg-[#0B1310] p-10 rounded-[2rem] shadow-2xl z-20 hidden lg:block border border-[#F2EFE9]/5">
-                    <div className="flex items-center gap-2 mb-4">
-                      {[...Array(5)].map((_, idx) => (
-                        <Star key={idx} className="w-3 h-3 fill-[#C1A67B] text-[#C1A67B]" />
-                      ))}
-                    </div>
-                    <p className="text-[#F2EFE9] font-sans text-[10px] font-bold uppercase tracking-[0.3em]">
-                      Absolute Standard
-                    </p>
-                  </div>
+              <blockquote className="text-xl text-brand-dark font-serif italic mb-10 leading-relaxed flex-1">
+                &ldquo;{item.quote}&rdquo;
+              </blockquote>
+
+              <div className="flex items-center gap-5 pt-8 border-t border-gray-100">
+                <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-white shadow-md group-hover:scale-110 transition-transform duration-500">
+                  <Image src={item.image} alt={item.author} fill className="object-cover" />
                 </div>
-
-                {/* Narrative Side */}
-                <div className="w-full md:w-[55%] flex flex-col justify-center">
-                  <Quote className="w-8 h-8 md:w-12 md:h-12 text-[#C1A67B]/30 mb-6 md:mb-8" />
-                  
-                  <h3 className="font-serif text-xl md:text-3xl lg:text-5xl text-[#F2EFE9] leading-[1.15] mb-8 md:mb-12 tracking-tight italic font-light">
-                    &ldquo;{item.quote}&rdquo;
-                  </h3>
-
-                  <div className="flex items-center gap-6 md:gap-8 pt-6 md:pt-8 border-t border-[#F2EFE9]/10">
-                    <div className="w-1 h-10 md:h-12 bg-[#C1A67B]/40" />
-                    <div>
-                      <h4 className="font-serif text-2xl md:text-3xl text-[#F2EFE9] mb-1">{item.author}</h4>
-                      <p className="font-sans text-[11px] font-bold uppercase tracking-[0.4em] text-[#C1A67B]">
-                        {item.role} <span className="mx-3 opacity-20">•</span> {item.location}
-                      </p>
-                    </div>
-                  </div>
+                <div>
+                  <h4 className="text-lg font-bold text-brand-dark leading-tight">{item.author}</h4>
+                  <p className="text-[10px] text-primary font-bold uppercase tracking-[0.2em]">{item.role}</p>
+                  <p className="text-[10px] text-gray-400 uppercase tracking-widest">{item.location}</p>
                 </div>
               </div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
+        </div>
 
-          {/* Navigation/Progress UI */}
-          <div className="absolute bottom-20 left-12 lg:left-auto lg:right-24 flex flex-col items-start lg:items-end gap-6">
-            <div className="flex items-center gap-6">
-              <span className="text-[#F2EFE9] font-serif text-2xl">0{activeIndex + 1}</span>
-              <div className="w-48 h-[1px] bg-[#0B1310]/10 relative overflow-hidden">
-                <div 
-                  className="absolute inset-0 bg-[#C1A67B] origin-left transition-transform duration-700 ease-out"
-                  style={{ transform: `scaleX(${(activeIndex + 1) / testimonials.length})` }}
-                />
+        {/* Credibility Footer - Micro testimonials/counts */}
+        <div className="mt-20 flex justify-center">
+          <div className="bg-white/50 backdrop-blur-sm px-8 py-4 rounded-full border border-gray-100 flex items-center gap-6">
+            <div className="flex -space-x-2">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-gray-200 overflow-hidden relative">
+                  <Image src={`https://i.pravatar.cc/100?img=${i+10}`} alt="avatar" fill />
+                </div>
+              ))}
+              <div className="w-8 h-8 rounded-full border-2 border-white bg-primary flex items-center justify-center text-[10px] font-bold text-white relative z-10">
+                +2k
               </div>
-              <span className="text-[#F2EFE9]/20 font-serif text-2xl">0{testimonials.length}</span>
             </div>
-            <p className="text-[#F2EFE9]/30 font-sans text-[9px] font-bold uppercase tracking-[0.5em]">
-              The Jade Signature
+            <p className="text-xs font-bold text-brand-dark uppercase tracking-widest">
+              Join 2,300+ Delighted Travelers
             </p>
           </div>
-
         </div>
       </div>
     </section>

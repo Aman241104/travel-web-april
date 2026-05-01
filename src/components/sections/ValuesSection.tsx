@@ -1,173 +1,100 @@
 "use client";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { Sparkles, Shield, Globe, Scale, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { Heart, Shield, Zap } from "lucide-react";
 import Image from "next/image";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-const values = [
-  {
-    id: "01",
-    title: "Intentional Curation",
-    desc: "We architect life-changing experiences tailored to your personal rhythm and vision.",
-    icon: Sparkles,
-    image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    id: "02",
-    title: "Uncompromising Integrity",
-    desc: "Fixed fee structures with zero hidden commissions. Integrity is our ultimate luxury.",
-    icon: Scale,
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    id: "03",
-    title: "Global Access",
-    desc: "An elite portfolio of local experts and hidden sanctuaries spanning all seven continents.",
-    icon: Globe,
-    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    id: "04",
-    title: "Silent Discretion",
-    desc: "Serving the world's most discerning travelers with absolute privacy and white-glove care.",
-    icon: Shield,
-    image: "https://images.unsplash.com/photo-1506929559444-44b1c7357ad2?q=80&w=1200&auto=format&fit=crop",
-  }
+const benefits = [
+  { title: "Transparent Pricing", desc: "No hidden costs, clear and upfront rates for every package.", icon: Shield },
+  { title: "Expert Curated", desc: "Every itinerary is hand-crafted by our travel specialists.", icon: Heart },
+  { title: "24/7 Support", desc: "We are with you at every step, anywhere in the world.", icon: Zap },
 ];
 
 export default function ValuesSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const pinWrapperRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (!containerRef.current || !sectionRef.current || !pinWrapperRef.current) return;
-
-      const scrollEl = containerRef.current;
-      const totalWidth = scrollEl.scrollWidth;
-      const viewportWidth = window.innerWidth;
-      const scrollDistance = totalWidth - viewportWidth;
-
-      gsap.to(scrollEl, {
-        x: -scrollDistance,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          pin: pinWrapperRef.current, // Pin the inner wrapper
-          start: "top top",
-          end: () => `+=${scrollDistance}`,
-          scrub: 1,
-          invalidateOnRefresh: true,
-        }
-      });
-
-      // Background Text Parallax
-      gsap.to(".values-bg-text", {
-        x: -200,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        }
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section 
-      id="values"
-      ref={sectionRef} 
-      className="relative bg-[#0B1310] scroll-mt-24"
-    >
-      <div ref={pinWrapperRef} className="h-screen w-full overflow-hidden flex items-center">
-        {/* Texture Overlay */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.02] bg-noise" />
-
-        {/* Massive Background Decorative Text */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <h2 className="values-bg-text font-serif text-[35vw] text-[#F2EFE9]/[0.01] leading-none whitespace-nowrap uppercase italic font-black">
-            EXPERIENCE • ELITE • VISION
-          </h2>
-        </div>
-
-        {/* Floating Header */}
-        <div className="absolute top-24 left-6 lg:left-24 z-20">
-          <span className="text-[#C1A67B] font-sans text-[10px] font-bold uppercase tracking-[0.6em] mb-4 block">
-            The Jade Standard
-          </span>
-          <h2 className="font-serif text-4xl lg:text-7xl text-[#F2EFE9] tracking-tighter">Our Philosophy</h2>
-        </div>
-
-        {/* Horizontal Container */}
-        <div 
-          ref={containerRef} 
-          className="flex h-full items-center pt-32 lg:pt-0 px-[10vw] gap-[15vw] lg:gap-[20vw]"
-        >
-          {values.map((item) => (
-            <div 
-              key={item.id}
-              className="relative flex-shrink-0 w-[85vw] lg:w-[50vw] h-[50vh] flex items-center gap-12 lg:gap-20 group"
+    <section id="about" className="py-32 bg-gray-50 overflow-hidden">
+      <div className="container-custom">
+        <div className="flex flex-col lg:flex-row items-center gap-20">
+          
+          {/* Content Side */}
+          <div className="w-full lg:w-1/2">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
             >
-              {/* Content Side */}
-              <div className="relative z-10 w-full lg:w-1/2">
-                <div className="flex items-center gap-6 mb-8 lg:mb-10">
-                  <span className="font-serif text-3xl lg:text-5xl text-[#F2EFE9]/10 leading-none">{item.id}</span>
-                  <div className="h-[1px] w-12 bg-[#C1A67B]/30" />
-                  <span className="text-[#C1A67B] text-[10px] font-bold uppercase tracking-[0.4em]">
-                    Principle
-                  </span>
-                </div>
-                <h3 className="font-serif text-3xl lg:text-6xl text-[#F2EFE9] mb-6 lg:mb-8 leading-[1.1] tracking-tight group-hover:text-[#C1A67B] transition-colors duration-500">
-                  {item.title}
-                </h3>
-                <p className="font-sans text-[#F2EFE9]/40 text-base lg:text-lg leading-relaxed mb-10 lg:mb-12 max-w-sm">
-                  {item.desc}
-                </p>
-                <button className="flex items-center gap-6 text-[#F2EFE9] group/btn">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.5em] group-hover/btn:text-[#C1A67B] transition-colors">Learn More</span>
-                  <div className="w-12 h-12 rounded-full border border-[#F5F2ED]/10 flex items-center justify-center group-hover/btn:border-[#C1A67B] transition-all duration-500">
-                    <ArrowUpRight className="w-4 h-4 text-[#F2EFE9] group-hover/btn:text-[#C1A67B]" />
+              <span className="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-6 block">
+                The Jade Difference
+              </span>
+              <h2 className="text-5xl lg:text-6xl font-serif text-brand-dark leading-[1.1] mb-10">
+                Why people love <br />
+                <span className="italic font-light text-primary">travelling with us.</span>
+              </h2>
+
+              <div className="space-y-10">
+                {benefits.map((benefit, i) => (
+                  <div key={i} className="flex gap-6 group">
+                    <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                      <benefit.icon className="w-7 h-7" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-xl text-brand-dark mb-2">{benefit.title}</h3>
+                      <p className="text-gray-500 leading-relaxed max-w-[360px]">
+                        {benefit.desc}
+                      </p>
+                    </div>
                   </div>
-                </button>
+                ))}
               </div>
 
-              {/* Visual Side */}
-              <div className="relative hidden lg:block w-1/2 h-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image 
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className="object-cover scale-110 group-hover:scale-100 transition-transform duration-1000"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1A2421]/60 to-transparent" />
-              </div>
-            </div>
-          ))}
-
-          {/* Closing Spread */}
-          <div className="flex-shrink-0 w-[80vw] lg:w-[40vw] flex flex-col justify-center pr-12 lg:pr-24">
-            <h4 className="font-serif text-[#F2EFE9] text-4xl lg:text-8xl leading-none tracking-tighter mb-8 lg:mb-10">
-              Your vision, <br />
-              <span className="italic font-light text-[#C1A67B]">our canvas.</span>
-            </h4>
-            <p className="text-[#F2EFE9]/30 font-sans text-base lg:text-lg max-w-xs mb-10 lg:mb-12 leading-relaxed">
-              Every masterpiece starts with a single, intentional conversation.
-            </p>
-            <button className="w-fit px-10 lg:px-12 py-5 lg:py-6 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.4em] rounded-full hover:bg-[#0B1310] transition-all duration-500 shadow-2xl shadow-[#C1A67B]/10">
-              Begin Your Experience
-            </button>
+              <button className="mt-14 px-10 py-5 bg-brand-dark hover:bg-primary text-white font-bold rounded-2xl transition-all shadow-xl hover:-translate-y-1 active:translate-y-0">
+                Our Full Story
+              </button>
+            </motion.div>
           </div>
+
+          {/* Image Side - Collage Style */}
+          <div className="w-full lg:w-1/2 relative h-[600px]">
+            <motion.div 
+              initial={{ opacity: 0, rotate: -6, y: 20 }}
+              whileInView={{ opacity: 1, rotate: -6, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="absolute top-0 left-10 w-64 aspect-[4/5] bg-white p-3 pb-16 shadow-2xl rounded-sm z-10"
+            >
+              <div className="relative w-full h-full overflow-hidden">
+                <Image 
+                  src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1200&auto=format&fit=crop" 
+                  alt="Tour" 
+                  fill 
+                  className="object-cover" 
+                />
+              </div>
+              <p className="absolute bottom-4 left-0 w-full text-center text-brand-dark font-serif italic text-lg">Santorini, Greece</p>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, rotate: 6, x: 50 }}
+              whileInView={{ opacity: 1, rotate: 6, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="absolute bottom-10 right-0 w-80 aspect-square bg-white p-4 pb-20 shadow-2xl rounded-sm z-20"
+            >
+              <div className="relative w-full h-full overflow-hidden">
+                <Image 
+                  src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=1200&auto=format&fit=crop" 
+                  alt="Tour" 
+                  fill 
+                  className="object-cover" 
+                />
+              </div>
+              <p className="absolute bottom-6 left-0 w-full text-center text-brand-dark font-serif italic text-xl">The Maldives</p>
+            </motion.div>
+
+            {/* Decorative circles */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -z-10" />
+          </div>
+
         </div>
       </div>
     </section>

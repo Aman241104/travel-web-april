@@ -1,49 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  --color-onyx: #1C3B34;
-  --color-onyx-light: #254F46;
-  --color-onyx-muted: #36665B;
+  --color-primary: #2E7D32;
+  --color-primary-light: #43A047;
+  --color-primary-muted: #E8F5E9;
   
-  --color-[#C1A67B]: #6CB4A5;
-  --color-brand-sand: #FBF6EE;
-  --color-brand-navy: #1C3B34;
-  --color-brand-yellow: #F8E8C1;
-
-  --color-titanium: #1A1A1A;
-  --color-titanium-light: #262626;
-  --color-titanium-dark: #0F0F0F;
-
-  --color-silver: #E5E7EB;
-  --color-silver-light: #F3F4F6;
-  --color-silver-dark: #9CA3AF;
-
-  --color-accent-blue: #6CB4A5;
-  --color-accent-violet: #F8E8C1;
-  --color-accent-gold: #D4AF37;
-  --color-accent-champagne: #F3E5AB;
-
-  /* Compatibility mappings */
-  --color-jade-black: #1C3B34;
-  --color-jade-white: #FFFFFF;
-  --color-cream: #FBF6EE;
-  --color-jade: #6CB4A5;
-  --color-jade-darkest: #1C3B34;
-  --color-vibrant: #7BC8B8;
-  --color-gold: #D4AF37;
-  --color-gold-dark: #A67C00;
-  --color-azure: #6CB4A5;
-  --color-azure-dark: #1C3B34;
+  --color-brand-jade: #2E7D32;
+  --color-brand-green: #2E7D32;
+  --color-brand-soft: #F9FAFB;
+  --color-brand-dark: #1B5E20;
+  --color-brand-text: #1F2937;
 
   --font-serif: var(--font-playfair), serif;
   --font-sans: var(--font-jakarta), sans-serif;
+  --font-script: var(--font-dancing), cursive;
 
   --letter-spacing-ultra: 0.25em;
 }
 
 :root {
   --background: #FFFFFF;
-  --foreground: #1C3B34;
+  --foreground: #1F2937;
 }
 
 body {
@@ -51,20 +28,51 @@ body {
   background-color: var(--background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  line-height: 24px;
 }
 
-/* Sophisticated Luxury Grain */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('https://www.transparenttextures.com/patterns/p6.png');
-  opacity: 0.01;
-  pointer-events: none;
-  z-index: 9999;
+h1 {
+  font-size: 56px;
+  line-height: 64px;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 40px;
+  line-height: 48px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 32px;
+  margin-bottom: 12px;
+}
+
+p {
+  margin-bottom: 12px;
+}
+
+.container-custom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (min-width: 768px) {
+  .container-custom {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -79,32 +87,10 @@ body::before {
   text-wrap: balance;
 }
 
-@utility glass {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.vertical-text {
-  writing-mode: vertical-rl;
-}
-
 /* Selection Color */
 ::selection {
-  background: rgba(59, 130, 246, 0.1);
-  color: #050505;
-}
-
-/* Custom Scroll Progress */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(to right, #3B82F6, #8B5CF6);
-  transform-origin: 0%;
-  z-index: 9999;
+  background: rgba(46, 125, 50, 0.2);
+  color: #1F2937;
 }
 
 /* Minimalist Scrollbar */
@@ -122,27 +108,10 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3B82F6;
+  background: #2E7D32;
 }
 
 /* Modern Image Transitions */
 img {
   transition: filter 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Gradient Text utility */
-.text-gradient {
-  background: linear-gradient(135deg, #050505 0%, #4B5563 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-blue {
-  background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-@utility bg-noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }

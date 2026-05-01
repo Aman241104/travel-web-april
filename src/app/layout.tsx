@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Playfair_Display, Plus_Jakarta_Sans, Dancing_Script } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import Navbar from "@/components/layout/Navbar";
@@ -15,6 +15,11 @@ const playfair = Playfair_Display({
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
+});
+
+const dancing = Dancing_Script({
+  subsets: ["latin"],
+  variable: "--font-dancing",
 });
 
 export const metadata: Metadata = {
@@ -54,7 +59,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${playfair.variable} ${jakarta.variable} font-sans antialiased bg-[#0B1310] text-[#F2EFE9]`} suppressHydrationWarning>
+      <body className={`${playfair.variable} ${jakarta.variable} ${dancing.variable} font-sans antialiased bg-white text-[#1F2937]`} suppressHydrationWarning>
         <ScrollProgress />
         <SmoothScroll>
           <Navbar />

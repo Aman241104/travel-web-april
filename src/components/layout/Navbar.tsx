@@ -1,15 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const navLinks = [
+  { name: "Home", href: "/" },
   { name: "Services", href: "#services" },
   { name: "Destinations", href: "#packages" },
-  { name: "Expertise", href: "#process" },
-  { name: "Journal", href: "#journal" },
-  { name: "Our Story", href: "#about" },
+  { name: "Testimonials", href: "#testimonials" },
 ];
 
 export default function Navbar() {
@@ -17,7 +16,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -25,55 +24,62 @@ export default function Navbar() {
   return (
     <>
       <nav 
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-700 ease-in-out ${
+        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${
           isScrolled 
-            ? "bg-[#0B1310]/80 backdrop-blur-xl py-4 border-b border-[#F2EFE9]/5 shadow-sm" 
-            : "bg-transparent py-8"
+            ? "bg-white/80 backdrop-blur-md py-3 shadow-sm border-b border-gray-100" 
+            : "bg-transparent py-5"
         }`}
       >
-        <div className="container mx-auto px-6 flex items-center justify-between">
-          <Link href="/" className="group flex flex-col items-start leading-none outline-none">
-            <span className={`font-serif text-3xl tracking-tighter transition-colors duration-500 text-[#F2EFE9]`}>JADE</span>
-            <span className="font-sans text-[8px] font-black uppercase tracking-[0.5em] text-[#C1A67B] mt-1 ml-0.5">Travels</span>
+        <div className="container-custom flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-2xl shadow-lg transform group-hover:rotate-12 transition-transform duration-300">
+                J
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-brand-dark rounded-full border-2 border-white" />
+            </div>
+            <div className="flex flex-col">
+              <span className={`font-serif font-bold text-2xl tracking-tight transition-colors duration-300 ${isScrolled ? "text-brand-dark" : "text-brand-dark"}`}>
+                JADE
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary leading-none">
+                Tours & Travels
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-12">
-            <div className="flex items-center gap-10">
+          <div className="hidden lg:flex items-center gap-10">
+            <div className="flex items-center gap-8">
               {navLinks.map((link) => (
                 <Link 
                   key={link.name} 
                   href={link.href}
-                  className="group relative font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-[#F2EFE9]/60 hover:text-[#F2EFE9] transition-colors duration-300"
+                  className="relative font-sans text-sm font-bold text-brand-dark hover:text-primary transition-colors group"
                 >
-                  <span className="relative z-10">{link.name}</span>
-                  <span className="absolute left-0 bottom-[-4px] w-0 h-[1px] bg-[#C1A67B] transition-all duration-500 ease-out group-hover:w-full" />
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
             </div>
             
-            <div className="flex items-center gap-8 pl-8 border-l border-[#F2EFE9]/10">
-              <Link 
-                href="#contact" 
-                className="group relative overflow-hidden px-8 py-3 bg-[#0B1310] text-[#F2EFE9] font-bold text-[10px] uppercase tracking-[0.3em] rounded-full transition-all duration-500 hover:shadow-xl hover:shadow-[#1A2421]/20 active:scale-95"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  Inquire
-                  <ArrowUpRight className="w-3 h-3 transition-transform duration-500 group-hover:rotate-45" />
-                </span>
-                <div className="absolute inset-0 bg-[#C1A67B] translate-y-full transition-transform duration-500 group-hover:translate-y-0" />
-              </Link>
-            </div>
+            <Link 
+              href="#contact" 
+              className="flex items-center gap-2 px-7 py-3.5 bg-brand-dark text-white font-bold text-sm rounded-full transition-all hover:bg-primary hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 shadow-lg"
+            >
+              Get in Touch
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
 
           {/* Mobile Toggle */}
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center lg:hidden">
             <button 
               onClick={() => setIsMobileMenuOpen(true)} 
-              className="text-[#F2EFE9] p-2 hover:bg-[#0B1310]/10 rounded-full transition-colors"
+              className={`p-2 rounded-full transition-colors ${isScrolled ? "text-brand-dark hover:bg-gray-100" : "text-brand-dark hover:bg-white/20"}`}
               aria-label="Open Menu"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-7 h-7" />
             </button>
           </div>
         </div>
@@ -83,53 +89,55 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            initial={{ clipPath: "circle(0% at 100% 0%)" }}
-            animate={{ clipPath: "circle(150% at 100% 0%)" }}
-            exit={{ clipPath: "circle(0% at 100% 0%)" }}
-            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[110] bg-[#0B1310] flex flex-col"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[110] bg-white flex flex-col h-screen"
           >
-            <div className="flex justify-between items-center p-8 border-b border-[#F2EFE9]/5">
-              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="group flex flex-col items-start leading-none">
-                <span className="font-serif text-3xl tracking-tighter text-[#F2EFE9]">JADE</span>
-                <span className="font-sans text-[8px] font-black uppercase tracking-[0.5em] text-[#C1A67B] mt-1 ml-0.5">Travels</span>
+            <div className="flex justify-between items-center p-6 border-b border-gray-100">
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                  J
+                </div>
+                <span className="font-serif font-bold text-xl tracking-tight text-brand-dark">JADE</span>
               </Link>
               <button 
                 onClick={() => setIsMobileMenuOpen(false)} 
-                className="p-4 bg-[#F2EFE9]/5 rounded-full hover:bg-[#C1A67B] transition-all group"
+                className="p-3 bg-gray-50 rounded-full hover:bg-primary hover:text-white transition-all shadow-sm"
                 aria-label="Close Menu"
               >
-                <X className="w-6 h-6 text-[#F2EFE9] group-hover:text-[#0B1310] transition-colors" />
+                <X className="w-6 h-6" />
               </button>
             </div>
             
-            <div className="flex flex-col justify-center flex-grow px-8 gap-6 md:gap-10">
-              {navLinks.map((link, i) => (
+            <div className="flex flex-col p-10 gap-8 items-center justify-center flex-1">
+              {navLinks.map((link, idx) => (
                 <motion.div
                   key={link.name}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
                 >
                   <Link 
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="font-serif text-4xl md:text-6xl text-[#F2EFE9]/20 hover:text-[#C1A67B] transition-colors duration-500 flex items-center justify-between group"
+                    className="text-3xl font-serif font-bold text-brand-dark hover:text-primary transition-colors"
                   >
-                    <span>{link.name}</span>
-                    <ArrowUpRight className="w-10 h-10 opacity-0 -translate-x-6 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0" />
+                    {link.name}
                   </Link>
                 </motion.div>
               ))}
             </div>
 
-            <div className="p-8 border-t border-[#F2EFE9]/5">
+            <div className="p-10 border-t border-gray-100">
               <Link 
                 href="#contact"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full py-6 bg-[#C1A67B] text-[#0B1310] font-black uppercase tracking-[0.4em] text-[10px] rounded-full text-center active:scale-95 transition-all hover:bg-[#F2EFE9]"
+                className="flex items-center justify-center gap-3 w-full py-5 bg-primary text-white font-bold rounded-2xl text-lg shadow-xl"
               >
-                Begin Your Journey
+                Plan Your Journey
+                <ArrowRight className="w-5 h-5" />
               </Link>
             </div>
           </motion.div>

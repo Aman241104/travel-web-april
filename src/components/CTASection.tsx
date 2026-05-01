@@ -1,116 +1,71 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { ArrowUpRight, Phone, MessageCircle } from "lucide-react";
-import MagneticButton from "@/components/ui/MagneticButton";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { motion } from "framer-motion";
+import { Phone, ArrowRight, MessageCircle } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function CTASection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const bgRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const handle = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(handle);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
-    const ctx = gsap.context(() => {
-      gsap.to(bgRef.current, {
-        yPercent: 15,
-        scale: 1.1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        }
-      });
-    });
-
-    return () => ctx.revert();
-  }, [mounted]);
-
-  if (!mounted) return <section className="h-[40vh] bg-[#0B1310]" />;
-
   return (
-    <section 
-      id="contact" 
-      ref={sectionRef} 
-      className="relative py-16 md:py-24 bg-[#0B1310] overflow-hidden scroll-mt-24"
-    >
-      <div className="absolute inset-0 z-0">
-        <div 
-          ref={bgRef}
-          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center origin-center scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1310] via-[#0B1310]/80 to-[#0B1310]/40 z-10" />
-      </div>
-
-      <div className="container mx-auto px-6 relative z-20">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+    <section className="py-24 bg-white">
+      <div className="container-custom">
+        <div className="relative bg-brand-dark rounded-[48px] overflow-hidden p-12 md:p-24 text-center text-white shadow-2xl group">
           
-          <div className="w-full lg:w-3/5">
-            <div className="mb-4">
-              <span className="inline-block text-[#C1A67B] font-sans text-[10px] md:text-xs font-black uppercase tracking-[0.6em]">
-                Excellence Since MMVI
-              </span>
+          {/* Immersive Background */}
+          <div className="absolute inset-0 z-0">
+            <Image 
+              src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2000&auto=format&fit=crop" 
+              alt="CTA Background"
+              fill
+              className="object-cover opacity-20 transition-transform duration-[20s] group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-brand-dark/40" />
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 flex flex-col items-center"
+          >
+            <div className="w-20 h-20 rounded-[28px] bg-primary/20 backdrop-blur-md border border-white/10 flex items-center justify-center mb-10 group-hover:scale-110 transition-transform duration-500">
+              <MessageCircle className="w-10 h-10 text-primary-muted" />
             </div>
-            
-            <h2 className="font-serif text-4xl md:text-7xl lg:text-[110px] text-[#F2EFE9] leading-[0.9] tracking-tightest mb-8">
-              <span className="block">Begin Your</span>
-              <span className="block italic font-light text-[#C1A67B]">Private Narrative</span>
+
+            <h2 className="text-5xl lg:text-7xl font-serif mb-8 leading-[1.1] max-w-[800px]">
+              Ready to Write Your <br />
+              <span className="italic font-light text-primary-muted">Next Great Story?</span>
             </h2>
-
-            <p className="text-[#F2EFE9]/50 font-sans text-lg md:text-xl lg:text-2xl leading-relaxed max-w-xl mb-10">
-              Connect with our private advisory to begin crafting an itinerary that reflects your unique standard of exploration.
+            
+            <p className="text-xl text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed">
+              Join our elite circle of travelers and experience the world without compromise. Your private consultation is just a click away.
             </p>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full max-w-md mx-auto">
+              <Link 
+                href="#contact" 
+                className="w-full sm:w-auto px-12 py-6 bg-primary hover:bg-primary-light text-white font-bold rounded-2xl flex items-center justify-center gap-3 transition-all shadow-xl hover:-translate-y-1 active:translate-y-0 group/btn"
+              >
+                Start Planning
+                <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+              </Link>
+              <a 
+                href="tel:+919825438324" 
+                className="w-full sm:w-auto px-12 py-6 bg-white/10 backdrop-blur-md text-white font-bold rounded-2xl flex items-center justify-center gap-3 transition-all hover:bg-white/20 border border-white/20"
+              >
+                Call Concierge
+                <Phone className="w-5 h-5" />
+              </a>
+            </div>
 
-            <MagneticButton className="group relative px-8 py-5 md:px-12 md:py-6 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.5em] rounded-full overflow-hidden shadow-2xl transition-all duration-700 hover:bg-[#0B1310]">
-              <span className="relative z-10 flex items-center gap-6">
-                Design Your Escape <ArrowUpRight className="w-5 h-5" />
-              </span>
-            </MagneticButton>
-          </div>
+            <p className="mt-12 text-sm font-bold uppercase tracking-[0.3em] text-white/40">
+              Best Price Guarantee • Expert Curation
+            </p>
+          </motion.div>
 
-          <div className="w-full lg:w-2/5 flex flex-col gap-4 md:gap-6 mt-16 lg:mt-0">
-            <a 
-              href="tel:+919825438324" 
-              className="group p-8 md:p-10 rounded-2xl md:rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#C1A67B]/30 transition-all duration-500 flex items-center gap-6 backdrop-blur-xl"
-            >
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-[#C1A67B]/10 flex items-center justify-center text-[#C1A67B] group-hover:scale-110 group-hover:bg-[#C1A67B] group-hover:text-[#0B1310] transition-all duration-500">
-                <Phone className="w-5 h-5 md:w-6 md:h-6" />
-              </div>
-              <div>
-                <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-[#C1A67B] mb-1 md:mb-2">Direct Line</p>
-                <p className="text-[#F2EFE9] font-serif text-2xl md:text-3xl tracking-tight">+91 98254 38324</p>
-              </div>
-            </a>
-
-            <a 
-              href="https://wa.me/919825438324?text=Hello%20Jade%20Travels%2C%20I%20would%20like%20to%20inquire%20about%20your%20bespoke%20travel%20services." 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group p-8 md:p-10 rounded-2xl md:rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#25D366]/30 transition-all duration-500 flex items-center gap-6 backdrop-blur-xl"
-            >
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:scale-110 group-hover:bg-[#25D366] group-hover:text-[#0B1310] transition-all duration-500">
-                <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
-              </div>
-              <div>
-                <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-[#25D366] mb-1 md:mb-2">WhatsApp Concierge</p>
-                <p className="text-[#F2EFE9] font-serif text-2xl md:text-3xl tracking-tight">Instant Access</p>
-              </div>
-            </a>
-          </div>
-
+          {/* Decorative Glows */}
+          <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
         </div>
       </div>
     </section>

@@ -10,12 +10,11 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 import ServicesList from "@/components/ServicesList";
-import EditorialMarquee from "@/components/EditorialMarquee";
 import USP from "@/components/sections/USP";
 import ValuesSection from "@/components/sections/ValuesSection";
+import TrustSection from "@/components/sections/TrustSection";
 
 const PopularDestinations = dynamic(() => import("@/components/sections/PopularDestinations"), { ssr: false });
-const TravelerSection = dynamic(() => import("@/components/luxury/TravelerSection"), { ssr: false });
 const Testimonials = dynamic(() => import("@/components/luxury/Testimonials"), { ssr: false });
 const CTASection = dynamic(() => import("@/components/CTASection"), { ssr: false });
 const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed"), { ssr: false });
@@ -70,42 +69,43 @@ export default function Home() {
     };
 
     return (
-        <main className="bg-[#0B1310] min-h-screen relative overflow-clip">
+        <main className="bg-white min-h-screen relative overflow-clip">
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            <div className="relative z-30 bg-[#0B1310] shadow-2xl">
-                {/* Hero Section */}
+            <div className="relative z-30 bg-white">
+                {/* 1. Navbar handled in layout */}
+
+                {/* 2. Hero Section (Includes 3. Stats Strip) */}
                 <Hero />
 
-                {/* Values / Why Choose Us */}
+                {/* 3. Trust Section (NEW) */}
+                <TrustSection />
+
+                {/* 4. Services Section (Grid) */}
+                <ServicesList />
+
+                {/* 5. Why Choose Us Section */}
                 <ValuesSection />
 
-                {/* Destinations */}
+                {/* 6. Destinations Section */}
                 <PopularDestinations />
 
-                {/* Services / What We Do */}
-                <ServicesList />
+                {/* Testimonials */}
+                <Testimonials />
 
                 {/* Process / Expertise */}
                 <USP />
 
-                {/* Voices of Discerning Travelers */}
-                <Testimonials />
-
-                {/* About / Our Story */}
-                <TravelerSection />
-
-                {/* Decorative Marquee - Editorial Cinematic Ribbon */}
-                <EditorialMarquee />
-
-                {/* Journal / Instagram Feed */}
+                {/* Instagram Feed */}
                 <InstagramFeed />
-            </div>
 
-            {/* Final Conversion Point */}
-            <CTASection />
+                {/* 7. CTA Section */}
+                <CTASection />
+
+                {/* 8. Footer handled in layout */}
+            </div>
         </main>
     );
 }
