@@ -8,8 +8,12 @@
   --color-brand-jade: #2E7D32;
   --color-brand-green: #2E7D32;
   --color-brand-soft: #F9FAFB;
-  --color-brand-dark: #1B5E20;
+  --color-brand-dark: #0A1F11;
   --color-brand-text: #1F2937;
+
+  --color-accent-gold: #C5A059;
+  --color-accent-orange: #E67E22;
+  --color-accent-sand: #F4F1EA;
 
   --font-serif: var(--font-playfair), serif;
   --font-sans: var(--font-jakarta), sans-serif;

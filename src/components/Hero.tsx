@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import BookingWidget from "@/components/ui/BookingWidget";
 import { ArrowRight, Play, ShieldCheck, Clock, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const trustBadges = [
   { label: "100% Secure Payments", icon: ShieldCheck },
@@ -26,7 +27,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent z-10" />
       </div>
 
-      <div className="container-custom relative z-20 pt-20 pb-20">
+      <div className="container-custom relative z-20 pt-32 lg:pt-48 pb-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           
           {/* Content Side */}
@@ -36,42 +37,44 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold uppercase tracking-widest mb-10">
-                <span className="flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white text-[11px] font-bold uppercase tracking-[0.25em] mb-12 shadow-2xl">
+                <span className="flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-2.5 w-2.5 rounded-full bg-accent-gold opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-gold"></span>
                 </span>
-                World-Class Travel Management
+                The Gold Standard in Bespoke Travel
               </div>
               
-              <h1 className="text-6xl lg:text-8xl font-serif text-white leading-[1.05] mb-8 tracking-tight">
-                Crafting <span className="italic font-light text-primary-muted">Stories</span>, <br />
-                Not Just Trips.
+              <h1 className="text-7xl lg:text-[100px] font-serif text-white leading-[0.95] mb-10 tracking-tighter">
+                Travel That <br />
+                <span className="italic font-light text-accent-gold">Changes</span> You.
               </h1>
               
-              <p className="text-xl lg:text-2xl text-white/70 mb-12 leading-relaxed max-w-[580px]">
-                Escape the ordinary with bespoke luxury travel. We handle the complexity, you embrace the adventure.
+              <p className="text-xl lg:text-2xl text-white/80 mb-14 leading-relaxed max-w-[620px] font-medium">
+                Beyond mere destinations, we curate experiences that linger. Hand-crafted journeys for those who seek the extraordinary.
               </p>
 
-              <div className="flex flex-wrap items-center gap-8 mb-16">
-                <button className="px-12 py-6 bg-primary hover:bg-primary-light text-white font-bold rounded-2xl flex items-center gap-3 transition-all shadow-[0_20px_40px_rgba(46,125,50,0.3)] hover:shadow-primary/40 hover:-translate-y-1 active:translate-y-0 group">
-                  Plan Your Escape
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button className="flex items-center gap-4 text-white font-bold group hover:text-primary transition-colors">
-                  <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all">
-                    <Play className="w-6 h-6 fill-current" />
+              <div className="flex flex-wrap items-center gap-10 mb-20">
+                <Link href="#contact" className="px-14 py-7 bg-primary hover:bg-primary-light text-white font-bold rounded-[2xl] flex items-center gap-4 transition-all shadow-[0_30px_60px_rgba(46,125,50,0.4)] hover:shadow-primary/50 hover:-translate-y-1 active:translate-y-0 group">
+                  <span className="text-lg">Plan Your Escape</span>
+                  <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                </Link>
+                <Link href="#packages" className="flex items-center gap-5 text-white font-bold group hover:text-accent-gold transition-all">
+                  <div className="w-20 h-20 rounded-full border border-white/30 flex items-center justify-center group-hover:border-accent-gold group-hover:bg-accent-gold/10 transition-all shadow-2xl">
+                    <Play className="w-8 h-8 fill-current" />
                   </div>
-                  <span>Discover the Experience</span>
-                </button>
+                  <span className="text-lg tracking-wide uppercase text-sm">Watch the Experience</span>
+                </Link>
               </div>
 
               {/* Seamless Value Props */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10 border-t border-white/10">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 pt-12 border-t border-white/20">
                 {trustBadges.map((badge, i) => (
-                  <div key={i} className="flex items-center gap-3 text-white/60">
-                    <badge.icon className="w-5 h-5 text-primary" />
-                    <span className="text-[11px] font-bold uppercase tracking-widest">{badge.label}</span>
+                  <div key={i} className="flex items-center gap-4 text-white/70 group cursor-default">
+                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-primary/20 group-hover:text-primary transition-all duration-300">
+                      <badge.icon className="w-6 h-6 text-accent-gold group-hover:text-primary transition-colors" />
+                    </div>
+                    <span className="text-[12px] font-bold uppercase tracking-[0.2em]">{badge.label}</span>
                   </div>
                 ))}
               </div>

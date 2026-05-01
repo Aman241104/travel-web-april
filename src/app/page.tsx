@@ -13,6 +13,7 @@ import ServicesList from "@/components/ServicesList";
 import USP from "@/components/sections/USP";
 import ValuesSection from "@/components/sections/ValuesSection";
 import TrustSection from "@/components/sections/TrustSection";
+import StatsBar from "@/components/sections/StatsBar";
 
 const PopularDestinations = dynamic(() => import("@/components/sections/PopularDestinations"), { ssr: false });
 const Testimonials = dynamic(() => import("@/components/luxury/Testimonials"), { ssr: false });
@@ -69,7 +70,7 @@ export default function Home() {
     };
 
     return (
-        <main className="bg-white min-h-screen relative overflow-clip">
+        <main className="bg-white min-h-screen relative overflow-clip font-sans">
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -77,34 +78,37 @@ export default function Home() {
             <div className="relative z-30 bg-white">
                 {/* 1. Navbar handled in layout */}
 
-                {/* 2. Hero Section (Includes 3. Stats Strip) */}
+                {/* 2. Hero Section */}
                 <Hero />
 
-                {/* 3. Trust Section (NEW) */}
+                {/* 3. Stats Strip (NEW) */}
+                <StatsBar />
+
+                {/* 4. Trust Section */}
                 <TrustSection />
 
-                {/* 4. Services Section (Grid) */}
+                {/* 5. Services Section (Grid) */}
                 <ServicesList />
 
-                {/* 5. Why Choose Us Section */}
+                {/* 6. Why Choose Us Section (CRITICAL) */}
                 <ValuesSection />
 
-                {/* 6. Destinations Section */}
+                {/* 7. Destinations Section */}
                 <PopularDestinations />
 
-                {/* Testimonials */}
+                {/* 8. Testimonials */}
                 <Testimonials />
 
-                {/* Process / Expertise */}
+                {/* 9. Process / Expertise */}
                 <USP />
 
-                {/* Instagram Feed */}
+                {/* 10. Instagram Feed */}
                 <InstagramFeed />
 
-                {/* 7. CTA Section */}
+                {/* 11. CTA Section */}
                 <CTASection />
 
-                {/* 8. Footer handled in layout */}
+                {/* 12. Footer handled in layout */}
             </div>
         </main>
     );

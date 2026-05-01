@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Plane, Hotel, Package, Landmark, Search, Calendar, MapPin, Users, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const tabs = [
   { id: "flights", label: "Flights", icon: Plane },
@@ -14,102 +15,120 @@ export default function BookingWidget() {
   const [activeTab, setActiveTab] = useState("flights");
 
   return (
-    <div className="bg-white/80 backdrop-blur-xl rounded-[32px] shadow-2xl p-8 w-full max-w-[480px] mx-auto border border-white/50 relative z-20">
+    <div className="bg-white rounded-[32px] shadow-[0_30px_100px_rgba(0,0,0,0.15)] p-10 w-full max-w-[520px] mx-auto border border-gray-100 relative z-20 overflow-hidden">
+      {/* Decorative accent */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+      
       {/* Tabs */}
-      <div className="flex items-center justify-between mb-8 p-1.5 bg-gray-100/50 rounded-2xl">
+      <div className="flex items-center justify-between mb-10 p-1.5 bg-gray-50 rounded-2xl border border-gray-100">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex flex-1 items-center justify-center gap-2 py-3 rounded-xl transition-all duration-300 relative ${
+            className={`flex flex-1 items-center justify-center gap-2 py-4 rounded-xl transition-all duration-500 relative group ${
               activeTab === tab.id 
-                ? "text-primary font-bold shadow-sm" 
-                : "text-gray-500 hover:text-gray-700 hover:bg-white/30"
+                ? "text-primary font-bold" 
+                : "text-gray-400 hover:text-gray-600"
             }`}
           >
             {activeTab === tab.id && (
               <motion.div 
                 layoutId="activeTab"
-                className="absolute inset-0 bg-white rounded-xl shadow-sm"
+                className="absolute inset-0 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] rounded-xl"
                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
               />
             )}
-            <span className="relative z-10 flex items-center gap-2">
-              <tab.icon className="w-4 h-4" />
-              <span className="text-xs font-bold uppercase tracking-wider hidden sm:inline">{tab.label}</span>
+            <span className="relative z-10 flex items-center gap-2.5">
+              <tab.icon className={`w-4 h-4 transition-colors duration-500 ${activeTab === tab.id ? "text-primary" : "group-hover:text-gray-600"}`} />
+              <span className="text-[10px] font-bold uppercase tracking-[0.15em] hidden sm:inline">{tab.label}</span>
             </span>
           </button>
         ))}
       </div>
 
       {/* Form Content */}
-      <div className="space-y-6">
-        <div className="grid grid-cols-1 gap-5">
-          <div className="group space-y-2">
-            <label className="text-[11px] font-bold text-gray-500 uppercase tracking-[0.15em] ml-1">Destination</label>
-            <div className="relative group">
-              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary group-focus-within:scale-110 transition-transform" />
+      <div className="space-y-8">
+        <div className="grid grid-cols-1 gap-6">
+          <div className="group space-y-2.5">
+            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] ml-1">Destination</label>
+            <div className="relative">
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-primary/5 rounded-xl flex items-center justify-center text-primary transition-colors group-focus-within:bg-primary group-focus-within:text-white">
+                <MapPin className="w-5 h-5" />
+              </div>
               <input 
                 type="text" 
-                placeholder="Where are you going?"
-                className="w-full bg-white/50 border border-gray-200 rounded-2xl h-14 pl-12 pr-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white transition-all shadow-sm"
+                placeholder="Where is your heart leading you?"
+                className="w-full bg-gray-50 border-2 border-transparent rounded-[20px] h-16 pl-18 pr-6 text-sm font-semibold focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/20 focus:bg-white transition-all shadow-sm placeholder:text-gray-300"
               />
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-5">
-          <div className="space-y-2">
-            <label className="text-[11px] font-bold text-gray-500 uppercase tracking-[0.15em] ml-1">Date</label>
+        <div className="grid grid-cols-2 gap-6">
+          <div className="space-y-2.5">
+            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] ml-1">Departure</label>
             <div className="relative group">
-              <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-primary">
+                <Calendar className="w-5 h-5" />
+              </div>
               <input 
                 type="text" 
-                placeholder="Departure"
+                placeholder="Select Date"
                 onFocus={(e) => (e.target.type = "date")}
                 onBlur={(e) => (e.target.type = "text")}
-                className="w-full bg-white/50 border border-gray-200 rounded-2xl h-14 pl-12 pr-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white transition-all shadow-sm"
+                className="w-full bg-gray-50 border-2 border-transparent rounded-[20px] h-16 pl-14 pr-4 text-sm font-semibold focus:outline-none focus:border-primary/20 focus:bg-white transition-all shadow-sm"
               />
             </div>
           </div>
-          <div className="space-y-2">
-            <label className="text-[11px] font-bold text-gray-500 uppercase tracking-[0.15em] ml-1">Return</label>
+          <div className="space-y-2.5">
+            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] ml-1">Return</label>
             <div className="relative group">
-              <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
+              <div className="absolute left-5 top-1/2 -translate-y-1/2 text-primary">
+                <Calendar className="w-5 h-5" />
+              </div>
               <input 
                 type="text" 
-                placeholder="Return"
+                placeholder="Select Date"
                 onFocus={(e) => (e.target.type = "date")}
                 onBlur={(e) => (e.target.type = "text")}
-                className="w-full bg-white/50 border border-gray-200 rounded-2xl h-14 pl-12 pr-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white transition-all shadow-sm"
+                className="w-full bg-gray-50 border-2 border-transparent rounded-[20px] h-16 pl-14 pr-4 text-sm font-semibold focus:outline-none focus:border-primary/20 focus:bg-white transition-all shadow-sm"
               />
             </div>
           </div>
         </div>
 
-        <div className="space-y-2">
-          <label className="text-[11px] font-bold text-gray-500 uppercase tracking-[0.15em] ml-1">Guests & Class</label>
+        <div className="space-y-2.5">
+          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] ml-1">Travelers & Class</label>
           <div className="relative group">
-            <Users className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary" />
-            <select className="w-full bg-white/50 border border-gray-200 rounded-2xl h-14 pl-12 pr-4 text-sm font-medium appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white transition-all shadow-sm">
+            <div className="absolute left-5 top-1/2 -translate-y-1/2 text-primary">
+              <Users className="w-5 h-5" />
+            </div>
+            <select className="w-full bg-gray-50 border-2 border-transparent rounded-[20px] h-16 pl-14 pr-6 text-sm font-semibold appearance-none focus:outline-none focus:border-primary/20 focus:bg-white transition-all shadow-sm cursor-pointer">
               <option>1 Adult, Economy</option>
-              <option>2 Adults, Economy</option>
+              <option>2 Adults, Business</option>
               <option>Family (2+2), Economy</option>
-              <option>1 Adult, Business</option>
+              <option>Solo Traveler, First Class</option>
             </select>
           </div>
         </div>
 
-        <button className="w-full bg-brand-dark hover:bg-primary text-white font-bold h-16 rounded-2xl flex items-center justify-center gap-3 transition-all shadow-xl active:scale-[0.98] group mt-6 relative overflow-hidden">
+        <Link href="#packages" className="w-full bg-brand-dark hover:bg-primary text-white font-bold h-20 rounded-[22px] flex items-center justify-center gap-4 transition-all shadow-[0_20px_40px_rgba(10,31,17,0.2)] hover:shadow-primary/40 active:scale-[0.98] group mt-8 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          <Search className="w-5 h-5" />
-          <span className="text-lg">Find Your Journey</span>
-          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-        </button>
+          <Search className="w-6 h-6" />
+          <span className="text-xl">Find Your Journey</span>
+          <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+        </Link>
 
-        <p className="text-[10px] text-center text-gray-400 font-bold uppercase tracking-widest mt-4">
-          Best price guarantee • No hidden fees
-        </p>
+        <div className="flex items-center justify-center gap-6 mt-6">
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400">Best Price Guarantee</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400">Secure Payments</span>
+          </div>
+        </div>
       </div>
     </div>
   );

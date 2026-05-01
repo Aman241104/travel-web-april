@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Star, ShieldCheck, Award, CheckCircle2, Globe2 } from "lucide-react";
+import Image from "next/image";
 
 const partners = [
   { name: "Emirates", logo: "/assets/emirates.svg" }, // Assuming these would be real assets
@@ -36,116 +37,102 @@ const trustFeatures = [
 
 export default function TrustSection() {
   return (
-    <section className="relative py-24 bg-white overflow-hidden">
-      {/* Subtle Background Detail */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1400px] pointer-events-none opacity-[0.03]">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-primary rounded-full blur-[120px]" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-brand-dark rounded-full blur-[120px]" />
-      </div>
-
+    <section className="relative z-20 py-32 bg-white overflow-hidden">
+      {/* Refined Background Detail */}
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-accent-sand opacity-30 -z-10" />
+      
       <div className="container-custom relative z-10">
-        {/* 1. Proof Layer: Ratings & Real Numbers */}
-        <div className="flex flex-col items-center text-center mb-16">
+        <div className="grid lg:grid-cols-2 gap-20 items-center mb-32">
+          {/* Left: Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex flex-col items-center gap-4"
+            transition={{ duration: 0.8 }}
           >
-            <div className="flex items-center gap-1.5 bg-gray-50 px-4 py-2 rounded-full border border-gray-100 shadow-sm">
-              <div className="flex -space-x-1">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <span className="text-sm font-bold text-brand-dark">4.9/5</span>
-              <span className="text-xs text-gray-400 font-medium">from 2,300+ reviews</span>
-            </div>
-            
-            <h2 className="text-4xl lg:text-5xl font-serif text-brand-dark max-w-[700px] leading-[1.2]">
-              Trusted by <span className="text-primary italic font-light">Thousands</span> of Global Travelers
+            <span className="text-primary font-bold uppercase tracking-[0.3em] text-xs mb-6 block">
+              Reliability & Excellence
+            </span>
+            <h2 className="text-5xl lg:text-6xl font-serif text-brand-dark mb-10 leading-[1.1]">
+              A Decade of <br />
+              <span className="italic font-light text-primary">Uncompromising</span> Trust
             </h2>
-          </motion.div>
-        </div>
-
-        {/* 2. Recognition Layer: Partner Logos (Higher Contrast) */}
-        <div className="mb-24">
-          <p className="text-center text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400 mb-10">
-            Official Booking Partner For
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center opacity-70">
-            {partners.map((partner, i) => (
-              <motion.div
-                key={partner.name}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group flex flex-col items-center gap-2"
-              >
-                {/* Visual Placeholder for Logos with better contrast */}
-                <div className="h-10 px-6 flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-300">
-                  <span className="font-serif font-black text-xl text-brand-dark/60 group-hover:text-primary tracking-tighter transition-colors">
-                    {partner.name.toUpperCase()}
-                  </span>
+            <p className="text-lg text-gray-500 leading-relaxed mb-12 max-w-[540px]">
+              We don't just book trips; we secure your peace of mind. Our global network and rigorous standards ensure every journey is safe, seamless, and spectacular.
+            </p>
+            
+            <div className="flex flex-wrap items-center gap-6 p-6 bg-gray-50 rounded-3xl border border-gray-100 shadow-sm max-w-max">
+              <div className="flex -space-x-3">
+                {[
+                  "1534528741775-53994a69daeb",
+                  "1507003211169-0a1dd7228f2d",
+                  "1500648767791-00dcc994a43e",
+                  "1494790108377-be9c29b29330"
+                ].map((id, i) => (
+                  <div key={i} className="w-12 h-12 rounded-full border-2 border-white overflow-hidden bg-gray-200 relative">
+                    <Image 
+                      src={`https://images.unsplash.com/photo-${id}?q=80&w=100&h=100&auto=format&fit=crop&crop=faces`} 
+                      alt="User"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+                <div className="w-12 h-12 rounded-full border-2 border-white bg-primary flex items-center justify-center text-white text-xs font-bold relative z-10">
+                  +2k
                 </div>
+              </div>
+              <div>
+                <div className="flex items-center gap-1 mb-1">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star key={s} className="w-4 h-4 text-accent-gold fill-accent-gold" />
+                  ))}
+                </div>
+                <p className="text-sm font-bold text-brand-dark tracking-tight">4.9/5 from 2,300+ reviews</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right: Feature Grid */}
+          <div className="grid sm:grid-cols-2 gap-6">
+            {trustFeatures.map((feature, i) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.8 }}
+                className="p-8 rounded-[32px] bg-white border border-gray-100 shadow-[0_15px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.06)] transition-all duration-500 group"
+              >
+                <div className={`w-14 h-14 ${feature.bg} rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-500`}>
+                  <feature.icon className={`w-7 h-7 ${feature.color} group-hover:text-white transition-colors`} />
+                </div>
+                <h3 className="text-xl font-bold text-brand-dark mb-3 group-hover:text-primary transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  {feature.desc}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* 3. Why Trust Us Layer: Feature Cards with Depth */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {trustFeatures.map((feature, i) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              whileHover={{ y: -10 }}
-              className="relative p-10 rounded-[40px] bg-white border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.04)] hover:shadow-[0_40px_80px_rgba(0,0,0,0.08)] transition-all duration-500 group"
-            >
-              <div className={`w-16 h-16 ${feature.bg} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
-                <feature.icon className={`w-8 h-8 ${feature.color}`} />
+        {/* Recognition Layer: Partner Logos (More Refined) */}
+        <div className="pt-20 border-t border-gray-100">
+          <p className="text-center text-[10px] font-bold uppercase tracking-[0.4em] text-gray-300 mb-14">
+            Strategic Alliances With Global Leaders
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-20 gap-y-12 opacity-30 hover:opacity-100 transition-opacity duration-700">
+            {partners.map((partner) => (
+              <div key={partner.name} className="grayscale hover:grayscale-0 transition-all duration-500">
+                <span className="font-serif font-black text-3xl text-brand-dark tracking-tighter">
+                  {partner.name.toUpperCase()}
+                </span>
               </div>
-              
-              <h3 className="text-2xl font-bold text-brand-dark mb-4 group-hover:text-primary transition-colors">
-                {feature.title}
-              </h3>
-              
-              <p className="text-gray-500 leading-relaxed">
-                {feature.desc}
-              </p>
-
-              {/* Decorative corner element */}
-              <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                <CheckCircle2 className="w-5 h-5 text-primary/20" />
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
-
-        {/* Credibility Footer Stats */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-20 flex flex-wrap justify-center items-center gap-x-16 gap-y-8 pt-16 border-t border-gray-100"
-        >
-          <div className="flex flex-col items-center">
-            <span className="text-3xl font-serif font-bold text-brand-dark">50,000+</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Total Travelers</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-3xl font-serif font-bold text-brand-dark">15+</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Industry Awards</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-3xl font-serif font-bold text-brand-dark">24/7</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Human Support</span>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
