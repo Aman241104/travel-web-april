@@ -30,36 +30,36 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent w-full lg:w-[70%] z-10" />
       </div>
 
-      <div className="container-custom relative z-20 flex-1 flex flex-col justify-center py-12 lg:py-20">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+      <div className="container-custom relative z-20 flex-1 flex flex-col justify-center py-10 lg:py-20">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Content Side */}
           <div className="lg:col-span-7 max-w-[650px]">
             <div>
-              <p className="font-script text-3xl lg:text-4xl text-primary mb-2 drop-shadow-sm">
+              <p className="font-script text-2xl lg:text-4xl text-primary mb-2 drop-shadow-sm">
                 Travel The World, Create Memories
               </p>
               
-              <h1 className="text-7xl lg:text-[92px] font-sans font-black text-gray-900 leading-[1.05] mb-8 tracking-tighter">
+              <h1 className="text-5xl lg:text-[92px] font-sans font-black text-gray-900 leading-[1.1] lg:leading-[1.05] mb-6 lg:mb-8 tracking-tighter">
                 Your Journey, <br />
                 Our <span className="text-primary">Expertise!</span>
               </h1>
               
-              <p className="text-lg lg:text-xl text-gray-700 mb-12 leading-relaxed font-medium max-w-[580px]">
+              <p className="text-base lg:text-xl text-gray-700 mb-10 lg:mb-12 leading-relaxed font-medium max-w-[580px]">
                 Jade Tours and Travels brings your travel dreams to life with tailor-made packages, seamless bookings, and unforgettable experiences across the globe.
               </p>
 
-              <div className="flex flex-wrap items-center gap-6 mb-16">
+              <div className="flex flex-wrap items-center gap-4 lg:gap-6 mb-12 lg:mb-16">
                 <Link 
                   href="#packages" 
-                  className="px-10 py-5 bg-primary text-white font-bold rounded-full flex items-center gap-3 transition-all shadow-xl hover:bg-primary-dark hover:-translate-y-1 active:translate-y-0 group"
+                  className="w-full sm:w-auto px-8 lg:px-10 py-4 lg:py-5 bg-primary text-white font-bold rounded-full flex items-center justify-center lg:justify-start gap-3 transition-all shadow-xl hover:bg-primary-dark hover:-translate-y-1 active:translate-y-0 group"
                 >
                   Explore Packages
                   <Plane className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 </Link>
                 <Link 
                   href="#contact" 
-                  className="px-10 py-5 bg-white text-gray-800 border-2 border-gray-100 font-bold rounded-full flex items-center gap-3 transition-all shadow-md hover:border-primary hover:text-primary hover:-translate-y-1 active:translate-y-0 group"
+                  className="w-full sm:w-auto px-8 lg:px-10 py-4 lg:py-5 bg-white text-gray-800 border-2 border-gray-100 font-bold rounded-full flex items-center justify-center lg:justify-start gap-3 transition-all shadow-md hover:border-primary hover:text-primary hover:-translate-y-1 active:translate-y-0 group"
                 >
                   Contact Us
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

@@ -6,9 +6,9 @@ import Image from "next/image";
 
 export default function CTASection() {
   return (
-    <section id="contact" className="py-32 lg:py-48 bg-white overflow-hidden">
+    <section id="contact" className="py-20 lg:py-48 bg-white overflow-hidden">
       <div className="container-custom">
-        <div className="relative bg-[#0B1310] rounded-[64px] overflow-hidden p-16 md:p-32 text-center text-white shadow-[0_50px_100px_rgba(0,0,0,0.4)] group border border-white/5">
+        <div className="relative bg-[#0B1310] rounded-[40px] lg:rounded-[64px] overflow-hidden p-10 lg:p-32 text-center text-white shadow-[0_50px_100px_rgba(0,0,0,0.4)] group border border-white/5">
           
           {/* Immersive Background */}
           <div className="absolute inset-0 z-0">
@@ -35,45 +35,45 @@ export default function CTASection() {
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative z-10 flex flex-col items-center"
           >
-            <div className="w-24 h-24 rounded-[32px] bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center mb-12 group-hover:scale-110 group-hover:rotate-6 transition-all duration-1000 group-hover:border-primary/30">
-              <MessageCircle className="w-10 h-10 text-primary" />
+            <div className="w-16 h-16 lg:w-24 lg:h-24 rounded-2xl lg:rounded-[32px] bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center mb-8 lg:mb-12 group-hover:scale-110 group-hover:rotate-6 transition-all duration-1000 group-hover:border-primary/30">
+              <MessageCircle className="w-7 h-7 lg:w-10 lg:h-10 text-primary" />
             </div>
 
-            <h2 className="text-6xl lg:text-[92px] font-sans font-black mb-12 leading-[0.95] max-w-[1000px] tracking-tighter drop-shadow-2xl">
+            <h2 className="text-4xl lg:text-[92px] font-sans font-black mb-8 lg:mb-12 leading-[1.1] lg:leading-[0.95] max-w-[1000px] tracking-tighter drop-shadow-2xl">
               Ready to Write Your <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-accent-gold italic font-serif font-light">Next Great Story?</span>
             </h2>
             
-            <p className="text-2xl text-white/60 mb-20 max-w-2xl mx-auto leading-relaxed font-medium tracking-tight">
+            <p className="text-lg lg:text-2xl text-white/60 mb-12 lg:mb-20 max-w-2xl mx-auto leading-relaxed font-medium tracking-tight">
               Join our elite circle of global travelers and experience the world without compromise. Your private consultation is just a click away.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-10 w-full max-w-2xl mx-auto">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 lg:gap-10 w-full max-w-2xl mx-auto">
               <Link 
                 href="#contact" 
-                className="w-full sm:w-auto px-16 py-8 bg-primary hover:bg-primary-light text-white font-sans font-black rounded-2xl flex items-center justify-center gap-4 transition-all shadow-[0_20px_50px_rgba(46,125,50,0.4)] hover:-translate-y-2 active:translate-y-0 group/btn text-xl uppercase tracking-widest"
+                className="w-full sm:w-auto px-10 py-5 lg:px-16 lg:py-8 bg-primary hover:bg-primary-light text-white font-sans font-black rounded-xl lg:rounded-2xl flex items-center justify-center gap-3 lg:gap-4 transition-all shadow-[0_20px_50px_rgba(46,125,50,0.4)] hover:-translate-y-2 active:translate-y-0 group/btn text-base lg:text-xl uppercase tracking-widest"
               >
                 Start Your Journey
-                <ArrowRight className="w-6 h-6 group-hover/btn:translate-x-3 transition-transform" />
+                <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6 group-hover/btn:translate-x-3 transition-transform" />
               </Link>
               <a 
                 href="tel:+919825438324" 
-                className="w-full sm:w-auto px-16 py-8 bg-white/5 backdrop-blur-xl text-white font-sans font-black rounded-2xl flex items-center justify-center gap-4 transition-all hover:bg-white/10 border border-white/10 text-xl uppercase tracking-widest hover:border-white/20"
+                className="w-full sm:w-auto px-10 py-5 lg:px-16 lg:py-8 bg-white/5 backdrop-blur-xl text-white font-sans font-black rounded-xl lg:rounded-2xl flex items-center justify-center gap-3 lg:gap-4 transition-all hover:bg-white/10 border border-white/10 text-base lg:text-xl uppercase tracking-widest hover:border-white/20"
               >
                 Call Concierge
-                <Phone className="w-6 h-6 text-accent-gold" />
+                <Phone className="w-5 h-5 lg:w-6 lg:h-6 text-accent-gold" />
               </a>
             </div>
 
-            <div className="mt-24 flex flex-wrap justify-center items-center gap-12 opacity-30">
+            <div className="mt-16 lg:mt-24 flex flex-wrap justify-center items-center gap-8 lg:gap-12 opacity-30">
               {[
                 "Expert Curation",
                 "Global Access",
                 "Zero Friction"
               ].map((label, idx) => (
-                <div key={idx} className="flex items-center gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  <span className="text-[11px] font-black uppercase tracking-[0.4em]">{label}</span>
+                <div key={idx} className="flex items-center gap-2 lg:gap-3">
+                  <div className="w-1 h-1 lg:w-1.5 lg:h-1.5 rounded-full bg-primary" />
+                  <span className="text-[9px] lg:text-[11px] font-black uppercase tracking-[0.4em]">{label}</span>
                 </div>
               ))}
             </div>

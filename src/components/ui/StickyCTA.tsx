@@ -25,26 +25,28 @@ export default function StickyCTA() {
   };
 
   return (
-    <div className="fixed bottom-6 md:bottom-8 right-6 md:right-8 z-[90] flex flex-col gap-4">
+    <div className="fixed bottom-4 md:bottom-8 right-4 md:right-8 z-[90] flex flex-col gap-3 md:gap-4">
       <AnimatePresence>
         {isVisible && (
           <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.8 }}
-            className="flex flex-col gap-4"
+            className="flex flex-col gap-3 md:gap-4"
           >
             {/* WhatsApp */}
             <a
               href="https://wa.me/919825438324?text=Hello%20Jade%20Travels%2C%20I%20would%20like%20to%20inquire%20about%20your%20bespoke%20travel%20services."
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative bg-[#25D366] text-white p-4 md:p-5 rounded-full shadow-[0_20px_40px_rgba(37,211,102,0.3)] transition-all duration-500 hover:scale-110 flex items-center justify-center overflow-hidden hover:shadow-[0_25px_50px_rgba(37,211,102,0.5)]"
+              className="group relative bg-[#25D366] text-white p-3.5 md:p-5 rounded-full shadow-[0_20px_40px_rgba(37,211,102,0.3)] transition-all duration-500 hover:scale-110 flex items-center justify-center overflow-hidden hover:shadow-[0_25px_50px_rgba(37,211,102,0.5)]"
               aria-label="Chat on WhatsApp"
             >
               {/* Inner Pulse Effect */}
               <div className="absolute inset-0 bg-white/20 animate-ping opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-              <WhatsAppIcon />
+              <div className="w-5 h-5 md:w-6 md:h-6">
+                <WhatsAppIcon />
+              </div>
               <span className="max-w-0 md:group-hover:max-w-xs md:group-hover:ml-4 transition-all duration-700 ease-[0.16,1,0.3,1] overflow-hidden whitespace-nowrap font-sans text-xs font-black uppercase tracking-widest">
                 Direct Concierge
               </span>
@@ -53,7 +55,7 @@ export default function StickyCTA() {
             {/* Scroll to Top */}
             <button
               onClick={scrollToTop}
-              className="bg-gray-900 text-white p-4 md:p-5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 hover:scale-110 hover:bg-primary flex items-center justify-center border border-white/5"
+              className="bg-gray-900 text-white p-3.5 md:p-5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 hover:scale-110 hover:bg-primary flex items-center justify-center border border-white/5"
               aria-label="Scroll to top"
             >
               <ArrowUp className="w-5 h-5 md:w-6 md:h-6" />
