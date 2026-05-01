@@ -35,35 +35,42 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-32 bg-[#F8F9FA] overflow-hidden relative">
+    <section id="testimonials" className="py-32 bg-white overflow-hidden relative">
       {/* Cinematic Background Detail */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-accent-sand/30 -z-10 skew-x-12 translate-x-1/3" />
-      
+      <div className="absolute top-0 right-0 w-full lg:w-[60%] h-full bg-gradient-to-l from-gray-50 to-transparent -z-10" />
+      <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] -z-10 animate-pulse" />
+
       <div className="container-custom relative z-10">
-        
+
         {/* Header with Trust Reinforcement */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 gap-10">
-          <div className="max-w-[700px]">
-            <div className="flex items-center gap-3 text-primary font-bold uppercase tracking-[0.4em] text-xs mb-6">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-28 gap-12">
+          <div className="max-w-[720px]">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-3 text-primary font-bold uppercase tracking-[0.4em] text-[10px] mb-8"
+            >
               <Sparkles className="w-4 h-4" />
               Social Proof & Credibility
-            </div>
-            <h2 className="text-5xl lg:text-7xl font-serif text-brand-dark mb-0 leading-tight">
+            </motion.div>
+            <h2 className="text-6xl lg:text-[88px] font-sans font-black text-gray-900 leading-[0.95] mb-0 tracking-tighter">
               Voices of the <br />
-              <span className="italic font-light text-primary">Extraordinary.</span>
+              <span className="italic font-serif font-light text-primary drop-shadow-sm">Extraordinary.</span>
             </h2>
           </div>
-          
-          <div className="flex flex-col items-start lg:items-end gap-4">
-            <div className="flex items-center gap-2 px-6 py-3 bg-white rounded-2xl shadow-xl border border-gray-100">
-              <div className="flex items-center gap-1">
+
+          <div className="flex flex-col items-start lg:items-end gap-5">
+            <div className="flex items-center gap-4 px-8 py-4 bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-gray-100/50">
+              <div className="flex items-center gap-1.5">
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-4 h-4 fill-accent-gold text-accent-gold" />
+                  <Star key={s} className="w-5 h-5 fill-accent-gold text-accent-gold" />
                 ))}
               </div>
-              <span className="font-bold text-brand-dark">4.9/5 Rating</span>
+              <div className="w-px h-6 bg-gray-200" />
+              <span className="font-sans font-black text-gray-900 text-lg">4.9/5 Rating</span>
             </div>
-            <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] lg:text-right">
               Based on 2,300+ Verified Journeys
             </p>
           </div>
@@ -71,48 +78,51 @@ export default function Testimonials() {
 
         {/* Dynamic Layout: Featured + Secondary */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
-          
+
           {/* Featured Testimonial */}
           {testimonials.filter(t => t.featured).map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1 }}
-              className="lg:col-span-7 bg-brand-dark rounded-[56px] p-12 md:p-20 text-white relative overflow-hidden group shadow-[0_40px_100px_rgba(10,31,17,0.3)]"
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-7 bg-[#0B1310] rounded-[56px] p-12 md:p-20 text-white relative overflow-hidden group shadow-[0_50px_100px_rgba(0,0,0,0.3)] border border-white/5"
             >
-              <Quote className="absolute top-16 right-16 w-32 h-32 text-white/5 group-hover:text-white/10 transition-colors duration-700" />
-              
+              <Quote className="absolute top-16 right-16 w-48 h-48 text-white/[0.03] group-hover:text-white/[0.07] transition-all duration-1000 rotate-12" />
+
               <div className="relative z-10">
-                <div className="flex items-center gap-1 mb-10">
+                <div className="flex items-center gap-1.5 mb-14">
                   {[...Array(5)].map((_, idx) => (
-                    <Star key={idx} className="w-5 h-5 fill-accent-gold text-accent-gold border-none" />
+                    <Star key={idx} className="w-6 h-6 fill-accent-gold text-accent-gold border-none drop-shadow-[0_0_10px_rgba(197,160,89,0.3)]" />
                   ))}
                 </div>
 
-                <blockquote className="text-3xl md:text-4xl font-serif italic mb-12 leading-tight tracking-tight">
+                <blockquote className="text-3xl md:text-[42px] font-sans font-medium mb-16 leading-[1.2] tracking-tight">
                   &ldquo;{item.quote.split(item.highlight)[0]}
-                  <span className="text-accent-gold not-italic font-bold underline decoration-accent-gold/30 underline-offset-8">
+                  <span className="text-primary italic font-serif font-light underline decoration-primary/30 underline-offset-[12px] decoration-2">
                     {item.highlight}
                   </span>
                   {item.quote.split(item.highlight)[1]}&rdquo;
                 </blockquote>
 
                 <div className="flex items-center gap-8">
-                  <div className="relative w-24 h-24 rounded-3xl overflow-hidden border-4 border-white/10 shadow-2xl group-hover:scale-110 transition-transform duration-700">
+                  <div className="relative w-28 h-28 rounded-[32px] overflow-hidden border-4 border-white/10 shadow-2xl group-hover:scale-110 transition-transform duration-1000 ease-out">
                     <Image src={item.image} alt={item.author} fill className="object-cover" />
                   </div>
                   <div>
-                    <h4 className="text-2xl font-bold mb-1 tracking-tight">{item.author}</h4>
-                    <p className="text-xs text-accent-gold font-bold uppercase tracking-[0.3em] mb-1">{item.role}</p>
-                    <p className="text-xs text-white/40 uppercase tracking-widest">{item.location}</p>
+                    <h4 className="text-3xl font-sans font-black mb-2 tracking-tighter">{item.author}</h4>
+                    <div className="flex flex-col gap-1">
+                      <p className="text-[11px] text-primary font-black uppercase tracking-[0.3em]">{item.role}</p>
+                      <p className="text-[10px] text-white/30 uppercase tracking-[0.2em] font-bold">{item.location}</p>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Decorative accent */}
-              <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-primary/20 rounded-full blur-[100px]" />
+              <div className="absolute -bottom-20 -right-20 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+              <div className="absolute -top-20 -left-20 w-[300px] h-[300px] bg-white/5 rounded-full blur-[100px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             </motion.div>
           ))}
 
@@ -121,40 +131,44 @@ export default function Testimonials() {
             {testimonials.filter(t => !t.featured).map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.2, duration: 1 }}
-                whileHover={{ y: -10 }}
-                className="bg-white p-12 rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.04)] border border-gray-100 flex-1 relative group transition-all duration-700"
+                transition={{ delay: i * 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="bg-white p-12 rounded-[48px] shadow-[0_20px_60px_rgba(0,0,0,0.03)] border border-gray-100 flex-1 relative group transition-all duration-700 hover:shadow-[0_40px_80px_rgba(0,0,0,0.08)]"
               >
-                <div className="flex items-center gap-1 mb-8">
+                <div className="flex items-center gap-1.5 mb-10">
                   {[...Array(5)].map((_, idx) => (
-                    <Star key={idx} className="w-3.5 h-3.5 fill-accent-gold text-accent-gold border-none" />
+                    <Star key={idx} className="w-4 h-4 fill-accent-gold text-accent-gold border-none" />
                   ))}
                 </div>
 
-                <blockquote className="text-xl text-brand-dark font-serif italic mb-10 leading-relaxed tracking-tight">
+                <blockquote className="text-xl text-gray-800 font-sans font-medium mb-12 leading-relaxed tracking-tight">
                   &ldquo;{item.quote.split(item.highlight)[0]}
-                  <span className="font-bold not-italic border-b-2 border-primary/20 text-brand-dark">
+                  <span className="font-black text-gray-900 border-b-2 border-primary/10">
                     {item.highlight}
                   </span>
                   {item.quote.split(item.highlight)[1]}&rdquo;
                 </blockquote>
 
                 <div className="flex items-center gap-6">
-                  <div className="relative w-16 h-16 rounded-2xl overflow-hidden shadow-lg group-hover:scale-110 transition-transform duration-700">
+                  <div className="relative w-16 h-16 rounded-2xl overflow-hidden shadow-xl group-hover:scale-110 transition-transform duration-1000 ease-out">
                     <Image src={item.image} alt={item.author} fill className="object-cover" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-brand-dark leading-tight mb-0.5">{item.author}</h4>
-                    <p className="text-[10px] text-primary font-bold uppercase tracking-[0.2em]">{item.location}</p>
+                    <h4 className="text-xl font-sans font-black text-gray-900 leading-none mb-1.5 tracking-tight">{item.author}</h4>
+                    <p className="text-[10px] text-primary font-black uppercase tracking-[0.2em]">{item.location}</p>
                   </div>
+                </div>
+
+                {/* Micro hover detail */}
+                <div className="absolute top-12 right-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  <Quote className="w-8 h-8 text-primary/5" />
                 </div>
               </motion.div>
             ))}
           </div>
-
         </div>
 
         {/* Global Trust Proof */}

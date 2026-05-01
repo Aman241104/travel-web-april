@@ -42,58 +42,74 @@ export default function USP() {
     <section 
       ref={containerRef} 
       id="process" 
-      className="relative bg-[#F9FAFB] py-32 overflow-hidden scroll-mt-24"
+      className="relative bg-white py-32 lg:py-48 overflow-hidden scroll-mt-24"
     >
+      {/* Visual Depth Elements */}
+      <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/4 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent-gold/5 rounded-full blur-[100px] translate-y-1/2 translate-x-1/4 pointer-events-none" />
+
       {/* Visual Journey Connector (Desktop) */}
-      <div className="absolute top-1/2 left-0 w-full h-1 hidden lg:block -translate-y-1/2 px-20 opacity-10 pointer-events-none">
-        <div className="w-full h-full border-t-4 border-dashed border-primary" />
+      <div className="absolute top-[62%] left-0 w-full h-px hidden lg:block -translate-y-1/2 px-40 opacity-10 pointer-events-none">
+        <div className="w-full h-full border-t-2 border-dashed border-primary" />
       </div>
 
       <div className="container-custom relative z-10">
         
         {/* Header */}
-        <div className="flex flex-col items-center text-center mb-24">
-          <div className="flex items-center gap-3 text-primary font-bold uppercase tracking-[0.4em] text-xs mb-6">
+        <div className="flex flex-col items-center text-center mb-32">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-3 text-primary font-bold uppercase tracking-[0.4em] text-[10px] mb-8"
+          >
             <Sparkles className="w-4 h-4" />
             Our Methodology
-          </div>
-          <h2 className="text-5xl lg:text-7xl font-serif text-brand-dark mb-8 leading-tight max-w-[900px]">
-            The Path to <span className="italic font-light text-primary">Unforgettable</span> Memories.
+          </motion.div>
+          <h2 className="text-6xl lg:text-[88px] font-sans font-black text-gray-900 mb-10 leading-[0.95] max-w-[1000px] tracking-tighter">
+            The Path to <span className="text-primary italic font-serif font-light drop-shadow-sm">Unforgettable</span> Memories.
           </h2>
-          <p className="text-gray-500 max-w-[600px] text-xl leading-relaxed">
+          <p className="text-gray-500 max-w-[640px] text-xl leading-relaxed font-medium tracking-tight">
             A meticulous four-step journey designed to transform your travel dreams into a frictionless reality.
           </p>
         </div>
 
         {/* Steps Journey */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10 mb-32">
           {steps.map((step, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 1, ease: "easeOut" }}
-              className="relative p-12 rounded-[48px] bg-white shadow-[0_30px_80px_rgba(0,0,0,0.06)] border border-gray-100 hover:shadow-[0_50px_100px_rgba(0,0,0,0.1)] transition-all duration-700 group text-center flex flex-col items-center"
+              transition={{ delay: i * 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="relative p-12 rounded-[56px] bg-gray-50/50 backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.03)] border border-gray-100 hover:bg-white hover:shadow-[0_40px_100px_rgba(0,0,0,0.08)] transition-all duration-700 group text-center flex flex-col items-center"
             >
+              {/* Rim Light Border */}
+              <div className="absolute inset-0 ring-1 ring-inset ring-white rounded-[56px] pointer-events-none" />
+
               {/* Prominent Step Number */}
-              <div className="w-20 h-20 bg-brand-dark text-accent-gold rounded-full flex items-center justify-center text-3xl font-serif font-bold mb-10 shadow-2xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-700 border-4 border-white">
-                {step.number}
+              <div className="w-20 h-20 bg-gray-900 text-white rounded-full flex items-center justify-center text-2xl font-sans font-black mb-12 shadow-2xl group-hover:scale-110 group-hover:bg-primary transition-all duration-700 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent pointer-events-none" />
+                <span className="relative z-10">{step.number}</span>
               </div>
 
-              <div className="w-24 h-24 rounded-[32px] bg-gray-50 flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-all duration-700 shadow-sm">
-                <step.icon className="w-10 h-10 text-primary group-hover:text-white transition-colors duration-700" />
+              <div className="w-24 h-24 rounded-[32px] bg-white border border-gray-100 flex items-center justify-center mb-10 group-hover:scale-110 group-hover:border-primary/20 transition-all duration-700 shadow-sm">
+                <step.icon className="w-10 h-10 text-primary transition-transform duration-700" />
               </div>
 
-              <h3 className="text-2xl font-bold text-brand-dark mb-4 group-hover:text-primary transition-colors duration-500">
+              <h3 className="text-3xl font-sans font-black text-gray-900 mb-6 tracking-tighter group-hover:text-primary transition-colors duration-500">
                 {step.title}
               </h3>
               
-              <div className="relative mb-6 min-h-[60px] flex items-center justify-center">
-                <p className="text-brand-dark font-bold text-lg leading-tight group-hover:opacity-0 transition-opacity duration-300">
+              <div className="relative min-h-[100px] w-full flex items-center justify-center overflow-hidden px-4">
+                {/* Short Desc - Slides Out */}
+                <p className="text-gray-900 font-bold text-lg leading-tight transition-all duration-500 group-hover:-translate-y-20 group-hover:opacity-0">
                   {step.shortDesc}
                 </p>
-                <p className="absolute inset-0 w-full text-gray-500 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 px-2 flex items-center justify-center">
+                
+                {/* Detailed Desc - Slides In */}
+                <p className="absolute inset-0 w-full text-gray-500 text-sm leading-relaxed opacity-0 translate-y-10 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-[0.16,1,0.3,1] flex items-center justify-center text-center px-6">
                   {step.desc}
                 </p>
               </div>

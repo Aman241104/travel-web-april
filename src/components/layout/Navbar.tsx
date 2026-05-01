@@ -17,11 +17,47 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    
+    // Scroll spy logic
+    const sections = navLinks.map(link => link.href.replace("#", "")).filter(id => id !== "/");
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    sections.forEach(id => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    // Special case for home
+    const homeObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) setActiveSection("home");
+    }, { threshold: 0.5 });
+    
+    const homeSection = document.getElementById("home");
+    if (homeSection) homeObserver.observe(homeSection);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+      homeObserver.disconnect();
+    };
   }, []);
 
   return (
@@ -49,18 +85,28 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
             <div className="flex items-center gap-6">
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.name} 
-                  href={link.href}
-                  className="font-sans text-sm font-bold text-gray-700 hover:text-primary transition-colors relative group"
-                >
-                  {link.name}
-                  {link.name === "Home" && (
-                    <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-primary rounded-full" />
-                  )}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const id = link.href.replace("#", "");
+                const isActive = (link.name === "Home" && activeSection === "home") || activeSection === id;
+                
+                return (
+                  <Link 
+                    key={link.name} 
+                    href={link.href}
+                    className={`font-sans text-sm font-bold transition-all relative group ${
+                      isActive ? "text-primary" : "text-gray-700 hover:text-primary"
+                    }`}
+                  >
+                    {link.name}
+                    {isActive && (
+                      <motion.span 
+                        layoutId="activeNav"
+                        className="absolute -bottom-1 left-0 w-full h-[3px] bg-primary rounded-full" 
+                      />
+                    )}
+                  </Link>
+                );
+              })}
             </div>
             
             <Link 

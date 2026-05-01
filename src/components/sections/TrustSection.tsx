@@ -31,7 +31,7 @@ const trustFeatures = [
 
 export default function TrustSection() {
   return (
-    <section className="relative z-20 py-32 bg-white overflow-hidden border-t border-gray-100">
+    <section id="visa" className="relative z-20 py-32 bg-white overflow-hidden border-t border-gray-100">
       {/* Background Soft Glows */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_70%_20%,rgba(56,142,60,0.03),transparent_70%)] pointer-events-none" />
       
