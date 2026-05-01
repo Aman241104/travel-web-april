@@ -30,7 +30,7 @@ export default function StickyCTA() {
           >
             {/* WhatsApp */}
             <a
-              href="https://wa.me/919825438324"
+              href="https://wa.me/919825438324?text=Hello%20Jade%20Travels%2C%20I%20would%20like%20to%20inquire%20about%20your%20bespoke%20travel%20services."
               target="_blank"
               rel="noopener noreferrer"
               className="group relative bg-[#C1A67B] text-[#0B1310] p-4 md:p-5 rounded-full shadow-2xl transition-all duration-500 hover:scale-110 flex items-center justify-center overflow-hidden"

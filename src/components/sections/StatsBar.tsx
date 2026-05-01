@@ -71,7 +71,7 @@ export default function ValueProposition() {
             className="absolute top-10 md:top-10 left-0 md:left-10 w-40 md:w-64 aspect-[4/5] bg-bg-light p-3 pb-12 shadow-2xl rounded-sm z-10"
           >
             <div className="relative w-full h-full rounded-sm overflow-hidden">
-              <Image src="/customer/image copy 2.png" alt="Tour" fill className="object-cover" />
+              <Image src="/customer/image_copy_2.png" alt="Tour" fill className="object-cover" />
             </div>
             <p className="absolute bottom-4 left-0 w-full text-center text-brand-navy font-serif italic text-base md:text-lg">Bali, Indonesia</p>
           </motion.div>
@@ -84,7 +84,7 @@ export default function ValueProposition() {
             className="absolute top-32 md:top-32 right-0 md:right-10 w-48 md:w-72 aspect-square bg-brand-yellow p-4 pb-14 shadow-2xl rounded-sm z-20"
           >
             <div className="relative w-full h-full rounded-sm overflow-hidden">
-              <Image src="/customer/image copy 9.png" alt="Tour" fill className="object-cover" />
+              <Image src="/customer/image_copy_9.png" alt="Tour" fill className="object-cover" />
             </div>
             <p className="absolute bottom-4 left-0 w-full text-center text-brand-navy font-serif italic text-lg md:text-xl">The Maldives</p>
           </motion.div>

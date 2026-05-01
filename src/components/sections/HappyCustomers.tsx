@@ -42,7 +42,7 @@ export default function HappyCustomers() {
                   <p className="font-sans text-lg text-[#F2EFE9] mb-6 leading-relaxed">&quot;{t.text}&quot;</p>
                   <div className="flex items-center gap-4">
                     <div className="relative w-10 h-10 rounded-full bg-[#C1A67B]/20 overflow-hidden">
-                      <Image src={i === 0 ? "/assets/owner-image.png" : `/customer/image copy ${i + 2}.png`} alt={t.name} fill className="object-cover" />
+                      <Image src={i === 0 ? "/assets/owner-image.png" : `/customer/image_copy_${i + 2}.png`} alt={t.name} fill className="object-cover" />
                     </div>
                     <div>
                       <p className="font-sans font-bold text-[#F2EFE9] text-sm">{t.name}</p>

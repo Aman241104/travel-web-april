@@ -34,29 +34,6 @@ export default function CTASection() {
           scrub: true,
         }
       });
-
-      gsap.from(".cta-reveal", {
-        yPercent: 100,
-        stagger: 0.1,
-        duration: 1.5,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-        }
-      });
-
-      gsap.from(".contact-node", {
-        y: 30,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 90%",
-        }
-      });
     });
 
     return () => ctx.revert();
@@ -68,7 +45,7 @@ export default function CTASection() {
     <section 
       id="contact" 
       ref={sectionRef} 
-      className="relative py-20 md:py-32 bg-[#0B1310] overflow-hidden scroll-mt-24"
+      className="relative py-16 md:py-24 bg-[#0B1310] overflow-hidden scroll-mt-24"
     >
       <div className="absolute inset-0 z-0">
         <div 
@@ -79,43 +56,35 @@ export default function CTASection() {
       </div>
 
       <div className="container mx-auto px-6 relative z-20">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-12 lg:gap-20">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
           
-          <div className="max-w-4xl">
-            <div className="overflow-hidden mb-6">
-              <span className="cta-reveal inline-block text-[#C1A67B] font-sans text-[10px] md:text-xs font-black uppercase tracking-[0.6em]">
+          <div className="w-full lg:w-3/5">
+            <div className="mb-4">
+              <span className="inline-block text-[#C1A67B] font-sans text-[10px] md:text-xs font-black uppercase tracking-[0.6em]">
                 Excellence Since MMVI
               </span>
             </div>
             
-            <h2 className="font-serif text-4xl md:text-7xl lg:text-[130px] text-[#F2EFE9] leading-[0.9] tracking-tightest mb-10 md:mb-12">
-              <div className="overflow-hidden">
-                <span className="cta-reveal inline-block">Begin Your</span>
-              </div>
-              <div className="overflow-hidden italic font-light text-[#C1A67B]">
-                <span className="cta-reveal inline-block">Private Narrative</span>
-              </div>
+            <h2 className="font-serif text-4xl md:text-7xl lg:text-[110px] text-[#F2EFE9] leading-[0.9] tracking-tightest mb-8">
+              <span className="block">Begin Your</span>
+              <span className="block italic font-light text-[#C1A67B]">Private Narrative</span>
             </h2>
 
-            <div className="overflow-hidden mb-12 md:mb-16">
-              <p className="cta-reveal inline-block text-[#F2EFE9]/50 font-sans text-lg md:text-xl lg:text-2xl leading-relaxed max-w-xl">
-                Connect with our private advisory to begin crafting an itinerary that reflects your unique standard of exploration.
-              </p>
-            </div>
+            <p className="text-[#F2EFE9]/50 font-sans text-lg md:text-xl lg:text-2xl leading-relaxed max-w-xl mb-10">
+              Connect with our private advisory to begin crafting an itinerary that reflects your unique standard of exploration.
+            </p>
 
-            <div className="cta-reveal">
-              <MagneticButton className="group relative px-8 py-5 md:px-12 md:py-6 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.5em] rounded-full overflow-hidden shadow-2xl transition-all duration-700 hover:bg-[#0B1310]">
-                <span className="relative z-10 flex items-center gap-6">
-                  Design Your Escape <ArrowUpRight className="w-5 h-5" />
-                </span>
-              </MagneticButton>
-            </div>
+            <MagneticButton className="group relative px-8 py-5 md:px-12 md:py-6 bg-[#C1A67B] text-[#0B1310] font-bold text-[10px] uppercase tracking-[0.5em] rounded-full overflow-hidden shadow-2xl transition-all duration-700 hover:bg-[#0B1310]">
+              <span className="relative z-10 flex items-center gap-6">
+                Design Your Escape <ArrowUpRight className="w-5 h-5" />
+              </span>
+            </MagneticButton>
           </div>
 
-          <div className="contact-grid flex flex-col gap-6 w-full lg:w-auto mt-16 lg:mt-0">
+          <div className="w-full lg:w-2/5 flex flex-col gap-4 md:gap-6 mt-16 lg:mt-0">
             <a 
               href="tel:+919825438324" 
-              className="contact-node group p-8 md:p-10 rounded-2xl md:rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#C1A67B]/30 transition-all duration-500 flex items-center gap-6 md:gap-8 backdrop-blur-xl"
+              className="group p-8 md:p-10 rounded-2xl md:rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#C1A67B]/30 transition-all duration-500 flex items-center gap-6 backdrop-blur-xl"
             >
               <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-[#C1A67B]/10 flex items-center justify-center text-[#C1A67B] group-hover:scale-110 group-hover:bg-[#C1A67B] group-hover:text-[#0B1310] transition-all duration-500">
                 <Phone className="w-5 h-5 md:w-6 md:h-6" />
@@ -127,8 +96,10 @@ export default function CTASection() {
             </a>
 
             <a 
-              href="#" 
-              className="contact-node group p-8 md:p-10 rounded-2xl md:rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#25D366]/30 transition-all duration-500 flex items-center gap-6 md:gap-8 backdrop-blur-xl"
+              href="https://wa.me/919825438324?text=Hello%20Jade%20Travels%2C%20I%20would%20like%20to%20inquire%20about%20your%20bespoke%20travel%20services." 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-8 md:p-10 rounded-2xl md:rounded-[3rem] bg-[#F2EFE9]/[0.03] border border-[#F2EFE9]/[0.05] hover:bg-[#F2EFE9]/[0.08] hover:border-[#25D366]/30 transition-all duration-500 flex items-center gap-6 backdrop-blur-xl"
             >
               <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:scale-110 group-hover:bg-[#25D366] group-hover:text-[#0B1310] transition-all duration-500">
                 <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />

@@ -2,10 +2,9 @@
 
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Hero from "@/components/Hero";
 import ServicesList from "@/components/ServicesList";
+import EditorialMarquee from "@/components/EditorialMarquee";
 import USP from "@/components/sections/USP";
 import ValuesSection from "@/components/sections/ValuesSection";
 
@@ -13,7 +12,6 @@ const PopularDestinations = dynamic(() => import("@/components/sections/PopularD
 const TravelerSection = dynamic(() => import("@/components/luxury/TravelerSection"), { ssr: false });
 const Testimonials = dynamic(() => import("@/components/luxury/Testimonials"), { ssr: false });
 const CTASection = dynamic(() => import("@/components/CTASection"), { ssr: false });
-const TapeMarquee = dynamic(() => import("@/components/TapeMarquee"), { ssr: false });
 const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed"), { ssr: false });
 
 export default function Home() {
@@ -34,8 +32,51 @@ export default function Home() {
 
     if (!mounted) return <div className="bg-[#0B1310] min-h-screen" />;
 
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "Jade Tours & Travel",
+      "image": "https://jadetravels.co.in/assets/image.png",
+      "@id": "https://jadetravels.co.in",
+      "url": "https://jadetravels.co.in",
+      "telephone": "+919825438324",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Ahmedabad",
+        "addressLocality": "Ahmedabad",
+        "addressRegion": "Gujarat",
+        "postalCode": "380001",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 23.0225,
+        "longitude": 72.5714
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "10:00",
+        "closes": "19:00"
+      },
+      "sameAs": [
+        "https://www.instagram.com/jade.travels/"
+      ]
+    };
+
     return (
         <main className="bg-[#0B1310] min-h-screen relative overflow-clip">
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <div className="relative z-30 bg-[#0B1310] shadow-2xl">
                 {/* Hero Section */}
                 <Hero />
@@ -58,27 +99,8 @@ export default function Home() {
                 {/* About / Our Story */}
                 <TravelerSection />
 
-                {/* Decorative Marquee - Editorial Dual Tape */}
-                <section id="marquee-bottom" className="relative z-20 py-24 md:py-32 overflow-hidden bg-[#0B1310] scroll-mt-24">
-                    <div className="flex flex-col gap-6 md:gap-10">
-                      <div className="relative z-10">
-                        <TapeMarquee 
-                          reverse 
-                          rotate={-1.5} 
-                          speed={50} 
-                          text="Bespoke Travel • Expert Curation • Global Access • Unparalleled Luxury • " 
-                        />
-                      </div>
-                      <div className="relative z-0">
-                        <TapeMarquee 
-                          outline 
-                          rotate={1.5} 
-                          speed={40} 
-                          text="Curated Discovery • Private Aviation • Sanctuary Access • Elite Concierge • " 
-                        />
-                      </div>
-                    </div>
-                </section>
+                {/* Decorative Marquee - Editorial Cinematic Ribbon */}
+                <EditorialMarquee />
 
                 {/* Journal / Instagram Feed */}
                 <InstagramFeed />

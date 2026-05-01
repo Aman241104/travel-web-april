@@ -21,28 +21,28 @@ const testimonials = [
     quote: "The level of discretion and exclusive access Jigar and his team provide is unparalleled. They turned a complex visa situation into a seamless transition.",
     author: "Marcus T.",
     role: "Tech Executive",
-    image: "/customer/image copy.png",
+    image: "/customer/image_copy.png",
     location: "Palo Alto, CA"
   },
   {
     quote: "Finally, a travel concierge that understands the value of time. No friction, no noise—just pure, curated discovery from start to finish.",
     author: "Sarah J.",
     role: "Creative Director",
-    image: "/customer/image copy 2.png",
+    image: "/customer/image_copy_2.png",
     location: "London, UK"
   },
   {
     quote: "The itinerary was a masterpiece of logistics and luxury. Every sanctuary they selected felt like it was discovered just for us.",
     author: "David L.",
     role: "Hedge Fund Manager",
-    image: "/customer/image copy 3.png",
+    image: "/customer/image_copy_3.png",
     location: "New York, NY"
   },
   {
     quote: "Their global network is truly elite. From private island buyouts to off-market estates, Jade unlocks the world's most secluded treasures.",
     author: "Sophia R.",
     role: "Art Consultant",
-    image: "/customer/image copy 4.png",
+    image: "/customer/image_copy_4.png",
     location: "Paris, France"
   }
 ];

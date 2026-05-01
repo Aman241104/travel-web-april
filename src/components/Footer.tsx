@@ -12,9 +12,9 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { name: "Instagram", href: "#" },
+  { name: "Instagram", href: "https://www.instagram.com/jade.travels/" },
   { name: "LinkedIn", href: "#" },
-  { name: "WhatsApp", href: "#" },
+  { name: "WhatsApp", href: "https://wa.me/919825438324?text=Hello%20Jade%20Travels%2C%20I%20would%20like%20to%20inquire%20about%20your%20bespoke%20travel%20services." },
   { name: "Vimeo", href: "#" },
 ];
 

@@ -74,7 +74,7 @@ export default function InstagramFeed() {
 
       // Card Staggered Entry
       const cards = gsap.utils.toArray(".journal-card") as HTMLElement[];
-      cards.forEach((card, i) => {
+      cards.forEach((card) => {
         gsap.from(card, {
           y: 60,
           opacity: 0,
