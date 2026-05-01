@@ -25,69 +25,91 @@ const benefits = [
 
 export default function ValuesSection() {
   return (
-    <section id="about" className="py-32 bg-white overflow-hidden">
-      <div className="container-custom">
-        <div className="flex flex-col lg:flex-row items-center gap-24">
+    <section id="about" className="py-32 bg-white overflow-hidden relative border-t border-black/[0.02]">
+      {/* Refined Background Texture */}
+      <div className="absolute inset-0 opacity-[0.01] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-multiply" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_70%_20%,rgba(197,160,89,0.03),transparent_70%)] pointer-events-none" />
+
+      <div className="container-custom relative z-10">
+        <div className="flex flex-col lg:flex-row items-center gap-28 lg:gap-32">
           
-          {/* Content Side */}
+          {/* Content Side - Precise Typography */}
           <div className="w-full lg:w-1/2">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="text-primary font-bold uppercase tracking-[0.4em] text-xs mb-8 block">
+              <div className="flex items-center gap-3 text-primary font-bold uppercase tracking-[0.4em] text-[10px] mb-10">
+                <Sparkles className="w-4 h-4" />
                 The Jade Distinction
-              </span>
-              <h2 className="text-6xl lg:text-7xl font-serif text-brand-dark leading-[1.05] mb-12">
+              </div>
+              <h2 className="text-[52px] lg:text-[76px] font-serif text-brand-dark leading-[0.95] mb-14 tracking-tighter">
                 Travel Without <br />
-                <span className="italic font-light text-primary">Stress.</span> We Handle <br />
+                <span className="italic font-light text-primary drop-shadow-[0_0_20px_rgba(46,125,50,0.05)]">Stress.</span> We Handle <br />
                 Everything.
               </h2>
 
-              <div className="space-y-12">
+              <div className="space-y-14">
                 {benefits.map((benefit, i) => (
-                  <div key={i} className="flex gap-8 group">
-                    <div className="w-16 h-16 rounded-[22px] bg-gray-50 flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm group-hover:shadow-primary/20 group-hover:-translate-y-1">
-                      <benefit.icon className="w-8 h-8" />
+                  <motion.div 
+                    key={i} 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1, duration: 0.8 }}
+                    className="flex gap-10 group"
+                  >
+                    <div className="w-20 h-20 rounded-[28px] bg-gray-50 flex items-center justify-center text-primary shrink-0 group-hover:bg-brand-dark group-hover:text-accent-gold transition-all duration-700 shadow-[0_10px_30px_rgba(0,0,0,0.03)] group-hover:shadow-[0_20px_50px_rgba(10,31,17,0.2)] group-hover:-translate-y-2 transform group-hover:rotate-6">
+                      <benefit.icon className="w-9 h-9" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-2xl text-brand-dark mb-3 group-hover:text-primary transition-colors">{benefit.title}</h3>
-                      <p className="text-gray-500 leading-relaxed max-w-[420px] text-lg">
+                      <h3 className="font-serif font-bold text-2xl lg:text-3xl text-brand-dark mb-4 group-hover:text-primary transition-colors duration-500 tracking-tight">{benefit.title}</h3>
+                      <p className="text-gray-500 leading-relaxed max-w-[440px] text-lg font-medium tracking-tight">
                         {benefit.desc}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
-              <div className="mt-16 flex flex-wrap items-center gap-8">
-                <Link href="#contact" className="px-12 py-6 bg-brand-dark hover:bg-primary text-white font-bold rounded-2xl transition-all shadow-2xl hover:shadow-primary/30 hover:-translate-y-1 active:translate-y-0 text-lg block">
-                  Plan Your Trip
+              <div className="mt-20 flex flex-wrap items-center gap-10">
+                <Link 
+                  href="#contact" 
+                  className="px-14 py-7 bg-brand-dark text-white font-black rounded-2xl transition-all shadow-[0_30px_60px_rgba(10,31,17,0.3)] hover:shadow-brand-dark/50 hover:-translate-y-2 active:translate-y-0 text-[13px] uppercase tracking-widest relative overflow-hidden group"
+                >
+                  <div className="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                  <span className="relative z-10">Plan Your Trip</span>
                 </Link>
-                <Link href="#process" className="text-brand-dark font-bold uppercase tracking-widest text-xs hover:text-primary transition-colors flex items-center gap-2 group">
+                <Link 
+                  href="#process" 
+                  className="text-brand-dark font-black uppercase tracking-[0.3em] text-[11px] hover:text-primary transition-all flex items-center gap-4 group"
+                >
                   Explore Our Process
-                  <div className="w-8 h-px bg-brand-dark group-hover:w-12 group-hover:bg-primary transition-all" />
+                  <div className="w-12 h-[2px] bg-brand-dark/10 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-primary -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+                  </div>
                 </Link>
               </div>
             </motion.div>
           </div>
 
-          {/* Image Side - Enhanced Collage Style */}
-          <div className="w-full lg:w-1/2 relative h-[700px]">
-            {/* Background decorative element */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -z-10" />
+          {/* Image Side - Cinematic Collage */}
+          <div className="w-full lg:w-1/2 relative h-[800px] flex items-center justify-center">
+            {/* Background cinematic glows */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[140px] -z-10 animate-pulse" />
 
+            {/* Santorini Polaroid */}
             <motion.div 
-              initial={{ opacity: 0, rotate: -8, y: 40 }}
-              whileInView={{ opacity: 1, rotate: -8, y: 0 }}
+              initial={{ opacity: 0, rotate: -12, x: -40, y: 40 }}
+              whileInView={{ opacity: 1, rotate: -12, x: 0, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              whileHover={{ rotate: -4, scale: 1.05, zIndex: 30 }}
-              className="absolute top-0 left-0 lg:-left-16 w-[320px] bg-white p-4 pb-20 shadow-[0_40px_80px_rgba(0,0,0,0.15)] rounded-sm cursor-pointer transition-all duration-500"
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ rotate: -8, scale: 1.08, zIndex: 40, y: -20 }}
+              className="absolute top-0 left-0 lg:-left-20 w-[340px] bg-white p-5 pb-24 shadow-[0_60px_120px_rgba(0,0,0,0.12)] border border-black/[0.02] cursor-pointer transition-all duration-700 ease-out"
             >
-              <div className="relative w-full aspect-[4/5] overflow-hidden rounded-sm mb-6">
+              <div className="relative w-full aspect-[4/5] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000">
                 <Image 
                   src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1200&auto=format&fit=crop" 
                   alt="Tour" 
@@ -95,21 +117,22 @@ export default function ValuesSection() {
                   className="object-cover" 
                 />
               </div>
-              <p className="text-center text-brand-dark font-serif italic text-2xl tracking-tight">Santorini, Greece</p>
-              <div className="absolute top-6 right-6 w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <Heart className="w-5 h-5 text-white fill-white" />
+              <p className="mt-8 text-center text-brand-dark font-serif italic text-3xl tracking-tighter opacity-80">Santorini, Greece</p>
+              <div className="absolute top-10 right-10 w-12 h-12 bg-white/10 backdrop-blur-xl rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <Heart className="w-6 h-6 text-white fill-white" />
               </div>
             </motion.div>
 
+            {/* Maldives Polaroid */}
             <motion.div 
-              initial={{ opacity: 0, rotate: 6, x: 60, y: 20 }}
-              whileInView={{ opacity: 1, rotate: 6, x: 0, y: 0 }}
+              initial={{ opacity: 0, rotate: 8, x: 60, y: 80 }}
+              whileInView={{ opacity: 1, rotate: 8, x: 0, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-              whileHover={{ rotate: 2, scale: 1.05, zIndex: 30 }}
-              className="absolute bottom-10 right-0 lg:-right-10 w-[360px] bg-white p-5 pb-24 shadow-[0_50px_100px_rgba(0,0,0,0.18)] rounded-sm cursor-pointer transition-all duration-500"
+              transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ rotate: 4, scale: 1.05, zIndex: 40, y: -10 }}
+              className="absolute bottom-10 right-0 lg:-right-10 w-[420px] bg-white p-6 pb-28 shadow-[0_80px_160px_rgba(0,0,0,0.15)] border border-black/[0.02] cursor-pointer transition-all duration-700 ease-out"
             >
-              <div className="relative w-full aspect-square overflow-hidden rounded-sm mb-8">
+              <div className="relative w-full aspect-square overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000">
                 <Image 
                   src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=1200&auto=format&fit=crop" 
                   alt="Tour" 
@@ -117,20 +140,20 @@ export default function ValuesSection() {
                   className="object-cover" 
                 />
               </div>
-              <p className="text-center text-brand-dark font-serif italic text-3xl tracking-tight">The Maldives</p>
+              <p className="mt-10 text-center text-brand-dark font-serif italic text-4xl tracking-tighter opacity-80">The Maldives</p>
             </motion.div>
 
-            {/* Small accent image */}
+            {/* Premium Seal */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.5 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-accent-gold rounded-full border-8 border-white shadow-2xl z-20 flex items-center justify-center"
+              transition={{ delay: 0.8, type: "spring", bounce: 0.4 }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-accent-gold rounded-full border-[10px] border-white shadow-[0_20px_50px_rgba(197,160,89,0.4)] z-30 flex items-center justify-center transform hover:rotate-[360deg] transition-transform duration-1000"
             >
-              <div className="text-center text-white">
-                <div className="text-2xl font-bold leading-none">100%</div>
-                <div className="text-[8px] font-black uppercase tracking-widest">Safe</div>
+              <div className="text-center text-brand-dark">
+                <div className="text-3xl font-black leading-none">100%</div>
+                <div className="text-[10px] font-black uppercase tracking-[0.3em]">Bespoke</div>
               </div>
             </motion.div>
           </div>
