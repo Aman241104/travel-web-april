@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 
 if (typeof window !== "undefined") {
@@ -20,6 +20,8 @@ export default function EditorialMarquee() {
   const watermarkRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    
     const ctx = gsap.context(() => {
       // Background Watermark Animation
       gsap.to(watermarkRef.current, {
@@ -71,7 +73,7 @@ export default function EditorialMarquee() {
   return (
     <section 
       ref={containerRef} 
-      className="relative z-20 py-24 md:py-48 overflow-hidden bg-[#0B1310] scroll-mt-24"
+      className="relative z-20 py-16 md:py-32 overflow-hidden bg-[#0B1310] scroll-mt-24"
     >
       {/* Texture Overlay */}
       <div className="absolute inset-0 z-1 pointer-events-none opacity-[0.03] bg-noise" />
@@ -84,14 +86,14 @@ export default function EditorialMarquee() {
         <span className="font-serif text-[40vw] leading-none italic uppercase">Experience</span>
       </div>
 
-      <div className="flex flex-col gap-12 md:gap-20 relative z-10">
+      <div className="flex flex-col gap-10 md:gap-16 relative z-10">
         
         {/* Tape 1: The Narrative */}
-        <div className="relative rotate-[-1.5deg] scale-110">
-          <div className="flex whitespace-nowrap py-6 md:py-10 bg-[#C1A67B]/5 border-y border-[#F2EFE9]/10 backdrop-blur-sm overflow-hidden">
-            <div className="tape-inner-1 flex items-center gap-12 md:gap-24 px-12 will-change-transform">
+        <div className="relative rotate-[-1deg] scale-105">
+          <div className="flex whitespace-nowrap py-4 md:py-8 bg-[#C1A67B]/5 border-y border-[#F2EFE9]/10 backdrop-blur-sm overflow-hidden">
+            <div className="tape-inner-1 flex items-center gap-10 md:gap-16 px-10 will-change-transform">
               {[...Array(2)].map((_, i) => (
-                <div key={i} className="flex items-center gap-12 md:gap-24">
+                <div key={i} className="flex items-center gap-10 md:gap-16">
                   <MarqueeChunk text="Bespoke Travel" />
                   <MarqueeImage src={marqueeImages[0]} />
                   <MarqueeChunk text="Expert Curation" italic />
@@ -106,11 +108,11 @@ export default function EditorialMarquee() {
         </div>
 
         {/* Tape 2: The Capabilities */}
-        <div className="relative rotate-[1.5deg] scale-110">
-          <div className="flex whitespace-nowrap py-6 md:py-10 bg-white/5 border-y border-[#F2EFE9]/10 backdrop-blur-md overflow-hidden">
-            <div className="tape-inner-2 flex items-center gap-12 md:gap-24 px-12 -translate-x-1/2 will-change-transform">
+        <div className="relative rotate-[1deg] scale-105">
+          <div className="flex whitespace-nowrap py-4 md:py-8 bg-white/5 border-y border-[#F2EFE9]/10 backdrop-blur-md overflow-hidden">
+            <div className="tape-inner-2 flex items-center gap-10 md:gap-16 px-10 -translate-x-1/2 will-change-transform">
               {[...Array(2)].map((_, i) => (
-                <div key={i} className="flex items-center gap-12 md:gap-24">
+                <div key={i} className="flex items-center gap-10 md:gap-16">
                   <MarqueeChunk text="Private Aviation" outline />
                   <MarqueeImage src={marqueeImages[3]} rounded />
                   <MarqueeChunk text="Sanctuary Access" />
@@ -136,7 +138,7 @@ export default function EditorialMarquee() {
 function MarqueeChunk({ text, italic = false, outline = false }: { text: string; italic?: boolean; outline?: boolean }) {
   return (
     <span className={`
-      font-serif text-4xl md:text-7xl lg:text-8xl tracking-tightest px-4
+      font-serif text-3xl md:text-5xl lg:text-6xl tracking-tightest px-3
       ${italic ? "italic" : ""}
       ${outline 
         ? "text-transparent stroke-text opacity-40" 
@@ -156,7 +158,7 @@ function MarqueeChunk({ text, italic = false, outline = false }: { text: string;
 function MarqueeImage({ src, rounded = false }: { src: string; rounded?: boolean }) {
   return (
     <div className={`
-      relative w-20 h-20 md:w-32 md:h-32 overflow-hidden border border-[#F2EFE9]/20 shadow-2xl
+      relative w-16 h-16 md:w-24 md:h-24 overflow-hidden border border-[#F2EFE9]/20 shadow-2xl
       ${rounded ? "rounded-full" : "rounded-2xl rotate-3"}
     `}>
       <Image 

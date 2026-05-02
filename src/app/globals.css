@@ -45,29 +45,29 @@ body {
 }
 
 h1 {
-  font-size: 56px;
-  line-height: 64px;
-  margin-bottom: 24px;
+  font-size: 40px;
+  line-height: 48px;
+  margin-bottom: 16px;
 }
 
 h2 {
-  font-size: 40px;
-  line-height: 48px;
-  margin-bottom: 20px;
+  font-size: 28px;
+  line-height: 36px;
+  margin-bottom: 12px;
 }
 
 h3 {
-  font-size: 24px;
-  line-height: 32px;
-  margin-bottom: 12px;
+  font-size: 18px;
+  line-height: 26px;
+  margin-bottom: 10px;
 }
 
 p {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .container-custom {
-  max-width: 1600px;
+  max-width: 1400px;
   margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
@@ -75,23 +75,20 @@ p {
 
 @media (min-width: 768px) {
   .container-custom {
-    padding-left: 32px;
-    padding-right: 32px;
+    padding-left: 24px;
+    padding-right: 24px;
   }
+  h1 { font-size: 48px; line-height: 56px; }
+  h2 { font-size: 32px; line-height: 40px; }
 }
 
 @media (min-width: 1024px) {
   .container-custom {
-    padding-left: 48px;
-    padding-right: 48px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
-}
-
-@media (min-width: 1280px) {
-  .container-custom {
-    padding-left: 64px;
-    padding-right: 64px;
-  }
+  h1 { font-size: 64px; line-height: 72px; }
+  h2 { font-size: 40px; line-height: 48px; }
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -130,7 +127,42 @@ p {
   background: #2E7D32;
 }
 
-/* Modern Image Transitions */
+@utility will-change-transform {
+  will-change: transform;
+}
+
+/* Modern Image Transitions - Optimized */
 img {
-  transition: filter 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  .backdrop-blur-3xl, 
+  .backdrop-blur-2xl, 
+  .backdrop-blur-xl {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+  
+  /* Disable expensive transitions on mobile */
+  * {
+    /* transition-duration: 0.3s !important; */
+  }
+
+  /* Optimize images for mobile */
+  img {
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

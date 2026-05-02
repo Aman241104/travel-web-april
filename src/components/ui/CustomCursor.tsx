@@ -12,30 +12,58 @@ export default function CustomCursor() {
 
     if (!cursor || !follower) return;
 
+    // Use quickSetter for high-performance updates
+    const xCursorSet = gsap.quickSetter(cursor, "x", "px");
+    const yCursorSet = gsap.quickSetter(cursor, "y", "px");
+    const xFollowerSet = gsap.quickSetter(follower, "x", "px");
+    const yFollowerSet = gsap.quickSetter(follower, "y", "px");
+
+    // Smooth following variables
+    const mouse = { x: 0, y: 0 };
+    const pos = { x: 0, y: 0 };
+    const ratio = 0.15; // Speed of follower
+
     const moveCursor = (e: MouseEvent) => {
-      gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.1,
-      });
-      gsap.to(follower, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.3,
-      });
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      
+      // Update small cursor immediately
+      xCursorSet(mouse.x);
+      yCursorSet(mouse.y);
     };
+
+    // Use GSAP ticker for the follower's smooth movement
+    const updateFollower = () => {
+      pos.x += (mouse.x - pos.x) * ratio;
+      pos.y += (mouse.y - pos.y) * ratio;
+      
+      xFollowerSet(pos.x);
+      yFollowerSet(pos.y);
+    };
+
+    gsap.ticker.add(updateFollower);
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (target.closest("a, button, .interactive")) {
-        gsap.to(follower, { scale: 3, backgroundColor: "rgba(108, 180, 165, 0.2)", duration: 0.3 });
+        gsap.to(follower, { 
+          scale: 3, 
+          backgroundColor: "rgba(108, 180, 165, 0.2)", 
+          duration: 0.3,
+          ease: "power2.out"
+        });
       }
     };
 
     const handleMouseOut = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (target.closest("a, button, .interactive")) {
-        gsap.to(follower, { scale: 1, backgroundColor: "transparent", duration: 0.3 });
+        gsap.to(follower, { 
+          scale: 1, 
+          backgroundColor: "transparent", 
+          duration: 0.3,
+          ease: "power2.out"
+        });
       }
     };
 
@@ -44,6 +72,7 @@ export default function CustomCursor() {
     window.addEventListener("mouseout", handleMouseOut);
 
     return () => {
+      gsap.ticker.remove(updateFollower);
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("mouseover", handleMouseOver);
       window.removeEventListener("mouseout", handleMouseOut);

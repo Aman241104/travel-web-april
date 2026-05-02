@@ -78,28 +78,28 @@ export default function BookingWidget() {
   };
 
   return (
-    <div className="bg-white rounded-[48px] p-8 lg:p-12 w-full max-w-[580px] mx-auto relative overflow-hidden border border-white shadow-[0_40px_100px_rgba(0,0,0,0.1)]">
+    <div className="bg-white rounded-[24px] lg:rounded-[32px] p-6 lg:p-8 w-full max-w-[580px] mx-auto relative border border-white shadow-[0_40px_100px_rgba(0,0,0,0.1)]">
       
-      {/* Tabs - Enhanced Visuals */}
-      <div className="flex items-center justify-between mb-12 pb-8 border-b border-gray-100">
+      {/* Tabs */}
+      <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-100/60">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => handleTabChange(tab.id)}
-            className={`flex flex-col items-center gap-4 flex-1 transition-all relative group ${
+            className={`flex flex-col items-center gap-2.5 flex-1 transition-all relative group ${
               activeTab === tab.id 
                 ? "text-primary" 
-                : "text-gray-300 hover:text-gray-500"
+                : "text-gray-300 hover:text-gray-400"
             }`}
           >
-            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 ${activeTab === tab.id ? "bg-primary/10 text-primary shadow-inner scale-110" : "bg-transparent group-hover:scale-105"}`}>
-              <tab.icon className="w-7 h-7" />
+            <div className={`w-10 h-10 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center transition-all duration-500 ${activeTab === tab.id ? "bg-primary/10 text-primary scale-110" : "bg-transparent group-hover:scale-105"}`}>
+              <tab.icon className="w-5 h-5 lg:w-6 lg:h-6" />
             </div>
-            <span className="text-[11px] font-black uppercase tracking-[0.25em]">{tab.label}</span>
+            <span className="text-[8px] lg:text-[10px] font-black uppercase tracking-[0.2em]">{tab.label}</span>
             {activeTab === tab.id && (
               <motion.div 
                 layoutId="activeTabUnderline"
-                className="absolute -bottom-8 w-full h-[4px] bg-primary rounded-full"
+                className="absolute -bottom-[18px] w-full h-[3px] bg-primary rounded-full"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
             )}
@@ -114,27 +114,27 @@ export default function BookingWidget() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="flex items-center gap-8 mb-10 px-2 overflow-hidden"
+            className="flex items-center justify-between mb-8 px-2 overflow-hidden"
           >
             {[
               { id: "one-way", label: "One Way" },
               { id: "round-trip", label: "Round Trip" },
               { id: "multi-city", label: "Multi-city" },
             ].map((type) => (
-              <label key={type.id} className="flex items-center gap-3 cursor-pointer group">
-                <div className="relative w-6 h-6 flex items-center justify-center">
+              <label key={type.id} className="flex items-center gap-2.5 cursor-pointer group">
+                <div className="relative w-4.5 h-4.5 flex items-center justify-center">
                   <input 
                     type="radio" 
                     name="tripType" 
                     checked={tripType === type.id}
                     onChange={() => setTripType(type.id)}
-                    className="appearance-none w-6 h-6 border-2 border-gray-200 rounded-full checked:border-primary transition-all cursor-pointer"
+                    className="appearance-none w-4.5 h-4.5 border-2 border-gray-200 rounded-full checked:border-primary transition-all cursor-pointer"
                   />
                   {tripType === type.id && (
-                    <motion.div layoutId="radio-dot" className="absolute w-3 h-3 bg-primary rounded-full" />
+                    <motion.div layoutId="radio-dot" className="absolute w-2 h-2 bg-primary rounded-full" />
                   )}
                 </div>
-                <span className={`text-[13px] font-black uppercase tracking-widest ${tripType === type.id ? "text-gray-950" : "text-gray-400 group-hover:text-gray-600"}`}>
+                <span className={`text-[10px] lg:text-[11px] font-black uppercase tracking-widest ${tripType === type.id ? "text-gray-950" : "text-gray-400 group-hover:text-gray-500"}`}>
                   {type.label}
                 </span>
               </label>
@@ -143,22 +143,20 @@ export default function BookingWidget() {
         )}
       </AnimatePresence>
 
-      {/* Form Fields - Enhanced Contrast and Sizes */}
-      <div className="space-y-10">
-        <div className={`relative grid ${activeTab === "flights" ? "grid-cols-2" : "grid-cols-1"} gap-8`}>
+      {/* Form Fields */}
+      <div className="space-y-6 lg:space-y-7">
+        <div className={`relative grid ${activeTab === "flights" ? "grid-cols-2" : "grid-cols-1"} gap-4 lg:gap-5`}>
           {activeTab === "flights" && (
-            <div className="space-y-4">
-              <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.3em] ml-2">Origin</label>
+            <div className="space-y-2 lg:space-y-2.5">
+              <label className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1">Origin</label>
               <div className="relative group">
-                <div className="absolute left-6 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-gray-400 group-focus-within:text-primary transition-colors">
-                  <MapPin className="w-6 h-6" />
-                </div>
+                <MapPin className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 text-gray-300 group-focus-within:text-primary transition-colors" />
                 <input 
                   type="text" 
                   placeholder="Leaving from"
                   value={formData.from}
                   onChange={(e) => setFormData({...formData, from: e.target.value})}
-                  className="w-full bg-gray-50 border border-gray-200/60 rounded-[24px] h-20 pl-16 pr-6 text-base font-black text-gray-900 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/30 focus:bg-white transition-all shadow-sm placeholder:text-gray-300"
+                  className="w-full bg-gray-50/80 border border-gray-100 rounded-xl lg:rounded-2xl h-14 lg:h-16 pl-11 lg:pl-13 pr-4 text-xs lg:text-sm font-black text-gray-950 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/20 focus:bg-white transition-all placeholder:text-gray-300"
                 />
               </div>
             </div>
@@ -167,26 +165,24 @@ export default function BookingWidget() {
           {activeTab === "flights" && (
             <button 
               onClick={() => setFormData({ ...formData, from: formData.to, to: formData.from })}
-              className="absolute left-1/2 top-[68px] -translate-x-1/2 w-12 h-12 rounded-2xl bg-white border border-gray-100 flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary transition-all shadow-xl z-10 hover:rotate-180 duration-700"
+              className="absolute left-1/2 top-[44px] lg:top-[50px] -translate-x-1/2 w-8 h-8 lg:w-9 lg:h-9 rounded-lg lg:rounded-xl bg-white border border-gray-100 flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary transition-all shadow-md z-10 hover:rotate-180 duration-700"
             >
-              <ArrowLeftRight className="w-5 h-5" />
+              <ArrowLeftRight className="w-3.5 h-3.5" />
             </button>
           )}
 
-          <div className="space-y-4">
-            <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.3em] ml-2">
+          <div className="space-y-2 lg:space-y-2.5">
+            <label className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1">
               {activeTab === "flights" ? "Destination" : activeTab === "hotels" ? "City / Hotel" : "Target Location"}
             </label>
             <div className="relative group">
-              <div className="absolute left-6 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-gray-400 group-focus-within:text-primary transition-colors">
-                <MapPin className="w-6 h-6" />
-              </div>
+              <MapPin className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 text-gray-300 group-focus-within:text-primary transition-colors" />
               <input 
                 type="text" 
                 placeholder={activeTab === "visa" ? "Enter country" : "Where are you going?"}
                 value={formData.to}
                 onChange={(e) => setFormData({...formData, to: e.target.value})}
-                className="w-full bg-gray-50 border border-gray-200/60 rounded-[24px] h-20 pl-16 pr-6 text-base font-black text-gray-900 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/30 focus:bg-white transition-all shadow-sm placeholder:text-gray-300"
+                className="w-full bg-gray-50/80 border border-gray-100 rounded-xl lg:rounded-2xl h-14 lg:h-16 pl-11 lg:pl-13 pr-4 text-xs lg:text-sm font-black text-gray-950 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/20 focus:bg-white transition-all placeholder:text-gray-300"
               />
             </div>
           </div>
@@ -196,20 +192,20 @@ export default function BookingWidget() {
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-6"
+            className="space-y-3"
           >
-            <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.3em] ml-2">
+            <label className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1">
               {activeTab === "hotels" ? "Select Sanctuary Type" : activeTab === "visa" ? "Select Visa Category" : "Select Experience Theme"}
             </label>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-2">
               {subTypeOptions[activeTab]?.map((option) => (
                 <button
                   key={option}
                   onClick={() => setFormData({...formData, subType: option})}
-                  className={`px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all border ${
+                  className={`px-4 py-2.5 lg:px-5 lg:py-3 rounded-lg lg:rounded-xl text-[9px] lg:text-[10px] font-black uppercase tracking-widest transition-all border ${
                     formData.subType === option 
-                      ? "bg-primary text-white border-primary shadow-2xl shadow-primary/20 scale-105" 
-                      : "bg-white text-gray-400 border-gray-100 hover:border-primary/30 hover:text-gray-600"
+                      ? "bg-primary text-white border-primary shadow-lg shadow-primary/10" 
+                      : "bg-white text-gray-400 border-gray-100 hover:border-primary/20 hover:text-gray-600"
                   }`}
                 >
                   {option}
@@ -219,13 +215,13 @@ export default function BookingWidget() {
           </motion.div>
         )}
 
-        <div className={`grid ${activeTab === "visa" || activeTab === "packages" ? "grid-cols-1" : "grid-cols-2"} gap-8`}>
-          <div className="space-y-4">
-            <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.3em] ml-2">
+        <div className={`grid ${activeTab === "visa" || activeTab === "packages" ? "grid-cols-1" : "grid-cols-2"} gap-4 lg:gap-5`}>
+          <div className="space-y-2 lg:space-y-2.5">
+            <label className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1">
               {activeTab === "hotels" ? "Check-in" : activeTab === "flights" ? "Departure" : "Preferred Date"}
             </label>
             <div className="relative group">
-              <Calendar className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-300 group-focus-within:text-primary transition-colors" />
+              <Calendar className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 text-gray-300 group-focus-within:text-primary transition-colors" />
               <input 
                 type="text" 
                 placeholder="Select Date"
@@ -233,18 +229,18 @@ export default function BookingWidget() {
                 onFocus={(e) => (e.target.type = "date")}
                 onBlur={(e) => (e.target.type = "text")}
                 onChange={(e) => setFormData({...formData, departure: e.target.value})}
-                className="w-full bg-gray-50 border border-gray-200/60 rounded-[24px] h-20 pl-16 pr-6 text-base font-black text-gray-900 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/30 focus:bg-white transition-all shadow-sm"
+                className="w-full bg-gray-50/80 border border-gray-100 rounded-xl lg:rounded-2xl h-14 lg:h-16 pl-11 lg:pl-13 pr-4 text-xs lg:text-sm font-black text-gray-950 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/20 focus:bg-white transition-all cursor-pointer"
               />
             </div>
           </div>
           
           {(activeTab === "flights" || activeTab === "hotels") && (
-            <div className="space-y-4">
-              <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.3em] ml-2">
+            <div className="space-y-2 lg:space-y-2.5">
+              <label className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1">
                 {activeTab === "hotels" ? "Check-out" : "Return Date"}
               </label>
               <div className="relative group">
-                <Calendar className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-300 group-focus-within:text-primary transition-colors" />
+                <Calendar className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 text-gray-300 group-focus-within:text-primary transition-colors" />
                 <input 
                   type="text" 
                   placeholder="Select Date"
@@ -253,23 +249,23 @@ export default function BookingWidget() {
                   onBlur={(e) => (e.target.type = "text")}
                   onChange={(e) => setFormData({...formData, returnDate: e.target.value})}
                   disabled={isReturnDisabled}
-                  className={`w-full bg-gray-50 border border-gray-200/60 rounded-[24px] h-20 pl-16 pr-6 text-base font-black text-gray-900 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/30 focus:bg-white transition-all shadow-sm ${isReturnDisabled ? "opacity-20 cursor-not-allowed grayscale" : ""}`}
+                  className={`w-full bg-gray-50/80 border border-gray-100 rounded-xl lg:rounded-2xl h-14 lg:h-16 pl-11 lg:pl-13 pr-4 text-xs lg:text-sm font-black text-gray-950 focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/20 focus:bg-white transition-all cursor-pointer ${isReturnDisabled ? "opacity-30 cursor-not-allowed grayscale" : ""}`}
                 />
               </div>
             </div>
           )}
         </div>
 
-        <div className="space-y-4">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-[0.3em] ml-2">
+        <div className="space-y-2 lg:space-y-2.5">
+          <label className="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1">
             {activeTab === "visa" ? "Number of Applicants" : "Explorers & Cabin Class"}
           </label>
           <div className="relative group">
-            <Users className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-300 group-focus-within:text-primary transition-colors" />
+            <Users className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-4 h-4 lg:w-5 lg:h-5 text-gray-300 group-focus-within:text-primary transition-colors" />
             <select 
               value={formData.travellers}
               onChange={(e) => setFormData({...formData, travellers: e.target.value})}
-              className="w-full bg-gray-50 border border-gray-200/60 rounded-[24px] h-20 pl-16 pr-12 text-base font-black text-gray-900 appearance-none focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/30 focus:bg-white transition-all shadow-sm cursor-pointer"
+              className="w-full bg-gray-50/80 border border-gray-100 rounded-xl lg:rounded-2xl h-14 lg:h-16 pl-11 lg:pl-13 pr-10 text-xs lg:text-sm font-black text-gray-950 appearance-none focus:outline-none focus:ring-4 focus:ring-primary/5 focus:border-primary/20 focus:bg-white transition-all cursor-pointer"
             >
               <option>1 Traveller, Economy</option>
               <option>2 Travellers, Business</option>
@@ -277,20 +273,20 @@ export default function BookingWidget() {
               <option>Group (5+), Economy</option>
               <option>Elite Circle (Private Jet)</option>
             </select>
-            <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 group-hover:text-primary transition-colors">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
+            <div className="absolute right-4 lg:right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 group-hover:text-primary transition-colors">
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
             </div>
           </div>
         </div>
 
         <button 
           onClick={handleSearch}
-          className="w-full bg-primary hover:bg-primary-dark text-white font-black h-24 rounded-[32px] flex items-center justify-center gap-6 transition-all shadow-[0_30px_60px_rgba(56,142,60,0.3)] active:scale-[0.98] group mt-12 overflow-hidden relative"
+          className="w-full bg-primary hover:bg-primary-dark text-white font-black h-14 lg:h-16 rounded-xl lg:rounded-2xl flex items-center justify-center gap-4 transition-all shadow-[0_20px_40px_rgba(56,142,60,0.2)] active:scale-[0.98] group mt-6 lg:mt-8 overflow-hidden relative"
         >
           <div className="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-          <span className="uppercase tracking-[0.35em] text-[13px] relative z-10">Enquire on WhatsApp</span>
-          <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-all group-hover:rotate-12 relative z-10">
-            <Search className="w-6 h-6 group-hover:scale-110 transition-transform" />
+          <span className="uppercase tracking-[0.2em] text-[10px] lg:text-[11px] relative z-10 font-black">Enquire on WhatsApp</span>
+          <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg lg:rounded-xl bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-all group-hover:rotate-12 relative z-10">
+            <Search className="w-4 h-4 lg:w-5 lg:h-5 group-hover:scale-110 transition-transform" />
           </div>
         </button>
       </div>

@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Hero from "@/components/Hero";
 
 if (typeof window !== "undefined") {
@@ -23,11 +23,33 @@ const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed"
 
 export default function Home() {
     useEffect(() => {
-        const timer = setTimeout(() => {
-            ScrollTrigger.refresh();
-        }, 1000);
+        // Advanced robust initialization
+        const handleLoad = () => {
+            ScrollTrigger.refresh(true); // Force a complete recalculation
+        };
+
+        if (document.readyState === 'complete') {
+            handleLoad();
+        } else {
+            window.addEventListener('load', handleLoad);
+        }
+
+        // More frequent refreshes during the first few seconds to catch dynamic content (like lazy loaded images)
+        const timers = [500, 1000, 2000, 3000].map(ms => setTimeout(() => ScrollTrigger.refresh(true), ms));
+        
+        // Listen for all image loads in case native lazy loading delays them
+        const images = document.querySelectorAll('img');
+        const imgLoadHandler = () => ScrollTrigger.refresh();
+        images.forEach(img => {
+            if (!img.complete) {
+                img.addEventListener('load', imgLoadHandler);
+            }
+        });
+
         return () => {
-            clearTimeout(timer);
+            window.removeEventListener('load', handleLoad);
+            timers.forEach(clearTimeout);
+            images.forEach(img => img.removeEventListener('load', imgLoadHandler));
         };
     }, []);
 
@@ -71,7 +93,7 @@ export default function Home() {
     };
 
     return (
-        <main className="bg-white min-h-screen relative overflow-clip font-sans">
+        <main className="bg-white min-h-screen relative font-sans">
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

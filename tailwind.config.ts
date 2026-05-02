@@ -38,14 +38,14 @@ export default {
         "3xl": "48px",
       },
       spacing: {
-        "section-desktop": "120px",
-        "section-tablet": "80px",
-        "section-mobile": "60px",
+        "section-desktop": "80px",
+        "section-tablet": "50px",
+        "section-mobile": "30px",
       },
       fontSize: {
-        "h1": ["56px", "64px"],
-        "h2": ["40px", "48px"],
-        "h3": ["24px", "32px"],
+        "h1": ["48px", "56px"],
+        "h2": ["32px", "40px"],
+        "h3": ["20px", "28px"],
         "body": ["16px", "24px"],
       },
       fontFamily: {

@@ -1,10 +1,14 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { Calendar, Map, Sparkles, Compass, ArrowRight } from "lucide-react";
-import { motion, useInView, useAnimation } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const steps = [
   { 
@@ -40,24 +44,27 @@ const steps = [
 export default function USP() {
   const containerRef = useRef<HTMLDivElement>(null);
   const stepsGridRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(stepsGridRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     
     const ctx = gsap.context(() => {
       // Steps animation
-      gsap.from(".usp-step-card", {
-        y: 60,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 1.2,
-        ease: "expo.out",
-        scrollTrigger: {
-          trigger: ".usp-steps-grid",
-          start: "top 85%",
+      gsap.fromTo(".usp-step-card", 
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.15,
+          duration: 1.2,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: ".usp-steps-grid",
+            start: "top 75%",
+            toggleActions: "play none none none"
+          }
         }
-      });
+      );
 
       // Refresh ScrollTrigger after a short delay
       setTimeout(() => ScrollTrigger.refresh(), 100);
@@ -70,7 +77,7 @@ export default function USP() {
     <section 
       ref={containerRef} 
       id="process" 
-      className="relative bg-white py-24 lg:py-48 overflow-hidden scroll-mt-24"
+      className="relative bg-white py-12 lg:py-24 overflow-hidden scroll-mt-24"
     >
       {/* Visual Depth Elements */}
       <div className="absolute top-0 left-0 w-[600px] lg:w-[1000px] h-[600px] lg:h-[1000px] bg-primary/5 rounded-full blur-[120px] lg:blur-[180px] -translate-y-1/2 -translate-x-1/4 pointer-events-none" />
@@ -89,60 +96,60 @@ export default function USP() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="usp-header flex flex-col items-center text-center mb-20 lg:mb-40"
+          className="usp-header flex flex-col items-center text-center mb-10 lg:mb-16"
         >
-          <div className="flex items-center gap-4 text-primary font-black uppercase tracking-[0.5em] text-[10px] lg:text-[11px] mb-6 lg:mb-8">
+          <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.4em] text-[9px] lg:text-[10px] mb-4 lg:mb-6">
             <Sparkles className="w-4 h-4 lg:w-5 lg:h-5" />
             Our Methodology
           </div>
-          <h2 className="text-[36px] md:text-[52px] lg:text-[80px] xl:text-[90px] font-sans font-black text-gray-950 mb-8 lg:mb-12 leading-[1.1] lg:leading-[0.85] max-w-[1000px] tracking-tighter">
+          <h2 className="text-[28px] md:text-[36px] lg:text-[48px] xl:text-[56px] font-sans font-black text-gray-950 mb-4 lg:mb-6 leading-[1.1] lg:leading-[0.85] max-w-[800px] tracking-tighter">
             The Path to <br />
             <span className="text-primary italic font-serif font-light drop-shadow-sm">Unforgettable</span> Memories.
           </h2>
-          <p className="text-gray-600 max-w-[700px] text-lg lg:text-2xl leading-relaxed font-medium tracking-tight px-4">
+          <p className="text-gray-600 max-w-[540px] text-sm lg:text-lg leading-relaxed font-medium tracking-tight px-4">
             A meticulous four-step journey designed to transform your travel dreams into a frictionless reality.
           </p>
         </motion.div>
 
         {/* Steps Journey */}
-        <div ref={stepsGridRef} className="usp-steps-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-24 lg:mb-40">
+        <div ref={stepsGridRef} className="usp-steps-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-8 mb-12 lg:mb-20">
           {steps.map((step, i) => (
             <div
               key={i}
-              className="usp-step-card relative p-8 lg:p-14 rounded-[48px] lg:rounded-[64px] bg-gray-50/50 backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-gray-100 hover:bg-white hover:shadow-[0_40px_80px_rgba(0,0,0,0.06)] transition-all duration-700 group text-center flex flex-col items-center"
+              className="usp-step-card relative p-5 lg:p-8 rounded-[24px] lg:rounded-[40px] bg-gray-50/50 backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-gray-100 hover:bg-white hover:shadow-[0_40px_80px_rgba(0,0,0,0.06)] transition-all duration-700 group text-center flex flex-col items-center"
             >
               {/* Rim Light Border */}
-              <div className="absolute inset-0 ring-1 ring-inset ring-white rounded-[48px] lg:rounded-[64px] pointer-events-none" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white rounded-[24px] lg:rounded-[40px] pointer-events-none" />
 
               {/* Prominent Step Number */}
-              <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gray-950 text-white rounded-full flex items-center justify-center text-xl lg:text-2xl font-sans font-black mb-8 lg:mb-10 shadow-xl group-hover:scale-110 group-hover:bg-primary transition-all duration-500 relative overflow-hidden">
+              <div className="w-10 h-10 lg:w-14 lg:h-14 bg-gray-950 text-white rounded-full flex items-center justify-center text-base lg:text-lg font-sans font-black mb-5 lg:mb-6 shadow-xl group-hover:scale-110 group-hover:bg-primary transition-all duration-500 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-tr from-black/30 to-transparent pointer-events-none" />
                 <span className="relative z-10">{step.number}</span>
               </div>
 
-              <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-[28px] lg:rounded-[32px] bg-white border border-gray-100 flex items-center justify-center mb-8 lg:mb-10 group-hover:scale-110 group-hover:border-primary/20 transition-all duration-500 shadow-sm group-hover:shadow-lg">
-                <step.icon className="w-8 h-8 lg:w-10 lg:h-10 text-primary transition-transform duration-500" />
+              <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-[16px] lg:rounded-[24px] bg-white border border-gray-100 flex items-center justify-center mb-5 lg:mb-6 group-hover:scale-110 group-hover:border-primary/20 transition-all duration-500 shadow-sm group-hover:shadow-lg">
+                <step.icon className="w-6 h-6 lg:w-8 lg:h-8 text-primary transition-transform duration-500" />
               </div>
 
-              <h3 className="text-2xl lg:text-3xl font-sans font-black text-gray-950 mb-4 lg:mb-6 tracking-tighter group-hover:text-primary transition-colors duration-500 leading-none">
+              <h3 className="text-lg lg:text-xl font-sans font-black text-gray-950 mb-2 lg:mb-3 tracking-tighter group-hover:text-primary transition-colors duration-500 leading-none">
                 {step.title}
               </h3>
               
-              <div className="relative min-h-[100px] lg:min-h-[120px] w-full flex items-center justify-center overflow-hidden px-2">
+              <div className="relative min-h-[70px] lg:min-h-[90px] w-full flex items-center justify-center overflow-hidden px-2">
                 {/* Short Desc - Slides Out */}
-                <p className="text-gray-950 font-black text-base lg:text-lg leading-tight transition-all duration-500 group-hover:-translate-y-20 group-hover:opacity-0 uppercase tracking-tighter">
+                <p className="text-gray-950 font-black text-xs lg:text-sm leading-tight transition-all duration-500 group-hover:-translate-y-16 group-hover:opacity-0 uppercase tracking-tighter">
                   {step.shortDesc}
                 </p>
                 
                 {/* Detailed Desc - Slides In */}
-                <p className="absolute inset-0 w-full text-gray-600 text-xs lg:text-base leading-relaxed opacity-0 translate-y-12 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-[0.16,1,0.3,1] flex items-center justify-center text-center px-4">
+                <p className="absolute inset-0 w-full text-gray-600 text-[9px] lg:text-xs leading-relaxed opacity-0 translate-y-10 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-[0.16,1,0.3,1] flex items-center justify-center text-center px-3">
                   {step.desc}
                 </p>
               </div>
 
               {/* Sequential Connector Line (Mobile/Tablet) */}
               {i < steps.length - 1 && (
-                <div className="lg:hidden absolute -bottom-10 left-1/2 -translate-x-1/2 w-[1px] h-8 border-l-2 border-dotted border-primary opacity-20" />
+                <div className="lg:hidden absolute -bottom-8 left-1/2 -translate-x-1/2 w-[1px] h-6 border-l-2 border-dotted border-primary opacity-20" />
               )}
             </div>
           ))}
@@ -156,14 +163,14 @@ export default function USP() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex flex-col items-center text-center"
         >
-          <div className="relative p-2 bg-white rounded-[32px] shadow-xl border border-gray-100 mb-10 inline-block">
-            <Link href="#contact" className="px-10 py-5 lg:px-20 lg:py-10 bg-gray-950 hover:bg-primary text-white font-black rounded-[20px] lg:rounded-[32px] flex items-center gap-6 transition-all shadow-xl hover:-translate-y-2 active:translate-y-0 group text-sm lg:text-2xl uppercase tracking-[0.2em] relative overflow-hidden">
+          <div className="relative p-1.5 bg-white rounded-[20px] shadow-xl border border-gray-100 mb-6 inline-block">
+            <Link href="#contact" className="px-8 py-3.5 lg:px-12 lg:py-5 bg-gray-950 hover:bg-primary text-white font-black rounded-[14px] lg:rounded-[20px] flex items-center gap-3 transition-all shadow-xl hover:-translate-y-1 active:translate-y-0 group text-[10px] lg:text-base uppercase tracking-[0.2em] relative overflow-hidden">
               <div className="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <span className="relative z-10">Start Planning Your Trip</span>
-              <ArrowRight className="w-5 h-5 lg:w-8 h-8 group-hover:translate-x-4 transition-transform duration-500 relative z-10" />
+              <ArrowRight className="w-3.5 h-3.5 lg:w-5 lg:h-5 group-hover:translate-x-2 transition-transform duration-500 relative z-10" />
             </Link>
           </div>
-          <p className="text-[10px] lg:text-xs font-black text-gray-400 uppercase tracking-[0.5em]">
+          <p className="text-[9px] lg:text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">
             No Commitment • Private Consultation
           </p>
         </motion.div>
@@ -171,5 +178,3 @@ export default function USP() {
     </section>
   );
 }
-
-
