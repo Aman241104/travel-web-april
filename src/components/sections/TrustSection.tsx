@@ -80,7 +80,7 @@ export default function TrustSection() {
                 <ShieldCheck className="w-5 h-5" />
                 Reliability & Excellence
               </div>
-              <h2 className="text-4xl lg:text-[100px] font-sans font-black text-gray-950 leading-[1] mb-12 tracking-tighter">
+              <h2 className="text-[40px] md:text-[52px] lg:text-[75px] xl:text-[85px] font-sans font-black text-gray-950 leading-[1.05] lg:leading-[1] mb-12 tracking-tighter">
                 A Legacy of <br />
                 <span className="text-primary italic font-serif font-light drop-shadow-sm">Uncompromising</span> Trust.
               </h2>

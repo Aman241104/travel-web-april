@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { Calendar, Map, Sparkles, Compass, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useInView, useAnimation } from "framer-motion";
 import Link from "next/link";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 const steps = [
   { 
@@ -38,31 +39,15 @@ const steps = [
 
 export default function USP() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const stepsGridRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(stepsGridRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    // Keep background animations in GSAP as they are smoother for parallax
     const ctx = gsap.context(() => {
-      gsap.from(".usp-header > *", {
-        y: 40,
-        opacity: 0,
-        stagger: 0.2,
-        duration: 1,
-        scrollTrigger: {
-          trigger: ".usp-header",
-          start: "top 90%",
-        }
-      });
-
-      gsap.from(".usp-step-card", {
-        y: 60,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 1.2,
-        ease: "expo.out",
-        scrollTrigger: {
-          trigger: ".usp-steps-grid",
-          start: "top 85%",
-        }
-      });
+      // Refresh ScrollTrigger after a short delay
+      setTimeout(() => ScrollTrigger.refresh(), 100);
     }, containerRef);
 
     return () => ctx.revert();
@@ -72,92 +57,109 @@ export default function USP() {
     <section 
       ref={containerRef} 
       id="process" 
-      className="relative bg-white py-32 lg:py-60 overflow-hidden scroll-mt-24"
+      className="relative bg-white py-24 lg:py-48 overflow-hidden scroll-mt-24"
     >
       {/* Visual Depth Elements */}
-      <div className="absolute top-0 left-0 w-[1000px] h-[1000px] bg-primary/5 rounded-full blur-[180px] -translate-y-1/2 -translate-x-1/4 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-accent-gold/5 rounded-full blur-[150px] translate-y-1/2 translate-x-1/4 pointer-events-none" />
+      <div className="absolute top-0 left-0 w-[600px] lg:w-[1000px] h-[600px] lg:h-[1000px] bg-primary/5 rounded-full blur-[120px] lg:blur-[180px] -translate-y-1/2 -translate-x-1/4 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[500px] lg:w-[800px] h-[500px] lg:h-[800px] bg-accent-gold/5 rounded-full blur-[100px] lg:blur-[150px] translate-y-1/2 translate-x-1/4 pointer-events-none" />
 
       {/* Visual Journey Connector (Desktop) */}
-      <div className="absolute top-[62%] left-0 w-full h-px hidden lg:block -translate-y-1/2 px-48 opacity-15 pointer-events-none">
-        <div className="w-full h-full border-t-4 border-dotted border-primary" />
+      <div className="absolute top-[58%] left-0 w-full h-px hidden lg:block -translate-y-1/2 px-48 opacity-10 pointer-events-none">
+        <div className="w-full h-full border-t-2 border-dotted border-primary" />
       </div>
 
       <div className="container-custom relative z-10">
         
         {/* Header */}
-        <div className="usp-header flex flex-col items-center text-center mb-40">
-          <div className="flex items-center gap-4 text-primary font-black uppercase tracking-[0.5em] text-[11px] mb-8">
-            <Sparkles className="w-5 h-5" />
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="usp-header flex flex-col items-center text-center mb-20 lg:mb-40"
+        >
+          <div className="flex items-center gap-4 text-primary font-black uppercase tracking-[0.5em] text-[10px] lg:text-[11px] mb-6 lg:mb-8">
+            <Sparkles className="w-4 h-4 lg:w-5 lg:h-5" />
             Our Methodology
           </div>
-          <h2 className="text-5xl lg:text-[80px] xl:text-[110px] font-sans font-black text-gray-950 mb-12 leading-[0.85] max-w-[1200px] tracking-tighter">
+          <h2 className="text-[36px] md:text-[52px] lg:text-[80px] xl:text-[90px] font-sans font-black text-gray-950 mb-8 lg:mb-12 leading-[1.1] lg:leading-[0.85] max-w-[1000px] tracking-tighter">
             The Path to <br />
             <span className="text-primary italic font-serif font-light drop-shadow-sm">Unforgettable</span> Memories.
           </h2>
-          <p className="text-gray-600 max-w-[780px] text-xl lg:text-3xl leading-relaxed font-medium tracking-tight">
+          <p className="text-gray-600 max-w-[700px] text-lg lg:text-2xl leading-relaxed font-medium tracking-tight px-4">
             A meticulous four-step journey designed to transform your travel dreams into a frictionless reality.
           </p>
-        </div>
+        </motion.div>
 
         {/* Steps Journey */}
-        <div className="usp-steps-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-14 mb-40">
+        <div ref={stepsGridRef} className="usp-steps-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-24 lg:mb-40">
           {steps.map((step, i) => (
-            <div
+            <motion.div
               key={i}
-              className="usp-step-card relative p-12 lg:p-16 rounded-[64px] lg:rounded-[80px] bg-gray-50/50 backdrop-blur-sm shadow-[0_25px_60px_rgba(0,0,0,0.03)] border border-gray-100 hover:bg-white hover:shadow-[0_50px_100px_rgba(0,0,0,0.08)] transition-all duration-1000 group text-center flex flex-col items-center"
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="usp-step-card relative p-8 lg:p-14 rounded-[48px] lg:rounded-[64px] bg-gray-50/50 backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-gray-100 hover:bg-white hover:shadow-[0_40px_80px_rgba(0,0,0,0.06)] transition-all duration-700 group text-center flex flex-col items-center"
             >
               {/* Rim Light Border */}
-              <div className="absolute inset-0 ring-1 ring-inset ring-white rounded-[64px] lg:rounded-[80px] pointer-events-none" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white rounded-[48px] lg:rounded-[64px] pointer-events-none" />
 
               {/* Prominent Step Number */}
-              <div className="w-24 h-24 bg-gray-950 text-white rounded-full flex items-center justify-center text-3xl font-sans font-black mb-14 shadow-2xl group-hover:scale-110 group-hover:bg-primary transition-all duration-700 relative overflow-hidden">
+              <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gray-950 text-white rounded-full flex items-center justify-center text-xl lg:text-2xl font-sans font-black mb-8 lg:mb-10 shadow-xl group-hover:scale-110 group-hover:bg-primary transition-all duration-500 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-tr from-black/30 to-transparent pointer-events-none" />
                 <span className="relative z-10">{step.number}</span>
               </div>
 
-              <div className="w-28 h-28 rounded-[40px] bg-white border border-gray-100 flex items-center justify-center mb-12 group-hover:scale-110 group-hover:border-primary/20 transition-all duration-700 shadow-sm group-hover:shadow-xl">
-                <step.icon className="w-12 h-12 text-primary transition-transform duration-700" />
+              <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-[28px] lg:rounded-[32px] bg-white border border-gray-100 flex items-center justify-center mb-8 lg:mb-10 group-hover:scale-110 group-hover:border-primary/20 transition-all duration-500 shadow-sm group-hover:shadow-lg">
+                <step.icon className="w-8 h-8 lg:w-10 lg:h-10 text-primary transition-transform duration-500" />
               </div>
 
-              <h3 className="text-4xl font-sans font-black text-gray-950 mb-8 tracking-tighter group-hover:text-primary transition-colors duration-500 leading-none">
+              <h3 className="text-2xl lg:text-3xl font-sans font-black text-gray-950 mb-4 lg:mb-6 tracking-tighter group-hover:text-primary transition-colors duration-500 leading-none">
                 {step.title}
               </h3>
               
-              <div className="relative min-h-[140px] w-full flex items-center justify-center overflow-hidden px-4">
+              <div className="relative min-h-[100px] lg:min-h-[120px] w-full flex items-center justify-center overflow-hidden px-2">
                 {/* Short Desc - Slides Out */}
-                <p className="text-gray-950 font-black text-xl leading-tight transition-all duration-700 group-hover:-translate-y-24 group-hover:opacity-0 uppercase tracking-tighter">
+                <p className="text-gray-950 font-black text-base lg:text-lg leading-tight transition-all duration-500 group-hover:-translate-y-20 group-hover:opacity-0 uppercase tracking-tighter">
                   {step.shortDesc}
                 </p>
                 
                 {/* Detailed Desc - Slides In */}
-                <p className="absolute inset-0 w-full text-gray-600 text-base lg:text-lg leading-relaxed opacity-0 translate-y-16 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-1000 ease-[0.16,1,0.3,1] flex items-center justify-center text-center px-8">
+                <p className="absolute inset-0 w-full text-gray-600 text-xs lg:text-base leading-relaxed opacity-0 translate-y-12 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-[0.16,1,0.3,1] flex items-center justify-center text-center px-4">
                   {step.desc}
                 </p>
               </div>
 
               {/* Sequential Connector Line (Mobile/Tablet) */}
               {i < steps.length - 1 && (
-                <div className="lg:hidden absolute -bottom-12 left-1/2 -translate-x-1/2 w-[2px] h-10 border-l-4 border-dotted border-primary opacity-25" />
+                <div className="lg:hidden absolute -bottom-10 left-1/2 -translate-x-1/2 w-[1px] h-8 border-l-2 border-dotted border-primary opacity-20" />
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Confidence CTA */}
-        <div className="flex flex-col items-center text-center">
-          <div className="relative p-2 bg-white rounded-[40px] shadow-2xl border border-gray-100 mb-12 inline-block">
-            <Link href="#contact" className="px-16 py-8 lg:px-24 lg:py-12 bg-gray-950 hover:bg-primary text-white font-black rounded-[32px] lg:rounded-[40px] flex items-center gap-8 transition-all shadow-2xl hover:-translate-y-3 active:translate-y-0 group text-xl lg:text-3xl uppercase tracking-[0.3em] relative overflow-hidden">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex flex-col items-center text-center"
+        >
+          <div className="relative p-2 bg-white rounded-[32px] shadow-xl border border-gray-100 mb-10 inline-block">
+            <Link href="#contact" className="px-10 py-5 lg:px-20 lg:py-10 bg-gray-950 hover:bg-primary text-white font-black rounded-[20px] lg:rounded-[32px] flex items-center gap-6 transition-all shadow-xl hover:-translate-y-2 active:translate-y-0 group text-sm lg:text-2xl uppercase tracking-[0.2em] relative overflow-hidden">
               <div className="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <span className="relative z-10">Start Planning Your Trip</span>
-              <ArrowRight className="w-8 h-8 lg:w-10 lg:h-10 group-hover:translate-x-6 transition-transform duration-700 relative z-10" />
+              <ArrowRight className="w-5 h-5 lg:w-8 h-8 group-hover:translate-x-4 transition-transform duration-500 relative z-10" />
             </Link>
           </div>
-          <p className="text-sm lg:text-base font-black text-gray-400 uppercase tracking-[0.6em]">
+          <p className="text-[10px] lg:text-xs font-black text-gray-400 uppercase tracking-[0.5em]">
             No Commitment • Private Consultation
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+
+

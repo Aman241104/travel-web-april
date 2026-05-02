@@ -71,7 +71,7 @@ export default function WhyChooseUs() {
             <span className="font-script text-3xl lg:text-5xl text-primary mb-3 block drop-shadow-[0_2px_15px_rgba(56,142,60,0.5)]">
               Why Choose Us
             </span>
-            <h2 className="text-5xl lg:text-[110px] font-sans font-black text-white leading-[1] lg:leading-[0.9] mb-8 tracking-tighter drop-shadow-2xl">
+            <h2 className="text-[40px] md:text-[52px] lg:text-[75px] xl:text-[85px] font-sans font-black text-white leading-[1.05] lg:leading-[0.9] mb-8 lg:mb-12 tracking-tighter drop-shadow-2xl">
               Travel Made Easy, <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">Memories That Last.</span>
             </h2>

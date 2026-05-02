@@ -102,7 +102,7 @@ export default function Hero() {
               </div>
               
               <div className="hero-title-part">
-                <h1 className="text-5xl lg:text-[100px] font-sans font-black text-gray-950 leading-[1] lg:leading-[0.95] mb-6 lg:mb-8 tracking-tighter">
+                <h1 className="text-[40px] md:text-[64px] lg:text-[80px] xl:text-[90px] font-sans font-black text-gray-950 leading-[1.05] lg:leading-[0.95] mb-6 lg:mb-8 tracking-tighter">
                   Your Journey, <br />
                   Our <span className="text-primary italic font-serif font-light">Expertise!</span>
                 </h1>

@@ -124,7 +124,7 @@ export default function PopularDestinations() {
               Elite Travel Collection
             </div>
             
-            <h2 className="text-5xl lg:text-[130px] font-sans font-black text-white leading-[1] lg:leading-[0.85] mb-10 lg:mb-14 tracking-tighter">
+            <h2 className="text-[40px] md:text-[52px] lg:text-[75px] xl:text-[90px] font-sans font-black text-white leading-[1.05] lg:leading-[0.85] mb-10 lg:mb-14 tracking-tighter">
               World Class <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-accent-gold italic font-serif font-light drop-shadow-2xl">Exclusives.</span>
             </h2>
@@ -225,7 +225,7 @@ export default function PopularDestinations() {
                       </div>
                     </div>
                     
-                    <h3 className="text-4xl lg:text-[100px] font-sans font-black text-white mb-8 lg:mb-16 leading-[0.9] tracking-tighter transition-all duration-1000 group-hover:text-primary">
+                    <h3 className="text-4xl lg:text-[70px] xl:text-[85px] font-sans font-black text-white mb-8 lg:mb-16 leading-[0.9] tracking-tighter transition-all duration-1000 group-hover:text-primary">
                       {dest.name}
                     </h3>
                     
