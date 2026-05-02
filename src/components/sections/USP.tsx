@@ -44,8 +44,21 @@ export default function USP() {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    // Keep background animations in GSAP as they are smoother for parallax
+    
     const ctx = gsap.context(() => {
+      // Steps animation
+      gsap.from(".usp-step-card", {
+        y: 60,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 1.2,
+        ease: "expo.out",
+        scrollTrigger: {
+          trigger: ".usp-steps-grid",
+          start: "top 85%",
+        }
+      });
+
       // Refresh ScrollTrigger after a short delay
       setTimeout(() => ScrollTrigger.refresh(), 100);
     }, containerRef);
@@ -94,11 +107,8 @@ export default function USP() {
         {/* Steps Journey */}
         <div ref={stepsGridRef} className="usp-steps-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-24 lg:mb-40">
           {steps.map((step, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="usp-step-card relative p-8 lg:p-14 rounded-[48px] lg:rounded-[64px] bg-gray-50/50 backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.02)] border border-gray-100 hover:bg-white hover:shadow-[0_40px_80px_rgba(0,0,0,0.06)] transition-all duration-700 group text-center flex flex-col items-center"
             >
               {/* Rim Light Border */}
@@ -134,7 +144,7 @@ export default function USP() {
               {i < steps.length - 1 && (
                 <div className="lg:hidden absolute -bottom-10 left-1/2 -translate-x-1/2 w-[1px] h-8 border-l-2 border-dotted border-primary opacity-20" />
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
 

@@ -155,7 +155,7 @@ export default function ValuesSection() {
             <div 
               className="polaroid-item absolute top-10 left-4 md:top-20 md:left-10 lg:top-0 lg:-left-8 w-[220px] md:w-[320px] lg:w-[400px] bg-white p-3 md:p-6 pb-12 md:pb-24 lg:pb-32 shadow-[0_30px_70px_rgba(0,0,0,0.08)] border border-gray-100 cursor-pointer transition-all duration-700 ease-out z-20 hover:z-40 hover:scale-105 hover:-translate-y-6"
             >
-              <div className="relative w-full aspect-[4/5] overflow-hidden grayscale hover:grayscale-0 transition-all duration-[1.2s] rounded-lg md:rounded-2xl">
+              <div className="relative w-full aspect-[4/5] overflow-hidden grayscale-[0.6] group-hover:grayscale-0 transition-all duration-[1.2s] rounded-lg md:rounded-2xl">
                 <Image 
                   src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1200&auto=format&fit=crop" 
                   alt="Tour" 
@@ -170,7 +170,7 @@ export default function ValuesSection() {
             <div 
               className="polaroid-item absolute bottom-10 right-4 md:bottom-20 md:right-10 lg:bottom-0 lg:-right-8 w-[240px] md:w-[380px] lg:w-[480px] bg-white p-4 md:p-8 pb-16 md:pb-32 lg:pb-40 shadow-[0_50px_100px_rgba(0,0,0,0.12)] border border-gray-100 cursor-pointer transition-all duration-700 ease-out z-10 hover:z-40 hover:scale-105 hover:-translate-y-6"
             >
-              <div className="relative w-full aspect-square overflow-hidden grayscale hover:grayscale-0 transition-all duration-[1.2s] rounded-lg md:rounded-2xl">
+              <div className="relative w-full aspect-square overflow-hidden grayscale-[0.4] group-hover:grayscale-0 transition-all duration-[1.2s] rounded-lg md:rounded-2xl">
                 <Image 
                   src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=1200&auto=format&fit=crop" 
                   alt="Tour" 

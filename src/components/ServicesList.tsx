@@ -89,7 +89,7 @@ export default function ServicesList() {
       <div className="container-custom relative z-10">
         
         {/* Header - Bright Typography */}
-        <div className="services-header flex flex-col lg:flex-row lg:items-end justify-between mb-20 lg:mb-32 gap-12">
+        <div className="services-header grid lg:grid-cols-[1.2fr_0.8fr] items-end mb-20 lg:mb-32 gap-12 lg:gap-24">
           <div className="max-w-4xl">
             <div className="flex items-center gap-4 text-primary font-black uppercase tracking-[0.5em] text-[11px] mb-8 lg:mb-10">
               <Sparkles className="w-5 h-5" />
@@ -100,7 +100,7 @@ export default function ServicesList() {
               <span className="text-primary italic font-serif font-light drop-shadow-sm">Services.</span>
             </h2>
           </div>
-          <p className="text-gray-600 lg:max-w-[540px] text-xl lg:text-3xl leading-relaxed font-medium tracking-tight">
+          <p className="text-gray-600 text-xl lg:text-3xl leading-relaxed font-medium tracking-tight">
             From the first spark of inspiration to the final return, we manage every layer of your travel with surgical precision and artistic flair.
           </p>
         </div>
@@ -122,7 +122,7 @@ export default function ServicesList() {
                 }`}>
                   <service.icon className={`w-12 h-12 lg:w-16 lg:h-16 ${service.color === 'bg-primary' ? "text-white" : "text-primary"}`} />
                 </div>
-                <h3 className="text-4xl lg:text-[72px] font-sans font-black mb-8 lg:mb-12 tracking-tighter leading-[0.95]">{service.title}</h3>
+                <h3 className="text-3xl md:text-4xl lg:text-[72px] font-sans font-black mb-8 lg:mb-12 tracking-tighter leading-[0.95]">{service.title}</h3>
                 <p className={`text-xl lg:text-3xl mb-16 lg:mb-28 leading-relaxed max-w-[650px] font-medium ${
                   service.color === 'bg-primary' ? "text-white/80" : "text-gray-600"
                 }`}>

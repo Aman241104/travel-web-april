@@ -71,7 +71,7 @@ export default function WhyChooseUs() {
             <span className="font-script text-3xl lg:text-5xl text-primary mb-3 block drop-shadow-[0_2px_15px_rgba(56,142,60,0.5)]">
               Why Choose Us
             </span>
-            <h2 className="text-[40px] md:text-[52px] lg:text-[75px] xl:text-[85px] font-sans font-black text-white leading-[1.05] lg:leading-[0.9] mb-8 lg:mb-12 tracking-tighter drop-shadow-2xl">
+            <h2 className="text-[40px] md:text-[52px] lg:text-[75px] xl:text-[85px] font-sans font-black text-white leading-[1] lg:leading-[0.85] mb-8 lg:mb-12 tracking-tighter drop-shadow-2xl">
               Travel Made Easy, <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">Memories That Last.</span>
             </h2>
@@ -105,9 +105,9 @@ export default function WhyChooseUs() {
           </div>
 
           {/* Right Image Grid */}
-          <div className="why-images relative grid grid-cols-2 gap-6 lg:gap-10 h-[500px] lg:h-[900px]">
+          <div className="why-images relative grid grid-cols-2 gap-6 lg:gap-8 h-[400px] md:h-[600px] lg:h-[750px] mt-12 lg:mt-0">
             {/* Main Vertical Image */}
-            <div className="why-image-item relative h-full rounded-[48px] lg:rounded-[64px] overflow-hidden group shadow-[0_60px_120px_rgba(0,0,0,0.7)] border border-white/10">
+            <div className="why-image-item relative h-full rounded-[32px] lg:rounded-[48px] overflow-hidden group shadow-[0_40px_80px_rgba(0,0,0,0.5)] border border-white/10">
               <Image 
                 src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop" 
                 alt="Tropical Beach"

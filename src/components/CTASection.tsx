@@ -55,7 +55,7 @@ export default function CTASection() {
               <MessageCircle className="w-10 h-10 lg:w-14 lg:h-14 text-primary" />
             </div>
 
-            <h2 className="text-4xl lg:text-[110px] font-sans font-black mb-10 lg:mb-16 leading-[1.05] lg:leading-[0.9] max-w-[1200px] tracking-tighter drop-shadow-2xl">
+            <h2 className="text-3xl md:text-4xl lg:text-[110px] font-sans font-black mb-10 lg:mb-16 leading-[1.05] lg:leading-[0.9] max-w-[1200px] tracking-tighter drop-shadow-2xl">
               Ready to Write Your <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-accent-gold italic font-serif font-light">Next Great Story?</span>
             </h2>

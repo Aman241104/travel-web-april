@@ -43,8 +43,8 @@ export default function TrustSection() {
         duration: 1.2,
         ease: "expo.out",
         scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 40%",
+          trigger: ".trust-features-grid",
+          start: "top 85%",
         }
       });
 
@@ -56,7 +56,7 @@ export default function TrustSection() {
         ease: "power2.out",
         scrollTrigger: {
           trigger: ".partners-layer",
-          start: "top 90%",
+          start: "top 95%",
         }
       });
     }, containerRef);
@@ -71,11 +71,15 @@ export default function TrustSection() {
       <div className="absolute bottom-0 left-0 w-1/2 h-full bg-[radial-gradient(circle_at_30%_80%,rgba(56,142,60,0.015),transparent_70%)] pointer-events-none" />
       
       <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center mb-24 lg:mb-48">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-32 items-center mb-24 lg:mb-48">
           
           {/* Left: Content */}
-          <div className="space-y-12 lg:space-y-16">
-            <div>
+          <div className="space-y-12 lg:space-y-16 relative">
+            {/* Background Decorative Circles */}
+            <div className="absolute -top-20 -left-20 w-[400px] h-[400px] border border-primary/5 rounded-full pointer-events-none" />
+            <div className="absolute -top-32 -left-32 w-[600px] h-[600px] border border-primary/5 rounded-full pointer-events-none" />
+            
+            <div className="relative z-10">
               <div className="flex items-center gap-4 text-primary font-black uppercase tracking-[0.4em] text-[11px] mb-8">
                 <ShieldCheck className="w-5 h-5" />
                 Reliability & Excellence
