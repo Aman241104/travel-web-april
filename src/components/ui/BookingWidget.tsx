@@ -191,18 +191,18 @@ export default function BookingWidget() {
       </AnimatePresence>
 
       {/* Form Fields - Editorial Grid */}
-      <div className="space-y-3.5 lg:space-y-6">
-        <div className={`relative grid ${activeTab === "flights" ? "grid-cols-2" : "grid-cols-1"} gap-3 lg:gap-4`}>
+      <div className="space-y-4 lg:space-y-6">
+        <div className={`relative flex flex-col ${activeTab === "flights" ? "sm:grid sm:grid-cols-2" : ""} gap-3 lg:gap-4`}>
           {activeTab === "flights" && (
-            <div className="space-y-1 lg:space-y-2">
-              <label className="text-[7px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">Departure Point</label>
+            <div className="space-y-1.5 lg:space-y-2">
+              <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">Departure Point</label>
               <div className="relative group">
                 <input 
                   type="text" 
                   placeholder="Manifest from"
                   value={formData.from}
                   onChange={(e) => setFormData({...formData, from: e.target.value})}
-                  className="w-full bg-gray-50/50 border border-gray-100 rounded-[12px] lg:rounded-[16px] h-11 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[10px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-primary/30 focus:bg-white transition-all placeholder:text-gray-300 uppercase tracking-tight"
+                  className="w-full bg-gray-50/50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[11px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-primary/30 focus:bg-white transition-all placeholder:text-gray-300 uppercase tracking-tight"
                 />
               </div>
             </div>
@@ -211,14 +211,14 @@ export default function BookingWidget() {
           {activeTab === "flights" && (
             <button 
               onClick={() => setFormData({ ...formData, from: formData.to, to: formData.from })}
-              className="absolute left-1/2 top-[32px] lg:top-[48px] -translate-x-1/2 w-7 h-7 lg:w-8 lg:h-8 rounded-lg bg-[#050807] text-white flex items-center justify-center transition-all shadow-lg z-10 hover:rotate-180 duration-700 active:scale-90"
+              className="absolute left-[85%] sm:left-1/2 top-[44px] sm:top-[48px] -translate-x-1/2 w-8 h-8 rounded-xl bg-[#050807] text-white flex items-center justify-center transition-all shadow-lg z-10 hover:rotate-180 duration-700 active:scale-90 border border-white/20"
             >
-              <ArrowLeftRight className="w-3 h-3 lg:w-3.5 lg:h-3.5" />
+              <ArrowLeftRight className="w-3.5 h-3.5" />
             </button>
           )}
 
-          <div className="space-y-1 lg:space-y-2">
-            <label className="text-[7px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+          <div className="space-y-1.5 lg:space-y-2">
+            <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
               {activeTab === "flights" ? "Target Sanctuary" : activeTab === "hotels" ? "Refined Locale" : "Global Target"}
             </label>
             <div className="relative group">
@@ -227,19 +227,19 @@ export default function BookingWidget() {
                 placeholder={activeTab === "visa" ? "Destination State" : "Where Shall We Lead?"}
                 value={formData.to}
                 onChange={(e) => setFormData({...formData, to: e.target.value})}
-                className="w-full bg-gray-50/50 border border-gray-100 rounded-[12px] lg:rounded-[16px] h-11 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[10px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-primary/30 focus:bg-white transition-all placeholder:text-gray-300 uppercase tracking-tight"
+                className="w-full bg-gray-50/50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[11px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-primary/30 focus:bg-white transition-all placeholder:text-gray-300 uppercase tracking-tight"
               />
             </div>
           </div>
         </div>
 
         <div className={`grid ${activeTab === "visa" || activeTab === "packages" ? "grid-cols-1" : "grid-cols-2"} gap-3 lg:gap-4`}>
-          <div className="space-y-1 lg:space-y-2">
-            <label className="text-[7px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+          <div className="space-y-1.5 lg:space-y-2">
+            <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
               Timeline Start
             </label>
             <div className="relative group">
-              <Calendar className="absolute left-3.5 lg:left-5 top-1/2 -translate-y-1/2 w-3 h-3 lg:w-4 lg:h-4 text-primary opacity-20" />
+              <Calendar className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary opacity-30" />
               <input 
                 type="text" 
                 placeholder="Initiate Date"
@@ -247,18 +247,18 @@ export default function BookingWidget() {
                 onFocus={(e) => (e.target.type = "date")}
                 onBlur={(e) => (e.target.type = "text")}
                 onChange={(e) => setFormData({...formData, departure: e.target.value})}
-                className="w-full bg-gray-50/50 border border-gray-100 rounded-[12px] lg:rounded-[16px] h-11 lg:h-16 pl-9 lg:pl-12 pr-4 lg:pr-6 text-[9px] lg:text-[11px] font-black text-gray-950 focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase"
+                className="w-full bg-gray-50/50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-10 lg:pl-12 pr-4 lg:pr-6 text-[10px] lg:text-[11px] font-black text-gray-950 focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase"
               />
             </div>
           </div>
           
           {(activeTab === "flights" || activeTab === "hotels") && (
-            <div className="space-y-1 lg:space-y-2">
-              <label className="text-[7px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+            <div className="space-y-1.5 lg:space-y-2">
+              <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
                 Timeline Finale
               </label>
               <div className="relative group">
-                <Calendar className="absolute left-3.5 lg:left-5 top-1/2 -translate-y-1/2 w-3 h-3 lg:w-4 lg:h-4 text-primary opacity-20" />
+                <Calendar className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary opacity-30" />
                 <input 
                   type="text" 
                   placeholder="Conclusion Date"
@@ -267,23 +267,23 @@ export default function BookingWidget() {
                   onBlur={(e) => (e.target.type = "text")}
                   onChange={(e) => setFormData({...formData, returnDate: e.target.value})}
                   disabled={isReturnDisabled}
-                  className={`w-full bg-gray-50/50 border border-gray-100 rounded-[12px] lg:rounded-[16px] h-11 lg:h-16 pl-9 lg:pl-12 pr-4 lg:pr-6 text-[9px] lg:text-[11px] font-black text-gray-950 focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase ${isReturnDisabled ? "opacity-20 grayscale cursor-not-allowed" : ""}`}
+                  className={`w-full bg-gray-50/50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-10 lg:pl-12 pr-4 lg:pr-6 text-[10px] lg:text-[11px] font-black text-gray-950 focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase ${isReturnDisabled ? "opacity-20 grayscale cursor-not-allowed" : ""}`}
                 />
               </div>
             </div>
           )}
         </div>
 
-        <div className="space-y-1 lg:space-y-2">
-          <label className="text-[7px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+        <div className="space-y-1.5 lg:space-y-2">
+          <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
             Explorer Specification
           </label>
           <div className="relative group">
-            <Users className="absolute left-3.5 lg:left-5 top-1/2 -translate-y-1/2 w-3 h-3 lg:w-4 lg:h-4 text-primary opacity-20" />
+            <Users className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary opacity-30" />
             <select 
               value={formData.travellers}
               onChange={(e) => setFormData({...formData, travellers: e.target.value})}
-              className="w-full bg-gray-50/50 border border-gray-100 rounded-[12px] lg:rounded-[16px] h-11 lg:h-16 pl-9 lg:pl-12 pr-8 lg:pr-10 text-[9px] lg:text-[11px] font-black text-gray-950 appearance-none focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase"
+              className="w-full bg-gray-50/50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-10 lg:pl-12 pr-8 lg:pr-10 text-[10px] lg:text-[11px] font-black text-gray-950 appearance-none focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase"
             >
               <option>1 Explorer, First Class</option>
               <option>2 Explorers, Business Elite</option>
@@ -295,10 +295,10 @@ export default function BookingWidget() {
 
         <button 
           onClick={handleSearch}
-          className="w-full bg-[#050807] hover:bg-primary text-white font-black h-12 lg:h-16 rounded-[14px] lg:rounded-[20px] flex items-center justify-center gap-3 lg:gap-4 transition-all shadow-xl active:scale-[0.98] group mt-3 lg:mt-6"
+          className="w-full bg-[#050807] hover:bg-primary text-white font-black h-13 lg:h-16 rounded-[16px] lg:rounded-[20px] flex items-center justify-center gap-3 lg:gap-4 transition-all shadow-xl active:scale-[0.98] group mt-4 lg:mt-6"
         >
-          <span className="uppercase tracking-[0.3em] lg:tracking-[0.4em] text-[9px] lg:text-[11px] font-black">Commission Curation</span>
-          <Search className="w-3.5 h-3.5 lg:w-5 lg:h-5 group-hover:scale-110 transition-transform" />
+          <span className="uppercase tracking-[0.3em] lg:tracking-[0.4em] text-[10px] lg:text-[11px] font-black">Commission Curation</span>
+          <Search className="w-4 h-4 lg:w-5 lg:h-5 group-hover:scale-110 transition-transform" />
         </button>
         
         <p className="text-center text-[7px] lg:text-[9px] font-bold text-gray-300 uppercase tracking-[0.2em] lg:tracking-[0.4em] pt-1 lg:pt-2 leading-none">

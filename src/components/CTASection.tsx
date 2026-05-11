@@ -151,46 +151,46 @@ export default function CTASection() {
                 <span className="w-8 h-[1px] bg-primary/30" />
               </div>
               
-              <h2 className="text-[32px] md:text-[56px] lg:text-[76px] xl:text-[92px] font-sans font-black leading-[1] tracking-tightest uppercase max-w-6xl">
+              <h2 className="text-[34px] md:text-[56px] lg:text-[76px] xl:text-[92px] font-sans font-black leading-[0.95] lg:leading-[1] tracking-tightest uppercase max-w-6xl">
                 <span className="block cta-headline-line">Ready To Write</span>
-                <span className="block cta-headline-line text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary/40 italic font-serif font-light lowercase">Your</span>
+                <span className="block cta-headline-line text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary/40 italic font-serif font-light lowercase normal-case py-1">your</span>
                 <span className="block cta-headline-line">Legacy?</span>
               </h2>
               
-              <p className="text-gray-400 text-sm lg:text-xl max-w-2xl mx-auto leading-relaxed font-medium tracking-tight opacity-80">
+              <p className="text-gray-400 text-[13px] lg:text-xl max-w-2xl mx-auto leading-relaxed font-medium tracking-tight opacity-90">
                 Join our elite circle of global explorers. Experience the world through a lens of absolute luxury and surgical precision. Your private consultation is the first step toward the impossible.
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-8 lg:gap-12 w-full max-w-3xl mx-auto">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 lg:gap-12 w-full max-w-3xl mx-auto">
               <MagneticButton 
                 onClick={handleCommissionClick}
-                className="w-full sm:w-auto px-12 py-6 lg:px-20 lg:py-8 bg-primary text-white font-black rounded-[24px] lg:rounded-[32px] flex items-center justify-center gap-6 transition-all shadow-[0_30px_70px_rgba(56,142,60,0.4)] group text-[11px] lg:text-sm uppercase tracking-[0.4em] relative overflow-hidden"
+                className="w-full sm:w-auto px-10 py-5 lg:px-20 lg:py-8 bg-primary text-white font-black rounded-2xl lg:rounded-[32px] flex items-center justify-center gap-4 lg:gap-6 transition-all shadow-[0_30px_70px_rgba(56,142,60,0.4)] group text-[11px] lg:text-sm uppercase tracking-[0.3em] relative overflow-hidden active:scale-95"
               >
                 <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
                 <span className="relative z-10">Commission Your Journey</span>
-                <ArrowRight className="w-6 h-6 lg:w-8 lg:h-8 group-hover:translate-x-4 transition-transform duration-700 relative z-10" />
+                <ArrowRight className="w-5 h-5 lg:w-8 lg:h-8 group-hover:translate-x-3 lg:group-hover:translate-x-4 transition-transform duration-700 relative z-10" />
               </MagneticButton>
 
               <MagneticButton 
                 onClick={handleConciergeClick}
-                className="w-full sm:w-auto px-12 py-6 lg:px-20 lg:py-8 bg-white/5 backdrop-blur-3xl text-white font-black rounded-[24px] lg:rounded-[32px] border border-white/10 flex items-center justify-center gap-6 transition-all hover:bg-white/10 hover:border-primary/40 text-[11px] lg:text-sm uppercase tracking-[0.4em] shadow-3xl"
+                className="w-full sm:w-auto px-10 py-5 lg:px-20 lg:py-8 bg-white/5 backdrop-blur-3xl text-white font-black rounded-2xl lg:rounded-[32px] border border-white/10 flex items-center justify-center gap-4 lg:gap-6 transition-all hover:bg-white/10 hover:border-primary/40 text-[11px] lg:text-sm uppercase tracking-[0.3em] shadow-3xl active:scale-95"
               >
                 <span className="relative z-10">Private Concierge</span>
-                <Phone className="w-5 h-5 lg:w-7 lg:h-7 text-accent-gold group-hover:rotate-12 transition-transform" />
+                <Phone className="w-4 h-4 lg:w-7 lg:h-7 text-accent-gold group-hover:rotate-12 transition-transform" />
               </MagneticButton>
             </div>
 
             {/* Recognition Footer */}
-            <div className="pt-12 lg:pt-20 flex flex-wrap justify-center items-center gap-10 lg:gap-20 opacity-30 group-hover:opacity-60 transition-opacity duration-1000">
+            <div className="pt-8 lg:pt-20 flex flex-wrap justify-center items-center gap-6 lg:gap-20 opacity-40 group-hover:opacity-70 transition-opacity duration-1000">
               {[
                 { label: "Expert Curation", icon: Sparkles },
                 { label: "Global Access", icon: Globe },
                 { label: "Zero Friction", icon: Compass }
               ].map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3">
-                  <item.icon className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
-                  <span className="text-[9px] lg:text-[11px] font-bold uppercase tracking-[0.4em] whitespace-nowrap">{item.label}</span>
+                <div key={idx} className="flex items-center gap-2.5">
+                  <item.icon className="w-3.5 h-3.5 lg:w-5 lg:h-5 text-primary" />
+                  <span className="text-[8px] lg:text-[11px] font-bold uppercase tracking-[0.3em] lg:tracking-[0.4em] whitespace-nowrap">{item.label}</span>
                 </div>
               ))}
             </div>

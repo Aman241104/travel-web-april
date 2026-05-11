@@ -114,13 +114,13 @@ export default function Navbar() {
           <div className="flex items-center lg:hidden">
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
-              className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-500 ${
+              className={`w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-500 active:scale-90 ${
                 isScrolled 
                   ? "bg-gray-100 text-gray-950 shadow-sm" 
-                  : "bg-gray-900/5 text-gray-950 backdrop-blur-md border border-gray-900/10"
+                  : "bg-white/10 text-gray-950 backdrop-blur-md border border-white/20 shadow-lg"
               }`}
             >
-              <Menu size={20} />
+              <Menu size={22} strokeWidth={1.5} />
             </button>
           </div>
         </div>
@@ -130,74 +130,79 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
-            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            className="fixed inset-0 z-[120] bg-[#050807]/95 text-white lg:hidden flex flex-col p-6 pt-10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-[120] bg-[#050807] text-white lg:hidden flex flex-col p-8 pt-12"
           >
-            <div className="flex items-center justify-between mb-10">
+            {/* Background Texture/Effect */}
+            <div className="absolute inset-0 opacity-20 pointer-events-none">
+              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_20%,#388E3C_0%,transparent_50%)]" />
+            </div>
+
+            <div className="relative z-10 flex items-center justify-between mb-12">
               <div className="flex items-center gap-3">
-                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white shadow-[0_0_20px_rgba(56,142,60,0.3)]">
-                    <Globe className="w-4 h-4" />
+                 <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-[0_0_30px_rgba(56,142,60,0.4)]">
+                    <Globe className="w-5 h-5" strokeWidth={1.5} />
                  </div>
                  <div className="flex flex-col">
-                   <span className="text-lg font-black tracking-tightest leading-none">JADE</span>
-                   <span className="text-[5px] font-black uppercase tracking-[0.4em] leading-none mt-1 text-gray-400">Atelier</span>
+                   <span className="text-xl font-black tracking-tighter leading-none">JADE</span>
+                   <span className="text-[6px] font-black uppercase tracking-[0.4em] leading-none mt-1.5 text-gray-400">Atelier of Travel</span>
                  </div>
               </div>
               <button 
                 onClick={() => setIsMobileMenuOpen(false)} 
-                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center active:scale-90 transition-transform"
+                className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center active:scale-90 transition-transform"
               >
-                <X size={20} />
+                <X size={24} strokeWidth={1.5} />
               </button>
             </div>
 
-            <div className="flex flex-col gap-4 overflow-y-auto no-scrollbar py-4">
+            <div className="relative z-10 flex flex-col gap-5 overflow-y-auto no-scrollbar py-2">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.name}
-                  initial={{ x: -20, opacity: 0 }}
+                  initial={{ x: -30, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 + i * 0.04, duration: 0.5, ease: "circOut" }}
+                  transition={{ delay: 0.1 + i * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <Link
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className="text-2xl font-black tracking-tightest uppercase flex items-center justify-between group py-2 border-b border-white/5"
+                    className="text-[28px] font-black tracking-tightest uppercase flex items-center justify-between group py-3 border-b border-white/5"
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="text-primary text-[10px] font-black tracking-widest">{String(i+1).padStart(2, '0')}</span>
+                    <div className="flex items-center gap-4">
+                      <span className="text-primary text-xs font-black tracking-widest">{String(i+1).padStart(2, '0')}</span>
                       <span className="group-active:text-primary transition-colors duration-300">{link.name}</span>
                     </div>
-                    <ArrowUpRight className="w-4 h-4 text-white/20 group-active:text-primary transition-all" />
+                    <ArrowUpRight className="w-5 h-5 text-white/10 group-active:text-primary transition-all" />
                   </Link>
                 </motion.div>
               ))}
             </div>
 
-            <div className="mt-auto pt-8 pb-4 space-y-6">
+            <div className="relative z-10 mt-auto pt-10 pb-4 space-y-8">
               <motion.div
-                initial={{ y: 20, opacity: 0 }}
+                initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
               >
                 <button
                   onClick={handleContactClick}
-                  className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-primary text-white font-black rounded-2xl text-sm shadow-[0_20px_40px_rgba(56,142,60,0.2)] uppercase tracking-[0.2em] active:scale-[0.98] transition-all"
+                  className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-primary text-white font-black rounded-2xl text-sm shadow-[0_25px_50px_rgba(56,142,60,0.3)] uppercase tracking-[0.25em] active:scale-[0.97] transition-all"
                 >
-                  <Phone size={16} strokeWidth={2.5} />
+                  <Phone size={18} strokeWidth={2.5} />
                   Start Your Legacy
                 </button>
               </motion.div>
               
-              <div className="flex flex-col items-center gap-4">
-                <div className="flex justify-center gap-8 opacity-20">
-                  <Globe size={16} />
-                  <Sparkles size={16} />
-                  <Menu size={16} />
+              <div className="flex flex-col items-center gap-5">
+                <div className="flex justify-center gap-10 opacity-30">
+                  <Globe size={18} strokeWidth={1.5} />
+                  <Sparkles size={18} strokeWidth={1.5} />
+                  <Menu size={18} strokeWidth={1.5} />
                 </div>
-                <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.5em]">Global Standards • Secure Protocols</p>
+                <p className="text-[9px] font-black text-white/30 uppercase tracking-[0.5em] text-center">Global Standards • Secure Protocols</p>
               </div>
             </div>
           </motion.div>

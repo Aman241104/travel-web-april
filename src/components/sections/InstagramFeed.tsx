@@ -118,45 +118,45 @@ export default function InstagramFeed() {
       <div className="container-custom relative z-10">
         
         {/* Editorial Header */}
-        <div className="journal-header flex flex-col lg:flex-row lg:items-end justify-between mb-12 lg:mb-20 gap-12">
+        <div className="journal-header flex flex-col lg:flex-row lg:items-end justify-between mb-12 lg:mb-20 gap-8 lg:gap-12">
           <div className="max-w-3xl space-y-6">
             <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.6em] text-[10px] lg:text-[11px] mb-4">
               <span className="w-8 h-[1px] bg-primary/30" />
               The Digital Journal
             </div>
-            <h2 className="text-[36px] md:text-[52px] lg:text-[68px] xl:text-[80px] font-sans font-black text-gray-950 leading-[1] tracking-tightest uppercase">
+            <h2 className="text-[34px] md:text-[52px] lg:text-[68px] xl:text-[80px] font-sans font-black text-gray-950 leading-[0.95] lg:leading-[1] tracking-tightest uppercase">
               <span className="block journal-headline-line">Glimpses Of</span>
-              <span className="block journal-headline-line text-primary italic font-serif font-light lowercase">Hidden</span>
+              <span className="block journal-headline-line text-primary italic font-serif font-light lowercase normal-case py-1">hidden</span>
               <span className="block journal-headline-line">Worlds.</span>
             </h2>
           </div>
           
-          <div className="flex flex-col items-start lg:items-end gap-6">
-            <div className="flex items-center gap-4 px-8 py-4 bg-white rounded-[24px] border border-gray-100 shadow-xl backdrop-blur-xl">
-              <div className="flex flex-col">
-                <span className="text-2xl lg:text-3xl font-sans font-black text-gray-950 leading-none tracking-tightest">50K+</span>
-                <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-1">Explorers</span>
+          <div className="flex flex-col items-center lg:items-end gap-5">
+            <div className="flex items-center gap-4 px-6 py-3 bg-white rounded-[24px] border border-gray-100 shadow-lg backdrop-blur-xl">
+              <div className="flex flex-col items-center sm:items-start">
+                <span className="text-xl lg:text-3xl font-sans font-black text-gray-950 leading-none tracking-tightest">50K+</span>
+                <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest mt-1">Explorers</span>
               </div>
-              <div className="w-[1px] h-10 bg-gray-100" />
-              <div className="flex flex-col">
-                <span className="text-2xl lg:text-3xl font-sans font-black text-gray-950 leading-none tracking-tightest">4.8</span>
-                <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-1">ENGAGEMENT</span>
+              <div className="w-[1px] h-8 bg-gray-100" />
+              <div className="flex flex-col items-center sm:items-start">
+                <span className="text-xl lg:text-3xl font-sans font-black text-gray-950 leading-none tracking-tightest">4.8</span>
+                <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest mt-1">ENGAGEMENT</span>
               </div>
             </div>
-            <p className="text-[10px] lg:text-[11px] font-bold text-gray-400 uppercase tracking-[0.4em] lg:text-right max-w-[280px]">
+            <p className="text-[9px] lg:text-[11px] font-bold text-gray-400 uppercase tracking-[0.4em] lg:text-right text-center max-w-[280px]">
               Curated daily snapshots of the world&apos;s most exclusive sanctuaries.
             </p>
           </div>
         </div>
 
         {/* Mosaic Editorial Grid */}
-        <div className="journal-grid grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <div className="journal-grid grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12">
           
           {/* Master Entry */}
           {journalEntries.filter(e => e.featured).map((item) => (
             <div
               key={item.id}
-              className="journal-item lg:col-span-8 group relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-[700px] rounded-[40px] lg:rounded-[64px] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.1)] cursor-pointer"
+              className="journal-item lg:col-span-8 group relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-[700px] rounded-[32px] lg:rounded-[64px] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.1)] cursor-pointer active:scale-[0.98]"
             >
               <Image 
                 src={item.src} 
@@ -167,48 +167,48 @@ export default function InstagramFeed() {
               
               {/* Complex Overlays */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#050807] via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-1000" />
-              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[40px] lg:rounded-[64px] z-20 pointer-events-none" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[32px] lg:rounded-[64px] z-20 pointer-events-none" />
 
-              <div className="absolute bottom-0 left-0 w-full p-8 lg:p-20 z-30 space-y-8 lg:space-y-12">
-                <div className="flex items-center gap-4">
-                  <div className="h-[1px] w-12 lg:w-20 bg-primary" />
-                  <span className="text-white text-[10px] lg:text-[12px] font-black uppercase tracking-[0.5em]">The Cover Story</span>
+              <div className="absolute bottom-0 left-0 w-full p-6 sm:p-12 lg:p-20 z-30 space-y-6 lg:space-y-12">
+                <div className="flex items-center gap-3 lg:gap-4">
+                  <div className="h-[1px] w-10 lg:w-20 bg-primary" />
+                  <span className="text-white text-[9px] lg:text-[12px] font-black uppercase tracking-[0.4em]">The Cover Story</span>
                 </div>
                 
-                <h3 className="text-3xl lg:text-[64px] font-sans font-black text-white leading-[0.9] tracking-tightest uppercase group-hover:translate-x-4 transition-all duration-1000">
+                <h3 className="text-2xl lg:text-[64px] font-sans font-black text-white leading-[0.9] tracking-tightest uppercase group-hover:translate-x-4 transition-all duration-1000">
                   {item.title}
                 </h3>
                 
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 opacity-0 group-hover:opacity-100 translate-y-8 group-hover:translate-y-0 transition-all duration-1000 delay-200">
-                  <p className="text-lg lg:text-2xl text-white/70 max-w-xl leading-relaxed font-medium tracking-tight italic font-serif">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 lg:gap-8 lg:opacity-0 lg:group-hover:opacity-100 lg:translate-y-8 lg:group-hover:translate-y-0 transition-all duration-1000 delay-200">
+                  <p className="text-[15px] lg:text-2xl text-white/80 max-w-xl leading-relaxed font-medium tracking-tight italic font-serif">
                     &ldquo;{item.hook}&rdquo;
                   </p>
                   
-                  <div className="flex items-center gap-4 px-10 py-5 bg-white text-gray-950 font-black rounded-full transition-all shadow-3xl hover:bg-primary hover:text-white shrink-0 uppercase tracking-[0.3em] text-[11px]">
+                  <div className="flex items-center justify-center gap-3 px-8 py-4 bg-white text-gray-950 font-black rounded-full transition-all shadow-3xl hover:bg-primary hover:text-white shrink-0 uppercase tracking-[0.25em] text-[10px]">
                     <span>Read Journal</span>
-                    <ArrowUpRight className="w-5 h-5" />
+                    <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>
               </div>
 
               {/* Interaction Indicators */}
-              <div className="absolute top-10 right-10 flex flex-col gap-4 opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-x-8 group-hover:translate-x-0">
-                <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all">
-                  <Instagram className="w-6 h-6" />
+              <div className="absolute top-6 right-6 lg:top-10 lg:right-10 flex flex-col gap-3 lg:gap-4 opacity-0 group-hover:opacity-100 transition-all duration-1000 translate-x-8 group-hover:translate-x-0">
+                <div className="w-11 h-11 lg:w-14 lg:h-14 rounded-full bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all">
+                  <Instagram className="w-5 h-5 lg:w-6 lg:h-6" />
                 </div>
-                <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center text-white hover:bg-red-500 hover:border-red-500 transition-all">
-                  <Heart className="w-6 h-6" />
+                <div className="w-11 h-11 lg:w-14 lg:h-14 rounded-full bg-white/10 backdrop-blur-3xl border border-white/20 flex items-center justify-center text-white hover:bg-red-500 hover:border-red-500 transition-all">
+                  <Heart className="w-5 h-5 lg:w-6 lg:h-6" />
                 </div>
               </div>
             </div>
           ))}
 
           {/* Supporting Stories Column */}
-          <div className="lg:col-span-4 flex flex-col gap-8 lg:gap-12">
+          <div className="lg:col-span-4 grid grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-12">
             {journalEntries.filter(e => !e.featured).map((item) => (
               <div
                 key={item.id}
-                className="journal-item group relative h-[220px] lg:h-[240px] rounded-[32px] lg:rounded-[48px] overflow-hidden shadow-2xl cursor-pointer"
+                className="journal-item group relative h-[180px] lg:h-[240px] rounded-[24px] lg:rounded-[48px] overflow-hidden shadow-xl cursor-pointer active:scale-[0.98]"
               >
                 <Image 
                   src={item.src} 
@@ -220,23 +220,12 @@ export default function InstagramFeed() {
                 {/* Compact Cinematic Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050807] via-transparent to-transparent opacity-70 group-hover:opacity-95 transition-opacity duration-1000" />
                 
-                <div className="absolute bottom-0 left-0 w-full p-8 text-white z-30 space-y-4">
-                  <div className="flex items-center gap-3 text-primary text-[9px] lg:text-[10px] font-black uppercase tracking-[0.4em] opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-700">
-                    <MapPin className="w-4 h-4" />
-                    {item.location}
+                <div className="absolute bottom-0 left-0 w-full p-4 sm:p-8 text-white z-30 space-y-2 lg:space-y-4">
+                  <div className="flex items-center gap-2 text-primary text-[8px] lg:text-[10px] font-black uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-700">
+                    <MapPin className="w-3 h-3" />
+                    {item.location.split(',')[0]}
                   </div>
-                  <h4 className="text-2xl lg:text-3xl font-sans font-black leading-none tracking-tightest uppercase group-hover:text-primary transition-colors duration-700">{item.title}</h4>
-                  
-                  <div className="flex items-center gap-4 opacity-0 group-hover:opacity-40 transition-all duration-1000">
-                    <div className="flex items-center gap-1.5">
-                      <Heart className="w-3.5 h-3.5" />
-                      <span className="text-[10px] font-black">1.2K</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <MessageCircle className="w-3.5 h-3.5" />
-                      <span className="text-[10px] font-black">84</span>
-                    </div>
-                  </div>
+                  <h4 className="text-[15px] lg:text-3xl font-sans font-black leading-none tracking-tightest uppercase group-hover:text-primary transition-colors duration-700">{item.title}</h4>
                 </div>
               </div>
             ))}
@@ -245,23 +234,23 @@ export default function InstagramFeed() {
         </div>
 
         {/* Global Social Action */}
-        <div className="mt-20 lg:mt-32 flex flex-col items-center text-center space-y-12">
-          <div className="relative p-2 bg-gray-50 rounded-[40px] border border-gray-100 shadow-inner">
-            <MagneticButton className="px-12 py-6 lg:px-20 lg:py-8 bg-[#050807] hover:bg-primary text-white font-black rounded-[32px] lg:rounded-[40px] flex items-center gap-8 transition-all shadow-3xl group text-sm lg:text-lg uppercase tracking-[0.2em] relative overflow-hidden">
+        <div className="mt-16 lg:mt-32 flex flex-col items-center text-center space-y-10 lg:space-y-12">
+          <div className="relative p-1.5 lg:p-2 bg-gray-50 rounded-[32px] border border-gray-100 shadow-inner">
+            <MagneticButton className="px-10 py-5 lg:px-20 lg:py-8 bg-[#050807] hover:bg-primary text-white font-black rounded-[28px] lg:rounded-[40px] flex items-center gap-6 lg:gap-8 transition-all shadow-3xl group text-[11px] lg:text-lg uppercase tracking-[0.2em] relative overflow-hidden active:scale-95">
               <div className="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
               <span className="relative z-10">Get Inspired</span>
-              <div className="flex items-center justify-center w-12 h-12 lg:w-16 lg:h-16 rounded-[16px] lg:rounded-[24px] bg-white/10 group-hover:bg-white/20 transition-all relative z-10">
-                <Instagram className="w-6 h-6 lg:w-10 lg:h-10 text-accent-gold" />
+              <div className="flex items-center justify-center w-10 h-10 lg:w-16 lg:h-16 rounded-xl lg:rounded-[24px] bg-white/10 group-hover:bg-white/20 transition-all relative z-10">
+                <Instagram className="w-5 h-5 lg:w-10 lg:h-10 text-accent-gold" />
               </div>
             </MagneticButton>
           </div>
           
           <div className="flex flex-col items-center gap-4">
-            <p className="text-[11px] lg:text-[13px] font-black uppercase tracking-[0.6em] text-gray-400">
+            <p className="text-[10px] lg:text-[13px] font-black uppercase tracking-[0.5em] text-gray-400">
               Join The Journey <span className="text-primary tracking-[0.2em]">@jade.travels</span>
             </p>
             <div className="flex items-center gap-3 opacity-20">
-               {[1,2,3,4,5,6].map(i => <div key={i} className="w-1.5 h-1.5 rounded-full bg-gray-950" />)}
+               {[1,2,3,4,5].map(i => <div key={i} className="w-1.5 h-1.5 rounded-full bg-gray-950" />)}
             </div>
           </div>
         </div>

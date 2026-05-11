@@ -126,27 +126,27 @@ export default function TrustSection() {
                 <span className="w-8 h-[1px] bg-primary/30" />
                 Reliability & Excellence
               </div>
-              <h2 className="text-[32px] md:text-[48px] lg:text-[60px] xl:text-[72px] font-sans font-black text-gray-950 leading-[1] tracking-tightest">
+              <h2 className="text-[34px] md:text-[48px] lg:text-[60px] xl:text-[72px] font-sans font-black text-gray-950 leading-[0.95] lg:leading-[1] tracking-tightest">
                 <span className="block trust-headline-line">A Legacy Of</span>
-                <span className="block trust-headline-line text-primary italic font-serif font-light lowercase">Uncompromising</span>
+                <span className="block trust-headline-line text-primary italic font-serif font-light lowercase normal-case py-1">uncompromising</span>
                 <span className="block trust-headline-line">Trust.</span>
               </h2>
-              <p className="text-[13px] lg:text-xl text-gray-600 leading-relaxed max-w-[540px] font-medium tracking-tight opacity-80">
+              <p className="text-[13px] lg:text-xl text-gray-600 leading-relaxed max-w-[540px] font-medium tracking-tight opacity-90">
                 At Jade Tours and Travels, we don&apos;t just book trips; we safeguard your most precious memories. Experience the gold standard of travel security and curated excellence.
               </p>
             </div>
             
             {/* Social Proof Badge - Premium Re-design */}
-            <div className="trust-social-badge inline-flex flex-col sm:flex-row items-center gap-4 lg:gap-6 p-1 rounded-[28px] lg:rounded-[32px] bg-gray-50/50 border border-gray-100 sm:pr-8 group cursor-default shadow-sm hover:shadow-xl transition-all duration-700">
-              <div className="flex items-center gap-2 bg-white p-3 lg:p-5 rounded-[24px] lg:rounded-[28px] shadow-sm">
-                <div className="flex -space-x-3">
+            <div className="trust-social-badge inline-flex items-center gap-4 lg:gap-6 p-1.5 rounded-full lg:rounded-[32px] bg-gray-50/50 border border-gray-100 pr-6 lg:pr-8 group cursor-default shadow-sm hover:shadow-xl transition-all duration-700">
+              <div className="flex items-center gap-2 bg-white p-2.5 lg:p-5 rounded-full lg:rounded-[28px] shadow-sm">
+                <div className="flex -space-x-2.5 lg:-space-x-3">
                   {[
                     "1534528741775-53994a69daeb",
                     "1507003211169-0a1dd7228f2d",
                     "1500648767791-00dcc994a43e",
                     "1494790108377-be9c29b29330"
                   ].map((id, i) => (
-                    <div key={i} className="trust-avatar w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2 border-white overflow-hidden bg-gray-200 relative shadow-sm group-hover:translate-y-[-5px] transition-transform duration-500" style={{ transitionDelay: `${i * 50}ms` }}>
+                    <div key={i} className="trust-avatar w-8 h-8 lg:w-12 lg:h-12 rounded-full border-2 border-white overflow-hidden bg-gray-200 relative shadow-sm group-hover:translate-y-[-5px] transition-transform duration-500" style={{ transitionDelay: `${i * 50}ms` }}>
                       <Image 
                         src={`https://images.unsplash.com/photo-${id}?q=80&w=100&h=100&auto=format&fit=crop&crop=faces`} 
                         alt="Jade Happy Client"
@@ -156,28 +156,28 @@ export default function TrustSection() {
                     </div>
                   ))}
                 </div>
-                <div className="flex flex-col ml-2">
-                  <div className="flex items-center gap-1">
+                <div className="flex flex-col ml-1 lg:ml-2">
+                  <div className="flex items-center gap-0.5">
                     {[1, 2, 3, 4, 5].map((s) => (
-                      <Star key={s} className="w-3 h-3 text-accent-gold fill-accent-gold" />
+                      <Star key={s} className="w-2.5 h-2.5 text-accent-gold fill-accent-gold" />
                     ))}
                   </div>
-                  <span className="text-[10px] font-black text-gray-900 tracking-tighter mt-0.5">5.0 SCORE</span>
+                  <span className="text-[9px] font-black text-gray-900 tracking-tighter mt-0.5">5.0 SCORE</span>
                 </div>
               </div>
-              <div className="flex flex-col py-2">
-                <p className="text-[11px] lg:text-[13px] font-bold text-gray-950 uppercase tracking-[0.2em] leading-tight">
-                  Trusted by 5,000+ <br /> Global Travelers
+              <div className="flex flex-col">
+                <p className="text-[10px] lg:text-[13px] font-bold text-gray-950 uppercase tracking-[0.15em] lg:tracking-[0.2em] leading-tight">
+                  Trusted by 5,000+ <br className="hidden sm:block" /> Global Travelers
                 </p>
               </div>
             </div>
 
             {/* Verification Checkmarks */}
-            <div className="flex flex-wrap gap-x-8 gap-y-4 pt-4 opacity-60">
+            <div className="flex flex-wrap gap-x-6 lg:gap-x-8 gap-y-3 pt-2 opacity-70">
               {['IATA Certified', 'ASTA Member', 'Safe Travels Protocol'].map((item) => (
                 <div key={item} className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-primary" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest">{item}</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+                  <span className="text-[9px] font-bold uppercase tracking-widest">{item}</span>
                 </div>
               ))}
             </div>
@@ -223,19 +223,19 @@ export default function TrustSection() {
             </p>
           </div>
           
-          <div className="flex flex-wrap items-center justify-center gap-x-8 lg:gap-x-24 gap-y-12 lg:gap-y-24">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-12 lg:gap-x-24 gap-y-10 lg:gap-y-24">
             {partners.map((partner) => (
-              <div key={partner.name} className="partner-item flex flex-col items-center group cursor-default">
+              <div key={partner.name} className="partner-item flex flex-col items-center group cursor-default min-w-[100px] sm:min-w-auto">
                 <div className="relative text-center">
-                  <span className="absolute -top-8 lg:-top-10 left-1/2 -translate-x-1/2 font-serif font-black text-4xl lg:text-8xl text-gray-900/[0.02] group-hover:text-primary/[0.04] transition-all duration-1000 tracking-tighter pointer-events-none select-none">
+                  <span className="absolute -top-6 lg:-top-10 left-1/2 -translate-x-1/2 font-serif font-black text-3xl lg:text-8xl text-gray-900/[0.03] group-hover:text-primary/[0.05] transition-all duration-1000 tracking-tighter pointer-events-none select-none">
                     {partner.code}
                   </span>
                   <div className="relative z-10 flex flex-col items-center">
-                    <span className="font-sans font-black text-lg lg:text-3xl text-gray-950 tracking-tightest uppercase group-hover:text-primary transition-colors duration-700">
+                    <span className="font-sans font-black text-base lg:text-3xl text-gray-950 tracking-tightest uppercase group-hover:text-primary transition-colors duration-700">
                       {partner.name}
                     </span>
-                    <span className="h-[1.5px] lg:h-[2px] w-0 bg-primary transition-all duration-700 group-hover:w-full mt-1.5 lg:mt-2" />
-                    <span className="text-[8px] font-bold text-gray-400 uppercase tracking-[0.2em] lg:tracking-[0.3em] mt-2 lg:mt-3 opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:translate-y-0 translate-y-2">
+                    <span className="h-[1.5px] lg:h-[2px] w-0 bg-primary transition-all duration-700 group-hover:w-full mt-1 lg:mt-2" />
+                    <span className="text-[7px] lg:text-[8px] font-bold text-gray-400 uppercase tracking-[0.2em] lg:tracking-[0.3em] mt-2 lg:mt-3 opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:translate-y-0 translate-y-2">
                       {partner.location}
                     </span>
                   </div>
