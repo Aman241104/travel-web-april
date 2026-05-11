@@ -12,7 +12,7 @@ const testimonials = [
 
 export default function HappyCustomers() {
   return (
-    <section id="happy-customers" className="pt-48 md:pt-[240px] pb-24 md:pb-32 bg-[#0B1310] relative overflow-hidden transition-colors duration-1000">
+    <section id="happy-customers" className="pt-24 md:pt-32 pb-16 md:pb-24 bg-[#0B1310] relative overflow-hidden transition-colors duration-1000">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-16 md:mb-24 relative z-10">
           <span className="text-[#C1A67B] font-sans text-xs font-semibold uppercase tracking-widest mb-6 block">

@@ -1,17 +1,21 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Globe } from "lucide-react";
+import { Menu, X, Phone, Globe, Sparkles } from "lucide-react";
+import MagneticButton from "@/components/ui/MagneticButton";
 import Link from "next/link";
 import { useLenis } from "@studio-freight/react-lenis";
+import gsap from "gsap";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
+  { name: "About", href: "#trust" },
   { name: "Why Us", href: "#why-us" },
   { name: "Services", href: "#services" },
-  { name: "Destinations", href: "#packages" },
+  { name: "Values", href: "#values" },
+  { name: "Collection", href: "#packages" },
   { name: "Reviews", href: "#testimonials" },
-  { name: "Contact", href: "#contact" },
+  { name: "Expertise", href: "#process" },
+  { name: "Journal", href: "#journal" },
 ];
 
 export default function Navbar() {
@@ -19,6 +23,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const lenis = useLenis();
+  const navRef = useRef<HTMLElement>(null);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
@@ -26,7 +31,7 @@ export default function Navbar() {
       const targetId = href.replace("#", "");
       const element = document.getElementById(targetId);
       if (element && lenis) {
-        lenis.scrollTo(element, { offset: -80, duration: 1.5 });
+        lenis.scrollTo(element, { offset: -100, duration: 1.5 });
       } else if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
@@ -35,79 +40,60 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    let ticking = false;
-
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          // Toggle navbar background
-          setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 20);
+      
+      const sections = ["trust", "why-us", "services", "values", "packages", "testimonials", "process", "journal"];
+      let currentSection = "home";
 
-          // Active section detection - only if needed or periodically
-          const sections = navLinks.map(link => link.href.replace("#", ""));
-          let currentSection = activeSection;
-
-          if (window.scrollY < 100) {
-            currentSection = "home";
-          } else {
-            for (const id of sections) {
-              const element = document.getElementById(id);
-              if (element) {
-                const rect = element.getBoundingClientRect();
-                if (rect.top <= 200 && rect.bottom >= 200) {
-                  currentSection = id;
-                }
-              }
-            }
+      for (const id of sections) {
+        const element = document.getElementById(id);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 150) {
+            currentSection = id;
           }
-
-          if (currentSection !== activeSection) {
-            setActiveSection(currentSection);
-          }
-          
-          ticking = false;
-        });
-        ticking = true;
+        }
       }
+      setActiveSection(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [activeSection]);
+  }, []);
 
   return (
     <>
       <nav 
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-700 ${
+        ref={navRef}
+        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-700 ease-in-out ${
           isScrolled 
-            ? "bg-white/95 backdrop-blur-xl py-3 shadow-[0_10px_40px_rgba(0,0,0,0.05)] border-b border-gray-100" 
-            : "bg-transparent py-6 lg:py-8"
+            ? "bg-white/90 backdrop-blur-xl py-4 shadow-sm border-b border-gray-50" 
+            : "bg-transparent py-5 lg:py-10"
         }`}
       >
         <div className="container-custom flex items-center justify-between">
+          
+          {/* Elite Branding */}
           <Link 
             href="#home" 
             onClick={(e) => handleNavClick(e, "#home")}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-2 lg:gap-3 group"
           >
-            <div className={`w-10 h-10 lg:w-12 lg:h-12 rounded-lg lg:rounded-xl flex items-center justify-center transition-all duration-500 ${isScrolled ? "bg-primary text-white shadow-lg shadow-primary/20" : "bg-white/10 backdrop-blur-md border border-white/20 text-primary group-hover:bg-primary group-hover:text-white"}`}>
-              <Globe className="w-6 h-6 lg:w-7 lg:h-7" strokeWidth={2.5} />
+            <div className="text-[#388E3C]">
+              <Globe className="w-7 h-7 lg:w-10 lg:h-10" strokeWidth={1.2} />
             </div>
             <div className="flex flex-col">
-              <div className="flex items-center gap-1">
-                <span className={`text-xl lg:text-3xl font-black tracking-tight leading-none transition-colors duration-500 ${isScrolled ? "text-gray-900" : "text-gray-950 lg:text-gray-900"}`}>JADE</span>
-              </div>
-              <span className={`text-[9px] lg:text-[10px] font-black uppercase tracking-[0.2em] leading-none mt-1 transition-colors duration-500 ${isScrolled ? "text-primary" : "text-gray-700"}`}>
-                Tours and Travels
+              <span className="text-lg lg:text-2xl font-sans font-black tracking-tighter leading-none text-gray-950">JADE</span>
+              <span className="text-[6px] lg:text-[8px] font-black uppercase tracking-[0.4em] leading-none mt-1 text-gray-400">
+                Atelier Of Travel
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            <div className="flex items-center gap-6">
+          {/* Desktop Navigation - Editorial Minimalist */}
+          <div className="hidden lg:flex items-center gap-6 xl:gap-10">
+            <div className="flex items-center gap-4 xl:gap-8">
               {navLinks.map((link) => {
                 const id = link.href.replace("#", "");
                 const isActive = activeSection === id;
@@ -117,18 +103,24 @@ export default function Navbar() {
                     key={link.name} 
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`font-sans text-[12px] font-black uppercase tracking-[0.15em] transition-all relative py-2 group ${
-                      isActive 
-                        ? "text-primary" 
-                        : isScrolled ? "text-gray-600 hover:text-primary" : "text-gray-800 hover:text-primary"
-                    }`}
+                    className="font-sans text-[9px] xl:text-[11px] font-black uppercase tracking-[0.2em] xl:tracking-[0.3em] transition-all relative py-1 group"
                   >
-                    {link.name}
+                    <div className="h-[14px] overflow-hidden relative block">
+                      <motion.div 
+                        animate={{ y: isActive ? "-50%" : "0%" }}
+                        whileHover={{ y: "-50%" }}
+                        transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                        className="flex flex-col"
+                      >
+                        <span className={`h-[14px] flex items-center leading-none transition-colors duration-500 ${isActive ? "text-[#388E3C]" : "text-gray-950"}`}>{link.name}</span>
+                        <span className="h-[14px] flex items-center leading-none text-[#388E3C]">{link.name}</span>
+                      </motion.div>
+                    </div>
                     {isActive && (
-                      <motion.span 
+                      <motion.div 
                         layoutId="nav-underline"
-                        className="absolute bottom-0 left-0 w-full h-[2px] bg-primary rounded-full" 
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                        className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#388E3C]/20"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
                     )}
                   </Link>
@@ -137,24 +129,24 @@ export default function Navbar() {
             </div>
             
             <Link 
-              href="#contact" 
+              href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
-              className={`flex items-center gap-2 px-6 py-3 font-black text-[10px] uppercase tracking-widest rounded-full transition-all shadow-xl hover:-translate-y-1 active:translate-y-0 ${
-                isScrolled 
-                  ? "bg-primary text-white shadow-primary/20 hover:bg-primary-dark" 
-                  : "bg-white text-gray-900 hover:bg-primary hover:text-white"
-              }`}
+              className="flex items-center gap-2 px-6 py-3 font-black text-[10px] uppercase tracking-[0.2em] rounded-full transition-all border border-gray-100 shadow-[0_5px_15px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)] bg-white text-gray-950 group"
             >
-              <Phone className="w-3.5 h-3.5 fill-current" />
-              Get in Touch
+              <Phone className="w-3.5 h-3.5 text-gray-950 group-hover:rotate-12 transition-transform" strokeWidth={2.5} />
+              <span>Private Concierge</span>
             </Link>
           </div>
 
-          {/* Mobile Toggle */}
+          {/* Mobile Menu Trigger */}
           <div className="flex items-center lg:hidden">
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
-              className={`p-2 rounded-xl transition-colors ${isScrolled ? "bg-gray-100 text-gray-900" : "bg-white/20 backdrop-blur-md text-gray-900"}`}
+              className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-500 ${
+                isScrolled 
+                  ? "bg-gray-100 text-gray-950 shadow-sm" 
+                  : "bg-gray-900/5 text-gray-950 backdrop-blur-md border border-gray-900/10"
+              }`}
             >
               <Menu size={20} />
             </button>
@@ -162,60 +154,69 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Immersive Full-Screen Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="fixed inset-0 z-[110] bg-white lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[120] bg-[#050807] text-white lg:hidden flex flex-col p-6 pt-10"
           >
-            <div className="flex flex-col h-full p-6">
-              <div className="flex items-center justify-between mb-12">
-                <Link 
-                  href="#home" 
-                  className="flex items-center gap-3" 
-                  onClick={(e) => handleNavClick(e, "#home")}
-                >
-                  <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+            <div className="flex items-center justify-between mb-12">
+              <div className="flex items-center gap-3">
+                 <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white">
                     <Globe className="w-5 h-5" />
-                  </div>
-                  <span className="text-xl font-black text-gray-900">JADE</span>
-                </Link>
-                <button 
-                  onClick={() => setIsMobileMenuOpen(false)} 
-                  className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-900"
-                >
-                  <X size={20} />
-                </button>
+                 </div>
+                 <span className="text-xl font-black tracking-tightest">JADE</span>
               </div>
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)} 
+                className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center"
+              >
+                <X size={24} />
+              </button>
+            </div>
 
-              <div className="flex flex-col gap-5">
-                {navLinks.map((link) => (
+            <div className="flex flex-col gap-6">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.1 + i * 0.05, duration: 0.6 }}
+                >
                   <Link
-                    key={link.name}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`text-3xl font-black tracking-tighter transition-colors ${
-                      activeSection === link.href.replace("#", "") ? "text-primary" : "text-gray-900"
-                    }`}
+                    className="text-3xl font-black tracking-tightest uppercase flex items-center gap-3 group"
                   >
-                    {link.name}
+                    <span className="text-primary text-sm font-serif italic">{String(i+1).padStart(2, '0')}</span>
+                    <span className="group-hover:text-primary transition-colors duration-500">{link.name}</span>
                   </Link>
-                ))}
-              </div>
+                </motion.div>
+              ))}
+            </div>
 
-              <div className="mt-auto">
+            <div className="mt-auto pb-10">
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
                 <Link
                   href="#contact"
                   onClick={(e) => handleNavClick(e, "#contact")}
-                  className="w-full flex items-center justify-center gap-4 px-6 py-5 bg-primary text-white font-black rounded-xl text-base shadow-2xl shadow-primary/30 uppercase tracking-widest"
+                  className="w-full flex items-center justify-center gap-4 px-6 py-4 bg-primary text-white font-black rounded-[16px] text-base shadow-2xl uppercase tracking-[0.2em]"
                 >
-                  <Phone className="w-4 h-4 fill-current" />
-                  Get in Touch
+                  <Phone size={20} />
+                  Start Your Legacy
                 </Link>
+              </motion.div>
+              <div className="flex justify-center gap-6 mt-8 opacity-20">
+                <Globe size={18} />
+                <Sparkles size={18} />
+                <Menu size={18} />
               </div>
             </div>
           </motion.div>

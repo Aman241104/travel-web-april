@@ -1,69 +1,101 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
+import { Sparkles, Globe } from "lucide-react";
 
 export default function Preloader({ onLoadingComplete }: { onLoadingComplete?: () => void }) {
   const [loading, setLoading] = useState(true);
-  const [mounted, setMounted] = useState(false);
+  const preloaderRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setMounted(true);
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setLoading(false);
+          setTimeout(() => {
+            onLoadingComplete?.();
+          }, 1000);
+        }
+      });
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-      // Wait for exit animation to finish before calling complete
-      setTimeout(() => {
-        onLoadingComplete?.();
-      }, 1100);
-    }, 500);
-    return () => clearTimeout(timer);
+      tl.fromTo(".loader-logo", 
+        { opacity: 0, y: 20, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "expo.out" }
+      )
+      .fromTo(".loader-text-line", 
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, stagger: 0.1, duration: 1, ease: "power2.out" }, "-=0.6"
+      )
+      .to(".loader-progress", 
+        { scaleX: 1, duration: 1.5, ease: "power4.inOut" }
+      )
+      .to(".loader-content", {
+        opacity: 0,
+        y: -40,
+        duration: 0.8,
+        ease: "expo.in"
+      }, "+=0.2")
+      .to(preloaderRef.current, {
+        clipPath: "inset(0 0 100% 0)",
+        duration: 1.2,
+        ease: "expo.inOut"
+      });
+    }, preloaderRef);
+
+    return () => ctx.revert();
   }, [onLoadingComplete]);
-
-  if (!mounted) return null;
 
   return (
     <AnimatePresence>
       {loading && (
-        <motion.div
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } }}
-          className="fixed inset-0 z-[1000] bg-[#0B1310] flex flex-col items-center justify-center"
+        <div
+          ref={preloaderRef}
+          className="fixed inset-0 z-[2000] bg-[#050807] flex items-center justify-center overflow-hidden"
+          style={{ clipPath: "inset(0 0 0% 0)" }}
         >
-          <div className="relative flex flex-col items-center">
-            <motion.div 
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center gap-2 mb-12"
-            >
-              <span className="font-serif text-4xl md:text-6xl tracking-tightest text-[#F2EFE9]">JADE</span>
-              <span className="font-sans text-[10px] font-black uppercase tracking-[0.6em] text-accent-blue mt-2">Travels</span>
-            </motion.div>
-            
-            <div className="w-64 h-[1px] bg-[#0B1310]/5 relative overflow-hidden">
-              <motion.div 
-                initial={{ x: "-100%" }}
-                animate={{ x: "100%" }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 bg-accent-blue"
-              />
-            </div>
-            
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="mt-8 text-[9px] uppercase tracking-[0.8em] text-[#F2EFE9]/20 font-black font-sans"
-            >
-              Excellence defined
-            </motion.p>
+          {/* Subtle Background Ambience */}
+          <div className="absolute inset-0 opacity-10">
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary rounded-full blur-[160px]" />
           </div>
-        </motion.div>
+
+          <div className="loader-content relative flex flex-col items-center">
+            
+            {/* Elite Icon Module */}
+            <div className="loader-logo mb-12 relative">
+               <div className="w-20 h-20 lg:w-28 lg:h-28 rounded-[24px] lg:rounded-[36px] bg-white/[0.03] border border-white/10 flex items-center justify-center text-primary relative overflow-hidden">
+                  <Globe className="w-10 h-10 lg:w-14 lg:h-14 animate-spin-slow" strokeWidth={1.2} />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent" />
+               </div>
+               <Sparkles className="absolute -top-4 -right-4 w-8 h-8 text-accent-gold animate-pulse" />
+            </div>
+
+            <div ref={textRef} className="flex flex-col items-center space-y-6">
+              <div className="overflow-hidden">
+                <h1 className="loader-text-line font-sans font-black text-4xl md:text-7xl lg:text-[84px] tracking-tightest text-white leading-none uppercase">
+                  JADE <span className="text-primary italic font-serif font-light lowercase">Atelier</span>
+                </h1>
+              </div>
+              
+              <div className="w-64 lg:w-80 h-[1px] bg-white/5 relative overflow-hidden mt-4">
+                <div className="loader-progress absolute inset-0 bg-primary origin-left scale-x-0" />
+              </div>
+              
+              <div className="overflow-hidden">
+                <p className="loader-text-line text-[10px] lg:text-[12px] uppercase tracking-[0.8em] text-white/30 font-black font-sans text-center">
+                  Excellence Orchestrated
+                </p>
+              </div>
+            </div>
+
+            {/* Cinematic Overlay Detail */}
+            <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 opacity-20 whitespace-nowrap select-none pointer-events-none">
+               <span className="font-serif italic text-[180px] lg:text-[240px] text-white/[0.02]">Masterpiece</span>
+            </div>
+
+          </div>
+        </div>
       )}
     </AnimatePresence>
   );

@@ -2,9 +2,9 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import BookingWidget from "@/components/ui/BookingWidget";
-import { ArrowRight, Plane, Phone, Star, Users, Globe2, ShieldCheck } from "lucide-react";
+import MagneticButton from "@/components/ui/MagneticButton";
+import { ArrowRight, Plane, Star, Users, Globe2, ShieldCheck } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "@studio-freight/react-lenis";
@@ -25,49 +25,69 @@ export default function Hero() {
   const lenis = useLenis();
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    
     const ctx = gsap.context(() => {
-      // Entrance animations
-      const tl = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.5 } });
+      // Entrance animations - Orchestrated for a premium feel
+      const tl = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.8 } });
       
-      tl.fromTo(".hero-title-part", 
-        { y: 100, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.2,
-          delay: 0.5
-        }
-      )
-      .fromTo(".hero-description", 
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-        }, "-=1.2")
-      .fromTo(".hero-cta-group", 
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-        }, "-=1")
-      .fromTo(".hero-stat-card", 
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.1,
-        }, "-=0.8");
+      tl.set(".hero-bg-image", { scale: 1.15 })
+        .to(".hero-bg-image", {
+          scale: 1,
+          duration: 3,
+          ease: "power2.out"
+        })
+        .fromTo(".hero-title-line", 
+          { y: 100, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.15,
+            delay: -2.2
+          }
+        )
+        .fromTo(".hero-script", 
+          { opacity: 0, scale: 0.9, y: 20 },
+          { opacity: 1, scale: 1, y: 0, duration: 1.2 }, "-=1.8")
+        .fromTo(".hero-description", 
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.5
+          }, "-=1.6")
+        .fromTo(".hero-cta-group", 
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+          }, "-=1.4")
+        .fromTo(".hero-stat-card", 
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.12,
+          }, "-=1.2");
 
-      // Background image parallax
+      // Background image parallax & content fade on scroll
       gsap.to(".hero-bg-image", {
-        yPercent: 10,
+        yPercent: 15,
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
           end: "bottom top",
+          scrub: true
+        }
+      });
+
+      gsap.to(".hero-content-inner", {
+        y: -100,
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "20% top",
+          end: "80% top",
           scrub: true
         }
       });
@@ -87,79 +107,83 @@ export default function Hero() {
     <section 
       id="home" 
       ref={containerRef}
-      className="relative min-h-[80vh] lg:min-h-screen flex flex-col pt-16 lg:pt-24 overflow-hidden bg-white"
+      className="relative min-h-[85vh] lg:min-h-[85vh] flex flex-col pt-20 lg:pt-24 overflow-hidden bg-white"
     >
-      {/* Background Image - Cinematic treatment with Overlay */}
-      <div className="absolute inset-0 z-0">
+      {/* Background Image - Cinematic treatment with Multi-layered Overlay */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <div className="relative w-full h-full hero-bg-image will-change-transform">
           <Image 
-            src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?q=80&w=2000&auto=format&fit=crop" 
-            alt="Tropical Travel"
+            src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?q=80&w=2400&auto=format&fit=crop" 
+            alt="Luxury Travel Experience"
             fill
-            className="object-cover object-center opacity-90 scale-105"
+            className="object-cover object-center opacity-70 lg:opacity-80 brightness-[0.9]"
             priority
           />
         </div>
-        {/* Cinematic gradient for depth and readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent w-full lg:w-[80%] z-10" />
+        {/* Artistic gradients for high-end depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-white/60 lg:from-white/40 lg:to-white/60 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent lg:via-white/50 w-full lg:w-[60%] z-10" />
       </div>
 
-      <div className="container-custom relative z-20 flex-1 flex flex-col justify-center py-6 lg:py-12">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div className="container-custom relative z-20 flex-1 flex flex-col justify-center py-4 lg:py-6 hero-content-inner">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
           
           {/* Left Content Side */}
-          <div className="lg:col-span-7 max-w-[620px]">
-            <div className="space-y-6 lg:space-y-8">
-              <div className="hero-title-part">
-                <p className="font-script text-xl lg:text-3xl text-primary mb-1 drop-shadow-sm">
-                  Travel The World, Create Memories
+          <div className="max-w-[720px]">
+            <div className="space-y-2 lg:space-y-6">
+              <div className="hero-script overflow-hidden">
+                <p className="font-script text-lg md:text-2xl lg:text-[36px] text-primary mb-0.5 lg:mb-2 leading-tight drop-shadow-[0_2px_15px_rgba(255,255,255,1)]">
+                  Luxury Without Compromise
                 </p>
               </div>
               
-              <div className="hero-title-part">
-                <h1 className="text-[28px] md:text-[40px] lg:text-[56px] xl:text-[68px] font-sans font-black text-gray-950 leading-[1.1] lg:leading-[1] mb-4 lg:mb-6 tracking-tighter">
-                  Your Journey, <br />
-                  Our <span className="text-primary italic font-serif font-light">Expertise!</span>
+              <div className="overflow-hidden">
+                <h1 className="text-[28px] md:text-[54px] lg:text-[68px] xl:text-[76px] font-sans font-black text-gray-950 leading-[0.95] mb-3 lg:mb-4 tracking-tightest uppercase">
+                  <span className="block hero-title-line">CRAFTING YOUR</span>
+                  <span className="block hero-title-line">ULTIMATE <span className="text-primary italic font-serif lowercase normal-case ml-1 lg:ml-2 drop-shadow-[0_2px_15px_rgba(255,255,255,0.8)]">escape</span></span>
                 </h1>
               </div>
               
-              <div className="hero-description">
-                <p className="text-sm lg:text-lg text-gray-700 mb-8 lg:mb-10 leading-relaxed font-medium max-w-[500px] tracking-tight">
-                  Jade Tours and Travels brings your travel dreams to life with tailor-made packages, seamless bookings, and unforgettable experiences across the globe.
+              <div className="hero-description overflow-hidden">
+                <p className="text-[13px] md:text-base lg:text-[18px] text-gray-500 mb-5 lg:mb-8 leading-relaxed font-medium max-w-[620px] tracking-tight">
+                  Jade Tours and Travels curates bespoke journeys that transcend the ordinary. From hidden gems to iconic horizons, we redefine how you see the world.
                 </p>
               </div>
 
-              <div className="hero-cta-group flex flex-wrap items-center gap-4 lg:gap-6">
-                <button 
-                  onClick={() => handleScrollTo("packages")}
-                  className="w-full sm:w-auto px-6 py-3 lg:px-10 lg:py-4 bg-primary text-white font-black rounded-full flex items-center justify-center gap-3 transition-all shadow-[0_20px_40px_rgba(56,142,60,0.3)] hover:bg-primary-dark hover:-translate-y-1 active:translate-y-0 group text-[10px] lg:text-sm uppercase tracking-widest relative overflow-hidden"
+              <div className="hero-cta-group flex flex-wrap items-center gap-3 lg:gap-5">
+                <MagneticButton 
+                  onClick={() => handleScrollTo("destinations")}
+                  className="flex-1 sm:flex-none px-6 py-3 lg:px-10 lg:py-4 bg-[#388E3C] text-white font-black rounded-full flex items-center justify-center gap-2 lg:gap-3 transition-all shadow-[0_15px_35px_rgba(56,142,60,0.25)] hover:bg-[#2E7D32] group text-[9px] lg:text-[11px] uppercase tracking-[0.2em] lg:tracking-[0.25em] relative overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                  <span className="relative z-10">Explore Packages</span>
-                  <Plane className="w-4 h-4 group-hover:rotate-12 transition-transform relative z-10" />
-                </button>
+                  <span className="relative z-10">Start Your Journey</span>
+                  <Plane className="w-3 h-3 lg:w-4 lg:h-4 group-hover:rotate-12 transition-transform relative z-10" />
+                </MagneticButton>
+                
                 <button 
                   onClick={() => handleScrollTo("contact")}
-                  className="w-full sm:w-auto px-6 py-3 lg:px-10 lg:py-4 bg-white text-gray-900 border-2 border-gray-100 font-black rounded-full flex items-center justify-center gap-3 transition-all shadow-lg hover:border-primary hover:text-primary hover:-translate-y-1 active:translate-y-0 group text-[10px] lg:text-sm uppercase tracking-widest"
+                  className="flex-1 sm:flex-none px-6 py-3 lg:px-10 lg:py-4 bg-white text-gray-950 font-black rounded-full flex items-center justify-center gap-2 lg:gap-3 transition-all hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] border border-gray-100 group text-[9px] lg:text-[11px] uppercase tracking-[0.2em] lg:tracking-[0.25em]"
                 >
-                  Contact Us
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-3 transition-transform duration-500" />
+                  Get in Touch
+                  <ArrowRight className="w-3 h-3 lg:w-4 lg:h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </div>
           </div>
 
           {/* Right Widget Side */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+          <div className="flex justify-center lg:justify-end">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full max-w-[420px]"
+              initial={{ opacity: 0, scale: 0.9, rotateY: 10, y: 50 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0, y: 0 }}
+              transition={{ duration: 1.5, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full max-w-[640px] perspective-1000"
             >
-              <div className="shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-[24px] lg:rounded-[32px] border border-white/50 backdrop-blur-md">
-                <BookingWidget />
+              <div className="relative group">
+                {/* Decorative glow behind the widget */}
+                <div className="absolute -inset-4 bg-primary/10 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                <div className="relative bg-white/95 backdrop-blur-xl shadow-[0_40px_120px_rgba(0,0,0,0.1)] rounded-[32px] lg:rounded-[40px] border border-white p-1 lg:p-2">
+                  <BookingWidget />
+                </div>
               </div>
             </motion.div>
           </div>
@@ -167,28 +191,32 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Integrated Stats Bar */}
-      <div className="relative z-30 bg-transparent py-6 lg:py-10 mt-auto">
+      {/* Integrated Stats Bar - Redesigned for Elite Look */}
+      <div className="relative z-30 bg-transparent py-4 lg:py-10 mt-auto">
         <div className="container-custom">
-          <div className="flex flex-wrap justify-between lg:grid lg:grid-cols-4 gap-6 lg:gap-8 bg-white/95 backdrop-blur-2xl rounded-[24px] lg:rounded-[32px] p-5 lg:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.06)] border border-white">
-            {stats.map((stat, i) => (
-              <div
-                key={i}
-                className="hero-stat-card flex items-center gap-4 lg:gap-5 lg:justify-center lg:border-r last:border-0 border-gray-200/60 px-2 lg:px-4 w-full sm:w-[45%] lg:w-auto group"
-              >
-                <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0 shadow-sm group-hover:bg-primary group-hover:text-white transition-all duration-700 transform group-hover:rotate-6">
-                  <stat.icon className="w-5 h-5 lg:w-7 lg:h-7" />
+          <div className="relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white to-white/90 backdrop-blur-3xl rounded-[24px] lg:rounded-[40px] shadow-[0_30px_80px_rgba(0,0,0,0.08)] border border-white/80" />
+            
+            <div className="relative flex flex-wrap justify-between lg:grid lg:grid-cols-4 gap-y-4 lg:gap-0 p-4 lg:p-8">
+              {stats.map((stat, i) => (
+                <div
+                  key={i}
+                  className="hero-stat-card flex items-center gap-3 lg:gap-6 lg:justify-center lg:border-r last:border-0 border-gray-100 px-2 w-[48%] lg:w-auto group/stat"
+                >
+                  <div className="w-9 h-9 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-primary/5 flex items-center justify-center text-primary shrink-0 shadow-sm group-hover/stat:bg-primary group-hover/stat:text-white transition-all duration-1000 transform group-hover/stat:scale-110 group-hover/stat:rotate-12">
+                    <stat.icon className="w-4 h-4 lg:w-7 lg:h-7" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-lg lg:text-[28px] font-black text-gray-950 leading-none tracking-tightest">
+                      {stat.value}
+                    </span>
+                    <span className="text-[7px] lg:text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] lg:tracking-[0.3em] mt-1 group-hover/stat:text-primary transition-colors duration-500">
+                      {stat.label}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-xl lg:text-[26px] font-black text-gray-950 leading-none tracking-tighter">
-                    {stat.value}
-                  </span>
-                  <span className="text-[9px] lg:text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mt-1">
-                    {stat.label}
-                  </span>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

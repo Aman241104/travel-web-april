@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { Heart, Shield, Zap, Sparkles } from "lucide-react";
+import { Heart, Shield, Zap, Sparkles, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import MagneticButton from "@/components/ui/MagneticButton";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -30,110 +30,149 @@ const benefits = [
 
 export default function ValuesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
   const imagesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
-      // Content animation
-      gsap.fromTo(".values-content-item", 
+      // Headline Stagger
+      gsap.fromTo(".values-headline-line", 
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.15,
+          duration: 1.5,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: ".values-header",
+            start: "top 80%",
+          }
+        }
+      );
+
+      // Value Tiles Entrance
+      gsap.fromTo(".value-tile", 
         { x: -40, opacity: 0 },
         {
           x: 0,
           opacity: 1,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "power2.out",
+          stagger: 0.15,
+          duration: 1.2,
+          ease: "expo.out",
           scrollTrigger: {
-            trigger: contentRef.current,
-            start: "top 65%",
-            toggleActions: "play none none none"
+            trigger: ".values-grid",
+            start: "top 75%",
           }
         }
       );
 
-      // Polaroid animation
-      gsap.fromTo(".polaroid-item", 
-        { opacity: 0, scale: 0.8, y: 60 },
+      // Polaroid Spread Animation
+      gsap.fromTo(".polaroid-card", 
+        { 
+          opacity: 0, 
+          scale: 0.8, 
+          y: 100,
+          rotate: (i) => i === 0 ? 15 : -15 
+        },
         {
           opacity: 1,
           scale: 1,
           y: 0,
-          rotation: (i) => i === 0 ? -10 : 10,
-          stagger: 0.2,
-          duration: 1,
-          ease: "power2.out",
+          rotate: (i) => i === 0 ? -8 : 12,
+          stagger: 0.3,
+          duration: 2,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: imagesRef.current,
             start: "top 70%",
-            toggleActions: "play none none none"
           }
         }
       );
 
-      // Seal animation
-      gsap.fromTo(".primary-seal", 
-        { scale: 0, opacity: 0 },
+      // Seal Pulse & Spin
+      gsap.fromTo(".brand-seal", 
+        { scale: 0, rotate: -180 },
         {
           scale: 1,
-          opacity: 1,
-          duration: 1,
-          ease: "elastic.out(1, 0.5)",
+          rotate: 0,
+          duration: 1.5,
+          ease: "back.out(1.7)",
           scrollTrigger: {
             trigger: imagesRef.current,
-            start: "top 65%",
-            toggleActions: "play none none none"
+            start: "top 60%",
           }
         }
       );
 
-      // Refresh ScrollTrigger after a short delay
-      setTimeout(() => ScrollTrigger.refresh(), 100);
+      // Polaroid Parallax
+      gsap.to(".polaroid-parallax-1", {
+        y: -40,
+        rotate: -12,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      gsap.to(".polaroid-parallax-2", {
+        y: 60,
+        rotate: 18,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={containerRef} className="py-12 lg:py-24 bg-white overflow-hidden relative border-t border-gray-100">
-      {/* Bright Background Texture */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_70%_20%,rgba(56,142,60,0.035),transparent_70%)] pointer-events-none" />
-
+    <section id="values" ref={containerRef} className="py-16 lg:py-28 bg-white overflow-hidden relative border-t border-gray-100 scroll-mt-24">
+      {/* Premium Background Accents */}
+      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_85%_15%,rgba(56,142,60,0.04),transparent_60%)] pointer-events-none" />
+      
       <div className="container-custom relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-32">
           
-          {/* Content Side */}
-          <div ref={contentRef} className="values-content w-full lg:w-1/2 space-y-6 lg:space-y-8">
-            <div className="values-content-item">
-              <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.5em] text-[9px] lg:text-[10px] mb-4 lg:mb-6">
-                <Sparkles className="w-4 h-4 lg:w-5 lg:h-5" />
+          {/* Content Side: The Narrative */}
+          <div className="w-full lg:w-1/2 space-y-8 lg:space-y-12">
+            <div className="values-header space-y-4 lg:space-y-8">
+              <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.5em] text-[10px] lg:text-[11px] mb-2 lg:mb-4">
+                <span className="w-8 h-[1px] bg-primary/30" />
                 The Jade Distinction
               </div>
-              <h2 className="text-[28px] md:text-[36px] lg:text-[48px] xl:text-[56px] font-sans font-black text-gray-950 leading-[1.1] lg:leading-[1] mb-4 lg:mb-6 tracking-tighter">
-                Travel Without <br />
-                <span className="text-primary italic font-serif font-light drop-shadow-sm">Stress.</span> We Handle <br className="hidden sm:block" />
-                Everything.
+              <h2 className="text-[32px] md:text-[52px] lg:text-[68px] xl:text-[80px] font-sans font-black text-gray-950 leading-[1] tracking-tightest uppercase">
+                <span className="block values-headline-line">Elegance In</span>
+                <span className="block values-headline-line text-primary italic font-serif font-light lowercase">Every</span>
+                <span className="block values-headline-line">Journey.</span>
               </h2>
+              <p className="text-[13px] lg:text-xl text-gray-600 leading-relaxed max-w-[540px] font-medium tracking-tight opacity-80">
+                At Jade Tours and Travels, we don&apos;t just plan trips; we curate legacies of exploration. Our values are the foundation of every bespoke experience we craft.
+              </p>
             </div>
 
-            <div className="space-y-5 lg:space-y-6">
+            <div className="values-grid space-y-4 lg:space-y-8">
               {benefits.map((benefit, i) => (
                 <div 
                   key={i} 
-                  className="values-content-item flex flex-col sm:flex-row gap-4 lg:gap-6 group p-5 lg:p-6 rounded-[24px] lg:rounded-[32px] bg-gray-50/60 border border-gray-100 hover:bg-white hover:shadow-[0_40px_100px_rgba(56,142,60,0.08)] transition-all duration-700 relative overflow-hidden"
+                  className="value-tile flex flex-col sm:flex-row gap-5 lg:gap-8 group p-5 lg:p-8 rounded-[28px] lg:rounded-[48px] bg-gray-50/40 border border-gray-100 hover:bg-white hover:shadow-[0_40px_120px_rgba(56,142,60,0.1)] transition-all duration-1000 relative overflow-hidden"
                 >
-                  {/* Decorative Background Text */}
-                  <span className="absolute -top-3 -left-2 lg:-top-4 lg:-left-3 font-sans font-black text-3xl lg:text-[64px] text-gray-950/[0.02] group-hover:text-primary/[0.04] transition-colors duration-1000 leading-none tracking-tighter pointer-events-none select-none whitespace-nowrap z-0">
-                    {benefit.title.split(' ')[0]}
+                  {/* Editorial Background Motif */}
+                  <span className="absolute -top-4 -left-4 font-serif font-black text-6xl lg:text-[100px] text-gray-950/[0.02] group-hover:text-primary/[0.04] transition-all duration-1000 leading-none tracking-tightest pointer-events-none select-none uppercase z-0 italic">
+                    {benefit.title[0]}
                   </span>
 
-                  <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-xl bg-white flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm group-hover:-translate-y-1 transform group-hover:rotate-6 border border-gray-100 relative z-10">
-                    <benefit.icon className="w-5 h-5 lg:w-7 lg:h-7" />
+                  <div className="w-12 h-12 lg:w-20 lg:h-20 rounded-[20px] lg:rounded-[32px] bg-white flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-1000 shadow-sm group-hover:-translate-y-2 transform group-hover:rotate-12 border border-gray-100 relative z-10">
+                    <benefit.icon className="w-6 h-6 lg:w-10 lg:h-10" />
                   </div>
-                  <div className="space-y-1 lg:space-y-2 relative z-10">
-                    <h3 className="font-sans font-black text-lg lg:text-xl text-gray-950 group-hover:text-primary transition-colors duration-500 tracking-tight leading-none">{benefit.title}</h3>
-                    <p className="text-gray-600 leading-relaxed max-w-[480px] text-xs lg:text-sm font-medium tracking-tight">
+                  <div className="space-y-2 lg:space-y-3 relative z-10 pt-1 lg:pt-2">
+                    <h3 className="font-sans font-black text-lg lg:text-2xl text-gray-950 group-hover:text-primary transition-colors duration-700 tracking-tightest uppercase leading-none">{benefit.title}</h3>
+                    <p className="text-gray-500 leading-relaxed max-w-[480px] text-[13px] lg:text-lg font-medium tracking-tight group-hover:text-gray-700 transition-colors duration-700">
                       {benefit.desc}
                     </p>
                   </div>
@@ -141,68 +180,70 @@ export default function ValuesSection() {
               ))}
             </div>
 
-            <div className="values-content-item pt-4 lg:pt-6 flex flex-wrap items-center gap-6 lg:gap-10">
-              <Link 
-                href="#contact" 
-                className="px-6 py-3 lg:px-10 lg:py-4 bg-primary text-white font-black rounded-full transition-all shadow-[0_20px_40px_rgba(56,142,60,0.3)] hover:bg-primary-dark hover:-translate-y-1 active:translate-y-0 text-[10px] lg:text-sm uppercase tracking-[0.2em] relative overflow-hidden group"
+            <div className="pt-8 flex flex-wrap items-center gap-8 lg:gap-12">
+              <MagneticButton 
+                className="px-10 py-5 lg:px-14 lg:py-6 bg-primary text-white font-black rounded-full shadow-[0_20px_60px_rgba(56,142,60,0.3)] hover:bg-primary-dark transition-all text-[11px] lg:text-xs uppercase tracking-[0.4em] relative overflow-hidden group"
               >
                 <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                <span className="relative z-10">Plan Your Trip</span>
-              </Link>
-              <Link 
-                href="#packages" 
-                className="text-gray-950 font-black uppercase tracking-[0.2em] text-[9px] lg:text-[10px] hover:text-primary transition-all flex items-center gap-3 lg:gap-5 group"
-              >
-                <span>Explore Collection</span>
-                <div className="w-10 lg:w-14 h-[1.5px] bg-gray-200 relative overflow-hidden">
+                <span className="relative z-10">Start Your Legacy</span>
+              </MagneticButton>
+              <button className="text-gray-400 font-black uppercase tracking-[0.3em] text-[10px] lg:text-[11px] hover:text-primary transition-all flex items-center gap-4 group">
+                <span>View Collections</span>
+                <div className="w-12 h-[1px] bg-gray-200 relative overflow-hidden">
                   <div className="absolute inset-0 bg-primary -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
                 </div>
-              </Link>
+              </button>
             </div>
           </div>
 
-          {/* Image Side */}
-          <div ref={imagesRef} className="values-images w-full lg:w-1/2 relative h-[350px] md:h-[450px] lg:h-[600px] flex items-center justify-center mt-10 lg:mt-0">
-            {/* Background soft glows */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] md:w-[500px] h-[250px] md:h-[500px] bg-primary/5 rounded-full blur-[80px] md:blur-[120px] -z-10 animate-pulse" />
+          {/* Image Side: The Atmosphere */}
+          <div ref={imagesRef} className="w-full lg:w-1/2 relative h-[400px] md:h-[600px] lg:h-[800px] flex items-center justify-center mt-12 lg:mt-0">
+            {/* Background cinematic depth */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] md:w-[600px] h-[250px] md:h-[600px] bg-primary/5 rounded-full blur-[80px] md:blur-[160px] -z-10 animate-pulse" />
 
-            {/* Santorini Polaroid */}
+            {/* Premium Polaroid 1 */}
             <div 
-              className="polaroid-item absolute top-5 left-2 md:top-10 md:left-5 lg:top-0 lg:-left-6 w-[180px] md:w-[240px] lg:w-[320px] bg-white p-2.5 md:p-3.5 pb-8 md:pb-12 lg:pb-20 shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-gray-100 cursor-pointer transition-all duration-700 ease-out z-20 hover:z-40 hover:scale-105 hover:-translate-y-4"
+              className="polaroid-card polaroid-parallax-1 absolute top-0 left-0 w-[160px] md:w-[320px] lg:w-[420px] bg-white p-3 md:p-6 pb-10 md:pb-20 lg:pb-32 shadow-[0_30px_100px_rgba(0,0,0,0.08)] border border-gray-50 cursor-pointer z-20 hover:z-40 group"
             >
-              <div className="relative w-full aspect-[4/5] overflow-hidden grayscale-[0.6] group-hover:grayscale-0 transition-all duration-[1.2s] rounded-lg md:rounded-xl">
+              <div className="relative w-full aspect-[4/5] overflow-hidden rounded-lg md:rounded-2xl bg-gray-100">
                 <Image 
                   src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1200&auto=format&fit=crop" 
-                  alt="Tour" 
+                  alt="Awaited Memories" 
                   fill 
-                  className="object-cover" 
+                  className="object-cover transition-all duration-[2s] group-hover:scale-110 group-hover:rotate-2" 
                 />
               </div>
-              <p className="mt-3 lg:mt-5 text-center text-gray-950 font-serif italic text-base md:text-xl lg:text-2xl tracking-tighter opacity-95">Santorini, Greece</p>
+              <div className="mt-4 md:mt-10 space-y-1 lg:space-y-2">
+                <p className="text-center text-gray-950 font-serif italic text-base md:text-3xl lg:text-4xl tracking-tightest opacity-95 leading-tight">Santorini, Greece</p>
+                <p className="text-center text-[7px] md:text-[10px] font-black text-primary uppercase tracking-[0.3em] lg:tracking-[0.5em] opacity-40 group-hover:opacity-100 transition-opacity duration-700">The Ultimate Escape</p>
+              </div>
             </div>
 
-            {/* Maldives Polaroid */}
+            {/* Premium Polaroid 2 */}
             <div 
-              className="polaroid-item absolute bottom-5 right-2 md:bottom-10 md:right-5 lg:bottom-0 lg:-right-6 w-[200px] md:w-[280px] lg:w-[350px] bg-white p-2.5 md:p-4 pb-10 md:pb-16 lg:pb-24 shadow-[0_30px_70px_rgba(0,0,0,0.1)] border border-gray-100 cursor-pointer transition-all duration-700 ease-out z-10 hover:z-40 hover:scale-105 hover:-translate-y-4"
+              className="polaroid-card polaroid-parallax-2 absolute bottom-0 right-0 w-[180px] md:w-[360px] lg:w-[480px] bg-white p-4 md:p-8 pb-12 md:pb-24 lg:pb-36 shadow-[0_50px_120px_rgba(0,0,0,0.12)] border border-gray-50 cursor-pointer z-10 hover:z-40 group"
             >
-              <div className="relative w-full aspect-square overflow-hidden grayscale-[0.4] group-hover:grayscale-0 transition-all duration-[1.2s] rounded-lg md:rounded-xl">
+              <div className="relative w-full aspect-square overflow-hidden rounded-lg md:rounded-3xl bg-gray-100">
                 <Image 
                   src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=1200&auto=format&fit=crop" 
-                  alt="Tour" 
+                  alt="Curated Sanctuary" 
                   fill 
-                  className="object-cover" 
+                  className="object-cover transition-all duration-[2s] group-hover:scale-110 group-hover:-rotate-2" 
                 />
               </div>
-              <p className="mt-3 lg:mt-5 text-center text-gray-950 font-serif italic text-lg md:text-2xl lg:text-3xl tracking-tighter opacity-95">The Maldives</p>
+              <div className="mt-6 md:mt-12 space-y-1 lg:space-y-2">
+                <p className="text-center text-gray-950 font-serif italic text-lg md:text-4xl lg:text-5xl tracking-tightest opacity-95 leading-tight">The Maldives</p>
+                <p className="text-center text-[7px] md:text-[10px] font-black text-primary uppercase tracking-[0.3em] lg:tracking-[0.5em] opacity-40 group-hover:opacity-100 transition-opacity duration-700">Private Sanctuaries</p>
+              </div>
             </div>
 
-            {/* Primary Seal */}
+            {/* Brand Excellence Seal */}
             <div
-              className="primary-seal absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-28 md:h-28 lg:w-36 lg:h-36 bg-primary rounded-full border-[3px] md:border-[6px] border-white shadow-[0_15px_30px_rgba(56,142,60,0.3)] z-30 flex items-center justify-center transform hover:rotate-[360deg] transition-transform duration-[1.5s] cursor-default"
+              className="brand-seal absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-32 md:h-32 lg:w-44 lg:h-44 bg-primary rounded-full border-[4px] md:border-[10px] border-white shadow-[0_20px_60px_rgba(56,142,60,0.4)] z-30 flex items-center justify-center transform hover:rotate-[360deg] transition-transform duration-[2s] cursor-default"
             >
-              <div className="text-center text-white">
-                <div className="text-base md:text-xl lg:text-2xl font-black leading-none">100%</div>
-                <div className="text-[5px] md:text-[7px] lg:text-[9px] font-black uppercase tracking-[0.3em] mt-0.5 md:mt-1.5">Bespoke</div>
+              <div className="text-center text-white px-2 lg:px-4">
+                <div className="text-sm md:text-3xl lg:text-4xl font-black leading-none mb-0.5 md:mb-2 italic font-serif tracking-tighter">Jade</div>
+                <div className="text-[4px] md:text-[9px] lg:text-[11px] font-black uppercase tracking-[0.2em] lg:tracking-[0.4em] opacity-90">Bespoke Excellence</div>
               </div>
             </div>
           </div>

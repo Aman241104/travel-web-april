@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { ChevronRight, ChevronLeft, MapPin, ArrowRight, Star, Sparkles, Plane } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, ChevronLeft, MapPin, ArrowRight, Star, Sparkles, Plane, Globe } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import MagneticButton from "@/components/ui/MagneticButton";
 import { useLenis } from "@studio-freight/react-lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -68,15 +68,46 @@ const destinations = [
 export default function PopularDestinations() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const lenis = useLenis();
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    
     const ctx = gsap.context(() => {
-      // Background parallax
-      gsap.to(".dest-bg-circle", {
-        y: 100,
+      // Headline Reveal
+      gsap.fromTo(".dest-headline-line", 
+        { y: 80, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.15,
+          duration: 1.5,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: ".dest-header",
+            start: "top 85%",
+          }
+        }
+      );
+
+      // Cards Fan-In Animation
+      gsap.fromTo(".dest-card", 
+        { x: 100, opacity: 0, rotateY: 30 },
+        {
+          x: 0,
+          opacity: 1,
+          rotateY: 0,
+          stagger: 0.15,
+          ease: "expo.out",
+          duration: 2,
+          scrollTrigger: {
+            trigger: scrollRef.current,
+            start: "top 75%",
+          }
+        }
+      );
+
+      // Parallax Background
+      gsap.to(".dest-bg-glow", {
+        y: 150,
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
@@ -85,176 +116,175 @@ export default function PopularDestinations() {
           scrub: true
         }
       });
-
-      // Cards reveal
-      gsap.fromTo(".dest-card", 
-        { x: 100, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          stagger: 0.1,
-          ease: "expo.out",
-          duration: 1.5,
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 70%",
-            toggleActions: "play none none none"
-          }
-        }
-      );
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      const currentProgress = (scrollLeft / (scrollWidth - clientWidth)) * 100;
+      setProgress(currentProgress);
+    }
+  };
+
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollTo = direction === "left" ? scrollLeft - clientWidth / 2 : scrollLeft + clientWidth / 2;
+      const scrollTo = direction === "left" ? scrollLeft - clientWidth / 1.5 : scrollLeft + clientWidth / 1.5;
       scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
     }
   };
 
   return (
-    <section id="packages" ref={containerRef} className="relative py-12 lg:py-24 bg-[#0B1310] overflow-hidden">
+    <section id="packages" ref={containerRef} className="relative py-16 lg:py-28 bg-[#020504] overflow-hidden scroll-mt-24">
       
-      {/* Immersive Background Layers */}
+      {/* Immersive Cinematic Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="dest-bg-circle absolute top-0 right-0 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 will-change-transform" />
-        <div className="dest-bg-circle absolute bottom-0 left-0 w-[600px] h-[600px] bg-accent-gold/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/4 will-change-transform" />
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.05] mix-blend-overlay" />
+        <div className="dest-bg-glow absolute top-0 right-0 w-[1000px] h-[1000px] bg-primary/[0.08] rounded-full blur-[160px] -translate-y-1/2 translate-x-1/3" />
+        <div className="dest-bg-glow absolute bottom-0 left-0 w-[800px] h-[800px] bg-accent-gold/[0.04] rounded-full blur-[140px] translate-y-1/2 -translate-x-1/3" />
+        {/* Film Grain Effect */}
+        <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
       </div>
 
       <div className="container-custom relative z-10">
         
-        {/* Header - Cinematic Layout */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 lg:mb-16 gap-6">
-          <div className="max-w-2xl">
-            <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.4em] text-[9px] lg:text-[10px] mb-4 lg:mb-6">
-              Elite Travel Collection
+        {/* Header Section */}
+        <div className="dest-header flex flex-col lg:flex-row lg:items-end justify-between mb-10 lg:mb-20 gap-8 lg:gap-12">
+          <div className="max-w-4xl space-y-6 lg:space-y-8">
+            <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.6em] text-[10px] lg:text-[11px] mb-2 lg:mb-4">
+              <span className="w-8 h-[1px] bg-primary/30" />
+              Global Anthology
             </div>
             
-            <h2 className="text-[28px] md:text-[40px] lg:text-[52px] xl:text-[64px] font-sans font-black text-white leading-[1.1] lg:leading-[1] mb-6 lg:mb-8 tracking-tighter">
-              World Class <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-accent-gold italic font-serif font-light drop-shadow-2xl">Exclusives.</span>
+            <h2 className="text-[32px] md:text-[52px] lg:text-[68px] xl:text-[84px] font-sans font-black text-white leading-[1] tracking-tightest uppercase">
+              <span className="block dest-headline-line">The World&apos;s</span>
+              <span className="block dest-headline-line text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary/40 italic font-serif font-light lowercase">Exclusive</span>
+              <span className="block dest-headline-line">Horizon.</span>
             </h2>
             
-            <p className="text-white/60 text-sm lg:text-lg leading-relaxed max-w-xl font-medium tracking-tight">
-              A curated anthology of the globe&apos;s most coveted retreats. Hand-picked for the traveler who views every journey as an essential masterpiece.
+            <p className="text-gray-500 text-[13px] lg:text-xl leading-relaxed max-w-2xl font-medium tracking-tight">
+              A curated anthology of the globe&apos;s most coveted retreats. Hand-picked for the traveler who views every journey as an essential masterpiece of life.
             </p>
           </div>
           
-          <div className="flex gap-3 lg:gap-4 pb-4">
-            <button 
-              onClick={() => scroll("left")}
-              className="w-12 h-12 lg:w-14 lg:h-14 rounded-full border border-white/20 flex items-center justify-center bg-white/5 text-white hover:bg-primary hover:border-primary transition-all duration-500 shadow-xl group"
-              aria-label="Previous"
-            >
-              <ChevronLeft className="w-5 h-5 lg:w-7 lg:h-7 group-hover:scale-110 group-active:scale-90 transition-all" />
-            </button>
-            <button 
-              onClick={() => scroll("right")}
-              className="w-12 h-12 lg:w-14 lg:h-14 rounded-full border border-white/20 flex items-center justify-center bg-white/5 text-white hover:bg-primary hover:border-primary transition-all duration-500 shadow-xl group"
-              aria-label="Next"
-            >
-              <ChevronRight className="w-5 h-5 lg:w-7 lg:h-7 group-hover:scale-110 group-active:scale-90 transition-all" />
-            </button>
+          <div className="flex flex-col gap-8">
+            <div className="flex gap-4 lg:gap-6">
+              <button 
+                onClick={() => scroll("left")}
+                className="w-14 h-14 lg:w-20 lg:h-20 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.02] text-white hover:bg-primary hover:border-primary transition-all duration-700 shadow-2xl group relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
+                <ChevronLeft className="w-6 h-6 lg:w-10 lg:h-10 relative z-10 group-hover:scale-110 transition-all" />
+              </button>
+              <button 
+                onClick={() => scroll("right")}
+                className="w-14 h-14 lg:w-20 lg:h-20 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.02] text-white hover:bg-primary hover:border-primary transition-all duration-700 shadow-2xl group relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
+                <ChevronRight className="w-6 h-6 lg:w-10 lg:h-10 relative z-10 group-hover:scale-110 transition-all" />
+              </button>
+            </div>
+            {/* Custom Progress Bar */}
+            <div className="h-[2px] w-full bg-white/10 rounded-full overflow-hidden relative">
+              <motion.div 
+                className="absolute inset-0 bg-primary origin-left"
+                style={{ scaleX: progress / 100 }}
+              />
+            </div>
           </div>
         </div>
 
-        {/* Dynamic Cards Container */}
+        {/* Cinematic Anthology Slider */}
         <div 
           ref={scrollRef}
-          className="flex gap-6 lg:gap-12 overflow-x-auto no-scrollbar pb-10 lg:pb-20 snap-x snap-mandatory px-4 lg:px-0"
+          onScroll={handleScroll}
+          className="flex gap-6 lg:gap-16 overflow-x-auto no-scrollbar pb-16 lg:pb-32 snap-x snap-mandatory px-4 lg:px-0"
         >
           {destinations.map((dest, i) => (
             <div
               key={i}
-              className="dest-card min-w-[280px] md:min-w-[420px] lg:min-w-[650px] group snap-start relative h-[420px] lg:h-[600px] rounded-[24px] lg:rounded-[40px] overflow-hidden cursor-pointer shadow-[0_40px_80px_rgba(0,0,0,0.4)] border border-white/5 bg-gray-950"
+              className="dest-card min-w-[280px] md:min-w-[480px] lg:min-w-[750px] group snap-start relative h-[420px] lg:h-[700px] rounded-[32px] lg:rounded-[64px] overflow-hidden cursor-pointer shadow-[0_50px_100px_rgba(0,0,0,0.6)] border border-white/5 bg-gray-950 transition-all duration-1000 perspective-2000"
             >
               <Image 
                 src={dest.image} 
                 alt={dest.name} 
                 fill 
-                className="object-cover transition-transform duration-[5s] group-hover:scale-110 ease-out brightness-75 group-hover:brightness-100" 
+                className="object-cover transition-transform duration-[6s] group-hover:scale-110 ease-out brightness-[0.6] group-hover:brightness-90" 
               />
               
-              {/* Cinematic Overlays - Enhanced Contrast */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1310] via-[#0B1310]/20 to-transparent opacity-95 transition-opacity duration-1000" />
-              <div className="absolute inset-0 ring-1 ring-inset ring-white/20 rounded-[24px] lg:rounded-[40px] z-20 pointer-events-none" />
+              {/* Complex Cinematic Overlays */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#020504] via-transparent to-[#020504]/40 opacity-90" />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[32px] lg:rounded-[64px] z-20 pointer-events-none" />
               
-              {/* Destination Ticket Aesthetic - Left Column */}
-              <div className="absolute top-6 left-6 lg:top-10 lg:left-10 z-30 flex flex-col gap-3 lg:gap-5">
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-[8px] lg:text-[9px] font-black text-primary uppercase tracking-[0.4em]">Pass Code</span>
-                  <span className="text-[9px] lg:text-[11px] font-bold text-white/50 tracking-[0.15em]">{dest.code}</span>
+              {/* Premium Ticket Info - Left */}
+              <div className="absolute top-6 lg:top-10 left-6 lg:left-10 z-30 flex flex-col gap-4 lg:gap-8 transition-transform duration-1000 group-hover:-translate-y-2">
+                <div className="flex flex-col gap-1">
+                  <span className="text-[8px] lg:text-[10px] font-black text-primary uppercase tracking-[0.5em]">Boarding Pass</span>
+                  <span className="text-[9px] lg:text-[12px] font-bold text-white/40 tracking-widest">{dest.code}</span>
                 </div>
-                <div className="w-px h-8 lg:h-12 bg-white/20" />
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-[8px] lg:text-[9px] font-black text-primary uppercase tracking-[0.4em]">Category</span>
-                  <span className="text-[9px] lg:text-[11px] font-black text-white tracking-[0.15em] uppercase">{dest.tag}</span>
-                </div>
-              </div>
-
-              {/* Price Tag - Top Right */}
-              <div className="absolute top-6 right-6 lg:top-10 lg:right-10 z-30">
-                <div className="bg-white/10 backdrop-blur-3xl border border-white/20 rounded-xl lg:rounded-[24px] p-3 lg:p-5 shadow-2xl flex flex-col items-center group-hover:bg-primary transition-all duration-1000 group-hover:border-primary">
-                  <span className="text-[8px] lg:text-[9px] font-black text-white/50 uppercase tracking-[0.25em] mb-0.5 group-hover:text-white transition-colors">From</span>
-                  <span className="text-lg lg:text-3xl font-black text-white tracking-tighter">₹{dest.price}</span>
+                <div className="w-8 lg:w-12 h-[1px] bg-white/10" />
+                <div className="flex flex-col gap-1">
+                  <span className="text-[8px] lg:text-[10px] font-black text-primary uppercase tracking-[0.5em]">Collection</span>
+                  <span className="text-[9px] lg:text-[13px] font-black text-white tracking-[0.2em] uppercase">{dest.tag}</span>
                 </div>
               </div>
 
-              {/* Center Stamp Aesthetic */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 opacity-0 group-hover:opacity-100 transition-all duration-1000 scale-125 group-hover:scale-100">
-                <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-full border border-primary/50 flex items-center justify-center p-2.5">
-                  <div className="w-full h-full rounded-full border border-dashed border-primary/30 flex flex-col items-center justify-center rotate-[-15deg]">
-                    <Plane className="w-5 h-5 lg:w-8 lg:h-8 text-primary/50 mb-0.5" />
-                    <span className="text-[7px] lg:text-[9px] font-black text-primary/50 uppercase tracking-[0.4em]">Verified</span>
+              {/* Price Reveal - Top Right */}
+              <div className="absolute top-6 lg:top-10 right-6 lg:right-10 z-30 overflow-hidden rounded-full">
+                <div className="bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-full px-4 py-3 lg:px-10 lg:py-6 shadow-2xl flex items-center gap-3 lg:gap-4 group-hover:bg-primary transition-all duration-1000">
+                  <div className="flex flex-col items-end">
+                    <span className="text-[8px] lg:text-[10px] font-black text-white/50 uppercase tracking-widest group-hover:text-white transition-colors">Starting At</span>
+                    <span className="text-base lg:text-3xl font-black text-white tracking-tightest">₹{dest.price}</span>
+                  </div>
+                  <div className="w-6 h-6 lg:w-12 lg:h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-all duration-1000">
+                    <Plane className="w-3 h-3 lg:w-6 lg:h-6 text-white" />
                   </div>
                 </div>
               </div>
 
-              {/* Bottom Info - Perforated Ticket Style */}
-              <div className="absolute bottom-5 left-5 right-5 lg:bottom-8 lg:left-8 lg:right-8 z-30">
-                <div className="relative p-5 lg:p-8 rounded-[20px] lg:rounded-[32px] bg-white/[0.04] backdrop-blur-3xl border border-white/15 overflow-hidden group/info transition-all duration-1000 group-hover:bg-white/[0.1] group-hover:border-white/30">
+              {/* Bottom Discovery Module - Ticket Styled */}
+              <div className="absolute bottom-4 left-4 right-4 lg:bottom-12 lg:left-12 lg:right-12 z-30">
+                <div className="relative p-6 lg:p-14 rounded-[32px] lg:rounded-[56px] bg-white/[0.02] backdrop-blur-3xl border border-white/10 overflow-hidden group/info transition-all duration-1000 group-hover:bg-white/[0.05] group-hover:border-white/20">
                   
-                  {/* Perforation Line */}
-                  <div className="absolute top-0 left-0 w-full h-[px] border-t border-dashed border-white/20 pointer-events-none" />
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-[#0B1310] border border-white/10" />
+                  {/* Visual Ticket Perforation */}
+                  <div className="absolute top-0 left-0 w-full h-[1px] border-t border-dashed border-white/10 pointer-events-none" />
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#020504] border border-white/10" />
                   
                   <div className="relative z-10">
-                    <div className="flex items-center justify-between mb-4 lg:mb-6">
-                      <div className="flex items-center gap-2 lg:gap-3 text-primary font-black text-[9px] lg:text-[11px] uppercase tracking-[0.5em] transition-transform duration-700 group-hover:translate-x-2">
-                        <MapPin className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
+                    <div className="flex items-center justify-between mb-6 lg:mb-12">
+                      <div className="flex items-center gap-3 lg:gap-4 text-primary font-black text-[9px] lg:text-[12px] uppercase tracking-[0.5em] lg:tracking-[0.6em] transition-all duration-1000 group-hover:translate-x-4">
+                        <Globe className="w-3.5 h-3.5 lg:w-6 lg:h-6" />
                         {dest.location}
                       </div>
-                      <div className="flex items-center gap-1.5 px-2.5 py-1 bg-white/5 rounded-full border border-white/10">
-                        <Star className="w-3 h-3 lg:w-3.5 lg:h-3.5 text-accent-gold fill-accent-gold" />
-                        <span className="text-[9px] lg:text-[10px] font-black text-white tracking-[0.15em]">{dest.rating}</span>
+                      <div className="flex items-center gap-1.5 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                        <Star className="w-3 lg:w-5 h-3 lg:h-5 text-accent-gold fill-accent-gold" />
+                        <span className="text-[9px] lg:text-[12px] font-black text-white tracking-widest">{dest.rating}</span>
                       </div>
                     </div>
                     
-                    <h3 className="text-xl lg:text-[32px] font-sans font-black text-white mb-5 lg:mb-8 leading-[1] tracking-tighter transition-all duration-1000 group-hover:text-primary">
+                    <h3 className="text-2xl lg:text-[56px] font-sans font-black text-white mb-6 lg:mb-14 leading-[0.9] tracking-tightest uppercase transition-all duration-1000 group-hover:text-primary group-hover:scale-105 origin-left">
                       {dest.name}
                     </h3>
                     
                     <div className="flex items-center justify-between">
-                      <div className="flex gap-6 lg:gap-10">
-                        <div className="flex flex-col">
-                          <span className="text-[8px] lg:text-[9px] font-black text-white/40 uppercase tracking-[0.3em]">Duration</span>
-                          <span className="text-xs lg:text-base font-bold text-white tracking-widest">{dest.duration}</span>
+                      <div className="flex gap-6 lg:gap-20">
+                        <div className="flex flex-col gap-1">
+                          <span className="text-[8px] lg:text-[11px] font-black text-white/30 uppercase tracking-[0.3em] lg:tracking-[0.4em]">Time</span>
+                          <span className="text-xs lg:text-xl font-bold text-white tracking-[0.1em]">{dest.duration}</span>
                         </div>
-                        <div className="flex flex-col">
-                          <span className="text-[8px] lg:text-[9px] font-black text-white/40 uppercase tracking-[0.3em]">Status</span>
+                        <div className="flex flex-col gap-1">
+                          <span className="text-[8px] lg:text-[11px] font-black text-white/30 uppercase tracking-[0.3em] lg:tracking-[0.4em]">Status</span>
                           <div className="flex items-center gap-1.5">
-                            <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
-                            <span className="text-xs lg:text-base font-black text-primary tracking-widest uppercase">Open</span>
+                            <div className="w-1 h-1 lg:w-1.5 lg:h-1.5 rounded-full bg-primary animate-pulse" />
+                            <span className="text-xs lg:text-xl font-black text-primary tracking-[0.1em] lg:tracking-[0.2em] uppercase">Private</span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-[12px] lg:rounded-[20px] bg-primary text-white flex items-center justify-center shadow-2xl transition-all duration-700 hover:bg-white hover:text-primary hover:scale-110 hover:rotate-6 group-hover:shadow-primary/20">
-                        <ArrowRight className="w-5 h-5 lg:w-8 lg:h-8" />
+                      <div className="w-12 h-12 lg:w-24 lg:h-24 rounded-2xl lg:rounded-[36px] bg-primary text-white flex items-center justify-center shadow-3xl transition-all duration-1000 hover:bg-white hover:text-primary group-hover:scale-110 group-hover:rotate-6">
+                        <ArrowRight className="w-6 h-6 lg:w-12 lg:h-12" />
                       </div>
                     </div>
                   </div>
@@ -264,28 +294,27 @@ export default function PopularDestinations() {
           ))}
         </div>
 
-        {/* Global Action Footer */}
-        <div className="mt-10 flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12 bg-white/[0.03] backdrop-blur-3xl rounded-[24px] lg:rounded-[40px] p-6 lg:p-10 border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.3)] group/footer overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-72 h-72 bg-primary/10 rounded-full blur-[90px] -translate-y-1/2 translate-x-1/2" />
+        {/* Action Footer - Curated Request */}
+        <div className="mt-20 lg:mt-32 flex flex-col lg:flex-row items-center justify-between gap-12 bg-white/[0.02] backdrop-blur-2xl rounded-[40px] lg:rounded-[64px] p-8 lg:p-16 border border-white/10 shadow-[0_60px_120px_rgba(0,0,0,0.5)] group/footer overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[140px] -translate-y-1/2 translate-x-1/2" />
           
-          <div className="max-w-xl text-center lg:text-left relative z-10">
-            <h4 className="text-xl lg:text-[36px] font-sans font-black text-white mb-3 lg:mb-5 leading-none tracking-tighter">
-              Don&apos;t See Your <br />
-              <span className="text-primary italic font-serif font-light drop-shadow-sm">Ideal Sanctuary?</span>
+          <div className="max-w-2xl space-y-6 relative z-10 text-center lg:text-left">
+            <h4 className="text-2xl lg:text-[48px] font-sans font-black text-white leading-[1] tracking-tightest uppercase">
+              Seek Your <br />
+              <span className="text-primary italic font-serif font-light lowercase">Personal</span> Sanctuary.
             </h4>
-            <p className="text-white/50 text-sm lg:text-lg font-medium leading-relaxed max-w-md">
-              Our experts specialize in the impossible. Request a private curation for destinations beyond our public anthology.
+            <p className="text-gray-500 text-sm lg:text-xl font-medium leading-relaxed max-w-xl">
+              Our travel architects specialize in the unattainable. Request a private curation for destinations beyond our public anthology.
             </p>
           </div>
           
-          <Link 
-            href="#contact" 
-            className="w-full lg:w-auto px-8 py-4 lg:px-12 lg:py-6 bg-white hover:bg-primary text-[#0B1310] hover:text-white font-black rounded-[16px] lg:rounded-[24px] transition-all shadow-[0_20px_50px_rgba(255,255,255,0.1)] hover:shadow-primary/20 hover:-translate-y-2 group flex items-center justify-center gap-4 lg:gap-6 uppercase tracking-[0.2em] text-[10px] lg:text-sm relative overflow-hidden"
+          <MagneticButton 
+            className="w-full lg:w-auto px-12 py-6 lg:px-20 lg:py-8 bg-primary text-white font-black rounded-[24px] lg:rounded-[32px] transition-all shadow-[0_30px_70px_rgba(56,142,60,0.4)] group flex items-center justify-center gap-6 uppercase tracking-[0.4em] text-[11px] lg:text-xs relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-700" />
-            <span className="relative z-10">Custom Curation</span>
-            <ArrowRight className="w-5 h-5 lg:w-7 lg:h-7 relative z-10 group-hover:translate-x-3 transition-transform duration-500" />
-          </Link>
+            <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+            <span className="relative z-10">Commission A Journey</span>
+            <ArrowRight className="w-6 h-6 lg:w-8 lg:h-8 relative z-10 group-hover:translate-x-4 transition-transform duration-700" />
+          </MagneticButton>
         </div>
       </div>
     </section>
