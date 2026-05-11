@@ -25,6 +25,55 @@ export default function Navbar() {
   const lenis = useLenis();
   const navRef = useRef<HTMLElement>(null);
 
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    const id = href.replace("#", "");
+    
+    if (id === "home") {
+      lenis?.scrollTo(0);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        lenis?.scrollTo(element, { offset: -80 });
+      }
+    }
+    setIsMobileMenuOpen(false);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "-10% 0px -80% 0px",
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    navLinks.forEach((link) => {
+      const element = document.getElementById(link.href.replace("#", ""));
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleContactClick = (e: React.MouseEvent) => {
     e.preventDefault();
     const message = `Hello Jade Atelier! I am inquiring about your Private Concierge services.\n\n` +
@@ -39,9 +88,9 @@ export default function Navbar() {
     <>
       <nav 
         ref={navRef}
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-700 ease-in-out ${
+        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out ${
           isScrolled 
-            ? "bg-white/90 backdrop-blur-xl py-4 shadow-sm border-b border-gray-50" 
+            ? "bg-white/90 backdrop-blur-xl py-3 lg:py-4 shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-gray-100" 
             : "bg-transparent py-5 lg:py-10"
         }`}
       >
@@ -116,7 +165,7 @@ export default function Navbar() {
               onClick={() => setIsMobileMenuOpen(true)}
               className={`w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-500 active:scale-90 ${
                 isScrolled 
-                  ? "bg-gray-100 text-gray-950 shadow-sm" 
+                  ? "bg-white text-gray-950 shadow-sm border border-gray-100" 
                   : "bg-white/10 text-gray-950 backdrop-blur-md border border-white/20 shadow-lg"
               }`}
             >
