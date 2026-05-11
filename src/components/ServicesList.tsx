@@ -96,6 +96,24 @@ export default function ServicesList() {
     return () => ctx.revert();
   }, []);
 
+  const handleServiceClick = (service: typeof featuredServices[0] | typeof standardServices[0]) => {
+    const message = `Hello Jade Atelier! I am inquiring about the ${service.title} service.\n\n` +
+      `✨ SERVICE: ${service.title}\n` +
+      `📝 DESCRIPTION: ${service.desc}\n\n` +
+      `I would like to receive more information about this service.`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  };
+
+  const handleGeneralClick = (action: string) => {
+    const message = `Hello Jade Atelier! I would like to ${action.toLowerCase()} with your team.\n\n` +
+      `I am interested in your luxury travel services and would like to start a conversation about my next journey.`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  };
+
   return (
     <section id="services" ref={containerRef} className="py-16 lg:py-28 bg-white relative overflow-hidden border-t border-gray-100 scroll-mt-24">
       {/* Refined Background Depth */}
@@ -129,11 +147,12 @@ export default function ServicesList() {
           {featuredServices.map((service, i) => (
             <div
               key={i}
+              onClick={() => handleServiceClick(service)}
               className={`featured-service-card p-8 lg:p-14 rounded-[40px] lg:rounded-[64px] relative overflow-hidden group border border-gray-100/80 ${
                 service.color === 'bg-primary' 
                   ? "bg-primary text-white shadow-[0_40px_120px_rgba(56,142,60,0.25)]" 
                   : "bg-white text-gray-950 shadow-[0_20px_60px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_100px_rgba(0,0,0,0.06)]"
-              } transition-all duration-1000 ease-in-out cursor-default`}
+              } transition-all duration-1000 ease-in-out cursor-pointer`}
             >
               <div className="relative z-10 flex flex-col h-full">
                 <div className={`w-16 h-16 lg:w-24 lg:h-24 rounded-[28px] lg:rounded-[40px] flex items-center justify-center mb-8 lg:mb-12 shadow-2xl transition-all duration-1000 group-hover:rotate-[15deg] group-hover:scale-110 ${
@@ -173,7 +192,8 @@ export default function ServicesList() {
           {standardServices.map((service, i) => (
             <div
               key={i}
-              className="standard-service-card bg-white p-8 lg:p-12 rounded-[32px] lg:rounded-[48px] border border-gray-100/60 shadow-[0_10px_40px_rgba(0,0,0,0.01)] hover:border-primary/20 hover:shadow-[0_40px_100px_rgba(0,0,0,0.04)] transition-all duration-1000 group relative overflow-hidden"
+              onClick={() => handleServiceClick(service)}
+              className="standard-service-card bg-white p-8 lg:p-12 rounded-[32px] lg:rounded-[48px] border border-gray-100/60 shadow-[0_10px_40px_rgba(0,0,0,0.01)] hover:border-primary/20 hover:shadow-[0_40px_100px_rgba(0,0,0,0.04)] transition-all duration-1000 group relative overflow-hidden cursor-pointer"
             >
               {/* Editorial Background Text */}
               <span className="absolute -top-4 -left-4 font-serif font-black text-6xl lg:text-[100px] text-gray-950/[0.02] group-hover:text-primary/[0.04] transition-all duration-1000 leading-none tracking-tightest pointer-events-none select-none uppercase z-0 italic">
@@ -208,6 +228,7 @@ export default function ServicesList() {
           
           <div className="flex flex-col sm:flex-row justify-center gap-6 lg:gap-10 w-full sm:w-auto">
             <MagneticButton 
+              onClick={() => handleGeneralClick("Plan My Journey")}
               className="w-full sm:w-auto px-12 py-5 lg:px-16 lg:py-6 bg-primary text-white font-black rounded-full shadow-[0_20px_60px_rgba(56,142,60,0.3)] hover:bg-primary-dark transition-all text-[11px] lg:text-xs uppercase tracking-[0.4em] relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -215,6 +236,7 @@ export default function ServicesList() {
             </MagneticButton>
             
             <button 
+              onClick={() => handleGeneralClick("Request A Quote")}
               className="w-full sm:w-auto px-12 py-5 lg:px-16 lg:py-6 bg-white border border-gray-200 text-gray-900 font-black rounded-full hover:border-primary hover:text-primary transition-all shadow-sm text-[11px] lg:text-xs uppercase tracking-[0.4em]"
             >
               Request A Quote

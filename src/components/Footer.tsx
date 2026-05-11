@@ -151,7 +151,15 @@ export default function Footer() {
               <div className="space-y-8">
                 <div className="space-y-2">
                   <span className="text-[9px] font-black uppercase tracking-[0.3em] text-white/20 block">WhatsApp</span>
-                  <Link href="https://wa.me/919825438324" className="text-white font-black text-lg lg:text-xl tracking-tighter hover:text-primary transition-colors block">+91 98254 38324</Link>
+                  <button 
+                    onClick={() => {
+                      const message = encodeURIComponent("Hello Jade Atelier! I am inquiring about your travel services and would like to speak with an expert.");
+                      window.open(`https://wa.me/919825438324?text=${message}`, '_blank');
+                    }}
+                    className="text-white font-black text-lg lg:text-xl tracking-tighter hover:text-primary transition-colors block text-left"
+                  >
+                    +91 98254 38324
+                  </button>
                 </div>
                 <div className="space-y-2">
                   <span className="text-[9px] font-black uppercase tracking-[0.3em] text-white/20 block">Email</span>

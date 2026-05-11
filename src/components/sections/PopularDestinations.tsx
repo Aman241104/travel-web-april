@@ -137,6 +137,26 @@ export default function PopularDestinations() {
     }
   };
 
+  const handleDestinationClick = (dest: typeof destinations[0]) => {
+    const message = `Hello Jade Atelier! I am interested in the ${dest.name} package (${dest.code}).\n\n` +
+      `🌍 DESTINATION: ${dest.name}, ${dest.location}\n` +
+      `⏱️ DURATION: ${dest.duration}\n` +
+      `🏷️ COLLECTION: ${dest.tag}\n` +
+      `💰 STARTING PRICE: ₹${dest.price}\n\n` +
+      `Please provide more details on this curated experience.`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  };
+
+  const handleCommissionClick = () => {
+    const message = `Hello Jade Atelier! I am seeking a personal sanctuary curation for a destination beyond the public anthology.\n\n` +
+      `I would like to speak with a travel architect about designing a bespoke journey.`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  };
+
   return (
     <section id="packages" ref={containerRef} className="relative py-16 lg:py-28 bg-[#020504] overflow-hidden scroll-mt-24">
       
@@ -205,6 +225,7 @@ export default function PopularDestinations() {
           {destinations.map((dest, i) => (
             <div
               key={i}
+              onClick={() => handleDestinationClick(dest)}
               className="dest-card min-w-[280px] md:min-w-[480px] lg:min-w-[750px] group snap-start relative h-[420px] lg:h-[700px] rounded-[32px] lg:rounded-[64px] overflow-hidden cursor-pointer shadow-[0_50px_100px_rgba(0,0,0,0.6)] border border-white/5 bg-gray-950 transition-all duration-1000 perspective-2000"
             >
               <Image 
@@ -309,6 +330,7 @@ export default function PopularDestinations() {
           </div>
           
           <MagneticButton 
+            onClick={handleCommissionClick}
             className="w-full lg:w-auto px-12 py-6 lg:px-20 lg:py-8 bg-primary text-white font-black rounded-[24px] lg:rounded-[32px] transition-all shadow-[0_30px_70px_rgba(56,142,60,0.4)] group flex items-center justify-center gap-6 uppercase tracking-[0.4em] text-[11px] lg:text-xs relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />

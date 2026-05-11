@@ -97,6 +97,25 @@ export default function ServicesGrid() {
     return () => ctx.revert();
   }, [mounted]);
 
+  const handleInquiryClick = (service: typeof services[0]) => {
+    const message = `Hello Jade Atelier! I am inquiring about the ${service.title} service.\n\n` +
+      `✨ SERVICE: ${service.title}\n` +
+      `🏷️ TAGLINE: ${service.tagline}\n` +
+      `📝 DESCRIPTION: ${service.desc}\n\n` +
+      `I would like to know more about the details including: ${service.details.join(", ")}.`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  };
+
+  const handleConsultClick = () => {
+    const message = `Hello Jade Atelier! I would like to book a private consult for my next journey.\n\n` +
+      `I am interested in your bespoke travel curation and private access services.`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  };
+
   if (!mounted) return <section className="min-h-screen bg-[#0B1310]" />;
 
   return (
@@ -168,7 +187,10 @@ export default function ServicesGrid() {
                     />
                   </div>
                 </div>
-                <button className="group flex items-center gap-4">
+                <button 
+                  onClick={() => handleInquiryClick(services[activeIndex])}
+                  className="group flex items-center gap-4"
+                >
                   <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border border-[#F2EFE9]/10 flex items-center justify-center group-hover:bg-[#C1A67B] group-hover:border-[#C1A67B] transition-all duration-500">
                     <ArrowUpRight className="w-4 h-4 text-[#C1A67B] group-hover:text-[#0B1310]" />
                   </div>
@@ -236,7 +258,10 @@ export default function ServicesGrid() {
                     ))}
                   </div>
 
-                  <button className="w-full group flex items-center justify-between p-5 rounded-xl border border-[#F2EFE9]/10 bg-[#F2EFE9]/[0.02]">
+                  <button 
+                    onClick={() => handleInquiryClick(service)}
+                    className="w-full group flex items-center justify-between p-5 rounded-xl border border-[#F2EFE9]/10 bg-[#F2EFE9]/[0.02]"
+                  >
                     <span className="text-[#F2EFE9] text-[9px] font-bold uppercase tracking-[0.3em]">
                       Inquire Details
                     </span>
@@ -257,7 +282,10 @@ export default function ServicesGrid() {
                   The Journey Begins <br />
                   <span className="italic font-light text-[#C1A67B]">with a Single Word.</span>
                 </h3>
-                <button className="group relative px-10 py-4 md:px-14 md:py-6 bg-[#C1A67B] text-[#0B1310] font-sans text-[10px] font-bold uppercase tracking-[0.3em] rounded-full overflow-hidden transition-all duration-700 hover:bg-[#0B1310] hover:text-white">
+                <button 
+                  onClick={handleConsultClick}
+                  className="group relative px-10 py-4 md:px-14 md:py-6 bg-[#C1A67B] text-[#0B1310] font-sans text-[10px] font-bold uppercase tracking-[0.3em] rounded-full overflow-hidden transition-all duration-700 hover:bg-[#0B1310] hover:text-white"
+                >
                   <span className="relative z-10">Book a Private Consult</span>
                 </button>
               </div>

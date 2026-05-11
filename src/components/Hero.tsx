@@ -103,11 +103,19 @@ export default function Hero() {
     }
   };
 
+  const handleContactClick = () => {
+    const message = `Hello Jade Atelier! I am seeking a luxury travel curation and would like to get in touch with your team.\n\n` +
+      `I am interested in learning more about your bespoke journeys and how you can redefine my travel experiences.`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  };
+
   return (
     <section 
       id="home" 
       ref={containerRef}
-      className="relative min-h-[85vh] lg:min-h-[85vh] flex flex-col pt-20 lg:pt-24 overflow-hidden bg-white"
+      className="relative min-h-[95vh] lg:min-h-[85vh] flex flex-col pt-24 lg:pt-24 overflow-hidden bg-white"
     >
       {/* Background Image - Cinematic treatment with Multi-layered Overlay */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -125,46 +133,46 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent lg:via-white/50 w-full lg:w-[60%] z-10" />
       </div>
 
-      <div className="container-custom relative z-20 flex-1 flex flex-col justify-center py-4 lg:py-6 hero-content-inner">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
+      <div className="container-custom relative z-20 flex-1 flex flex-col justify-center py-10 lg:py-6 hero-content-inner">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           {/* Left Content Side */}
-          <div className="max-w-[720px]">
-            <div className="space-y-2 lg:space-y-6">
+          <div className="max-w-[720px] text-center lg:text-left">
+            <div className="space-y-3 lg:space-y-6">
               <div className="hero-script overflow-hidden">
-                <p className="font-script text-lg md:text-2xl lg:text-[36px] text-primary mb-0.5 lg:mb-2 leading-tight drop-shadow-[0_2px_15px_rgba(255,255,255,1)]">
+                <p className="font-script text-xl md:text-2xl lg:text-[36px] text-primary mb-1 lg:mb-2 leading-tight drop-shadow-[0_2px_15px_rgba(255,255,255,1)]">
                   Luxury Without Compromise
                 </p>
               </div>
               
               <div className="overflow-hidden">
-                <h1 className="text-[28px] md:text-[54px] lg:text-[68px] xl:text-[76px] font-sans font-black text-gray-950 leading-[0.95] mb-3 lg:mb-4 tracking-tightest uppercase">
+                <h1 className="text-[34px] md:text-[54px] lg:text-[68px] xl:text-[76px] font-sans font-black text-gray-950 leading-[0.9] lg:leading-[0.95] mb-4 lg:mb-4 tracking-tightest uppercase">
                   <span className="block hero-title-line">CRAFTING YOUR</span>
                   <span className="block hero-title-line">ULTIMATE <span className="text-primary italic font-serif lowercase normal-case ml-1 lg:ml-2 drop-shadow-[0_2px_15px_rgba(255,255,255,0.8)]">escape</span></span>
                 </h1>
               </div>
               
               <div className="hero-description overflow-hidden">
-                <p className="text-[13px] md:text-base lg:text-[18px] text-gray-500 mb-5 lg:mb-8 leading-relaxed font-medium max-w-[620px] tracking-tight">
+                <p className="text-[14px] md:text-base lg:text-[18px] text-gray-500 mb-8 lg:mb-8 leading-relaxed font-medium max-w-[620px] mx-auto lg:mx-0 tracking-tight">
                   Jade Tours and Travels curates bespoke journeys that transcend the ordinary. From hidden gems to iconic horizons, we redefine how you see the world.
                 </p>
               </div>
 
-              <div className="hero-cta-group flex flex-wrap items-center gap-3 lg:gap-5">
+              <div className="hero-cta-group flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 lg:gap-5">
                 <MagneticButton 
                   onClick={() => handleScrollTo("destinations")}
-                  className="flex-1 sm:flex-none px-6 py-3 lg:px-10 lg:py-4 bg-[#388E3C] text-white font-black rounded-full flex items-center justify-center gap-2 lg:gap-3 transition-all shadow-[0_15px_35px_rgba(56,142,60,0.25)] hover:bg-[#2E7D32] group text-[9px] lg:text-[11px] uppercase tracking-[0.2em] lg:tracking-[0.25em] relative overflow-hidden"
+                  className="w-full sm:w-auto px-10 py-5 lg:px-10 lg:py-4 bg-[#388E3C] text-white font-black rounded-full flex items-center justify-center gap-3 lg:gap-3 transition-all shadow-[0_20px_40px_rgba(56,142,60,0.2)] hover:bg-[#2E7D32] group text-[11px] lg:text-[11px] uppercase tracking-[0.25em] relative overflow-hidden active:scale-95"
                 >
                   <span className="relative z-10">Start Your Journey</span>
-                  <Plane className="w-3 h-3 lg:w-4 lg:h-4 group-hover:rotate-12 transition-transform relative z-10" />
+                  <Plane className="w-4 h-4 lg:w-4 lg:h-4 group-hover:rotate-12 transition-transform relative z-10" />
                 </MagneticButton>
                 
                 <button 
-                  onClick={() => handleScrollTo("contact")}
-                  className="flex-1 sm:flex-none px-6 py-3 lg:px-10 lg:py-4 bg-white text-gray-950 font-black rounded-full flex items-center justify-center gap-2 lg:gap-3 transition-all hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] border border-gray-100 group text-[9px] lg:text-[11px] uppercase tracking-[0.2em] lg:tracking-[0.25em]"
+                  onClick={handleContactClick}
+                  className="w-full sm:w-auto px-10 py-5 lg:px-10 lg:py-4 bg-white/40 backdrop-blur-md text-gray-950 font-black rounded-full flex items-center justify-center gap-3 lg:gap-3 transition-all hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] border border-white group text-[11px] lg:text-[11px] uppercase tracking-[0.25em] active:scale-95"
                 >
                   Get in Touch
-                  <ArrowRight className="w-3 h-3 lg:w-4 lg:h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 lg:w-4 lg:h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </div>
@@ -173,15 +181,15 @@ export default function Hero() {
           {/* Right Widget Side */}
           <div className="flex justify-center lg:justify-end">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotateY: 10, y: 50 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0, y: 0 }}
-              transition={{ duration: 1.5, delay: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full max-w-[640px] perspective-1000"
+              initial={{ opacity: 0, scale: 0.95, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full max-w-[580px] perspective-1000"
             >
-              <div className="relative group">
+              <div className="relative group p-1">
                 {/* Decorative glow behind the widget */}
-                <div className="absolute -inset-4 bg-primary/10 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                <div className="relative bg-white/95 backdrop-blur-xl shadow-[0_40px_120px_rgba(0,0,0,0.1)] rounded-[32px] lg:rounded-[40px] border border-white p-1 lg:p-2">
+                <div className="absolute -inset-4 bg-primary/10 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                <div className="relative bg-white/90 backdrop-blur-2xl shadow-[0_40px_100px_rgba(0,0,0,0.1)] rounded-[40px] border border-white overflow-hidden">
                   <BookingWidget />
                 </div>
               </div>
@@ -191,26 +199,26 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Integrated Stats Bar - Redesigned for Elite Look */}
-      <div className="relative z-30 bg-transparent py-4 lg:py-10 mt-auto">
-        <div className="container-custom">
+      {/* Integrated Stats Bar - Redesigned for Mobile Purity */}
+      <div className="relative z-30 bg-transparent py-6 lg:py-10 mt-auto">
+        <div className="container-custom px-4 lg:px-6">
           <div className="relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white to-white/90 backdrop-blur-3xl rounded-[24px] lg:rounded-[40px] shadow-[0_30px_80px_rgba(0,0,0,0.08)] border border-white/80" />
+            <div className="absolute inset-0 bg-white/80 backdrop-blur-2xl rounded-[32px] lg:rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.05)] border border-white" />
             
-            <div className="relative flex flex-wrap justify-between lg:grid lg:grid-cols-4 gap-y-4 lg:gap-0 p-4 lg:p-8">
+            <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-y-6 lg:gap-0 p-6 lg:p-8">
               {stats.map((stat, i) => (
                 <div
                   key={i}
-                  className="hero-stat-card flex items-center gap-3 lg:gap-6 lg:justify-center lg:border-r last:border-0 border-gray-100 px-2 w-[48%] lg:w-auto group/stat"
+                  className="hero-stat-card flex items-center gap-3 lg:gap-6 lg:justify-center lg:border-r last:border-0 border-gray-100 px-2 group/stat"
                 >
-                  <div className="w-9 h-9 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-primary/5 flex items-center justify-center text-primary shrink-0 shadow-sm group-hover/stat:bg-primary group-hover/stat:text-white transition-all duration-1000 transform group-hover/stat:scale-110 group-hover/stat:rotate-12">
-                    <stat.icon className="w-4 h-4 lg:w-7 lg:h-7" />
+                  <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-[14px] lg:rounded-2xl bg-primary/5 flex items-center justify-center text-primary shrink-0 shadow-sm group-hover/stat:bg-primary group-hover/stat:text-white transition-all duration-700 transform group-hover/stat:scale-105">
+                    <stat.icon className="w-5 h-5 lg:w-7 lg:h-7" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-lg lg:text-[28px] font-black text-gray-950 leading-none tracking-tightest">
+                    <span className="text-xl lg:text-[28px] font-black text-gray-950 leading-none tracking-tightest">
                       {stat.value}
                     </span>
-                    <span className="text-[7px] lg:text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] lg:tracking-[0.3em] mt-1 group-hover/stat:text-primary transition-colors duration-500">
+                    <span className="text-[8px] lg:text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] lg:tracking-[0.3em] mt-1.5 group-hover/stat:text-primary transition-colors duration-500">
                       {stat.label}
                     </span>
                   </div>

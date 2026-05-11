@@ -83,6 +83,22 @@ export default function CTASection() {
     return () => ctx.revert();
   }, []);
 
+  const handleCommissionClick = () => {
+    const message = `Hello Jade Atelier! I am ready to write my legacy and commission a journey.\n\n` +
+      `I am interested in joining your elite circle of global explorers and would like to start a private consultation for a bespoke travel experience.`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  };
+
+  const handleConciergeClick = () => {
+    const message = `Hello Jade Atelier! I am inquiring about your Private Concierge services.\n\n` +
+      `I would like to know more about the elite support and global access you provide to your clients.`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  };
+
   return (
     <section id="contact" ref={containerRef} className="py-16 lg:py-28 bg-white overflow-hidden scroll-mt-24">
       <div className="container-custom">
@@ -148,6 +164,7 @@ export default function CTASection() {
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-8 lg:gap-12 w-full max-w-3xl mx-auto">
               <MagneticButton 
+                onClick={handleCommissionClick}
                 className="w-full sm:w-auto px-12 py-6 lg:px-20 lg:py-8 bg-primary text-white font-black rounded-[24px] lg:rounded-[32px] flex items-center justify-center gap-6 transition-all shadow-[0_30px_70px_rgba(56,142,60,0.4)] group text-[11px] lg:text-sm uppercase tracking-[0.4em] relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
@@ -156,6 +173,7 @@ export default function CTASection() {
               </MagneticButton>
 
               <MagneticButton 
+                onClick={handleConciergeClick}
                 className="w-full sm:w-auto px-12 py-6 lg:px-20 lg:py-8 bg-white/5 backdrop-blur-3xl text-white font-black rounded-[24px] lg:rounded-[32px] border border-white/10 flex items-center justify-center gap-6 transition-all hover:bg-white/10 hover:border-primary/40 text-[11px] lg:text-sm uppercase tracking-[0.4em] shadow-3xl"
               >
                 <span className="relative z-10">Private Concierge</span>

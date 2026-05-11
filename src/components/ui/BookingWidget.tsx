@@ -121,18 +121,18 @@ export default function BookingWidget() {
   return (
     <div 
       ref={widgetRef}
-      className="bg-white/95 backdrop-blur-2xl rounded-[32px] lg:rounded-[48px] p-4 lg:p-10 w-full max-w-[650px] mx-auto relative border border-white shadow-[0_50px_120px_rgba(0,0,0,0.12)] perspective-2000 transition-all duration-700"
+      className="bg-white/95 backdrop-blur-2xl rounded-[32px] lg:rounded-[48px] p-5 lg:p-10 w-full max-w-[650px] mx-auto relative border border-white shadow-[0_50px_120px_rgba(0,0,0,0.12)] perspective-2000 transition-all duration-700"
     >
       {/* Precision Detail Elements */}
       <div className="absolute top-5 left-6 right-6 flex justify-between opacity-10 pointer-events-none">
-         <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-         <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+         <div className="w-1 h-1 rounded-full bg-primary" />
+         <div className="w-1 h-1 rounded-full bg-primary" />
       </div>
       
       {/* Header Info */}
-      <div className="flex items-center gap-2 mb-5 lg:mb-6 justify-center">
-         <Sparkles className="w-3.5 h-3.5 text-primary" />
-         <span className="text-[9px] lg:text-[10px] font-black text-primary uppercase tracking-[0.4em] lg:tracking-[0.6em]">Curation Console</span>
+      <div className="flex items-center gap-1.5 mb-5 lg:mb-6 justify-center">
+         <Sparkles className="w-3 h-3 text-primary" />
+         <span className="text-[8px] lg:text-[10px] font-black text-primary uppercase tracking-[0.4em] lg:tracking-[0.6em]">Curation Console</span>
       </div>
 
       {/* Modern High-End Tabs */}
@@ -141,20 +141,20 @@ export default function BookingWidget() {
           <button
             key={tab.id}
             onClick={() => handleTabChange(tab.id)}
-            className={`flex flex-col items-center gap-1 lg:gap-2.5 flex-1 transition-all relative group ${
+            className={`flex flex-col items-center gap-1.5 lg:gap-2.5 flex-1 transition-all relative group ${
               activeTab === tab.id
                 ? "text-gray-950"
                 : "text-gray-300 hover:text-gray-400"
             }`}
           >
-            <div className={`w-9 h-9 lg:w-14 lg:h-14 rounded-full flex items-center justify-center transition-all duration-700 ${activeTab === tab.id ? "bg-[#050807] text-white shadow-xl" : "bg-gray-50 border border-gray-100 group-hover:bg-white text-gray-400"}`}>
+            <div className={`w-10 h-10 lg:w-14 lg:h-14 rounded-full flex items-center justify-center transition-all duration-700 ${activeTab === tab.id ? "bg-[#050807] text-white shadow-lg" : "bg-gray-50/50 border border-gray-100 group-hover:bg-white text-gray-400"}`}>
               <tab.icon className="w-4 lg:w-7 lg:h-7" strokeWidth={activeTab === tab.id ? 2 : 1.5} />
             </div>
-            <span className="text-[6px] lg:text-[9px] font-black uppercase tracking-[0.05em] lg:tracking-[0.15em] whitespace-nowrap">{tab.label}</span>
+            <span className="text-[7px] lg:text-[9px] font-black uppercase tracking-[0.1em] lg:tracking-[0.15em] whitespace-nowrap">{tab.label}</span>
             {activeTab === tab.id && (
               <motion.div
                 layoutId="activeGlow"
-                className="absolute -bottom-2 lg:-bottom-4 w-1 lg:w-1.5 lg:h-1.5 bg-[#388E3C] rounded-full"
+                className="absolute -bottom-1.5 lg:-bottom-4 w-1 lg:w-1.5 lg:h-1.5 bg-primary rounded-full"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
             )}
@@ -168,7 +168,7 @@ export default function BookingWidget() {
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -5 }}
-            className="flex items-center justify-center gap-4 lg:gap-8 mb-6 lg:mb-8"
+            className="flex items-center justify-center gap-4 lg:gap-8 mb-5 lg:mb-8"
           >
             {[
               { id: "one-way", label: "Private" },
@@ -178,11 +178,11 @@ export default function BookingWidget() {
               <button 
                 key={type.id}
                 onClick={() => setTripType(type.id)}
-                className={`text-[8px] lg:text-[9px] font-black uppercase tracking-[0.15em] lg:tracking-[0.2em] transition-all relative py-1 ${tripType === type.id ? "text-[#388E3C]" : "text-gray-400 hover:text-gray-600"}`}
+                className={`text-[8px] lg:text-[9px] font-black uppercase tracking-[0.15em] lg:tracking-[0.2em] transition-all relative py-1 ${tripType === type.id ? "text-primary" : "text-gray-400 hover:text-gray-600"}`}
               >
                 {type.label}
                 {tripType === type.id && (
-                  <motion.div layoutId="typeLine" className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#388E3C]" />
+                  <motion.div layoutId="typeLine" className="absolute bottom-0 left-0 w-full h-[1.5px] bg-primary" />
                 )}
               </button>
             ))}
@@ -191,18 +191,18 @@ export default function BookingWidget() {
       </AnimatePresence>
 
       {/* Form Fields - Editorial Grid */}
-      <div className="space-y-4 lg:space-y-6">
+      <div className="space-y-3.5 lg:space-y-6">
         <div className={`relative grid ${activeTab === "flights" ? "grid-cols-2" : "grid-cols-1"} gap-3 lg:gap-4`}>
           {activeTab === "flights" && (
-            <div className="space-y-1.5 lg:space-y-2">
-              <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">Departure Point</label>
+            <div className="space-y-1 lg:space-y-2">
+              <label className="text-[7px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">Departure Point</label>
               <div className="relative group">
                 <input 
                   type="text" 
                   placeholder="Manifest from"
                   value={formData.from}
                   onChange={(e) => setFormData({...formData, from: e.target.value})}
-                  className="w-full bg-gray-50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[10px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-[#388E3C]/30 focus:bg-white transition-all placeholder:text-gray-300 uppercase tracking-tight"
+                  className="w-full bg-gray-50/50 border border-gray-100 rounded-[12px] lg:rounded-[16px] h-11 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[10px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-primary/30 focus:bg-white transition-all placeholder:text-gray-300 uppercase tracking-tight"
                 />
               </div>
             </div>
@@ -211,14 +211,14 @@ export default function BookingWidget() {
           {activeTab === "flights" && (
             <button 
               onClick={() => setFormData({ ...formData, from: formData.to, to: formData.from })}
-              className="absolute left-1/2 top-[34px] lg:top-[48px] -translate-x-1/2 w-7 h-7 lg:w-8 lg:h-8 rounded-lg bg-[#050807] text-white flex items-center justify-center transition-all shadow-lg z-10 hover:rotate-180 duration-700"
+              className="absolute left-1/2 top-[32px] lg:top-[48px] -translate-x-1/2 w-7 h-7 lg:w-8 lg:h-8 rounded-lg bg-[#050807] text-white flex items-center justify-center transition-all shadow-lg z-10 hover:rotate-180 duration-700 active:scale-90"
             >
               <ArrowLeftRight className="w-3 h-3 lg:w-3.5 lg:h-3.5" />
             </button>
           )}
 
-          <div className="space-y-1.5 lg:space-y-2">
-            <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+          <div className="space-y-1 lg:space-y-2">
+            <label className="text-[7px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
               {activeTab === "flights" ? "Target Sanctuary" : activeTab === "hotels" ? "Refined Locale" : "Global Target"}
             </label>
             <div className="relative group">
@@ -227,19 +227,19 @@ export default function BookingWidget() {
                 placeholder={activeTab === "visa" ? "Destination State" : "Where Shall We Lead?"}
                 value={formData.to}
                 onChange={(e) => setFormData({...formData, to: e.target.value})}
-                className="w-full bg-gray-50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[10px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-[#388E3C]/30 focus:bg-white transition-all placeholder:text-gray-300 uppercase tracking-tight"
+                className="w-full bg-gray-50/50 border border-gray-100 rounded-[12px] lg:rounded-[16px] h-11 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[10px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-primary/30 focus:bg-white transition-all placeholder:text-gray-300 uppercase tracking-tight"
               />
             </div>
           </div>
         </div>
 
         <div className={`grid ${activeTab === "visa" || activeTab === "packages" ? "grid-cols-1" : "grid-cols-2"} gap-3 lg:gap-4`}>
-          <div className="space-y-1.5 lg:space-y-2">
-            <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+          <div className="space-y-1 lg:space-y-2">
+            <label className="text-[7px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
               Timeline Start
             </label>
             <div className="relative group">
-              <Calendar className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#388E3C] opacity-20" />
+              <Calendar className="absolute left-3.5 lg:left-5 top-1/2 -translate-y-1/2 w-3 h-3 lg:w-4 lg:h-4 text-primary opacity-20" />
               <input 
                 type="text" 
                 placeholder="Initiate Date"
@@ -247,18 +247,18 @@ export default function BookingWidget() {
                 onFocus={(e) => (e.target.type = "date")}
                 onBlur={(e) => (e.target.type = "text")}
                 onChange={(e) => setFormData({...formData, departure: e.target.value})}
-                className="w-full bg-gray-50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-10 lg:pl-12 pr-4 lg:pr-6 text-[10px] lg:text-[11px] font-black text-gray-950 focus:outline-none focus:border-[#388E3C]/30 transition-all cursor-pointer uppercase"
+                className="w-full bg-gray-50/50 border border-gray-100 rounded-[12px] lg:rounded-[16px] h-11 lg:h-16 pl-9 lg:pl-12 pr-4 lg:pr-6 text-[9px] lg:text-[11px] font-black text-gray-950 focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase"
               />
             </div>
           </div>
           
           {(activeTab === "flights" || activeTab === "hotels") && (
-            <div className="space-y-1.5 lg:space-y-2">
-              <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+            <div className="space-y-1 lg:space-y-2">
+              <label className="text-[7px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
                 Timeline Finale
               </label>
               <div className="relative group">
-                <Calendar className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#388E3C] opacity-20" />
+                <Calendar className="absolute left-3.5 lg:left-5 top-1/2 -translate-y-1/2 w-3 h-3 lg:w-4 lg:h-4 text-primary opacity-20" />
                 <input 
                   type="text" 
                   placeholder="Conclusion Date"
@@ -267,23 +267,23 @@ export default function BookingWidget() {
                   onBlur={(e) => (e.target.type = "text")}
                   onChange={(e) => setFormData({...formData, returnDate: e.target.value})}
                   disabled={isReturnDisabled}
-                  className={`w-full bg-gray-50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-10 lg:pl-12 pr-4 lg:pr-6 text-[10px] lg:text-[11px] font-black text-gray-950 focus:outline-none focus:border-[#388E3C]/30 transition-all cursor-pointer uppercase ${isReturnDisabled ? "opacity-20 grayscale cursor-not-allowed" : ""}`}
+                  className={`w-full bg-gray-50/50 border border-gray-100 rounded-[12px] lg:rounded-[16px] h-11 lg:h-16 pl-9 lg:pl-12 pr-4 lg:pr-6 text-[9px] lg:text-[11px] font-black text-gray-950 focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase ${isReturnDisabled ? "opacity-20 grayscale cursor-not-allowed" : ""}`}
                 />
               </div>
             </div>
           )}
         </div>
 
-        <div className="space-y-1.5 lg:space-y-2">
-          <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+        <div className="space-y-1 lg:space-y-2">
+          <label className="text-[7px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
             Explorer Specification
           </label>
           <div className="relative group">
-            <Users className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-[#388E3C] opacity-20" />
+            <Users className="absolute left-3.5 lg:left-5 top-1/2 -translate-y-1/2 w-3 h-3 lg:w-4 lg:h-4 text-primary opacity-20" />
             <select 
               value={formData.travellers}
               onChange={(e) => setFormData({...formData, travellers: e.target.value})}
-              className="w-full bg-gray-50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-10 lg:pl-12 pr-8 lg:pr-10 text-[10px] lg:text-[11px] font-black text-gray-950 appearance-none focus:outline-none focus:border-[#388E3C]/30 transition-all cursor-pointer uppercase"
+              className="w-full bg-gray-50/50 border border-gray-100 rounded-[12px] lg:rounded-[16px] h-11 lg:h-16 pl-9 lg:pl-12 pr-8 lg:pr-10 text-[9px] lg:text-[11px] font-black text-gray-950 appearance-none focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase"
             >
               <option>1 Explorer, First Class</option>
               <option>2 Explorers, Business Elite</option>
@@ -295,14 +295,14 @@ export default function BookingWidget() {
 
         <button 
           onClick={handleSearch}
-          className="w-full bg-[#050807] hover:bg-[#388E3C] text-white font-black h-14 lg:h-16 rounded-[18px] lg:rounded-[20px] flex items-center justify-center gap-3 lg:gap-4 transition-all shadow-xl active:scale-[0.98] group mt-4 lg:mt-6"
+          className="w-full bg-[#050807] hover:bg-primary text-white font-black h-12 lg:h-16 rounded-[14px] lg:rounded-[20px] flex items-center justify-center gap-3 lg:gap-4 transition-all shadow-xl active:scale-[0.98] group mt-3 lg:mt-6"
         >
-          <span className="uppercase tracking-[0.3em] lg:tracking-[0.4em] text-[10px] lg:text-[11px] font-black">Commission Curation</span>
-          <Search className="w-4 h-4 lg:w-5 lg:h-5 group-hover:scale-110 transition-transform" />
+          <span className="uppercase tracking-[0.3em] lg:tracking-[0.4em] text-[9px] lg:text-[11px] font-black">Commission Curation</span>
+          <Search className="w-3.5 h-3.5 lg:w-5 lg:h-5 group-hover:scale-110 transition-transform" />
         </button>
         
-        <p className="text-center text-[8px] lg:text-[9px] font-bold text-gray-300 uppercase tracking-[0.3em] lg:tracking-[0.4em] pt-1 lg:pt-2 leading-none">
-          Secure Global Protocols • 256-bit Encryption
+        <p className="text-center text-[7px] lg:text-[9px] font-bold text-gray-300 uppercase tracking-[0.2em] lg:tracking-[0.4em] pt-1 lg:pt-2 leading-none">
+          Secure Global Protocols • ISO Certified
         </p>
       </div>
     </div>

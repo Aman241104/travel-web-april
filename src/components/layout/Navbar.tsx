@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Globe, Sparkles } from "lucide-react";
+import { Menu, X, Phone, Globe, Sparkles, ArrowUpRight } from "lucide-react";
 import MagneticButton from "@/components/ui/MagneticButton";
 import Link from "next/link";
 import { useLenis } from "@studio-freight/react-lenis";
@@ -25,42 +25,15 @@ export default function Navbar() {
   const lenis = useLenis();
   const navRef = useRef<HTMLElement>(null);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith("#")) {
-      e.preventDefault();
-      const targetId = href.replace("#", "");
-      const element = document.getElementById(targetId);
-      if (element && lenis) {
-        lenis.scrollTo(element, { offset: -100, duration: 1.5 });
-      } else if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-      setIsMobileMenuOpen(false);
-    }
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const message = `Hello Jade Atelier! I am inquiring about your Private Concierge services.\n\n` +
+      `I would like to speak with a travel architect about my upcoming travel plans.`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+    setIsMobileMenuOpen(false);
   };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-      
-      const sections = ["trust", "why-us", "services", "values", "packages", "testimonials", "process", "journal"];
-      let currentSection = "home";
-
-      for (const id of sections) {
-        const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150) {
-            currentSection = id;
-          }
-        }
-      }
-      setActiveSection(currentSection);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <>
@@ -128,14 +101,13 @@ export default function Navbar() {
               })}
             </div>
             
-            <Link 
-              href="#contact"
-              onClick={(e) => handleNavClick(e, "#contact")}
+            <button 
+              onClick={handleContactClick}
               className="flex items-center gap-2 px-6 py-3 font-black text-[10px] uppercase tracking-[0.2em] rounded-full transition-all border border-gray-100 shadow-[0_5px_15px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)] bg-white text-gray-950 group"
             >
               <Phone className="w-3.5 h-3.5 text-gray-950 group-hover:rotate-12 transition-transform" strokeWidth={2.5} />
               <span>Private Concierge</span>
-            </Link>
+            </button>
           </div>
 
           {/* Mobile Menu Trigger */}
@@ -158,65 +130,74 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[120] bg-[#050807] text-white lg:hidden flex flex-col p-6 pt-10"
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            className="fixed inset-0 z-[120] bg-[#050807]/95 text-white lg:hidden flex flex-col p-6 pt-10"
           >
-            <div className="flex items-center justify-between mb-12">
+            <div className="flex items-center justify-between mb-10">
               <div className="flex items-center gap-3">
-                 <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white">
-                    <Globe className="w-5 h-5" />
+                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white shadow-[0_0_20px_rgba(56,142,60,0.3)]">
+                    <Globe className="w-4 h-4" />
                  </div>
-                 <span className="text-xl font-black tracking-tightest">JADE</span>
+                 <div className="flex flex-col">
+                   <span className="text-lg font-black tracking-tightest leading-none">JADE</span>
+                   <span className="text-[5px] font-black uppercase tracking-[0.4em] leading-none mt-1 text-gray-400">Atelier</span>
+                 </div>
               </div>
               <button 
                 onClick={() => setIsMobileMenuOpen(false)} 
-                className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center"
+                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center active:scale-90 transition-transform"
               >
-                <X size={24} />
+                <X size={20} />
               </button>
             </div>
 
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4 overflow-y-auto no-scrollbar py-4">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.name}
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 + i * 0.05, duration: 0.6 }}
+                  transition={{ delay: 0.1 + i * 0.04, duration: 0.5, ease: "circOut" }}
                 >
                   <Link
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className="text-3xl font-black tracking-tightest uppercase flex items-center gap-3 group"
+                    className="text-2xl font-black tracking-tightest uppercase flex items-center justify-between group py-2 border-b border-white/5"
                   >
-                    <span className="text-primary text-sm font-serif italic">{String(i+1).padStart(2, '0')}</span>
-                    <span className="group-hover:text-primary transition-colors duration-500">{link.name}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="text-primary text-[10px] font-black tracking-widest">{String(i+1).padStart(2, '0')}</span>
+                      <span className="group-active:text-primary transition-colors duration-300">{link.name}</span>
+                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-white/20 group-active:text-primary transition-all" />
                   </Link>
                 </motion.div>
               ))}
             </div>
 
-            <div className="mt-auto pb-10">
+            <div className="mt-auto pt-8 pb-4 space-y-6">
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                <Link
-                  href="#contact"
-                  onClick={(e) => handleNavClick(e, "#contact")}
-                  className="w-full flex items-center justify-center gap-4 px-6 py-4 bg-primary text-white font-black rounded-[16px] text-base shadow-2xl uppercase tracking-[0.2em]"
+                <button
+                  onClick={handleContactClick}
+                  className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-primary text-white font-black rounded-2xl text-sm shadow-[0_20px_40px_rgba(56,142,60,0.2)] uppercase tracking-[0.2em] active:scale-[0.98] transition-all"
                 >
-                  <Phone size={20} />
+                  <Phone size={16} strokeWidth={2.5} />
                   Start Your Legacy
-                </Link>
+                </button>
               </motion.div>
-              <div className="flex justify-center gap-6 mt-8 opacity-20">
-                <Globe size={18} />
-                <Sparkles size={18} />
-                <Menu size={18} />
+              
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex justify-center gap-8 opacity-20">
+                  <Globe size={16} />
+                  <Sparkles size={16} />
+                  <Menu size={16} />
+                </div>
+                <p className="text-[8px] font-black text-white/20 uppercase tracking-[0.5em]">Global Standards • Secure Protocols</p>
               </div>
             </div>
           </motion.div>
