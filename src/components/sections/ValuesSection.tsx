@@ -100,7 +100,7 @@ export default function ValuesSection() {
             </div>
 
             {/* Experience Badge - Reference Exact Style */}
-            <div className="absolute bottom-12 left-0 -translate-x-1/3 bg-[#0B251B] p-6 lg:p-9 rounded-[24px] lg:rounded-[32px] shadow-[0_30px_60px_rgba(0,0,0,0.3)] z-20 border border-white/10 flex flex-col items-center justify-center text-center">
+            <div className="absolute bottom-12 left-0 lg:-translate-x-1/3 bg-[#0B251B] p-6 lg:p-9 rounded-[24px] lg:rounded-[32px] shadow-[0_30px_60px_rgba(0,0,0,0.3)] z-20 border border-white/10 flex flex-col items-center justify-center text-center">
               <p className="text-white/60 text-[9px] lg:text-[11px] font-bold uppercase tracking-widest mb-1.5 lg:mb-2">Trusted by</p>
               <p className="text-4xl lg:text-5xl font-black text-white leading-none mb-1 lg:mb-2">1000+</p>
               <p className="text-white/80 text-[10px] lg:text-[12px] font-bold uppercase tracking-tighter">Travelers</p>

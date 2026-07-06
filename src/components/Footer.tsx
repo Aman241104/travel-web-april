@@ -21,7 +21,7 @@ const quickLinks = [
   { name: "About Us", href: "#about" },
   { name: "Why Us", href: "#why-us" },
   { name: "Testimonials", href: "#testimonials" },
-  { name: "FAQs", href: "#home" },
+  { name: "FAQs", href: "#faq" },
 ];
 
 const serviceLinks = [
@@ -30,7 +30,9 @@ const serviceLinks = [
   { name: "Domestic Tours", href: "#services" },
   { name: "Visa Assistance", href: "#services" },
   { name: "Hotel Bookings", href: "#services" },
-  { name: "Travel Planning", href: "#services" },
+  { name: "Car Rentals", href: "#services" },
+  { name: "Forex & Currency", href: "#services" },
+  { name: "Travel Insurance", href: "#services" },
 ];
 
 const legalLinks = [
@@ -130,31 +132,31 @@ export default function Footer() {
           <div className="footer-column lg:col-span-3 space-y-10">
             <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-white">Contact Us</h4>
             <div className="space-y-6">
-              <div className="flex items-start gap-4 group">
+              <a href="tel:+919825438324" className="flex items-start gap-4 group">
                 <div className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/5 flex items-center justify-center text-[#4CAF50] group-hover:bg-[#4CAF50] group-hover:text-white transition-all duration-500">
                   <Phone className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-0.5">Call Us</span>
-                  <span className="text-base font-bold text-white tracking-tight">+91 98765 43210</span>
+                  <span className="text-base font-bold text-white tracking-tight">+91 98254 38324</span>
                 </div>
-              </div>
-              <div className="flex items-start gap-4 group">
+              </a>
+              <a href="mailto:info@jadetravels.co.in" className="flex items-start gap-4 group">
                 <div className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/5 flex items-center justify-center text-[#4CAF50] group-hover:bg-[#4CAF50] group-hover:text-white transition-all duration-500">
                   <Mail className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-0.5">Email</span>
-                  <span className="text-base font-bold text-white tracking-tight">info@jadetours.com</span>
+                  <span className="text-base font-bold text-white tracking-tight">info@jadetravels.co.in</span>
                 </div>
-              </div>
+              </a>
               <div className="flex items-start gap-4 group">
                 <div className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/5 flex items-center justify-center text-[#4CAF50] group-hover:bg-[#4CAF50] group-hover:text-white transition-all duration-500">
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-0.5">Location</span>
-                  <span className="text-base font-bold leading-snug text-white tracking-tight">123, MG Road, Indore,<br />Madhya Pradesh, India</span>
+                  <span className="text-base font-bold leading-snug text-white tracking-tight">1st Floor, City Center, MG Road,<br />Ahmedabad, Gujarat 380001</span>
                 </div>
               </div>
             </div>
@@ -178,7 +180,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-[9px] lg:text-[10px] font-black uppercase tracking-[0.2em] lg:tracking-[0.25em] text-gray-600 text-center">© 2024 Jade Tours & Travels. All Rights Reserved.</p>
+          <p className="text-[9px] lg:text-[10px] font-black uppercase tracking-[0.2em] lg:tracking-[0.25em] text-gray-600 text-center">© {new Date().getFullYear()} Jade Tours & Travels. All Rights Reserved.</p>
           <div className="flex items-center gap-6 lg:gap-10">
             {legalLinks.map(link => (
               <Link key={link.name} href={link.href} className="text-[9px] lg:text-[10px] font-black uppercase tracking-[0.2em] lg:tracking-[0.25em] text-gray-600 hover:text-white transition-all active:text-white">

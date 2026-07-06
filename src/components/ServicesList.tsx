@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { Plane, Globe, Mountain, FileText, Hotel, Car, Sparkles } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Plane, Globe, Mountain, FileText, Hotel, Car, CarFront, Banknote, ShieldCheck, Luggage, Sparkles } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import EnquiryModal from "@/components/ui/EnquiryModal";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -34,15 +35,36 @@ const allServices = [
     desc: "Handpicked hotels for your comfort, luxury and convenience.", 
     icon: Hotel,
   },
-  { 
-    title: "Travel Planning", 
-    desc: "Airport transfers, itinerary planning & complete support.", 
+  {
+    title: "Travel Planning",
+    desc: "Airport transfers, itinerary planning & complete support.",
     icon: Car,
+  },
+  {
+    title: "Car Rentals",
+    desc: "Self-drive and chauffeur-driven cars for every destination.",
+    icon: CarFront,
+  },
+  {
+    title: "Forex & Currency",
+    desc: "Best exchange rates and forex cards for hassle-free travel.",
+    icon: Banknote,
+  },
+  {
+    title: "Overseas Travel Insurance",
+    desc: "Comprehensive coverage for medical emergencies and trip protection.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Special Airport Services",
+    desc: "Fast-track immigration, lounge access and meet & greet assistance.",
+    icon: Luggage,
   },
 ];
 
 export default function ServicesList() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedService, setSelectedService] = useState<typeof allServices[0] | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -66,8 +88,7 @@ export default function ServicesList() {
   }, []);
 
   const handleServiceClick = (service: typeof allServices[0]) => {
-    const message = encodeURIComponent(`Hello Jade Tours & Travel! I am interested in ${service.title}.`);
-    window.open(`https://wa.me/919825438324?text=${message}`, '_blank');
+    setSelectedService(service);
   };
 
   return (
@@ -86,7 +107,7 @@ export default function ServicesList() {
         </div>
 
         {/* Services Grid - High Density 6 Column */}
-        <div className="services-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-6">
+        <div className="services-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
           {allServices.map((service, i) => (
             <div
               key={i}
@@ -108,6 +129,14 @@ export default function ServicesList() {
           ))}
         </div>
       </div>
+
+      <EnquiryModal
+        open={!!selectedService}
+        onClose={() => setSelectedService(null)}
+        title={selectedService?.title ?? ""}
+        description={selectedService?.desc}
+        whatsappMessage={`Hello Jade Tours & Travel! I am interested in ${selectedService?.title}.`}
+      />
     </section>
   );
 }

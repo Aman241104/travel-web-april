@@ -1,21 +1,23 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { Plane, Hotel, Package, Landmark, Search, Calendar, MapPin, Users, ArrowLeftRight, Sparkles } from "lucide-react";
+import { Plane, Hotel, Package, Landmark, Search, Calendar, MapPin, Users, ArrowLeftRight, Sparkles, IndianRupee } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 
 const tabs = [
   { id: "flights", label: "FLIGHTS", icon: Plane },
   { id: "hotels", label: "HOTELS", icon: Hotel },
-  { id: "packages", label: "PACKAGES", icon: Package },
+  { id: "packages", label: "TOUR PACKAGE", icon: Package },
   { id: "visa", label: "VISA", icon: Landmark },
 ];
 
 const subTypeOptions: Record<string, string[]> = {
-  hotels: ["Luxury Resort", "Boutique Hotel", "Private Villa"],
+  hotels: ["Hotel", "Villa", "Resort", "Homestay"],
   visa: ["Visitor Visa", "Business Visa", "Study Visa"],
   packages: ["Custom Tour", "Group Package", "Family Trip"],
 };
+
+const budgetOptions = ["Any Budget", "Under ₹20,000", "₹20,000 - ₹50,000", "₹50,000 - ₹1,00,000", "Above ₹1,00,000"];
 
 export default function BookingWidget() {
   const [mounted, setMounted] = useState(false);
@@ -27,7 +29,8 @@ export default function BookingWidget() {
     departure: "",
     returnDate: "",
     travellers: "1 Traveler",
-    subType: "" 
+    subType: "",
+    budget: budgetOptions[0]
   });
   
   const widgetRef = useRef<HTMLDivElement>(null);
@@ -97,22 +100,25 @@ export default function BookingWidget() {
         `• Travelers: ${travellers}`;
     } else if (activeTab === "hotels") {
       message += `🏨 HOTEL BOOKING\n` +
-        `• Stay Type: ${subType}\n` +
+        `• Type: ${subType}\n` +
         `• Location: ${to}\n` +
         `• Check-in: ${departure}\n` +
         `• Check-out: ${returnDate}\n` +
+        `• Budget: ${formData.budget}\n` +
         `• Travelers: ${travellers}`;
     } else if (activeTab === "packages") {
       message += `📦 TOUR PACKAGE\n` +
         `• Trip Type: ${subType}\n` +
         `• Destination: ${to}\n` +
-        `• Date: ${departure}\n` +
+        `• Start Date: ${departure}\n` +
+        `• End Date: ${returnDate}\n` +
         `• Travelers: ${travellers}`;
     } else if (activeTab === "visa") {
       message += `🛂 VISA ASSISTANCE\n` +
         `• Visa Type: ${subType}\n` +
         `• Country: ${to}\n` +
-        `• Date: ${departure}\n` +
+        `• Start Date: ${departure}\n` +
+        `• End Date: ${returnDate}\n` +
         `• Travelers: ${travellers}`;
     }
     
@@ -175,9 +181,8 @@ export default function BookingWidget() {
             {[
               { id: "one-way", label: "One Way" },
               { id: "round-trip", label: "Round Trip" },
-              { id: "multi-city", label: "Multi City" },
             ].map((type) => (
-              <button 
+              <button
                 key={type.id}
                 onClick={() => setTripType(type.id)}
                 className={`text-[6px] lg:text-[7px] font-black uppercase tracking-[0.1em] lg:tracking-[0.15em] transition-all relative py-1 ${tripType === type.id ? "text-primary" : "text-gray-400 hover:text-gray-600"}`}
@@ -185,6 +190,31 @@ export default function BookingWidget() {
                 {type.label}
                 {tripType === type.id && (
                   <motion.div layoutId="typeLine" className="absolute bottom-0 left-0 w-full h-[1px] bg-primary" />
+                )}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Sub Type Options - Hotel Type / Trip Type / Visa Type */}
+      <AnimatePresence mode="wait">
+        {(activeTab === "hotels" || activeTab === "packages" || activeTab === "visa") && (
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            className="flex items-center justify-center flex-wrap gap-4 lg:gap-5 mb-3 lg:mb-4"
+          >
+            {subTypeOptions[activeTab].map((opt) => (
+              <button
+                key={opt}
+                onClick={() => setFormData({ ...formData, subType: opt })}
+                className={`text-[6px] lg:text-[7px] font-black uppercase tracking-[0.1em] lg:tracking-[0.15em] transition-all relative py-1 ${formData.subType === opt ? "text-primary" : "text-gray-400 hover:text-gray-600"}`}
+              >
+                {opt}
+                {formData.subType === opt && (
+                  <motion.div layoutId="subTypeLine" className="absolute bottom-0 left-0 w-full h-[1px] bg-primary" />
                 )}
               </button>
             ))}
@@ -240,10 +270,10 @@ export default function BookingWidget() {
           </div>
         </div>
 
-        <div className={`grid ${activeTab === "visa" || activeTab === "packages" ? "grid-cols-1" : "grid-cols-2"} gap-2.5`}>
+        <div className="grid grid-cols-2 gap-2.5">
           <div className="space-y-0.5 lg:space-y-1">
             <label htmlFor="departure-input" className="text-[6px] lg:text-[7px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
-              {activeTab === "hotels" ? "Check-in" : "Date"}
+              {activeTab === "hotels" ? "Check-in" : activeTab === "flights" ? "Date" : "Start Date"}
             </label>
             <div className="relative group">
               <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-primary opacity-30" />
@@ -261,49 +291,69 @@ export default function BookingWidget() {
             </div>
           </div>
           
-          {(activeTab === "flights" || activeTab === "hotels") && (
+          <div className="space-y-0.5 lg:space-y-1">
+            <label htmlFor="return-input" className="text-[6px] lg:text-[7px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+              {activeTab === "hotels" ? "Check-out" : activeTab === "flights" ? "Return Date" : "End Date"}
+            </label>
+            <div className="relative group">
+              <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-primary opacity-30" />
+              <input
+                id="return-input"
+                name="return"
+                type="text"
+                placeholder="Select date"
+                value={formData.returnDate}
+                onFocus={(e) => (e.target.type = "date")}
+                onBlur={(e) => (e.target.type = "text")}
+                onChange={(e) => setFormData({...formData, returnDate: e.target.value})}
+                disabled={isReturnDisabled}
+                className={`w-full bg-gray-50/50 border border-gray-100 rounded-[10px] lg:rounded-[12px] h-9 lg:h-11 pl-8 lg:pl-9 pr-3 text-[8px] lg:text-[9px] font-black text-gray-950 focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase ${isReturnDisabled ? "opacity-20 grayscale cursor-not-allowed" : ""}`}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className={`grid ${activeTab === "hotels" ? "grid-cols-2" : "grid-cols-1"} gap-2.5`}>
+          <div className="space-y-0.5 lg:space-y-1">
+            <label htmlFor="travelers-select" className="text-[6px] lg:text-[7px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+              Travelers
+            </label>
+            <div className="relative group">
+              <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-primary opacity-30" />
+              <select
+                id="travelers-select"
+                name="travelers"
+                value={formData.travellers}
+                onChange={(e) => setFormData({...formData, travellers: e.target.value})}
+                className="w-full bg-gray-50/50 border border-gray-100 rounded-[10px] lg:rounded-[12px] h-9 lg:h-11 pl-8 lg:pl-9 pr-7 text-[8px] lg:text-[9px] font-black text-gray-950 appearance-none focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase"
+              >
+                <option>1 Traveler</option>
+                <option>2 Travelers</option>
+                <option>Family (2+2)</option>
+                <option>Group (5+)</option>
+              </select>
+            </div>
+          </div>
+
+          {activeTab === "hotels" && (
             <div className="space-y-0.5 lg:space-y-1">
-              <label htmlFor="return-input" className="text-[6px] lg:text-[7px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
-                {activeTab === "hotels" ? "Check-out" : "Return Date"}
+              <label htmlFor="budget-select" className="text-[6px] lg:text-[7px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+                Budget
               </label>
               <div className="relative group">
-                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-primary opacity-30" />
-                <input 
-                  id="return-input"
-                  name="return"
-                  type="text" 
-                  placeholder="Select date"
-                  value={formData.returnDate}
-                  onFocus={(e) => (e.target.type = "date")}
-                  onBlur={(e) => (e.target.type = "text")}
-                  onChange={(e) => setFormData({...formData, returnDate: e.target.value})}
-                  disabled={isReturnDisabled}
-                  className={`w-full bg-gray-50/50 border border-gray-100 rounded-[10px] lg:rounded-[12px] h-9 lg:h-11 pl-8 lg:pl-9 pr-3 text-[8px] lg:text-[9px] font-black text-gray-950 focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase ${isReturnDisabled ? "opacity-20 grayscale cursor-not-allowed" : ""}`}
-                />
+                <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-primary opacity-30" />
+                <select
+                  id="budget-select"
+                  name="budget"
+                  value={formData.budget}
+                  onChange={(e) => setFormData({...formData, budget: e.target.value})}
+                  className="w-full bg-gray-50/50 border border-gray-100 rounded-[10px] lg:rounded-[12px] h-9 lg:h-11 pl-8 lg:pl-9 pr-7 text-[8px] lg:text-[9px] font-black text-gray-950 appearance-none focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase"
+                >
+                  {budgetOptions.map((opt) => <option key={opt}>{opt}</option>)}
+                </select>
               </div>
             </div>
           )}
-        </div>
-
-        <div className="space-y-0.5 lg:space-y-1">
-          <label htmlFor="travelers-select" className="text-[6px] lg:text-[7px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
-            Travelers
-          </label>
-          <div className="relative group">
-            <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-primary opacity-30" />
-            <select 
-              id="travelers-select"
-              name="travelers"
-              value={formData.travellers}
-              onChange={(e) => setFormData({...formData, travellers: e.target.value})}
-              className="w-full bg-gray-50/50 border border-gray-100 rounded-[10px] lg:rounded-[12px] h-9 lg:h-11 pl-8 lg:pl-9 pr-7 text-[8px] lg:text-[9px] font-black text-gray-950 appearance-none focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase"
-            >
-              <option>1 Traveler</option>
-              <option>2 Travelers</option>
-              <option>Family (2+2)</option>
-              <option>Group (5+)</option>
-            </select>
-          </div>
         </div>
 
         <button 

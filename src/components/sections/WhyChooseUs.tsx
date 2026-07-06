@@ -9,7 +9,7 @@ if (typeof window !== "undefined") {
 }
 
 const features = [
-  { title: "Personalized Planning", desc: "Trips designed as per your preferences and budget.", icon: User },
+  { title: "Customised & Personalized Planning", desc: "Trips designed as per your preferences and budget.", icon: User },
   { title: "Best Price Guarantee", desc: "Competitive prices with no hidden charges.", icon: Banknote },
   { title: "End-To-End Support", desc: "From visas to hotels and transfers, we take care of everything.", icon: Headphones },
   { title: "Trusted & Reliable", desc: "Years of experience and thousands of happy travelers.", icon: Shield },
@@ -51,6 +51,9 @@ export default function WhyChooseUs() {
             </h2>
             <div className="hidden md:block h-[1px] flex-1 max-w-[120px] bg-white/10" />
           </div>
+          <p className="mt-6 text-[#4CAF50] font-bold uppercase tracking-[0.2em] text-sm lg:text-base">
+            25+ Years of Experience &bull; 50,000+ Happy Travelers
+          </p>
         </div>
 
         <div className="why-grid grid grid-cols-1 md:grid-cols-5 gap-12 lg:gap-16">

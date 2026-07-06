@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Star, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -27,15 +28,37 @@ const testimonials = [
     author: "Priya Mehra",
     destination: "Europe Trip",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    quote: "From visa to hotel, everything was sorted within days. Maldives felt like a five-star experience end to end.",
+    author: "Karan & Isha",
+    destination: "Maldives Trip",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    quote: "Booked a family trip to Bali with Jade Tours — smooth planning, great hotels and honestly the best rates we found.",
+    author: "Vikram Patel",
+    destination: "Bali Trip",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    quote: "Our Kashmir houseboat stay and itinerary were arranged perfectly. Truly stress-free travel planning.",
+    author: "Simran Kaur",
+    destination: "Kashmir Trip",
+    image: "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop",
   }
 ];
 
+const TESTIMONIALS_PER_PAGE = 3;
+const totalPages = Math.ceil(testimonials.length / TESTIMONIALS_PER_PAGE);
+
 export default function Testimonials() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(".testi-card", 
+      gsap.fromTo(".testi-card",
         { y: 30, opacity: 0 },
         {
           y: 0,
@@ -54,6 +77,18 @@ export default function Testimonials() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPage((p) => (p + 1) % totalPages);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const visibleTestimonials = testimonials.slice(
+    page * TESTIMONIALS_PER_PAGE,
+    page * TESTIMONIALS_PER_PAGE + TESTIMONIALS_PER_PAGE
+  );
+
   return (
     <section id="testimonials" ref={containerRef} className="py-16 lg:py-24 bg-[#FFFFFF] scroll-mt-24">
       <div className="container-custom">
@@ -66,43 +101,57 @@ export default function Testimonials() {
         </div>
 
         {/* Testimonials Grid */}
-        <div className="testi-grid grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-14">
-          {testimonials.map((testi, i) => (
-            <div
-              key={i}
-              className="testi-card bg-white p-8 lg:p-14 rounded-[40px] lg:rounded-[48px] shadow-[0_15px_45px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center space-y-8 lg:space-y-10 hover:shadow-[0_30px_70px_rgba(0,0,0,0.06)] transition-all duration-700 group active:scale-[0.98]"
-            >
-              <div className="relative w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden shadow-xl ring-4 ring-gray-50">
-                <Image 
-                  src={testi.image} 
-                  alt={testi.author} 
-                  fill 
-                  className="object-cover" 
-                />
-              </div>
-              <div className="space-y-3 lg:space-y-4">
-                <div className="space-y-1.5 lg:space-y-2">
-                  <h3 className="text-xl lg:text-2xl font-black text-gray-900 tracking-tight group-hover:text-[#2E7D32] transition-colors duration-500">{testi.author}</h3>
-                  <p className="text-[10px] lg:text-[11px] font-black text-gray-400 uppercase tracking-[0.25em]">{testi.destination}</p>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={page}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="testi-grid grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-14"
+          >
+            {visibleTestimonials.map((testi, i) => (
+              <div
+                key={testi.author}
+                className="testi-card bg-white p-8 lg:p-14 rounded-[40px] lg:rounded-[48px] shadow-[0_15px_45px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center space-y-8 lg:space-y-10 hover:shadow-[0_30px_70px_rgba(0,0,0,0.06)] transition-all duration-700 group active:scale-[0.98]"
+              >
+                <div className="relative w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden shadow-xl ring-4 ring-gray-50">
+                  <Image
+                    src={testi.image}
+                    alt={testi.author}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <div className="flex justify-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 lg:w-4 lg:h-4 fill-[#FFD700] text-[#FFD700]" />
-                  ))}
+                <div className="space-y-3 lg:space-y-4">
+                  <div className="space-y-1.5 lg:space-y-2">
+                    <h3 className="text-xl lg:text-2xl font-black text-gray-900 tracking-tight group-hover:text-[#2E7D32] transition-colors duration-500">{testi.author}</h3>
+                    <p className="text-[10px] lg:text-[11px] font-black text-gray-400 uppercase tracking-[0.25em]">{testi.destination}</p>
+                  </div>
+                  <div className="flex justify-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 lg:w-4 lg:h-4 fill-[#FFD700] text-[#FFD700]" />
+                    ))}
+                  </div>
                 </div>
+                <p className="text-gray-500 font-medium leading-[1.6] lg:leading-[1.8] text-base lg:text-[17px] px-2 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                  &ldquo;{testi.quote}&rdquo;
+                </p>
               </div>
-              <p className="text-gray-500 font-medium leading-[1.6] lg:leading-[1.8] text-base lg:text-[17px] px-2 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
-                &ldquo;{testi.quote}&rdquo;
-              </p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
         {/* Pagination Dots */}
         <div className="flex justify-center gap-3 mt-10 lg:mt-12">
-           <div className="w-2 h-2 rounded-full bg-[#2E7D32]" />
-           <div className="w-2 h-2 rounded-full bg-[#2E7D32]/20" />
-           <div className="w-2 h-2 rounded-full bg-[#2E7D32]/20" />
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setPage(i)}
+              aria-label={`Show testimonials page ${i + 1}`}
+              className={`h-2 rounded-full transition-all duration-500 ${page === i ? "w-6 bg-[#2E7D32]" : "w-2 bg-[#2E7D32]/20 hover:bg-[#2E7D32]/40"}`}
+            />
+          ))}
         </div>
 
         {/* Trusted By Bar */}

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronRight, ChevronLeft, MapPin, ArrowRight, Star, Plane, Globe, Sparkles } from "lucide-react";
 import Image from "next/image";
 import MagneticButton from "@/components/ui/MagneticButton";
+import EnquiryModal from "@/components/ui/EnquiryModal";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -52,6 +53,7 @@ const destinations = [
 export default function PopularDestinations() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedDest, setSelectedDest] = useState<typeof destinations[0] | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -75,8 +77,7 @@ export default function PopularDestinations() {
   }, []);
 
   const handleDestinationClick = (dest: typeof destinations[0]) => {
-    const message = encodeURIComponent(`Hello Jade Tours & Travel! I am interested in the ${dest.name} package.`);
-    window.open(`https://wa.me/919825438324?text=${message}`, '_blank');
+    setSelectedDest(dest);
   };
 
   return (
@@ -125,6 +126,15 @@ export default function PopularDestinations() {
           ))}
         </div>
       </div>
+
+      <EnquiryModal
+        open={!!selectedDest}
+        onClose={() => setSelectedDest(null)}
+        title={selectedDest?.name ?? ""}
+        image={selectedDest?.image}
+        meta={selectedDest ? `Starting from ${selectedDest.price}` : undefined}
+        whatsappMessage={`Hello Jade Tours & Travel! I am interested in the ${selectedDest?.name} package.`}
+      />
     </section>
   );
 }
