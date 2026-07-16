@@ -128,6 +128,7 @@ export default function Testimonials() {
                       alt={testi.author}
                       fill
                       sizes="96px"
+                      unoptimized
                       className="object-cover"
                     />
                   </div>
@@ -137,6 +138,7 @@ export default function Testimonials() {
                       alt={testi.destination}
                       fill
                       sizes="56px"
+                      unoptimized
                       className="object-cover"
                     />
                   </div>
