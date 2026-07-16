@@ -38,10 +38,6 @@ const flightFeatures = [
   }
 ];
 
-const airlines = [
-  "Emirates", "Qatar Airways", "Singapore Airlines", "Air India", "Vistara", "IndiGo"
-];
-
 export default function AirTicketing() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -171,24 +167,24 @@ export default function AirTicketing() {
               
               {/* Premium Overlay Info */}
               <div className="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-xl rounded-2xl p-6 lg:p-8 border border-white shadow-2xl space-y-6">
-                <div className="space-y-4">
-                  <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">Authorized Partners</p>
-                  <div className="grid grid-cols-2 gap-4 opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000">
-                    {airlines.map((airline) => (
-                      <div key={airline} className="text-[11px] lg:text-[13px] font-black text-gray-950 uppercase tracking-tighter">
-                        {airline}
-                      </div>
-                    ))}
-                  </div>
+                <div className="space-y-3">
+                  <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">Corporate Booking</p>
+                  <p className="text-[12px] lg:text-[14px] text-gray-500 font-medium leading-relaxed">Dedicated account management and priority support for business travel.</p>
+                  <button
+                    onClick={handleInquiry}
+                    className="text-[11px] lg:text-xs font-black text-primary uppercase tracking-widest inline-flex items-center gap-2 hover:gap-3 transition-all"
+                  >
+                    Book for Business <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
                 <div className="h-[1px] w-full bg-gray-100" />
                 <div className="flex items-center justify-between">
                    <div className="flex flex-col">
-                      <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">Global Coverage</span>
-                      <span className="text-xl lg:text-2xl font-black text-gray-950 tracking-tightest">150+ Airlines</span>
+                      <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">Corporate Desk</span>
+                      <span className="text-xl lg:text-2xl font-black text-gray-950 tracking-tightest">24/7 Support</span>
                    </div>
                    <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                      <Plane className="w-5 h-5 lg:w-6 lg:h-6" />
+                      <Building className="w-5 h-5 lg:w-6 lg:h-6" />
                    </div>
                 </div>
               </div>

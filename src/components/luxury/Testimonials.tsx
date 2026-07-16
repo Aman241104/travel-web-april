@@ -16,36 +16,42 @@ const testimonials = [
     author: "Neha & Rohit",
     destination: "Dubai Trip",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
+    locationImage: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=400&auto=format&fit=crop",
   },
   {
     quote: "Very professional team with excellent support. Best prices and hassle-free service. Highly recommended!",
     author: "Ankit Sharma",
     destination: "Thailand Trip",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop",
+    locationImage: "https://images.unsplash.com/photo-1528181304800-259b08848526?q=80&w=400&auto=format&fit=crop",
   },
   {
     quote: "Our Europe vacation was a dream come true. Thank you Jade Tours for such a wonderful experience!",
     author: "Priya Mehra",
     destination: "Europe Trip",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1200&auto=format&fit=crop",
+    locationImage: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=400&auto=format&fit=crop",
   },
   {
     quote: "From visa to hotel, everything was sorted within days. Maldives felt like a five-star experience end to end.",
     author: "Karan & Isha",
     destination: "Maldives Trip",
     image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop",
+    locationImage: "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?q=80&w=400&auto=format&fit=crop",
   },
   {
     quote: "Booked a family trip to Bali with Jade Tours — smooth planning, great hotels and honestly the best rates we found.",
     author: "Vikram Patel",
     destination: "Bali Trip",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
+    locationImage: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=400&auto=format&fit=crop",
   },
   {
     quote: "Our Kashmir houseboat stay and itinerary were arranged perfectly. Truly stress-free travel planning.",
     author: "Simran Kaur",
     destination: "Kashmir Trip",
     image: "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop",
+    locationImage: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=400&auto=format&fit=crop",
   }
 ];
 
@@ -115,13 +121,23 @@ export default function Testimonials() {
                 key={testi.author}
                 className="testi-card bg-white p-8 lg:p-14 rounded-[40px] lg:rounded-[48px] shadow-[0_15px_45px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center space-y-8 lg:space-y-10 hover:shadow-[0_30px_70px_rgba(0,0,0,0.06)] transition-all duration-700 group active:scale-[0.98]"
               >
-                <div className="relative w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden shadow-xl ring-4 ring-gray-50">
-                  <Image
-                    src={testi.image}
-                    alt={testi.author}
-                    fill
-                    className="object-cover"
-                  />
+                <div className="relative w-20 h-20 lg:w-24 lg:h-24">
+                  <div className="relative w-full h-full rounded-full overflow-hidden shadow-xl ring-4 ring-gray-50">
+                    <Image
+                      src={testi.image}
+                      alt={testi.author}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-8 h-8 lg:w-9 lg:h-9 rounded-full overflow-hidden ring-4 ring-white shadow-lg">
+                    <Image
+                      src={testi.locationImage}
+                      alt={testi.destination}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
                 <div className="space-y-3 lg:space-y-4">
                   <div className="space-y-1.5 lg:space-y-2">
