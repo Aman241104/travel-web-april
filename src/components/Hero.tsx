@@ -130,7 +130,7 @@ export default function Hero() {
                 <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-primary transition-all duration-500 shadow-inner shrink-0">
                   <item.icon className="w-5 h-5 lg:w-7 lg:h-7 text-white" />
                 </div>
-                <span className="text-[10px] lg:text-[14px] font-black uppercase tracking-[0.15em] lg:tracking-[0.2em] text-white/90 group-hover:text-white transition-colors leading-tight lg:whitespace-nowrap min-w-0 flex-1 lg:flex-initial">{item.label}</span>
+                <span className="text-[10px] lg:text-[14px] font-black uppercase tracking-[0.15em] lg:tracking-[0.15em] text-white/90 group-hover:text-white transition-colors leading-tight min-w-0 flex-1 lg:flex-initial lg:text-left">{item.label}</span>
 
                 {/* Vertical Divider for desktop (excluding last item) */}
                 {i < 3 && <div className="hidden lg:block h-10 w-[1px] bg-white/10 ml-auto" />}
