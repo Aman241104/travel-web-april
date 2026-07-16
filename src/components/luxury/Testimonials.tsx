@@ -51,7 +51,7 @@ const testimonials = [
     author: "Simran Kaur",
     destination: "Kashmir Trip",
     image: "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop",
-    locationImage: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=400&auto=format&fit=crop",
+    locationImage: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?q=80&w=400&auto=format&fit=crop",
   }
 ];
 
@@ -127,14 +127,16 @@ export default function Testimonials() {
                       src={testi.image}
                       alt={testi.author}
                       fill
+                      sizes="96px"
                       className="object-cover"
                     />
                   </div>
-                  <div className="absolute -bottom-1 -right-1 w-8 h-8 lg:w-9 lg:h-9 rounded-full overflow-hidden ring-4 ring-white shadow-lg">
+                  <div className="absolute -bottom-1 -right-1 w-12 h-12 lg:w-14 lg:h-14 rounded-full overflow-hidden ring-4 ring-white shadow-lg">
                     <Image
                       src={testi.locationImage}
                       alt={testi.destination}
                       fill
+                      sizes="56px"
                       className="object-cover"
                     />
                   </div>
