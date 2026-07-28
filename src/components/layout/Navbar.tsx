@@ -22,6 +22,7 @@ const navLinks = [
     dropdown: [
       { name: "Air Ticket Booking", href: "#services" },
       { name: "International Tours", href: "#services" },
+      { name: "Domestic Tours", href: "#services" },
       { name: "Visa Assistance", href: "#services" },
       { name: "Hotel Bookings", href: "#services" },
     ]
@@ -36,7 +37,6 @@ const navLinks = [
       { name: "Singapore", href: "#destinations" },
     ]
   },
-  { name: "Packages", href: "#destinations" },
   { name: "Testimonials", href: "#testimonials" },
   { name: "Contact Us", href: "#contact" },
 ];
